@@ -20,7 +20,7 @@ public class Test {
 	//assume a 24 hr time input string
 	public static void main(String[] args) {
 		//String time = args[0];
-		String time="7:20";
+		String time="7:13";
 		
 		ViennaSettings s = new ViennaSettings();
 		s.setUmgangssprachlich(10);
@@ -32,13 +32,13 @@ public class Test {
 		
 		LocalDialect v = new ViennaDialect();
 		
-		//System.out.println(v.getVerbalTime(p, s));
+		System.out.println(v.getVerbalTime(p, s));
 		
-		SwingUtilities.invokeLater(new Runnable() {
+		/*SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI(); 
             }
-        });
+        });*/
 		
 	}
 	

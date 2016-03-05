@@ -14,6 +14,9 @@ public class ViennaDialect implements LocalDialect {
 		ret.append(getMinutes(p, (ViennaSettings)s));
 		ret.append(" ");
 		ret.append(getHour(p, (ViennaSettings)s));
+		ret.append(" (plus remainder minutes: ");
+		ret.append(p.getRemainderMinutes());
+		ret.append(")");
 		return ret.toString();
 	}
 	
