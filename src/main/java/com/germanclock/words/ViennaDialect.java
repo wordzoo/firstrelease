@@ -2,32 +2,45 @@ package com.germanclock.words;
 
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
+import com.germanclock.time.ViennaSettings;
 
-public class Vienna {
-	public Vienna(){;}
+public class ViennaDialect implements LocalDialect {
+	public ViennaDialect(){;}
+	
 	public String getVerbalTime(Pieces p, Settings s) {
 		StringBuffer ret = new StringBuffer();
-		ret.append(getBegin(p,s));
-		ret.append(getMinutes(p,s));
-		ret.append(getHour(p, s));
+		ret.append(getBegin(p, (ViennaSettings)s));
+		ret.append(" ");
+		ret.append(getMinutes(p, (ViennaSettings)s));
+		ret.append(" ");
+		ret.append(getHour(p, (ViennaSettings)s));
 		return ret.toString();
 	}
 	
-	private String getBegin(Pieces p, Settings s) {
+	private String getBegin(Pieces p, ViennaSettings s) {
 		if(s.isFormal())
 			return "es ist ";
 		else
 			return "";
 	}
 	
-	private String getMinutes(Pieces p, Settings s) {
+	private String getMinutes(Pieces p, ViennaSettings s) {
 		String word;
 		switch (p.getFiveMinBucket()) {
 			 case 0:  word = "kurz nach";
 			 	break;
-			 case 5:  word = "fünf nach";
+			 case 5: 
+			 	if( (s.getRangeForViertel() == 10)
+			 		&& (!s.isFormal()) )
+		 			word = "zehn vor viertel nach";
+		 		else
+		 			word = "fünf nach";
 			 	break;
-			 case 10:  word = "zehn nach";
+			 case 10:  
+				 if(s.isFormal())
+					 word = "zehn nach";
+				 else
+					 word = "fünf vor viertel nach";
 			 	break;
 			 case 15:  
 			 	if(s.isFormal())
@@ -36,24 +49,52 @@ public class Vienna {
 			 		word = "viertel nach";
 			 	break;
 			 case 20: 
-				 if(s.isFormal())
+				if(s.isFormal())
 			 		word = "zwanzig nach";
 			 	else
 			 		word = "zehn vor halb";
 				 break;
-			 case 25:  word = "sechs";
+			 case 25:  
+				if(s.isFormal())
+			 		word = "fünf und zwanzig nach";
+			 	else
+			 		word = "fünf vor halb";
 			 	break;
-			 case 30:  word = "seben";
+			 case 30:  
+				if(s.isFormal())
+			 		word = "dreizig nach";
+			 	else
+			 		word = "halb";
 			 	break;
-			 case 35:  word = "acht";
+			 case 35: 
+				if(s.isFormal())
+			 		word = "fünf und zwanzig vor";
+			 	else
+			 		word = "fünf nach halb";
+			 case 40:  
+				if(s.isFormal())
+			 		word = "vierzig nach";
+			 	else
+			 		word = "fünf vor drei viertel";
 			 	break;
-			 case 40:  word = "neun";
+			 case 45:
+				 if(s.isFormal())
+				 		word = "fünfzehn vor";
+				 	else
+				 		word = "dreiviertel";
 			 	break;
-			 case 45: word = "zehn";
+			 case 50: 
+				if(s.isFormal())
+			 		word = "zehn vor";
+			 	else
+			 		word = "fünf nach dreiviertel";
 			 	break;
-			 case 50: word = "elf";
-			 	break;
-			 case 55: word = "zwölf";
+			 case 55: 
+				 if(s.isFormal())
+			 		word = "fünf vor";
+			 	else
+			 		word = "kurz vor";
+			 
 			 	break;             
 	         default: word = "Invalid hour";
 	            break;
@@ -75,13 +116,17 @@ public class Vienna {
 			number = p.getHr24();
 		else
 			number = p.getHr();
+		 
+		if(p.getFiveMinBucket() > 30)
+			number++;
+		else if( (!s.isFormal())
+				&& (p.getFiveMinBucket() >= 20) )
+			number++;
+		
+		//TODO: when hour is 24 or 13 (non 24) what do germans call it?
 		
 		switch (number) {
-			 case 1:  
-				 if(s.isFormal())
-					 word = "ein";
-				 else if(p.getFiveMinBucket() > 15 && p.getFiveMinBucket() < 45)
-					 word = "zwölf";
+			 case 1:  word = "ein";
 			 	break;
 			 case 2:  word = "zwei";
 			 	break;
@@ -135,6 +180,8 @@ public class Vienna {
 		else
 			return word;
 	}
+
+
 	
 
 }
