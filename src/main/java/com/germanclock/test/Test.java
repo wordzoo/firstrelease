@@ -1,5 +1,14 @@
 package com.germanclock.test;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.time.ViennaSettings;
@@ -23,9 +32,25 @@ public class Test {
 		
 		LocalDialect v = new ViennaDialect();
 		
-		System.out.println(v.getVerbalTime(p, s));
+		//System.out.println(v.getVerbalTime(p, s));
+		
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI(); 
+            }
+        });
 		
 	}
 	
-
+	 private static void createAndShowGUI() {
+        JFrame f = new JFrame("German Clock");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.add(new MyPanel());
+        f.pack();
+        f.setVisible(true);
+    }
+	
+	
 }
+
+
