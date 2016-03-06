@@ -11,7 +11,7 @@ public class ViennaDialect implements LocalDialect {
 		StringBuffer ret = new StringBuffer();
 		ret.append(getBegin(p, (ViennaSettings)s));
 		ret.append(" ");
-		ret.append(getMinutes(p, (ViennaSettings)s));
+		ret.append(getMinute(p, (ViennaSettings)s));
 		ret.append(" ");
 		ret.append(getHour(p, (ViennaSettings)s));
 		ret.append(" (plus remainder minutes: ");
@@ -20,99 +20,113 @@ public class ViennaDialect implements LocalDialect {
 		return ret.toString();
 	}
 	
-	private String getBegin(Pieces p, ViennaSettings s) {
+	public String getBegin(Pieces p, ViennaSettings s) {
 		if(s.isFormal())
 			return "es ist ";
 		else
 			return "";
 	}
 	
-	private String getMinutes(Pieces p, ViennaSettings s) {
-		String word;
+	public String[] getMinute(Pieces p, ViennaSettings s) {
+		String word[] = new String[2];
 		switch (p.getFiveMinBucket()) {
-			 case 0:  word = "kurz nach";
+			 case 0:  word[0] = "kurz nach";
 			 	break;
 			 case 5: 
 			 	if( (s.getRangeForViertel() == 10)
-			 		&& (!s.isFormal()) )
-		 			word = "zehn vor viertel nach";
+			 		&& (!s.isFormal()) ) {
+		 			word[0] = "zehn vor";
+		 			word[1] = "viertel nach";
+			 	}
 		 		else
-		 			word = "fünf nach";
+		 			word[0] = "fünf nach";
 			 	break;
 			 case 10:  
 				 if(s.isFormal())
-					 word = "zehn nach";
-				 else
-					 word = "fünf vor viertel nach";
+					 word[0] = "zehn nach";
+				 else {
+					 word[0] = "fünf vor";
+				 	 word[1] = "viertel nach";
+				 }
 			 	break;
 			 case 15:  
 			 	if(s.isFormal())
-			 		word = "fünfzehn nach";
+			 		word[0] = "fünfzehn nach";
 			 	else
-			 		word = "viertel nach";
+			 		word[0] = "viertel nach";
 			 	break;
 			 case 20: 
 				if(s.isFormal())
-			 		word = "zwanzig nach";
-			 	else
-			 		word = "zehn vor halb";
-				 break;
+			 		word[0] = "zwanzig nach";
+			 	else {
+			 		word[0] = "zehn vor";
+					word[1] = "halb";
+			 	}
+				break;
 			 case 25:  
 				if(s.isFormal())
-			 		word = "fünf und zwanzig nach";
-			 	else
-			 		word = "fünf vor halb";
+			 		word[0] = "fünf und zwanzig nach";
+			 	else {
+			 		word[0] = "fünf vor";
+					word[1] = "halb";
+			 	}
 			 	break;
 			 case 30:  
 				if(s.isFormal())
-			 		word = "dreizig nach";
+			 		word[0] = "dreizig nach";
 			 	else
-			 		word = "halb";
+			 		word[0] = "halb";
 			 	break;
 			 case 35: 
 				if(s.isFormal())
-			 		word = "fünf und zwanzig vor";
-			 	else
-			 		word = "fünf nach halb";
+			 		word[0] = "fünf und zwanzig vor";
+			 	else {
+			 		word[0] = "fünf nach";
+					word[1] = "halb";
+			 	}
 			 case 40:  
 				if(s.isFormal())
-			 		word = "vierzig nach";
-			 	else
-			 		word = "fünf vor drei viertel";
+			 		word[0] = "zwanzig vor";
+			 	else {
+			 		word[0] = "fünf vor";
+			 		word[1] = "dreiviertel";
+			 	}
 			 	break;
 			 case 45:
 				 if(s.isFormal())
-				 		word = "fünfzehn vor";
+				 		word[0] = "fünfzehn vor";
 				 	else
-				 		word = "dreiviertel";
+				 		word[1] = "dreiviertel";
 			 	break;
 			 case 50: 
 				if(s.isFormal())
-			 		word = "zehn vor";
-			 	else
-			 		word = "fünf nach dreiviertel";
+			 		word[0] = "zehn vor";
+			 	else {
+			 		word[0] = "fünf nach";
+					word[1] = "dreiviertel";
+			 	}
 			 	break;
 			 case 55: 
 				 if(s.isFormal())
-			 		word = "fünf vor";
+			 		word[0] = "fünf vor";
 			 	else
-			 		word = "kurz vor";
+			 		word[0] = "kurz vor";
 			 
 			 	break;             
-	         default: word = "Invalid hour";
+	         default: word[0] = "Invalid hour";
 	            break;
 		}
 		if(s.isFormal())
-			return word += " Uhr";
-		else
-			return word;
+			word[0] += " Uhr";
+		
+		return word;
 	}
 
 
 	
 
 	
-	private String getHour(Pieces p, Settings s) {
+	public String getHour(Pieces p, ViennaSettings s) {
 		String word;
 		Integer number;
 		if(s.isFormal())
@@ -141,7 +155,7 @@ public class ViennaDialect implements LocalDialect {
 			 	break;
 			 case 6:  word = "sechs";
 			 	break;
-			 case 7:  word = "seben";
+			 case 7:  word = "sieben";
 			 	break;
 			 case 8:  word = "acht";
 			 	break;
@@ -183,6 +197,8 @@ public class ViennaDialect implements LocalDialect {
 		else
 			return word;
 	}
+
+	
 
 
 	

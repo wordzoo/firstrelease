@@ -1,22 +1,101 @@
 package com.germanclock.graphics;
 
+import java.util.ArrayList;
+
 public class WordBlock {
-	public void setClockFace(String clockFace) {
-//11 wide, 10 high
-	/*vienna umganssprachlich
-	E S K I S T A F Ü N F
-	Z E H N Z W A N S I G
-	D R E I V I E R T E L
-	V O R F U N K N A C H
-	H A L B A E L F Ü N F
-	E I N S X A M Z W E I
-	D R E I P M J V I E R
-	S E C H S N L A C H T
-	S I E B E N Z W Ö L F
-	Z E H N E U N K U H R
-*/
+	ArrayList<Line> lines;
+	Integer remainderMins;
+	
+	
+	
+	public WordBlock() {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		setLines(lines);
+	}
+	public void setWordBlock(String[][][] lines) {
+		Line l;
+		Word w;
+		Letter lt;
+		for(int x=0;x<lines.length;x++) { //lines
+			l = new Line();
+			for(int y=0;y<lines[x].length;y++) { //words
+				w = new Word();
+				w.setB(Boolean.FALSE);
+				for(int z=0;z<lines[x][y].length;z++) { //letters
+					lt = new Letter(lines[x][y][z]);
+					 w.getLetters().add(lt);
+				}
+				l.getWords().add(w);
+			}
+			getLines().add(l);
+		 }
+	}
+
+	//TODO on android go back to letter highlight for partial word highlight
+	//as in only "viertel" of "dreiviertel"
+	public void updateClock(String words, Integer start, Integer end) {
+		if(words == null || words == "")
+			return;
+		//build words from the input
+		String b[]=words.split(" ");
+		Word w;
+		Letter lt;
+		for(int x = 0; x < b.length; x++) {
+			w = new Word();
+			for (int i = 0; i < b[x].length(); i++){
+			    char c = b[x].charAt(i);        
+			    lt = new Letter(c+"");
+			    w.getLetters().add(lt);
+			}
+			//highlight each word from words arg
+			//start/end search on lines given 
+			for(Line line: getLines()) {
+				if(getLines().indexOf(line) >= start
+						&& getLines().indexOf(line) <= end) {
+					for(Word wd: line.getWords()) {
+						if(w.equals(wd)) 
+							wd.setB(Boolean.TRUE);
+					}
+				}
+			}
+		}
 		
 	}
+	public void drawClock() {
+		StringBuffer st = new StringBuffer();
+		for(Line l: getLines()) {
+			for(Word w: l.getWords()) {
+				if(w.getB()) 
+					st.append("*");
+				for(Letter lt: w.getLetters()) {
+					st.append(lt.getC());
+				}
+				if(w.getB()) 
+					st.append("*");
+			}
+			st.append(System.getProperty("line.separator"));
+		}
+		for(int i = 1; i <=getRemainderMins();i++)
+			st.append(".");
+		
+		System.out.println(st.toString());
+		
+	}
+	
+	
+	public ArrayList<Line> getLines() {
+		return lines;
+	}
+	public void setLines(ArrayList<Line> lines) {
+		this.lines = lines;
+	}
+	public Integer getRemainderMins() {
+		return remainderMins;
+	}
+	public void setRemainderMins(Integer remainderMins) {
+		this.remainderMins = remainderMins;
+	}
+	
 	
 
 }
