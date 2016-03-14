@@ -8,21 +8,24 @@
     android:transitionGroup="true">
 
     <TextView
-        android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
-        android:text="Tutorials point"
+        android:layout_width="wrap_content"
+        android:minEms="30"
+        android:text="Es ist fünf über fünf"
         android:id="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:textColor="#ff3412ff"
-        android:textSize="35dp" />
+        android:textColor="#ffffff"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:background="#030303"
+        android:padding="3dp"
+        android:singleLine="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+        android:minWidth="620dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Widget"
-        android:id="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
-        android:layout_below="@+id/textView" />
 
-    </RelativeLayout>
+
+
+</RelativeLayout>

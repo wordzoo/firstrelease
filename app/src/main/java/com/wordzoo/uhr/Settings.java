@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Settings extends Activity {
 
     private static final String PREFS_NAME
-            = "io.appium.android.apis.appwidget.ExampleAppWidgetProvider";
+            = "io.appium.android.apis.appwidget.GermanClock";
 
     private static final String PREF_PREFIX_KEY = "prefix_";
 
@@ -67,7 +67,7 @@ public class Settings extends Activity {
         // Push widget update to surface with newly set prefix
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         String newPrefValue = mEditText.getText().toString();
-        //ExampleAppWidgetProvider.updateAppWidget(
+        //GermanClock.updateAppWidget(
         //        this, appWidgetManager, mAppWidgetId, newPrefValue);
 
         // Make sure we pass back the original appWidgetId
@@ -92,7 +92,7 @@ public class Settings extends Activity {
         if (prefix != null) {
             return prefix;
         }
-        return context.getString(R.string.appwidget_prefix_default);
+        return context.getString(R.string.app_name);
     }
 
     static void deleteTitlePref(Context context, int appWidgetId) {
