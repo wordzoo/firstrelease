@@ -67,8 +67,8 @@ public class Settings extends Activity {
         // Push widget update to surface with newly set prefix
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         String newPrefValue = mEditText.getText().toString();
-        ExampleAppWidgetProvider.updateAppWidget(
-                this, appWidgetManager, mAppWidgetId, newPrefValue);
+        //ExampleAppWidgetProvider.updateAppWidget(
+        //        this, appWidgetManager, mAppWidgetId, newPrefValue);
 
         // Make sure we pass back the original appWidgetId
         Intent resultValue = new Intent();

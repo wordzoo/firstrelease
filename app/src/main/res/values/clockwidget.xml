@@ -2,7 +2,7 @@
 <resources>
     <item name="appwidget_prefix" type="id"/>
     <item name="save_button" type="id"/>
-    <item name="appwidget_text" type="id"/>
+    <item name="clockFace" type="id"/>
 
     <string name="appwidget_prefix_default">german clock</string>
     <string name="appwidget_text">es ist spät!</string>
