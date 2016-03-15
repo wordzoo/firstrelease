@@ -1,8 +1,12 @@
 <resources>
 
 
-        <string name="app_name">My Application</string>
-        <string name="hello_world">Hello world!</string>
+        <string name="app_name">German Clock</string>
         <string name="action_settings">Settings</string>
-
+        <string name="settings_intro">Choose an option:</string>
+        <string name="hello">Hello\n\n
+    Thanks for installing the Custom Clock Widget.\n\n
+    You need to add the widget to your home screen to use it.
+    Long-press the home screen and select the widget from the
+    list of those installed on your device. </string>
 </resources>

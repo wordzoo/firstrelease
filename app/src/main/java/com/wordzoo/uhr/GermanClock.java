@@ -22,6 +22,7 @@ import java.util.Date;
 
 public class GermanClock extends AppWidgetProvider {
 
+    RemoteViews views;
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
 
@@ -53,6 +54,27 @@ public class GermanClock extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.textView, pending);
             appWidgetManager.updateAppWidget(currentWidgetId,views);
             Toast.makeText(context, "widget added", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void onReceive(Context context, Intent intent) {
+        //find out the action
+        String action = intent.getAction();
+        //is it time to update
+        if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action))
+        {
+            views = new RemoteViews(context.getPackageName(),
+                    R.layout.german_clock);
+
+            AppWidgetManager.getInstance(context).updateAppWidget
+                    (intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS), views);
+
+            Intent choiceIntent = new Intent(context, GermanClock.class);
+
+            PendingIntent clickPendIntent = PendingIntent.getActivity
+                    (context, 0, choiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            views.setOnClickPendingIntent(R.id.german_clock, clickPendIntent);
+
         }
     }
 }
