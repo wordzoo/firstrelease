@@ -5,13 +5,17 @@ package com.wordzoo.uhr;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.app.AlarmManager;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.germanclock.graphics.ViennaBlockUmg;
 import com.germanclock.time.Pieces;
 import com.germanclock.time.ViennaSettings;
 import com.germanclock.words.LocalDialect;
@@ -22,10 +26,46 @@ import java.util.Date;
 
 public class GermanClock extends AppWidgetProvider {
 
+   
     RemoteViews views;
 
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        Toast.makeText(context, "onDeleted(): TimeWidgetRemoved id(s):"+appWidgetIds, Toast.LENGTH_SHORT).show();
+        super.onDeleted(context, appWidgetIds);
+    }
 
+    @Override
+    public void onDisabled(Context context) {
+        Toast.makeText(context, "onDisabled():last widget instance removed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, ClockWakeup.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(sender);
+        super.onDisabled(context);
+    }
+
+
+    @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
+
+        //set clock
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View germanClock = inflater.inflate(R.layout.german_clock, null);
+        TextView tv = (TextView)germanClock.findViewById(R.id.textView);
+        String out = getVerbalTime();
+        tv.setText(out);
+
+        //set AlarmManager for next clock update
+        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, ClockWakeup.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        //After after 3 seconds
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
+    }
+
+    public static String getVerbalTime() {
         ViennaSettings s = new ViennaSettings();
         s.setUmgangssprachlich(10);
         s.setRangeForViertel(5);
@@ -37,46 +77,27 @@ public class GermanClock extends AppWidgetProvider {
         Pieces p = new Pieces(sdf.format(d));
 
         LocalDialect v = new ViennaDialect();
-        String out = v.getVerbalTime(p,s);
-
-
-        for(int i=0; i<appWidgetIds.length; i++){
-            int currentWidgetId = appWidgetIds[i];
-
-            //TODO need to init the event handler for opening Settings activity on click
-            Intent intent = new Intent(Intent.ACTION_PICK_ACTIVITY);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //intent.setClassName("com.wordzoo.uhr", Settings.class);
-            PendingIntent pending = PendingIntent.getActivity(context, 0,intent, 0);
-
-            RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.german_clock);
-            views.setString(R.id.textView, "text", out);
-            views.setOnClickPendingIntent(R.id.textView, pending);
-            appWidgetManager.updateAppWidget(currentWidgetId,views);
-            Toast.makeText(context, "widget added", Toast.LENGTH_SHORT).show();
-        }
+        return v.getVerbalTime(p, s);
     }
-    public void onReceive(Context context, Intent intent) {
-        //find out the action
-        String action = intent.getAction();
-        //is it time to update
-        if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action))
-        {
-            views = new RemoteViews(context.getPackageName(),
+
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
+
+        ComponentName thisWidget = new ComponentName(context,
+                GermanClock.class);
+
+        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
+
+            //Get the remote views
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.german_clock);
 
-            AppWidgetManager.getInstance(context).updateAppWidget
-                    (intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS), views);
-
-            Intent choiceIntent = new Intent(context, GermanClock.class);
-
-            PendingIntent clickPendIntent = PendingIntent.getActivity
-                    (context, 0, choiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            views.setOnClickPendingIntent(R.id.german_clock, clickPendIntent);
+            // Set the text with the current time.
+            remoteViews.setTextViewText(R.id.textView, getVerbalTime());
+            appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
         }
     }
+
 }
 
 

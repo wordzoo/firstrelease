@@ -39,19 +39,19 @@ public class GermanyDialect implements LocalDialect {
 		 			word[1] = "viertel nach";
 			 	}
 		 		else
-		 			word[0] = "fünf nach";
+		 			word[0] = "fÃ¼nf nach";
 			 	break;
 			 case 10:  
 				 if(s.isFormal())
 					 word[0] = "zehn nach";
 				 else {
-					 word[0] = "fünf vor";
+					 word[0] = "fÃ¼nf vor";
 				 	 word[1] = "viertel nach";
 				 }
 			 	break;
 			 case 15:  
 			 	if(s.isFormal())
-			 		word[0] = "fünfzehn nach";
+			 		word[0] = "fÃ¼nfzehn nach";
 			 	else
 			 		word[0] = "viertel nach";
 			 	break;
@@ -65,9 +65,9 @@ public class GermanyDialect implements LocalDialect {
 				break;
 			 case 25:  
 				if(s.isFormal())
-			 		word[0] = "fünf und zwanzig nach";
+			 		word[0] = "fÃ¼nf und zwanzig nach";
 			 	else {
-			 		word[0] = "fünf vor";
+			 		word[0] = "fÃ¼nf vor";
 					word[1] = "halb";
 			 	}
 			 	break;
@@ -79,22 +79,22 @@ public class GermanyDialect implements LocalDialect {
 			 	break;
 			 case 35: 
 				if(s.isFormal())
-			 		word[0] = "fünf und zwanzig vor";
+			 		word[0] = "fÃ¼nf und zwanzig vor";
 			 	else {
-			 		word[0] = "fünf nach";
+			 		word[0] = "fÃ¼nf nach";
 					word[1] = "halb";
 			 	}
 			 case 40:  
 				if(s.isFormal())
 			 		word[0] = "zwanzig vor";
 			 	else {
-			 		word[0] = "fünf vor";
+			 		word[0] = "fÃ¼nf vor";
 			 		word[1] = "dreiviertel";
 			 	}
 			 	break;
 			 case 45:
 				 if(s.isFormal())
-				 		word[0] = "fünfzehn vor";
+				 		word[0] = "fÃ¼nfzehn vor";
 				 	else
 				 		word[1] = "dreiviertel";
 			 	break;
@@ -102,13 +102,13 @@ public class GermanyDialect implements LocalDialect {
 				if(s.isFormal())
 			 		word[0] = "zehn vor";
 			 	else {
-			 		word[0] = "fünf nach";
+			 		word[0] = "fÃ¼nf nach";
 					word[1] = "dreiviertel";
 			 	}
 			 	break;
 			 case 55: 
 				 if(s.isFormal())
-			 		word[0] = "fünf vor";
+			 		word[0] = "fÃ¼nf vor";
 			 	else
 			 		word[0] = "kurz vor";
 			 
@@ -144,35 +144,35 @@ public class GermanyDialect implements LocalDialect {
 		/*
 		//Frank von Dambach Deutchland (Sud Ost) hat geschrieben:
 		 * good to hear from you ;-)
-Interesting task „writing a german word clock“ ;-)
+Interesting task Ã¼writing a german word clockÃ¼ ;-)
 
-From my perspective I don’t really see differences to articulate the clock time in different german areas.
+From my perspective I donÃ¼t really see differences to articulate the clock time in different german areas.
 and I see no differences between formal and commonly use of the time. perhaps, some minimal usage in special case like 
-for example 7:35 or 7:25 - in this cases we say twenty-five minutes after seven - fünfundzwanzig minuten nach sieben- 
-or five minutes to half eight - fünf minuten vor halb acht.
+for example 7:35 or 7:25 - in this cases we say twenty-five minutes after seven - fÃ¼nfundzwanzig minuten nach sieben- 
+or five minutes to half eight - fÃ¼nf minuten vor halb acht.
 
 This brings me to a generell statement:
 We bring the time never in relationship to the quarter or three quarter only to the full hour or half hour.
 
 Your examples:
-8:05 - we don´t say „zehn vor viertel nach acht“! we say only „fünf Minuten nach acht“
+8:05 - we donÃ¼t say Ã¼zehn vor viertel nach achtÃ¼! we say only Ã¼fÃ¼nf Minuten nach achtÃ¼
 8:10 - we say only 10 Minuten nach acht
 8:20 - we say zwanzig Minuten nach acht or zehn Minuten vor halb neun (both is possible)
 8:40 - we say often zwanzig Minuten vor neun or zehn Minuten nach halb neun
 
 To shorten this forms, we lost the words minutes. Instead of "zehn Minuten nach acht" - you can say "zehn nach acht" 
 
-We don’t use the forms „zehn vor dreiviertel neun“ (8:35)
+We donÃ¼t use the forms Ã¼zehn vor dreiviertel neunÃ¼ (8:35)
 
-AND we use in colloquial way very often the shortest form like „acht uhr zwanzig“ for 8:20 
+AND we use in colloquial way very often the shortest form like Ã¼acht uhr zwanzigÃ¼ for 8:20 
 some examples:
-8:05 - acht uhr fünf
+8:05 - acht uhr fÃ¼nf
 8:17 - acht uhr siebzehn
-8:35 - acht uhr fünfunddreißig
-8:45 - acht uhr fünfundvierzig
-8:50 - acht uhr fünfzig
+8:35 - acht uhr fÃ¼nfunddreiÃ¼ig
+8:45 - acht uhr fÃ¼nfundvierzig
+8:50 - acht uhr fÃ¼nfzig
 
-For Midnight we say Mitternacht und for 00:05 we say „Null uhr fünf“ or „Fünf Minuten nach Mitternacht“
+For Midnight we say Mitternacht und for 00:05 we say Ã¼Null uhr fÃ¼nfÃ¼ or Ã¼FÃ¼nf Minuten nach MitternachtÃ¼
 		*/
 		switch (number) {
 			 case 1:  word = "ein";
@@ -183,7 +183,7 @@ For Midnight we say Mitternacht und for 00:05 we say „Null uhr fünf“ or „Fünf Mi
 			 	break;
 			 case 4:  word = "vier";
 			 	break;
-			 case 5:  word = "fünf";
+			 case 5:  word = "fÃ¼nf";
 			 	break;
 			 case 6:  word = "sechs";
 			 	break;
@@ -197,13 +197,13 @@ For Midnight we say Mitternacht und for 00:05 we say „Null uhr fünf“ or „Fünf Mi
 			 	break;
 			 case 11: word = "elf";
 			 	break;
-			 case 12: word = "zwölf";
+			 case 12: word = "zwÃ¶lf";
 			 	break;
 			 case 13: word = "dreizehn";
 			 	break;
 	         case 14: word = "vierzehn";
              	break;
-	         case 15: word = "fünfzehn";
+	         case 15: word = "fÃ¼nfzehn";
              	break;
 	         case 16: word = "sechszehn";
              	break;

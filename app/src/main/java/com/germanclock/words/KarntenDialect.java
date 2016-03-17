@@ -39,19 +39,19 @@ public class KarntenDialect implements LocalDialect {
 		 			word[1] = "viertel nach";
 			 	}
 		 		else
-		 			word[0] = "fünf nach";
+		 			word[0] = "fÃ¼nf nach";
 			 	break;
 			 case 10:  
 				 if(s.isFormal())
 					 word[0] = "zehn nach";
 				 else {
-					 word[0] = "fünf vor";
+					 word[0] = "fÃ¼nf vor";
 				 	 word[1] = "viertel nach";
 				 }
 			 	break;
 			 case 15:  
 			 	if(s.isFormal())
-			 		word[0] = "fünfzehn nach";
+			 		word[0] = "fÃ¼nfzehn nach";
 			 	else
 			 		word[0] = "viertel nach";
 			 	break;
@@ -65,9 +65,9 @@ public class KarntenDialect implements LocalDialect {
 				break;
 			 case 25:  
 				if(s.isFormal())
-			 		word[0] = "fünf und zwanzig nach";
+			 		word[0] = "fÃ¼nf und zwanzig nach";
 			 	else {
-			 		word[0] = "fünf vor";
+			 		word[0] = "fÃ¼nf vor";
 					word[1] = "halb";
 			 	}
 			 	break;
@@ -79,22 +79,22 @@ public class KarntenDialect implements LocalDialect {
 			 	break;
 			 case 35: 
 				if(s.isFormal())
-			 		word[0] = "fünf und zwanzig vor";
+			 		word[0] = "fÃ¼nf und zwanzig vor";
 			 	else {
-			 		word[0] = "fünf nach";
+			 		word[0] = "fÃ¼nf nach";
 					word[1] = "halb";
 			 	}
 			 case 40:  
 				if(s.isFormal())
 			 		word[0] = "zwanzig vor";
 			 	else {
-			 		word[0] = "fünf vor";
+			 		word[0] = "fÃ¼nf vor";
 			 		word[1] = "dreiviertel";
 			 	}
 			 	break;
 			 case 45:
 				 if(s.isFormal())
-				 		word[0] = "fünfzehn vor";
+				 		word[0] = "fÃ¼nfzehn vor";
 				 	else
 				 		word[1] = "dreiviertel";
 			 	break;
@@ -102,13 +102,13 @@ public class KarntenDialect implements LocalDialect {
 				if(s.isFormal())
 			 		word[0] = "zehn vor";
 			 	else {
-			 		word[0] = "fünf nach";
+			 		word[0] = "fÃ¼nf nach";
 					word[1] = "dreiviertel";
 			 	}
 			 	break;
 			 case 55: 
 				 if(s.isFormal())
-			 		word[0] = "fünf vor";
+			 		word[0] = "fÃ¼nf vor";
 			 	else
 			 		word[0] = "kurz vor";
 			 
@@ -146,14 +146,14 @@ public class KarntenDialect implements LocalDialect {
 		2 zwa
 		3 drei
 		4 vier
-		5 fünf
+		5 fÃ¼nf
 		6 sex 
 		7 ziebn
 		8 ocht
 		9 nein
 		10 zehn
-		11 ölf
-		12 zwölf
+		11 Ã¼lf
+		12 zwÃ¼lf
 		13 dreizehn
 		14 vierzehn
 		15 fuchzehn
@@ -165,7 +165,7 @@ public class KarntenDialect implements LocalDialect {
 		21 anezwanzig
 		22 zwarezwanzig
 		23 dreiezwanzig
-		00:05 beides oder einfach nur " fünf nach"
+		00:05 beides oder einfach nur " fÃ¼nf nach"
 		*/
 		switch (number) {
 			 case 1:  word = "ein";
@@ -176,7 +176,7 @@ public class KarntenDialect implements LocalDialect {
 			 	break;
 			 case 4:  word = "vier";
 			 	break;
-			 case 5:  word = "fünf";
+			 case 5:  word = "fÃ¼nf";
 			 	break;
 			 case 6:  word = "sechs";
 			 	break;
@@ -190,13 +190,13 @@ public class KarntenDialect implements LocalDialect {
 			 	break;
 			 case 11: word = "elf";
 			 	break;
-			 case 12: word = "zwölf";
+			 case 12: word = "zwÃ¶lf";
 			 	break;
 			 case 13: word = "dreizehn";
 			 	break;
 	         case 14: word = "vierzehn";
              	break;
-	         case 15: word = "fünfzehn";
+	         case 15: word = "fÃ¼nfzehn";
              	break;
 	         case 16: word = "sechszehn";
              	break;
