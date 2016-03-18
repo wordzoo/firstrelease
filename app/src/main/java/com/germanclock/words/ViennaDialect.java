@@ -34,7 +34,7 @@ public class ViennaDialect implements LocalDialect {
 	}
 	
 	public String getBegin(Pieces p, ViennaSettings s) {
-		if(s.isFormal())
+		if(s.isEsist())
 			return "es ist ";
 		else
 			return null;
@@ -43,8 +43,11 @@ public class ViennaDialect implements LocalDialect {
 	public String[] getMinute(Pieces p, ViennaSettings s) {
 		String word[] = new String[2];
 		switch (p.getFiveMinBucket()) {
-			 case 0:  word[0] = "kurz nach";
-			 	break;
+			 case 0:
+				 if(s.isKurznach()) {
+					 word[0] = "kurz nach";
+					 break;
+				 }
 			 case 5: 
 			 	if( (s.getRangeForViertel() == 10)
 			 		&& (!s.isFormal()) ) {
@@ -142,20 +145,43 @@ public class ViennaDialect implements LocalDialect {
 	public String getHour(Pieces p, ViennaSettings s) {
 		String word;
 		Integer number;
-		if(s.isFormal())
-			number = p.getHr24();
-		else
+		if(s.isUmgangssprachlich())
 			number = p.getHr();
-		 
-		if(p.getFiveMinBucket() > 30)
+		else
+			number = p.getHr24();
+
+		//code to read the next hour for expressions like dreiviertel neun (8:45)
+		StringBuilder minString = new StringBuilder();
+		String[] st = getMinute(p, (ViennaSettings)s);
+		if(st != null && st.length > 0) {
+			minString.append(st[0]);
+			minString.append(" ");
+		}
+
+		if(st != null && st.length > 1 ) {
+			minString.append(st[1]);
+		}
+
+		String minStringTest = minString.toString();
+
+		if( (minStringTest != null && minStringTest.contains("vor"))
+				|| (minStringTest != null && minStringTest.contains("halb"))
+				|| (minStringTest != null && minStringTest.contains("viertel") && !minStringTest.contains("nach"))
+				|| (minStringTest != null && minStringTest.contains("dreiviertel"))
+				)
 			number++;
-		else if( (!s.isFormal())
-				&& (p.getFiveMinBucket() >= 20) )
-			number++;
-		
-		//TODO: when hour is 24 or 13 (non 24) what do germans call it?
-		
+
+		if(number.intValue() == 24)
+			number = 0;
+
 		switch (number) {
+			 case 0: {
+				 if(s.isUmgangssprachlich())
+					 word = "zwölf";
+				 else
+				 	 word = "null";
+				 break;
+			 }
 			 case 1:  word = "ein";
 			 	break;
 			 case 2:  word = "zwei";
@@ -196,19 +222,20 @@ public class ViennaDialect implements LocalDialect {
              	break;
 	         case 20: word = "zwanzig";
              	break;
-	         case 21: word = "ein und zwanzig";
+	         case 21: word = "einundzwanzig";
              	break;
-	         case 22: word = "zwei und zwanzig";
+	         case 22: word = "zweiundzwanzig";
              	break;
-	         case 23: word = "drei und zwanzig";
+	         case 23: word = "dreiundzwanzig";
              	break;             
 	         default: word = "Invalid hour";
 	                  break;
 		}
-		if(s.isFormal())
+		if(s.isUhr())
 			return word += " Uhr";
 		else
 			return word;
+
 	}
 
 	
