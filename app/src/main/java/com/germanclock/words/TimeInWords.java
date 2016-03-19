@@ -20,52 +20,30 @@ public class TimeInWords {
 
     public TimeInWords(){;}
 	
-	public String getVerbalTime(Pieces p, Settings s) {
+	public String getTimeAsSentance(Pieces p, Settings s) {
 		StringBuilder ret = new StringBuilder();
 
-        if(getBegin(p, (Settings) s) != null) {
-            ret.append(getBegin(p, (Settings) s));
+        if(getBegin(p, s) != null) {
+            ret.append(getBegin(p, s));
             ret.append(" ");
         }
 
-        TimeInWordsDto minute = getMinute(p, (Settings) s);
+        TimeInWordsDto timeInWordsDto = getMinute(p, s);
 
-        //no need for official time construction
-        if (s.getUmgangssprachlich()
-                && s.getUmgangminute() == Settings.Umgangminute.minutebar) {
-            getUmgangConstruction(ret, minute, (Settings)s, p);
-        }
+        //conversational time construction
+        if (s.getUmgangssprachlich())
+            ret.append(getUmgangConstruction(ret, s, p));
 
-        //just offical construction
+        //offical time construction
         else if (!s.getUmgangssprachlich())
-        {
-            ret.append(getOfficialConstruction(ret, minute, (Settings) s, p));
-        }
-
-        //hybrid construction.  on minute multiples of 5, umgansprache. and on other minutes official format.
-        else if (s.getUmgangssprachlich()
-                && s.getUmgangminute() == Settings.Umgangminute.minuteword) {
-
-            if(p.getFiveMinBucket() == p.getMinutes()) {
-                //umgangsspraliche konstruktion
-
-                //one exception is if user does not want "halb" then we need official time here
-                if( (p.getMinutes() == 30)
-                        && s.getHalb() == Boolean.FALSE)
-                    ret.append(getOfficialConstruction(ret, minute, (Settings) s, p));
-                else
-                    ret.append(getUmgangConstruction(ret, minute, (Settings) s, p));
-            }
-            else {
-                ret.append(getOfficialConstruction(ret, minute, (Settings)s, p));
-            }
-
-        }
+            ret.append(getOfficialConstruction(ret, timeInWordsDto, s, p));
 
 		return ret.toString();
 	}
 
-    public StringBuilder getUmgangConstruction(StringBuilder ret, TimeInWordsDto timeInWordsDto, Settings s, Pieces p) {
+    public StringBuilder getUmgangConstruction(StringBuilder ret, Settings s, Pieces p) {
+        TimeInWordsDto timeInWordsDto = getMinute(p, s);
+
         if (timeInWordsDto.getMinute1() != null) {
             ret.append(timeInWordsDto.getMinute1());
             ret.append(" ");
@@ -76,14 +54,14 @@ public class TimeInWords {
             ret.append(" ");
         }
 
-        ret.append(getHour(p, (Settings)s, timeInWordsDto.getPlusHour()));
+        ret.append(getHour(p, s, timeInWordsDto.getPlusHour()));
 
         return ret;
     }
 
     public StringBuilder getOfficialConstruction(StringBuilder ret, TimeInWordsDto timeInWordsDto, Settings s, Pieces p) {
         //official time
-        ret.append(getHour(p, (Settings)s, Boolean.FALSE));
+        ret.append(getHour(p, s, Boolean.FALSE));
 
         if (timeInWordsDto.getMinute1() != null) {
             ret.append(timeInWordsDto.getMinute1());
@@ -111,15 +89,11 @@ public class TimeInWords {
             //just official
             return getMinuteOfficial(p);
 
-        if (s.getUmgangssprachlich()
-                && s.getUmgangminute() == Settings.Umgangminute.minutebar)
-            //no need for detail minutes
-            getMinuteFive(p,s, null);
-
-        else {
-            //hybrid, two passes, load official string, then override it
+        if (s.getUmgangssprachlich()) {
+            //there is a simplified time, rounded to 5 minutes, to support Settings.layout.block
+            //or there is a more complete time which can only be displayed using Settings.layout.sentance
             firstPass = getMinuteOfficial(p);
-            return getMinuteFive(p,s, firstPass);
+            return getUmgangMinutes(p, s, firstPass);
         }
         return null;
     }
@@ -136,19 +110,28 @@ public class TimeInWords {
 
     }
 
-        //TO DO form our component here to so that if you need to fall through to official time, you can do that....
-    public TimeInWordsDto getMinuteFive(Pieces p, Settings s, TimeInWordsDto def) {
+
+    public TimeInWordsDto getUmgangMinutes(Pieces p, Settings s, TimeInWordsDto def) {
 		TimeInWordsDto word = new TimeInWordsDto();
+
+        //set up defaults
+        Integer umgangMinutes = p.getMinutes();
+        if(umgangMinutes > 30)
+            umgangMinutes = 60 - umgangMinutes;
+        def.setMinute1(umgangMinutes + " " + ((p.getMinutes() <= 30)?"nach":"vor"));
+        if(p.getMinutes() > 30)
+            def.setPlusHour(Boolean.TRUE);
 
 		switch (p.getFiveMinBucket()) {
 			 case 0:
-				 if(s.getKurznach() && p.getMinutes() > 0)
+				 if( (s.getKurznach() && p.getMinutes() > 0)
+                         || s.getUmgangminute() == Settings.Umgangminute.minutebar)
 					 word.setMinute1("kurz nach");
                  else
                     return def;
                  break;
 			 case 5: 
-			 	if( s.getFuenfnach())
+			 	if(s.getUmgangminute() == Settings.Umgangminute.minuteword)
                     word.setMinute1("fünf nach");
                 else
                     return def;
@@ -211,6 +194,7 @@ public class TimeInWords {
                 }
                 else if (s.getDreissignach())
                     word.setMinute1("dreißig nach");
+                 else
                     return def;
 			 case 35: 
 				if(s.getHalb()

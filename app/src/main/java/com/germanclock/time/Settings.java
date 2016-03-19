@@ -47,8 +47,7 @@ public class Settings {
 	private Boolean uhr;
 
 	private Boolean kurznach;
-	private Boolean fuenfnach;
-	private Boolean zehnnach;
+
 
     public enum Viertel {
         viertelueber,
@@ -70,9 +69,8 @@ public class Settings {
     //these are available only if you choose halb
     private Boolean fuenfvorhalb;
     private Boolean fuenfnachhalb;
-    //or
-    private Boolean fuenfundzwanzignach;
-    private Boolean fuenfundzwanzigvor;
+    private Boolean kurzvorhalb;
+    private Boolean kurznachhalb;
 
 
     private Boolean zehnvorhalb;
@@ -100,20 +98,10 @@ public class Settings {
     private Boolean fuenfvordreiviertelacht;
     private Boolean fuenfnachdreiviertelacht;
 
-	private Boolean zehnvor;
-	private Boolean fuenfvor;
 	private Boolean kurzvor;
 
     //this also does not work on block layout
     private Boolean dreissignach;
-
-    public Boolean getDreissignach() {
-        return dreissignach;
-    }
-
-    public void setDreissignach(Boolean dreissignach) {
-        this.dreissignach = dreissignach;
-    }
 
     public Boolean getFlag() {
         return flag;
@@ -267,22 +255,6 @@ public class Settings {
         this.kurznach = kurznach;
     }
 
-    public Boolean getFuenfnach() {
-        return fuenfnach;
-    }
-
-    public void setFuenfnach(Boolean fuenfnach) {
-        this.fuenfnach = fuenfnach;
-    }
-
-    public Boolean getZehnnach() {
-        return zehnnach;
-    }
-
-    public void setZehnnach(Boolean zehnnach) {
-        this.zehnnach = zehnnach;
-    }
-
     public Viertel getViertel() {
         return viertel;
     }
@@ -305,22 +277,6 @@ public class Settings {
 
     public void setFuenfnachviertelacht(Boolean fuenfnachviertelacht) {
         this.fuenfnachviertelacht = fuenfnachviertelacht;
-    }
-
-    public Boolean getZwanzignach() {
-        return zwanzignach;
-    }
-
-    public void setZwanzignach(Boolean zwanzignach) {
-        this.zwanzignach = zwanzignach;
-    }
-
-    public Boolean getFuenfundzwanzignach() {
-        return fuenfundzwanzignach;
-    }
-
-    public void setFuenfundzwanzignach(Boolean fuenfundzwanzignach) {
-        this.fuenfundzwanzignach = fuenfundzwanzignach;
     }
 
     public Boolean getHalb() {
@@ -347,6 +303,22 @@ public class Settings {
         this.fuenfnachhalb = fuenfnachhalb;
     }
 
+    public Boolean getKurzvorhalb() {
+        return kurzvorhalb;
+    }
+
+    public void setKurzvorhalb(Boolean kurzvorhalb) {
+        this.kurzvorhalb = kurzvorhalb;
+    }
+
+    public Boolean getKurznachhalb() {
+        return kurznachhalb;
+    }
+
+    public void setKurznachhalb(Boolean kurznachhalb) {
+        this.kurznachhalb = kurznachhalb;
+    }
+
     public Boolean getZehnvorhalb() {
         return zehnvorhalb;
     }
@@ -363,12 +335,12 @@ public class Settings {
         this.zehnnachhalb = zehnnachhalb;
     }
 
-    public Boolean getFuenfundzwanzigvor() {
-        return fuenfundzwanzigvor;
+    public Boolean getZwanzignach() {
+        return zwanzignach;
     }
 
-    public void setFuenfundzwanzigvor(Boolean fuenfundzwanzigvor) {
-        this.fuenfundzwanzigvor = fuenfundzwanzigvor;
+    public void setZwanzignach(Boolean zwanzignach) {
+        this.zwanzignach = zwanzignach;
     }
 
     public Boolean getZwanzigvor() {
@@ -403,27 +375,19 @@ public class Settings {
         this.fuenfnachdreiviertelacht = fuenfnachdreiviertelacht;
     }
 
-    public Boolean getZehnvor() {
-        return zehnvor;
-    }
-
-    public void setZehnvor(Boolean zehnvor) {
-        this.zehnvor = zehnvor;
-    }
-
-    public Boolean getFuenfvor() {
-        return fuenfvor;
-    }
-
-    public void setFuenfvor(Boolean fuenfvor) {
-        this.fuenfvor = fuenfvor;
-    }
-
     public Boolean getKurzvor() {
         return kurzvor;
     }
 
     public void setKurzvor(Boolean kurzvor) {
         this.kurzvor = kurzvor;
+    }
+
+    public Boolean getDreissignach() {
+        return dreissignach;
+    }
+
+    public void setDreissignach(Boolean dreissignach) {
+        this.dreissignach = dreissignach;
     }
 }

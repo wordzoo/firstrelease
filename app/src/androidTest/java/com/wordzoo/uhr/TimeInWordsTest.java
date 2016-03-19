@@ -27,13 +27,13 @@ public class TimeInWordsTest extends ApplicationTestCase<Application> {
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         Pieces p = new Pieces(sdf.format(d));
         TimeInWords v = new TimeInWords();
-        String out = v.getVerbalTime(p, s);
+        String out = v.getTimeAsSentance(p, s);
         Log.i("testWord() ", out);
 
 
         p = new Pieces("17:15");
 
-        out = v.getVerbalTime(p, s);
+        out = v.getTimeAsSentance(p, s);
 
         assertEquals(out, "viertel nach fünf");
 

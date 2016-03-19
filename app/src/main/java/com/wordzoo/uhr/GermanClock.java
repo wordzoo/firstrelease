@@ -52,7 +52,7 @@ public class GermanClock extends AppWidgetProvider {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View germanClock = inflater.inflate(R.layout.german_clock, null);
         TextView tv = (TextView)germanClock.findViewById(R.id.textView);
-        //String out = getVerbalTime(p,s);
+        //String out = getTimeAsSentance(p,s);
         //tv.setText(out);
 
         //set AlarmManager for next clock update
@@ -73,7 +73,7 @@ public class GermanClock extends AppWidgetProvider {
         Pieces p = new Pieces(sdf.format(d));
 
         TimeInWords v = new TimeInWords();
-        return v.getVerbalTime(p, s);
+        return v.getTimeAsSentance(p, s);
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
