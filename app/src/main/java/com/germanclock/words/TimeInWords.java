@@ -122,6 +122,9 @@ public class TimeInWords {
         if(p.getMinutes() > 30)
             def.setPlusHour(Boolean.TRUE);
 
+        //the point is that for Settings.Umgangminute.minutebar, rouding to the nearest 5 is what we want
+        // but for Settings.Umgangminute.minuteword, only when p.getMinutes() == p.getFiveMinuteBucket
+        //do we want to drop into a case....
 		switch (p.getFiveMinBucket()) {
 			 case 0:
 				 if( (s.getKurznach() && p.getMinutes() > 0)
@@ -131,8 +134,9 @@ public class TimeInWords {
                     return def;
                  break;
 			 case 5: 
-			 	if(s.getUmgangminute() == Settings.Umgangminute.minuteword)
+			 	if(s.getUmgangminute() == Settings.Umgangminute.minutebar)
                     word.setMinute1("fünf nach");
+                //note, if this was Settings.Umgangminute.minuteword, you would risk loosing detail
                 else
                     return def;
                  break;
@@ -143,7 +147,7 @@ public class TimeInWords {
                      word.setMinute2("viertel");
                      word.setPlusHour(Boolean.TRUE);
                  }
-                 else if( s.getZehnnach())
+                 else
                      word.setMinute1("zehn nach");
                  else
                      return def;
