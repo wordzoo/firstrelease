@@ -9,7 +9,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.app.AlarmManager;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -17,9 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.germanclock.time.Pieces;
-import com.germanclock.time.ViennaSettings;
-import com.germanclock.words.LocalDialect;
-import com.germanclock.words.ViennaDialect;
+import com.germanclock.time.Settings;
+import com.germanclock.words.TimeInWords;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,8 +52,8 @@ public class GermanClock extends AppWidgetProvider {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View germanClock = inflater.inflate(R.layout.german_clock, null);
         TextView tv = (TextView)germanClock.findViewById(R.id.textView);
-        String out = getVerbalTime();
-        tv.setText(out);
+        //String out = getVerbalTime(p,s);
+        //tv.setText(out);
 
         //set AlarmManager for next clock update
         AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -66,18 +64,16 @@ public class GermanClock extends AppWidgetProvider {
     }
 
     public static String getVerbalTime(Context c) {
-        ViennaSettings s = new ViennaSettings();
-        s.setUmgangssprachlich(10);
-        s.setRangeForViertel(5);
-        s.setRangeForHalb(5);
-        s.setRangeForDreiViertel(5);
+        Settings s = new Settings();
+        s.setUmgangssprachlich(Boolean.TRUE);
+
 
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
         Pieces p = new Pieces(sdf.format(d));
 
-        LocalDialect v = new ViennaDialect();
-        return v.getVerbalTime(p, s, c);
+        TimeInWords v = new TimeInWords();
+        return v.getVerbalTime(p, s);
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {

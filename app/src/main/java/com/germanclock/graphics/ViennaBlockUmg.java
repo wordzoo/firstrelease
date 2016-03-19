@@ -1,12 +1,9 @@
 package com.germanclock.graphics;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.germanclock.time.Pieces;
-import com.germanclock.time.ViennaSettings;
-import com.germanclock.words.LocalDialect;
-import com.germanclock.words.ViennaDialect;
+import com.germanclock.time.Settings;
+import com.germanclock.words.TimeInWordsDto;
+import com.germanclock.words.TimeInWords;
 
 public class ViennaBlockUmg extends WordBlock {
 	
@@ -31,20 +28,20 @@ public class ViennaBlockUmg extends WordBlock {
 	
 	public void showTime(String time)   {
 		
-		ViennaSettings s = new ViennaSettings();
+		Settings s = new Settings();
 		s.setUmgangssprachlich(Boolean.TRUE);
 
 		Pieces p = new Pieces(time);
 		
-		LocalDialect v = new ViennaDialect();
+		TimeInWords v = new TimeInWords();
 		
 		updateClock(v.getBegin(p,s),0,0);
 		
-		String minute[] = v.getMinute(p,s);
-		updateClock(minute[0],0,2);
-		updateClock(minute[1],3,4);
+		TimeInWordsDto timeInWordsDto = v.getMinute(p,s);
+		updateClock(timeInWordsDto.getMinute1(),0,2);
+		updateClock(timeInWordsDto.getMinute2(),3,4);
 		
-		updateClock(v.getHour(p, s),5,10);
+		updateClock(v.getHour(p, s, timeInWordsDto.getPlusHour()),5,10);
 		
 		setRemainderMins(p.getRemainderMinutes());
 		
