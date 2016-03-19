@@ -26,7 +26,7 @@ public class ClockWakeup extends BroadcastReceiver {
         //You can do the processing here update the widget/remote views.
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.german_clock);
-        remoteViews.setTextViewText(R.id.textView, GermanClock.getVerbalTime());
+        remoteViews.setTextViewText(R.id.textView, GermanClock.getVerbalTime(context));
         ComponentName thiswidget = new ComponentName(context, GermanClock.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(thiswidget, remoteViews);

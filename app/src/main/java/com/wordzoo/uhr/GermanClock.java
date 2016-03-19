@@ -65,7 +65,7 @@ public class GermanClock extends AppWidgetProvider {
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
     }
 
-    public static String getVerbalTime() {
+    public static String getVerbalTime(Context c) {
         ViennaSettings s = new ViennaSettings();
         s.setUmgangssprachlich(10);
         s.setRangeForViertel(5);
@@ -77,7 +77,7 @@ public class GermanClock extends AppWidgetProvider {
         Pieces p = new Pieces(sdf.format(d));
 
         LocalDialect v = new ViennaDialect();
-        return v.getVerbalTime(p, s);
+        return v.getVerbalTime(p, s, c);
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
@@ -92,7 +92,7 @@ public class GermanClock extends AppWidgetProvider {
                     R.layout.german_clock);
 
             // Set the text with the current time.
-            remoteViews.setTextViewText(R.id.textView, getVerbalTime());
+            remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
         }

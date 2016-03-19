@@ -16,9 +16,8 @@ public class ViennaBlockUmg extends WordBlock {
 		String[][][] clockFace = 
 				{{{"E", "S"}, {"K"}, {"I", "S", "T"}, {"A"}, {"F", "Ü", "N", "F"}},
 				{{"Z", "E", "H", "N"}, {"Z", "W", "A", "N", "S", "I", "G"}},
-				{{"V", "O", "R"}, {"G", "E", "F", "O"}, {"N", "A", "C", "H"}},
+						{{"V", "O", "R"}, {"Ü", "B", "E", "R"}, {"N", "A", "C", "H"}},
 				{{"D", "R", "E", "I","V", "I", "E", "R", "T", "E", "L"}},
-				{{"V", "O", "R"}, {"R", "A", "S", "A"}, {"N", "A", "C", "H"}},
 				{{"H", "A", "L", "B"}, {"E", "L", "F"}, {"F", "Ü", "N", "F"}},
 				{{"E", "I", "N", "S"}, {"X"}, {"A", "M"}, {"Z", "W", "E", "I"}},
 				{{"D", "R", "E", "I"}, {"P", "H"}, {"J"}, {"V", "I", "E", "R"}},
@@ -33,11 +32,8 @@ public class ViennaBlockUmg extends WordBlock {
 	public void showTime(String time)   {
 		
 		ViennaSettings s = new ViennaSettings();
-		s.setUmgangssprachlich(10);
-		s.setRangeForViertel(5);
-		s.setRangeForHalb(5);
-		s.setRangeForDreiViertel(5);
-		
+		s.setUmgangssprachlich(Boolean.TRUE);
+
 		Pieces p = new Pieces(time);
 		
 		LocalDialect v = new ViennaDialect();

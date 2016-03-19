@@ -1,12 +1,37 @@
 package com.germanclock.time;
 
 public class Settings {
-    private Boolean umgangssprachlich;
     private Boolean flag;
-	private Boolean vienna;
-	private Boolean dambach;
-	private Boolean kaernten;
-	private Boolean mitternachts;
+
+    public enum FlagPattern {
+        vienna,
+        dambach,
+        kaernten
+    }
+
+    private FlagPattern flagPattern;
+
+    private Boolean esist;
+    private Boolean umgangssprachlich;
+
+
+    //you can only choose this of umgangssprachlich is true
+    public enum Umgangminute {
+        minutebar,
+        minuteword
+    }
+
+    private Umgangminute umgangminute;
+
+
+    //note if umgangssprachlich get false, nothing below here applies
+    //note for block layout, you can only have Umgangminute.minutebar
+    public enum layout {
+        block,
+        sentance
+    }
+
+   private Boolean mitternachts;
 	private Boolean morgens;
 	private Boolean ammorgen;
 	private Boolean vormittags;
@@ -18,44 +43,79 @@ public class Settings {
 	private Boolean amabend;
 	private Boolean nachts;
 	private Boolean indernacht;
-	private Boolean esist;
+
 	private Boolean uhr;
-	private Boolean minuteasbars;
-	private Boolean minutesinwords;
+
 	private Boolean kurznach;
 	private Boolean fuenfnach;
 	private Boolean zehnnach;
-	private Boolean viertelueber;
-	private Boolean viertelnach;
-	private Boolean viertelacht;
+
+    public enum Viertel {
+        viertelueber,
+        viertelnach,
+        viertelacht
+    }
+
+    private Viertel viertel;
+
+	//if viertel == viertel.vieterlacht, two more options
     private Boolean fuenfvorviertelacht;
     private Boolean fuenfnachviertelacht;
-	private Boolean zwanzignach;
-	private Boolean fuenfundzwanzignach;
-	private Boolean halb;
+
+
+
+    //halb is selected be default with umgrangsprache
+    private Boolean halb;
+
+    //these are available only if you choose halb
     private Boolean fuenfvorhalb;
     private Boolean fuenfnachhalb;
+    //or
+    private Boolean fuenfundzwanzignach;
+    private Boolean fuenfundzwanzigvor;
+
+
     private Boolean zehnvorhalb;
     private Boolean zehnnachhalb;
-	private Boolean fuenfundzwanzigvor;
-	private Boolean zwanzigvor;
-	private Boolean viertelvor;
-	private Boolean dreiviertelacht;
+    //or
+    private Boolean zwanzignach;
+    private Boolean zwanzigvor;
+
+
+
+
+
+
+
+    public enum Dreiviertel {
+        viertelvor,
+        dreiviertelacht,
+        fuenfzehn
+    }
+
+
+    private Dreiviertel dreiviertel;
+
+    //if dreiviertel == Dreiviertel.dreiviertelacht then two more options
     private Boolean fuenfvordreiviertelacht;
     private Boolean fuenfnachdreiviertelacht;
+
 	private Boolean zehnvor;
 	private Boolean fuenfvor;
 	private Boolean kurzvor;
 
-    public Boolean isUmgangssprachlich() {
-        return umgangssprachlich;
+    //this also does not work on block layout
+    private Boolean dreissignach;
+
+    public Boolean getDreissignach() {
+        return dreissignach;
     }
 
-    public void setUmgangssprachlich(Boolean umgangssprachlich) {
-        this.umgangssprachlich = umgangssprachlich;
+    public void setDreissignach(Boolean dreissignach) {
+        this.dreissignach = dreissignach;
     }
 
-    public Boolean isFlag() {
+    public Boolean getFlag() {
         return flag;
     }
 
@@ -63,127 +123,15 @@ public class Settings {
         this.flag = flag;
     }
 
-    public Boolean isVienna() {
-        return vienna;
+    public FlagPattern getFlagPattern() {
+        return flagPattern;
     }
 
-    public void setVienna(Boolean vienna) {
-        this.vienna = vienna;
+    public void setFlagPattern(FlagPattern flagPattern) {
+        this.flagPattern = flagPattern;
     }
 
-    public Boolean isDambach() {
-        return dambach;
-    }
-
-    public void setDambach(Boolean dambach) {
-        this.dambach = dambach;
-    }
-
-    public Boolean isKaernten() {
-        return kaernten;
-    }
-
-    public void setKaernten(Boolean kaernten) {
-        this.kaernten = kaernten;
-    }
-
-    public Boolean isMitternachts() {
-        return mitternachts;
-    }
-
-    public void setMitternachts(Boolean mitternachts) {
-        this.mitternachts = mitternachts;
-    }
-
-    public Boolean isMorgens() {
-        return morgens;
-    }
-
-    public void setMorgens(Boolean morgens) {
-        this.morgens = morgens;
-    }
-
-    public Boolean isAmmorgen() {
-        return ammorgen;
-    }
-
-    public void setAmmorgen(Boolean ammorgen) {
-        this.ammorgen = ammorgen;
-    }
-
-    public Boolean isVormittags() {
-        return vormittags;
-    }
-
-    public void setVormittags(Boolean vormittags) {
-        this.vormittags = vormittags;
-    }
-
-    public Boolean isAmvormittag() {
-        return amvormittag;
-    }
-
-    public void setAmvormittag(Boolean amvormittag) {
-        this.amvormittag = amvormittag;
-    }
-
-    public Boolean isMittags() {
-        return mittags;
-    }
-
-    public void setMittags(Boolean mittags) {
-        this.mittags = mittags;
-    }
-
-    public Boolean isNachmittags() {
-        return nachmittags;
-    }
-
-    public void setNachmittags(Boolean nachmittags) {
-        this.nachmittags = nachmittags;
-    }
-
-    public Boolean isAmnachmittag() {
-        return amnachmittag;
-    }
-
-    public void setAmnachmittag(Boolean amnachmittag) {
-        this.amnachmittag = amnachmittag;
-    }
-
-    public Boolean isAbdends() {
-        return abdends;
-    }
-
-    public void setAbdends(Boolean abdends) {
-        this.abdends = abdends;
-    }
-
-    public Boolean isAmabend() {
-        return amabend;
-    }
-
-    public void setAmabend(Boolean amabend) {
-        this.amabend = amabend;
-    }
-
-    public Boolean isNachts() {
-        return nachts;
-    }
-
-    public void setNachts(Boolean nachts) {
-        this.nachts = nachts;
-    }
-
-    public Boolean isIndernacht() {
-        return indernacht;
-    }
-
-    public void setIndernacht(Boolean indernacht) {
-        this.indernacht = indernacht;
-    }
-
-    public Boolean isEsist() {
+    public Boolean getEsist() {
         return esist;
     }
 
@@ -191,7 +139,119 @@ public class Settings {
         this.esist = esist;
     }
 
-    public Boolean isUhr() {
+    public Boolean getUmgangssprachlich() {
+        return umgangssprachlich;
+    }
+
+    public void setUmgangssprachlich(Boolean umgangssprachlich) {
+        this.umgangssprachlich = umgangssprachlich;
+    }
+
+    public Umgangminute getUmgangminute() {
+        return umgangminute;
+    }
+
+    public void setUmgangminute(Umgangminute umgangminute) {
+        this.umgangminute = umgangminute;
+    }
+
+    public Boolean getMitternachts() {
+        return mitternachts;
+    }
+
+    public void setMitternachts(Boolean mitternachts) {
+        this.mitternachts = mitternachts;
+    }
+
+    public Boolean getMorgens() {
+        return morgens;
+    }
+
+    public void setMorgens(Boolean morgens) {
+        this.morgens = morgens;
+    }
+
+    public Boolean getAmmorgen() {
+        return ammorgen;
+    }
+
+    public void setAmmorgen(Boolean ammorgen) {
+        this.ammorgen = ammorgen;
+    }
+
+    public Boolean getVormittags() {
+        return vormittags;
+    }
+
+    public void setVormittags(Boolean vormittags) {
+        this.vormittags = vormittags;
+    }
+
+    public Boolean getAmvormittag() {
+        return amvormittag;
+    }
+
+    public void setAmvormittag(Boolean amvormittag) {
+        this.amvormittag = amvormittag;
+    }
+
+    public Boolean getMittags() {
+        return mittags;
+    }
+
+    public void setMittags(Boolean mittags) {
+        this.mittags = mittags;
+    }
+
+    public Boolean getNachmittags() {
+        return nachmittags;
+    }
+
+    public void setNachmittags(Boolean nachmittags) {
+        this.nachmittags = nachmittags;
+    }
+
+    public Boolean getAmnachmittag() {
+        return amnachmittag;
+    }
+
+    public void setAmnachmittag(Boolean amnachmittag) {
+        this.amnachmittag = amnachmittag;
+    }
+
+    public Boolean getAbdends() {
+        return abdends;
+    }
+
+    public void setAbdends(Boolean abdends) {
+        this.abdends = abdends;
+    }
+
+    public Boolean getAmabend() {
+        return amabend;
+    }
+
+    public void setAmabend(Boolean amabend) {
+        this.amabend = amabend;
+    }
+
+    public Boolean getNachts() {
+        return nachts;
+    }
+
+    public void setNachts(Boolean nachts) {
+        this.nachts = nachts;
+    }
+
+    public Boolean getIndernacht() {
+        return indernacht;
+    }
+
+    public void setIndernacht(Boolean indernacht) {
+        this.indernacht = indernacht;
+    }
+
+    public Boolean getUhr() {
         return uhr;
     }
 
@@ -199,23 +259,7 @@ public class Settings {
         this.uhr = uhr;
     }
 
-    public Boolean isMinuteasbars() {
-        return minuteasbars;
-    }
-
-    public void setMinuteasbars(Boolean minuteasbars) {
-        this.minuteasbars = minuteasbars;
-    }
-
-    public Boolean isMinutesinwords() {
-        return minutesinwords;
-    }
-
-    public void setMinutesinwords(Boolean minutesinwords) {
-        this.minutesinwords = minutesinwords;
-    }
-
-    public Boolean isKurznach() {
+    public Boolean getKurznach() {
         return kurznach;
     }
 
@@ -223,7 +267,7 @@ public class Settings {
         this.kurznach = kurznach;
     }
 
-    public Boolean isFuenfnach() {
+    public Boolean getFuenfnach() {
         return fuenfnach;
     }
 
@@ -231,7 +275,7 @@ public class Settings {
         this.fuenfnach = fuenfnach;
     }
 
-    public Boolean isZehnnach() {
+    public Boolean getZehnnach() {
         return zehnnach;
     }
 
@@ -239,31 +283,15 @@ public class Settings {
         this.zehnnach = zehnnach;
     }
 
-    public Boolean isViertelueber() {
-        return viertelueber;
+    public Viertel getViertel() {
+        return viertel;
     }
 
-    public void setViertelueber(Boolean viertelueber) {
-        this.viertelueber = viertelueber;
+    public void setViertel(Viertel viertel) {
+        this.viertel = viertel;
     }
 
-    public Boolean isViertelnach() {
-        return viertelnach;
-    }
-
-    public void setViertelnach(Boolean viertelnach) {
-        this.viertelnach = viertelnach;
-    }
-
-    public Boolean isViertelacht() {
-        return viertelacht;
-    }
-
-    public void setViertelacht(Boolean viertelacht) {
-        this.viertelacht = viertelacht;
-    }
-
-    public Boolean isFuenfvorviertelacht() {
+    public Boolean getFuenfvorviertelacht() {
         return fuenfvorviertelacht;
     }
 
@@ -271,7 +299,7 @@ public class Settings {
         this.fuenfvorviertelacht = fuenfvorviertelacht;
     }
 
-    public Boolean isFuenfnachviertelacht() {
+    public Boolean getFuenfnachviertelacht() {
         return fuenfnachviertelacht;
     }
 
@@ -279,7 +307,7 @@ public class Settings {
         this.fuenfnachviertelacht = fuenfnachviertelacht;
     }
 
-    public Boolean isZwanzignach() {
+    public Boolean getZwanzignach() {
         return zwanzignach;
     }
 
@@ -287,7 +315,7 @@ public class Settings {
         this.zwanzignach = zwanzignach;
     }
 
-    public Boolean isFuenfundzwanzignach() {
+    public Boolean getFuenfundzwanzignach() {
         return fuenfundzwanzignach;
     }
 
@@ -295,7 +323,7 @@ public class Settings {
         this.fuenfundzwanzignach = fuenfundzwanzignach;
     }
 
-    public Boolean isHalb() {
+    public Boolean getHalb() {
         return halb;
     }
 
@@ -303,7 +331,7 @@ public class Settings {
         this.halb = halb;
     }
 
-    public Boolean isFuenfvorhalb() {
+    public Boolean getFuenfvorhalb() {
         return fuenfvorhalb;
     }
 
@@ -311,7 +339,7 @@ public class Settings {
         this.fuenfvorhalb = fuenfvorhalb;
     }
 
-    public Boolean isFuenfnachhalb() {
+    public Boolean getFuenfnachhalb() {
         return fuenfnachhalb;
     }
 
@@ -319,7 +347,7 @@ public class Settings {
         this.fuenfnachhalb = fuenfnachhalb;
     }
 
-    public Boolean isZehnvorhalb() {
+    public Boolean getZehnvorhalb() {
         return zehnvorhalb;
     }
 
@@ -327,7 +355,7 @@ public class Settings {
         this.zehnvorhalb = zehnvorhalb;
     }
 
-    public Boolean isZehnnachhalb() {
+    public Boolean getZehnnachhalb() {
         return zehnnachhalb;
     }
 
@@ -335,7 +363,7 @@ public class Settings {
         this.zehnnachhalb = zehnnachhalb;
     }
 
-    public Boolean isFuenfundzwanzigvor() {
+    public Boolean getFuenfundzwanzigvor() {
         return fuenfundzwanzigvor;
     }
 
@@ -343,7 +371,7 @@ public class Settings {
         this.fuenfundzwanzigvor = fuenfundzwanzigvor;
     }
 
-    public Boolean isZwanzigvor() {
+    public Boolean getZwanzigvor() {
         return zwanzigvor;
     }
 
@@ -351,23 +379,15 @@ public class Settings {
         this.zwanzigvor = zwanzigvor;
     }
 
-    public Boolean isViertelvor() {
-        return viertelvor;
+    public Dreiviertel getDreiviertel() {
+        return dreiviertel;
     }
 
-    public void setViertelvor(Boolean viertelvor) {
-        this.viertelvor = viertelvor;
+    public void setDreiviertel(Dreiviertel dreiviertel) {
+        this.dreiviertel = dreiviertel;
     }
 
-    public Boolean isDreiviertelacht() {
-        return dreiviertelacht;
-    }
-
-    public void setDreiviertelacht(Boolean dreiviertelacht) {
-        this.dreiviertelacht = dreiviertelacht;
-    }
-
-    public Boolean isFuenfvordreiviertelacht() {
+    public Boolean getFuenfvordreiviertelacht() {
         return fuenfvordreiviertelacht;
     }
 
@@ -375,7 +395,7 @@ public class Settings {
         this.fuenfvordreiviertelacht = fuenfvordreiviertelacht;
     }
 
-    public Boolean isFuenfnachdreiviertelacht() {
+    public Boolean getFuenfnachdreiviertelacht() {
         return fuenfnachdreiviertelacht;
     }
 
@@ -383,7 +403,7 @@ public class Settings {
         this.fuenfnachdreiviertelacht = fuenfnachdreiviertelacht;
     }
 
-    public Boolean isZehnvor() {
+    public Boolean getZehnvor() {
         return zehnvor;
     }
 
@@ -391,7 +411,7 @@ public class Settings {
         this.zehnvor = zehnvor;
     }
 
-    public Boolean isFuenfvor() {
+    public Boolean getFuenfvor() {
         return fuenfvor;
     }
 
@@ -399,7 +419,7 @@ public class Settings {
         this.fuenfvor = fuenfvor;
     }
 
-    public Boolean isKurzvor() {
+    public Boolean getKurzvor() {
         return kurzvor;
     }
 
