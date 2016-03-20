@@ -92,8 +92,7 @@ public class TimeInWords {
         if (s.getUmgangssprachlich()) {
             //there is a simplified time, rounded to 5 minutes, to support Settings.layout.block
             //or there is a more complete time which can only be displayed using Settings.layout.sentance
-            firstPass = getMinuteOfficial(p);
-            return getUmgangMinutes(p, s, firstPass);
+            return getUmgangMinutes(p, s);
         }
         return null;
     }
@@ -111,34 +110,40 @@ public class TimeInWords {
     }
 
 
-    public TimeInWordsDto getUmgangMinutes(Pieces p, Settings s, TimeInWordsDto def) {
+    public TimeInWordsDto getUmgangMinutes(Pieces p, Settings s) {
 		TimeInWordsDto word = new TimeInWordsDto();
 
-        //set up defaults
-        Integer umgangMinutes = p.getMinutes();
-        if(umgangMinutes > 30)
-            umgangMinutes = 60 - umgangMinutes;
-        def.setMinute1(umgangMinutes + " " + ((p.getMinutes() <= 30)?"nach":"vor"));
-        if(p.getMinutes() > 30)
-            def.setPlusHour(Boolean.TRUE);
+
 
         //the point is that for Settings.Umgangminute.minutebar, rouding to the nearest 5 is what we want
         // but for Settings.Umgangminute.minuteword, only when p.getMinutes() == p.getFiveMinuteBucket
         //do we want to drop into a case....
-		switch (p.getFiveMinBucket()) {
+
+        Integer testMinute;
+        if(s.getUmgangminute() == Settings.Umgangminute.minuteword) {
+            testMinute = p.getMinutes();
+            //set up defaults
+            Integer umgangMinutes = p.getMinutes();
+            if(umgangMinutes > 30)
+                umgangMinutes = 60 - umgangMinutes;
+            int id = getContext().getResources().getIdentifier("germannumber"+umgangMinutes, "string",
+                    getContext().getPackageName());
+            String stringUmgangMinutes = getContext().getString(id);
+            word.setMinute1(stringUmgangMinutes + " " + ((p.getMinutes() <= 30)?"nach":"vor"));
+            if(p.getMinutes() > 30)
+                word.setPlusHour(Boolean.TRUE);
+        }
+        else
+            testMinute = p.getFiveMinBucket();
+
+		switch (testMinute) {
 			 case 0:
-				 if( (s.getKurznach() && p.getMinutes() > 0)
-                         || s.getUmgangminute() == Settings.Umgangminute.minutebar)
+				 if(s.getKurznach() && p.getMinutes() > 0)
 					 word.setMinute1("kurz nach");
-                 else
-                    return def;
                  break;
-			 case 5: 
-			 	if(s.getUmgangminute() == Settings.Umgangminute.minutebar)
+			 case 5:
                     word.setMinute1("fünf nach");
-                //note, if this was Settings.Umgangminute.minuteword, you would risk loosing detail
-                else
-                    return def;
+
                  break;
 			 case 10:
                  if( (s.getViertel() == Settings.Viertel.viertelacht)
@@ -149,8 +154,6 @@ public class TimeInWords {
                  }
                  else
                      word.setMinute1("zehn nach");
-                 else
-                     return def;
                  break;
 			 case 15:  
 			 	if(s.getViertel() == Settings.Viertel.viertelacht) {
@@ -165,8 +168,6 @@ public class TimeInWords {
                     word.setMinute1("viertel");
                     word.setMinute2("über");
                 }
-                else
-                    return def;
 			 	break;
 			 case 20:
                  if(s.getZehnvorhalb()){
@@ -176,8 +177,7 @@ public class TimeInWords {
                  }
                  else if(s.getZwanzignach())
 			 		word.setMinute1("zwanzig nach");
-                 else
-                     return def;
+
 				break;
 			 case 25:
                  if(s.getHalb()
@@ -186,10 +186,8 @@ public class TimeInWords {
                      word.setMinute2("halb");
                      word.setPlusHour(Boolean.TRUE);
                  }
-				else if(s.getFuenfundzwanzignach())
+				else
 			 		word.setMinute1("fünfundzwanzig nach");
-                 else
-                     return def;
 			 	break;
 			 case 30:  
 				if(s.getHalb()) {
@@ -198,8 +196,7 @@ public class TimeInWords {
                 }
                 else if (s.getDreissignach())
                     word.setMinute1("dreißig nach");
-                 else
-                    return def;
+
 			 case 35: 
 				if(s.getHalb()
                  && s.getFuenfnachhalb()) {
@@ -234,18 +231,14 @@ public class TimeInWords {
 
 			 	break;
 			 case 50:
-                 if(s.getZehnvor())
                     word.setMinute1("zehn vor");
-
 			 	break;
 			 case 55:
                  if(s.getKurzvor() && p.getMinutes() > 55)
                      word.setMinute1("kurz vor");
-				 else if(s.getFuenfvor())
-                     word.setMinute1("fünf vor");
 			 	break;             
-	         default: getMinuteOfficial(p);
-	            break;
+	         //default: getMinuteOfficial(p);
+	           // break;
 		}
 		if(s.getUhr())
 			word.setUhr("Uhr");
