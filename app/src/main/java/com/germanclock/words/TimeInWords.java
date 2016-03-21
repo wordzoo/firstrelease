@@ -23,7 +23,7 @@ public class TimeInWords {
 	public String getTimeAsSentance(Pieces p, Settings s) {
 		StringBuilder ret = new StringBuilder();
 
-        if(getBegin(p, s) != null) {
+        if(isNotEmpty(getBegin(p, s))) {
             ret.append(getBegin(p, s));
             ret.append(" ");
         }
@@ -37,18 +37,18 @@ public class TimeInWords {
         else
             getOfficialConstruction(ret, s, p);
 
-		return ret.toString();
+		return ret.toString().trim();
 	}
 
     public StringBuilder getUmgangConstruction(StringBuilder ret, Settings s, Pieces p) {
         TimeInWordsDto timeInWordsDto = getMinute(p, s);
 
-        if (timeInWordsDto.getMinute1() != null) {
+        if (isNotEmpty(timeInWordsDto.getMinute1())) {
             ret.append(timeInWordsDto.getMinute1());
             ret.append(" ");
         }
 
-        if (timeInWordsDto.getMinute2() != null) {
+        if (isNotEmpty(timeInWordsDto.getMinute2())) {
             ret.append(timeInWordsDto.getMinute2());
             ret.append(" ");
         }
@@ -63,7 +63,7 @@ public class TimeInWords {
         ret.append(getHour(p, s, Boolean.FALSE));
 
         TimeInWordsDto timeInWordsDto = getMinute(p, s);
-        if (timeInWordsDto.getMinute1() != null) {
+        if (isNotEmpty(timeInWordsDto.getMinute1())) {
             ret.append(timeInWordsDto.getMinute1());
             ret.append(" ");
         }
@@ -73,7 +73,7 @@ public class TimeInWords {
 
 	public String getBegin(Pieces p, Settings s) {
 		if(s.getEsist())
-			return "es ist ";
+			return "Es ist";
 		else
 			return null;
 	}
@@ -254,84 +254,192 @@ public class TimeInWords {
 	public String getHour(Pieces p, Settings s, Boolean plusHour) {
 		String word;
 		Integer number;
-		if(s.getUmgangssprachlich())
+		if (s.getUmgangssprachlich())
 			number = p.getHr();
 		else
 			number = p.getHr24();
 
 
 		//code to read the next hour for expressions like dreiviertel neun (8:45)
-		if(plusHour)
-            number++;
+		if (plusHour)
+			number++;
 
-		if(number.intValue() == 24)
+		if (number.intValue() == 24)
 			number = 0;
 
 		switch (number) {
-			 case 0: {
-				 if(s.getUmgangssprachlich())
-					 word = "zwölf";
-				 else
-				 	 word = "null";
-				 break;
-			 }
-			 case 1:  word = "ein";
-			 	break;
-			 case 2:  word = "zwei";
-			 	break;
-			 case 3:  word = "drei";
-			 	break;
-			 case 4:  word = "vier";
-			 	break;
-			 case 5:  word = "fünf";
-			 	break;
-			 case 6:  word = "sechs";
-			 	break;
-			 case 7:  word = "sieben";
-			 	break;
-			 case 8:  word = "acht";
-			 	break;
-			 case 9:  word = "neun";
-			 	break;
-			 case 10: word = "zehn";
-			 	break;
-			 case 11: word = "elf";
-			 	break;
-			 case 12: word = "zwölf";
-			 	break;
-			 case 13: word = "dreizehn";
-			 	break;
-	         case 14: word = "vierzehn";
-             	break;
-	         case 15: word = "fünfzehn";
-             	break;
-	         case 16: word = "sechszehn";
-             	break;
-	         case 17: word = "sebzehn";
-             	break;
-	         case 18: word = "achtzehn";
-             	break;
-	         case 19: word = "neunzehn";
-             	break;
-	         case 20: word = "zwanzig";
-             	break;
-	         case 21: word = "einundzwanzig";
-             	break;
-	         case 22: word = "zweiundzwanzig";
-             	break;
-	         case 23: word = "dreiundzwanzig";
-             	break;             
-	         default: word = "Invalid hour";
-	                  break;
+			case 0: {
+				if (s.getUmgangssprachlich())
+					word = "zwölf ";
+				else
+					word = "null ";
+				break;
+			}
+			case 1:
+				word = "ein ";
+				break;
+			case 2:
+				word = "zwei ";
+				break;
+			case 3:
+				word = "drei ";
+				break;
+			case 4:
+				word = "vier ";
+				break;
+			case 5:
+				word = "fünf ";
+				break;
+			case 6:
+				word = "sechs ";
+				break;
+			case 7:
+				word = "sieben ";
+				break;
+			case 8:
+				word = "acht ";
+				break;
+			case 9:
+				word = "neun ";
+				break;
+			case 10:
+				word = "zehn ";
+				break;
+			case 11:
+				word = "elf ";
+				break;
+			case 12:
+				word = "zwölf ";
+				break;
+			case 13:
+				word = "dreizehn ";
+				break;
+			case 14:
+				word = "vierzehn ";
+				break;
+			case 15:
+				word = "fünfzehn ";
+				break;
+			case 16:
+				word = "sechszehn ";
+				break;
+			case 17:
+				word = "sebzehn ";
+				break;
+			case 18:
+				word = "achtzehn ";
+				break;
+			case 19:
+				word = "neunzehn ";
+				break;
+			case 20:
+				word = "zwanzig ";
+				break;
+			case 21:
+				word = "einundzwanzig ";
+				break;
+			case 22:
+				word = "zweiundzwanzig ";
+				break;
+			case 23:
+				word = "dreiundzwanzig ";
+				break;
+			default:
+				word = "Invalid hour ";
+				break;
 		}
-		if(s.getUhr())
-			return word += " Uhr";
-		else
-			return word;
+		if (s.getUhr()
+				&& (!s.getAmmorgen()
+			    && !s.getAmabend()
+			    && !s.getAmnachmittag()
+				&& !s.getAmvormittag()
+		        && !s.getIndernacht())
+				)
+			word += "Uhr ";
+
+/*
+		private Boolean mitternachts = Boolean.FALSE;
+		private Boolean morgens = Boolean.FALSE;;
+		private Boolean ammorgen = Boolean.FALSE;;
+		private Boolean vormittags = Boolean.FALSE;;
+		private Boolean amvormittag = Boolean.FALSE;;
+		private Boolean mittags = Boolean.FALSE;;
+		private Boolean nachmittags = Boolean.FALSE;;
+		private Boolean amnachmittag = Boolean.FALSE;;
+		private Boolean abdends = Boolean.FALSE;;
+		private Boolean amabend = Boolean.FALSE;;
+		private Boolean nachts = Boolean.FALSE;;
+		private Boolean indernacht = Boolean.FALSE;;
+*/
+		if (p.getHr24() > 0
+				&& p.getHr24() < 5
+				&& p.getMinutes() == 0
+				&& s.getNachts())
+			word += "nachts ";
+		if (p.getHr24() > 0
+				&& p.getHr24() < 5
+				&& p.getMinutes() != 0
+				&& s.getIndernacht())
+			word += "in der Nacht ";
+
+		if (p.getHr24() >= 5
+				&& p.getHr24() < 10
+				&& p.getMinutes() == 0
+				&& s.getMorgens())
+			word += "morgens ";
+		if (p.getHr24() >= 5
+				&& p.getHr24() < 10
+				&& p.getMinutes() != 0
+				&& s.getAmmorgen())
+			word += "am Morgen ";
+
+
+		if (p.getHr24() >= 10
+				&& p.getHr24() < 12
+				&& p.getMinutes() == 0
+				&& s.getVormittags())
+			word += "vormittags ";
+		if (p.getHr24() >= 10
+				&& p.getHr24() < 12
+				&& p.getMinutes() != 0
+				&& s.getAmmorgen())
+			word += "am Vormittag ";
+
+
+		if (p.getHr24() >= 12
+				&& p.getHr24() < 18
+				&& p.getMinutes() == 0
+				&& s.getNachmittags())
+			word += "nachmittags ";
+		if (p.getHr24() >= 12
+				&& p.getHr24() < 18
+				&& p.getMinutes() != 0
+				&& s.getAmmorgen())
+			word += "am Nachmittag ";
+
+
+		if (p.getHr24() >= 18
+				&& p.getHr24() <= 23
+				&& p.getMinutes() == 0
+				&& s.getAbends())
+			word += "abends ";
+		if (p.getHr24() >= 12
+				&& p.getHr24() < 18
+				&& p.getMinutes() != 0
+				&& s.getAmmorgen())
+			word += "am Abend ";
+
+
+		return word;
 
 	}
 
-	
+	public Boolean isNotEmpty(String in){
+		if(in != null && in != "")
+			return Boolean.TRUE;
+		else
+			return Boolean.FALSE;
+	}
 
 
 	/*

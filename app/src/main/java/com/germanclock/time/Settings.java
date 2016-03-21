@@ -41,7 +41,7 @@ public class Settings {
 	private Boolean mittags = Boolean.FALSE;;
 	private Boolean nachmittags = Boolean.FALSE;;
 	private Boolean amnachmittag = Boolean.FALSE;;
-	private Boolean abdends = Boolean.FALSE;;
+	private Boolean abends = Boolean.FALSE;;
 	private Boolean amabend = Boolean.FALSE;;
 	private Boolean nachts = Boolean.FALSE;;
 	private Boolean indernacht = Boolean.FALSE;;
@@ -217,12 +217,12 @@ public class Settings {
         this.amnachmittag = amnachmittag;
     }
 
-    public Boolean getAbdends() {
-        return abdends;
+    public Boolean getAbends() {
+        return abends;
     }
 
-    public void setAbdends(Boolean abdends) {
-        this.abdends = abdends;
+    public void setAbends(Boolean abdends) {
+        this.abends = abends;
     }
 
     public Boolean getAmabend() {

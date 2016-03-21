@@ -23,13 +23,35 @@ public class ExampleUnitTest  {
     public void testWord()   {
         Settings s = new Settings();
         s.setUmgangssprachlich(Boolean.TRUE);
-        Pieces p = new Pieces("17:15");
+        Pieces p = new Pieces("17:00");
         TimeInWords tiw = new TimeInWords();
+
         String out = tiw.getTimeAsSentance(p,s);
-        assertEquals("viertel nach fünf", out);
+        assertEquals("fünf", out);
 
+        s.setEsist(Boolean.TRUE);
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf", out);
 
+        s.setUhr(Boolean.TRUE);
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf Uhr", out);
+
+        s.setNachmittags(Boolean.TRUE);
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf Uhr nachmittags", out);
+
+        p = new Pieces("17:17");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist siebzehn nach fünf am Abend", out);
+
+        p = new Pieces("17:05");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf nach fünf Uhr", out);
+
+        //mitternachts
     }
+
 
 /*    private Boolean flag = Boolean.FALSE;
 
@@ -63,20 +85,8 @@ public class ExampleUnitTest  {
 
     private Clockface clockface = Clockface.sentance;
 
-   private Boolean mitternachts = Boolean.FALSE;
-	private Boolean morgens = Boolean.FALSE;;
-	private Boolean ammorgen = Boolean.FALSE;;
-	private Boolean vormittags = Boolean.FALSE;;
-	private Boolean amvormittag = Boolean.FALSE;;
-	private Boolean mittags = Boolean.FALSE;;
-	private Boolean nachmittags = Boolean.FALSE;;
-	private Boolean amnachmittag = Boolean.FALSE;;
-	private Boolean abdends = Boolean.FALSE;;
-	private Boolean amabend = Boolean.FALSE;;
-	private Boolean nachts = Boolean.FALSE;;
-	private Boolean indernacht = Boolean.FALSE;;
 
-	private Boolean uhr = Boolean.FALSE;;
+
 
 	private Boolean kurznach = Boolean.FALSE;;
 
