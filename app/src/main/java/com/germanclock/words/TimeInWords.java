@@ -28,15 +28,14 @@ public class TimeInWords {
             ret.append(" ");
         }
 
-        TimeInWordsDto timeInWordsDto = getMinute(p, s);
 
         //conversational time construction
         if (s.getUmgangssprachlich())
-            ret.append(getUmgangConstruction(ret, s, p));
+            getUmgangConstruction(ret, s, p);
 
         //offical time construction
-        else if (!s.getUmgangssprachlich())
-            ret.append(getOfficialConstruction(ret, timeInWordsDto, s, p));
+        else
+            getOfficialConstruction(ret, s, p);
 
 		return ret.toString();
 	}
@@ -59,10 +58,11 @@ public class TimeInWords {
         return ret;
     }
 
-    public StringBuilder getOfficialConstruction(StringBuilder ret, TimeInWordsDto timeInWordsDto, Settings s, Pieces p) {
+    public StringBuilder getOfficialConstruction(StringBuilder ret, Settings s, Pieces p) {
         //official time
         ret.append(getHour(p, s, Boolean.FALSE));
 
+        TimeInWordsDto timeInWordsDto = getMinute(p, s);
         if (timeInWordsDto.getMinute1() != null) {
             ret.append(timeInWordsDto.getMinute1());
             ret.append(" ");
@@ -84,7 +84,7 @@ public class TimeInWords {
 
 
     public TimeInWordsDto getMinute(Pieces p, Settings s) {
-        TimeInWordsDto firstPass = new TimeInWordsDto();
+
         if (!s.getUmgangssprachlich())
             //just official
             return getMinuteOfficial(p);
@@ -105,6 +105,7 @@ public class TimeInWords {
                 getContext().getPackageName());
         ret.setMinute1(getContext().getString(id));
         ret.setUmgangssprachlich(Boolean.FALSE);
+        ret.setPlusHour(Boolean.FALSE);
         return ret;
 
     }

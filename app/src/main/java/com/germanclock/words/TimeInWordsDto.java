@@ -4,13 +4,13 @@ package com.germanclock.words;
  * Created by ich on 19.03.2016.
  */
 public class TimeInWordsDto {
-    private String begin;
-    private String minute1;
-    private String minute2;
-    private String hour;
-    private String uhr;
-    private Boolean plusHour;
-    private Boolean umgangssprachlich;
+    private String begin = "";
+    private String minute1 = "";
+    private String minute2 = "";
+    private String hour = "";
+    private String uhr = "";
+    private Boolean plusHour = Boolean.FALSE;
+    private Boolean umgangssprachlich = Boolean.FALSE;
 
     public Boolean getUmgangssprachlich() {
         return umgangssprachlich;

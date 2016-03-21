@@ -1,7 +1,7 @@
 package com.germanclock.time;
 
 public class Settings {
-    private Boolean flag;
+    private Boolean flag = Boolean.FALSE;
 
     public enum FlagPattern {
         vienna,
@@ -9,10 +9,10 @@ public class Settings {
         kaernten
     }
 
-    private FlagPattern flagPattern;
+    private FlagPattern flagPattern = FlagPattern.vienna;
 
-    private Boolean esist;
-    private Boolean umgangssprachlich;
+    private Boolean esist = Boolean.FALSE;;
+    private Boolean umgangssprachlich = Boolean.FALSE;;
 
 
     //you can only choose this of umgangssprachlich is true
@@ -21,32 +21,34 @@ public class Settings {
         minuteword
     }
 
-    private Umgangminute umgangminute;
+    private Umgangminute umgangminute = Umgangminute.minutebar;
 
 
     //note if umgangssprachlich get false, nothing below here applies
     //note for block layout, you can only have Umgangminute.minutebar
-    public enum layout {
+    public enum Clockface {
         block,
         sentance
     }
 
-   private Boolean mitternachts;
-	private Boolean morgens;
-	private Boolean ammorgen;
-	private Boolean vormittags;
-	private Boolean amvormittag;
-	private Boolean mittags;
-	private Boolean nachmittags;
-	private Boolean amnachmittag;
-	private Boolean abdends;
-	private Boolean amabend;
-	private Boolean nachts;
-	private Boolean indernacht;
+    private Clockface clockface = Clockface.sentance;
 
-	private Boolean uhr;
+   private Boolean mitternachts = Boolean.FALSE;
+	private Boolean morgens = Boolean.FALSE;;
+	private Boolean ammorgen = Boolean.FALSE;;
+	private Boolean vormittags = Boolean.FALSE;;
+	private Boolean amvormittag = Boolean.FALSE;;
+	private Boolean mittags = Boolean.FALSE;;
+	private Boolean nachmittags = Boolean.FALSE;;
+	private Boolean amnachmittag = Boolean.FALSE;;
+	private Boolean abdends = Boolean.FALSE;;
+	private Boolean amabend = Boolean.FALSE;;
+	private Boolean nachts = Boolean.FALSE;;
+	private Boolean indernacht = Boolean.FALSE;;
 
-	private Boolean kurznach;
+	private Boolean uhr = Boolean.FALSE;;
+
+	private Boolean kurznach = Boolean.FALSE;;
 
 
     public enum Viertel {
@@ -55,29 +57,29 @@ public class Settings {
         viertelacht
     }
 
-    private Viertel viertel;
+    private Viertel viertel = Viertel.viertelnach;
 
 	//if viertel == viertel.vieterlacht, two more options
-    private Boolean fuenfvorviertelacht;
-    private Boolean fuenfnachviertelacht;
+    private Boolean fuenfvorviertelacht = Boolean.FALSE;;
+    private Boolean fuenfnachviertelacht = Boolean.FALSE;;
 
 
 
     //halb is selected be default with umgrangsprache
-    private Boolean halb;
+    private Boolean halb = Boolean.FALSE;;
 
     //these are available only if you choose halb
-    private Boolean fuenfvorhalb;
-    private Boolean fuenfnachhalb;
-    private Boolean kurzvorhalb;
-    private Boolean kurznachhalb;
+    private Boolean fuenfvorhalb = Boolean.FALSE;;
+    private Boolean fuenfnachhalb = Boolean.FALSE;;
+    private Boolean kurzvorhalb = Boolean.FALSE;;
+    private Boolean kurznachhalb = Boolean.FALSE;;
 
 
-    private Boolean zehnvorhalb;
-    private Boolean zehnnachhalb;
+    private Boolean zehnvorhalb = Boolean.FALSE;;
+    private Boolean zehnnachhalb = Boolean.FALSE;;
     //or
-    private Boolean zwanzignach;
-    private Boolean zwanzigvor;
+    private Boolean zwanzignach = Boolean.FALSE;;
+    private Boolean zwanzigvor = Boolean.FALSE;;
 
 
 
@@ -92,13 +94,13 @@ public class Settings {
     }
 
 
-    private Dreiviertel dreiviertel;
+    private Dreiviertel dreiviertel = Dreiviertel.viertelvor;
 
     //if dreiviertel == Dreiviertel.dreiviertelacht then two more options
-    private Boolean fuenfvordreiviertelacht;
-    private Boolean fuenfnachdreiviertelacht;
+    private Boolean fuenfvordreiviertelacht = Boolean.FALSE;
+    private Boolean fuenfnachdreiviertelacht = Boolean.FALSE;
 
-	private Boolean kurzvor;
+	private Boolean kurzvor = Boolean.FALSE;
 
     //this also does not work on block layout
     private Boolean dreissignach;
@@ -141,6 +143,14 @@ public class Settings {
 
     public void setUmgangminute(Umgangminute umgangminute) {
         this.umgangminute = umgangminute;
+    }
+
+    public Clockface getClockface() {
+        return clockface;
+    }
+
+    public void setClockface(Clockface clockface) {
+        this.clockface = clockface;
     }
 
     public Boolean getMitternachts() {
