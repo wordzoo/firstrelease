@@ -8,6 +8,8 @@ import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
 import android.os.Parcel;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.LargeTest;
+import android.test.suitebuilder.annotation.SmallTest;
 import android.util.Pair;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,24 +18,32 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
-public class ExampleUnitTest  {
+@LargeTest
+public class ExampleUnitTest extends InstrumentationTestCase  {
 
+    private Context context;
 
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
-    @Test
-    public void words()   {
+    @Override
+    protected void setUp() {
+        this.context =   getInstrumentation().getContext();
 
-        Context c = getInstrumentation().getContext();
+
+    }
+
+    @Test
+    public void testWords()   {
+
+
         Settings s = new Settings();
         // Five ocklock Evening tests
         s.setUmgangssprachlich(Boolean.TRUE);
         Pieces p = new Pieces("17:00");
-        TimeInWords tiw = new TimeInWords(c);
+        TimeInWords tiw = new TimeInWords(context);
         String out = tiw.getTimeAsSentance(p,s);
         assertEquals("fünf", out);
 

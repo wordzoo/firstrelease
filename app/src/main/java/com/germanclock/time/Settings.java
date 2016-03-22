@@ -34,17 +34,20 @@ public class Settings {
     private Clockface clockface = Clockface.sentance;
 
    private Boolean mitternachts = Boolean.FALSE;
-	private Boolean morgens = Boolean.FALSE;;
-	private Boolean ammorgen = Boolean.FALSE;;
-	private Boolean vormittags = Boolean.FALSE;;
-	private Boolean amvormittag = Boolean.FALSE;;
-	private Boolean mittags = Boolean.FALSE;;
-	private Boolean nachmittags = Boolean.FALSE;;
-	private Boolean amnachmittag = Boolean.FALSE;;
-	private Boolean abends = Boolean.FALSE;;
-	private Boolean amabend = Boolean.FALSE;;
-	private Boolean nachts = Boolean.FALSE;;
-	private Boolean indernacht = Boolean.FALSE;;
+	private Boolean morgens = Boolean.FALSE;
+	private Boolean ammorgen = Boolean.FALSE;
+	private Boolean vormittags = Boolean.FALSE;
+	private Boolean amvormittag = Boolean.FALSE;
+	private Boolean mittags = Boolean.FALSE;
+	private Boolean nachmittags = Boolean.FALSE;
+	private Boolean amnachmittag = Boolean.FALSE;
+	private Boolean abends = Boolean.FALSE;
+	private Boolean amabend = Boolean.FALSE;
+	private Boolean nachts = Boolean.FALSE;
+	private Boolean indernacht = Boolean.FALSE;
+    private Boolean inderfrueh = Boolean.FALSE;
+    private Boolean morgennacht = Boolean.FALSE;
+    private Boolean ammorgennacht = Boolean.FALSE;
 
 	private Boolean uhr = Boolean.FALSE;;
 
@@ -104,6 +107,31 @@ public class Settings {
 
     //this also does not work on block layout
     private Boolean dreissignach;
+
+
+    public Boolean getInderfrueh() {
+        return inderfrueh;
+    }
+
+    public void setInderfrueh(Boolean inderfrueh) {
+        this.inderfrueh = inderfrueh;
+    }
+
+    public Boolean getMorgennacht() {
+        return morgennacht;
+    }
+
+    public void setMorgennacht(Boolean morgennacht) {
+        this.morgennacht = morgennacht;
+    }
+
+    public Boolean getAmmorgennacht() {
+        return ammorgennacht;
+    }
+
+    public void setAmmorgennacht(Boolean ammorgennacht) {
+        this.ammorgennacht = ammorgennacht;
+    }
 
     public Boolean getFlag() {
         return flag;

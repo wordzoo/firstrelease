@@ -1,9 +1,11 @@
 package com.germanclock.words;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
+import com.wordzoo.uhr.R;
 
 
 public class TimeInWords {
@@ -19,6 +21,7 @@ public class TimeInWords {
     }
 
     public TimeInWords(){;}
+    public TimeInWords(Context c){this.context = c;}
 	
 	public String getTimeAsSentance(Pieces p, Settings s) {
 		StringBuilder ret = new StringBuilder();
@@ -101,9 +104,9 @@ public class TimeInWords {
     public TimeInWordsDto getMinuteOfficial(Pieces p){
         Integer number = new Integer(p.getMinutes());
         TimeInWordsDto ret = new TimeInWordsDto();
-        int id = getContext().getResources().getIdentifier("germannumber"+p.getMinutes(), "string",
-                getContext().getPackageName());
-        ret.setMinute1(getContext().getString(id));
+        Resources res = getContext().getResources();
+        String[] german_number = res.getStringArray(R.array.german_number);
+        ret.setMinute1(german_number[p.getMinutes()-1]);
         ret.setUmgangssprachlich(Boolean.FALSE);
         ret.setPlusHour(Boolean.FALSE);
         return ret;
@@ -197,7 +200,7 @@ public class TimeInWords {
                 }
                 else if (s.getDreissignach())
                     word.setMinute1("dreißig nach");
-
+                break;
 			 case 35: 
 				if(s.getHalb()
                  && s.getFuenfnachhalb()) {
@@ -269,10 +272,10 @@ public class TimeInWords {
 
 		switch (number) {
 			case 0: {
-				if (s.getUmgangssprachlich())
-					word = "zwölf ";
+                if (s.getMitternachts())
+					word = "Mitternacht ";
 				else
-					word = "null ";
+					word = "Null ";
 				break;
 			}
 			case 1:
@@ -348,84 +351,67 @@ public class TimeInWords {
 				word = "Invalid hour ";
 				break;
 		}
-		if (s.getUhr()
-				&& (!s.getAmmorgen()
-			    && !s.getAmabend()
-			    && !s.getAmnachmittag()
-				&& !s.getAmvormittag()
-		        && !s.getIndernacht())
-				)
+		if (s.getUhr())
 			word += "Uhr ";
 
-/*
-		private Boolean mitternachts = Boolean.FALSE;
-		private Boolean morgens = Boolean.FALSE;;
-		private Boolean ammorgen = Boolean.FALSE;;
-		private Boolean vormittags = Boolean.FALSE;;
-		private Boolean amvormittag = Boolean.FALSE;;
-		private Boolean mittags = Boolean.FALSE;;
-		private Boolean nachmittags = Boolean.FALSE;;
-		private Boolean amnachmittag = Boolean.FALSE;;
-		private Boolean abdends = Boolean.FALSE;;
-		private Boolean amabend = Boolean.FALSE;;
-		private Boolean nachts = Boolean.FALSE;;
-		private Boolean indernacht = Boolean.FALSE;;
-*/
+//three night variatne, nach, früh and morgen, mutually exclusive
 		if (p.getHr24() > 0
 				&& p.getHr24() < 5
-				&& p.getMinutes() == 0
 				&& s.getNachts())
 			word += "nachts ";
-		if (p.getHr24() > 0
+		else if (p.getHr24() > 0
 				&& p.getHr24() < 5
-				&& p.getMinutes() != 0
 				&& s.getIndernacht())
 			word += "in der Nacht ";
+		else if (p.getHr24() > 0
+				&& p.getHr24() < 5
+				&& s.getInderfrueh())
+			word += "in der Früh ";
+		else if (p.getHr24() > 0
+				&& p.getHr24() < 5
+				&& s.getMorgennacht())
+			word += "moregens ";
+		else if (p.getHr24() > 0
+				&& p.getHr24() < 5
+				&& s.getAmmorgennacht())
+			word += "am Morgen ";
 
 		if (p.getHr24() >= 5
 				&& p.getHr24() < 10
-				&& p.getMinutes() == 0
 				&& s.getMorgens())
 			word += "morgens ";
 		if (p.getHr24() >= 5
 				&& p.getHr24() < 10
-				&& p.getMinutes() != 0
 				&& s.getAmmorgen())
 			word += "am Morgen ";
 
 
 		if (p.getHr24() >= 10
 				&& p.getHr24() < 12
-				&& p.getMinutes() == 0
 				&& s.getVormittags())
 			word += "vormittags ";
 		if (p.getHr24() >= 10
 				&& p.getHr24() < 12
-				&& p.getMinutes() != 0
 				&& s.getAmmorgen())
 			word += "am Vormittag ";
 
 
 		if (p.getHr24() >= 12
 				&& p.getHr24() < 18
-				&& p.getMinutes() == 0
 				&& s.getNachmittags())
 			word += "nachmittags ";
 		if (p.getHr24() >= 12
 				&& p.getHr24() < 18
-				&& p.getMinutes() != 0
-				&& s.getAmmorgen())
+                && s.getAmnachmittag())
 			word += "am Nachmittag ";
 
 
 		if (p.getHr24() >= 18
 				&& p.getHr24() <= 23
-				&& p.getMinutes() == 0
 				&& s.getAbends())
 			word += "abends ";
-		if (p.getHr24() >= 12
-				&& p.getHr24() < 18
-				&& p.getMinutes() != 0
+		if (p.getHr24() >= 18
+				&& p.getHr24() <= 23
 				&& s.getAmmorgen())
 			word += "am Abend ";
 

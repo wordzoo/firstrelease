@@ -1,71 +1,76 @@
 <resources>
 
 
-        <string name="app_name">German Clock</string>
-        <string name="action_settings">Settings</string>
-        <string name="settings_intro">Choose an option:</string>
+    <string name="app_name">German Clock</string>
+    <string name="action_settings">Settings</string>
+    <string name="settings_intro">Choose an option:</string>
         <string name="hello">Hello\n\n
     Thanks for installing the Custom Clock Widget.\n\n
     You need to add the widget to your home screen to use it.
     Long-press the home screen and select the widget from the
     list of those installed on your device. </string>
-    <string name="german_number1">eins</string>
-    <string name="german_number2">zwei</string>
-    <string name="german_number3">drei</string>
-    <string name="german_number4">vier</string>
-    <string name="german_number5">fünf</string>
-    <string name="german_number6">sechs</string>
-    <string name="german_number7">sieben</string>
-    <string name="german_number8">acht</string>
-    <string name="german_number9">neun</string>
-    <string name="german_number10">zehn</string>
-    <string name="german_number11">elf</string>
-    <string name="german_number12">zwölf</string>
-    <string name="german_number13">dreizehn</string>
-    <string name="german_number14">vierzehn</string>
-    <string name="german_number15">fünfzehn</string>
-    <string name="german_number16">sechzehn</string>
-    <string name="german_number17">siebzehn</string>
-    <string name="german_number18">achtzehn</string>
-    <string name="german_number19">neunzehn</string>
-    <string name="german_number20">zwanzig</string>
-    <string name="german_number21">einundzwanzig</string>
-    <string name="german_number22">zweiundzwanzig</string>
-    <string name="german_number23">dreiundzwanzig</string>
-    <string name="german_number24">vierundzwanzig</string>
-    <string name="german_number25">fünfundzwanzig</string>
-    <string name="german_number26">sechsundzwanzig</string>
-    <string name="german_number27">siebenundzwanzig</string>
-    <string name="german_number28">achtundzwanzig</string>
-    <string name="german_number29">neunundzwanzig</string>
-    <string name="german_number30">dreißig</string>
-    <string name="german_number31">einunddreißig</string>
-    <string name="german_number32">zweiunddreißig</string>
-    <string name="german_number33">dreiunddreißig</string>
-    <string name="german_number34">vierunddreißig</string>
-    <string name="german_number35">fünfunddreißig</string>
-    <string name="german_number36">sechsunddreißig</string>
-    <string name="german_number37">siebenunddreißig</string>
-    <string name="german_number38">achtunddreißig</string>
-    <string name="german_number39">neununddreißig</string>
-    <string name="german_number40">vierzig</string>
-    <string name="german_number41">einundvierzig</string>
-    <string name="german_number42">zweiundvierzig</string>
-    <string name="german_number43">dreiundvierzig</string>
-    <string name="german_number44">vierundvierzig</string>
-    <string name="german_number45">fünfundvierzig</string>
-    <string name="german_number46">sechsundvierzig</string>
-    <string name="german_number47">siebenundvierzig</string>
-    <string name="german_number48">achtundvierzig</string>
-    <string name="german_number49">neunundvierzig</string>
-    <string name="german_number50">fünfzig</string>
-    <string name="german_number51">einundfünfzig</string>
-    <string name="german_number52">zweiundfünfzig</string>
-    <string name="german_number53">dreiundfünfzig</string>
-    <string name="german_number54">vierundfünfzig</string>
-    <string name="german_number55">fünfundfünfzig</string>
-    <string name="german_number56">sechsundfünfzig</string>
-    <string name="german_number57">siebenundfünfzig</string>
-    <string name="german_number58">achtundfünfzig</string>
-    <string name="german_number59">neunundfünfzig</string>
+
+    <string-array name="german_number">
+
+
+        <item>eins</item>
+        <item>zwei</item>
+        <item>drei</item>
+        <item>vier</item>
+        <item>fünf</item>
+        <item>sechs</item>
+        <item>sieben</item>
+        <item>acht</item>
+        <item>neun</item>
+        <item>zehn</item>
+        <item>elf</item>
+        <item>zwölf</item>
+        <item>dreizehn</item>
+        <item>vierzehn</item>
+        <item>fünfzehn</item>
+        <item>sechzehn</item>
+        <item>siebzehn</item>
+        <item>achtzehn</item>
+        <item>neunzehn</item>
+        <item>zwanzig</item>
+        <item>einundzwanzig</item>
+        <item>zweiundzwanzig</item>
+        <item>dreiundzwanzig</item>
+        <item>vierundzwanzig</item>
+        <item>fünfundzwanzig</item>
+        <item>sechsundzwanzig</item>
+        <item>siebenundzwanzig</item>
+        <item>achtundzwanzig</item>
+        <item>neunundzwanzig</item>
+        <item>dreißig</item>
+        <item>einunddreißig</item>
+        <item>zweiunddreißig</item>
+        <item>dreiunddreißig</item>
+        <item>vierunddreißig</item>
+        <item>fünfunddreißig</item>
+        <item>sechsunddreißig</item>
+        <item>siebenunddreißig</item>
+        <item>achtunddreißig</item>
+        <item>neununddreißig</item>
+        <item>vierzig</item>
+        <item>einundvierzig</item>
+        <item>zweiundvierzig</item>
+        <item>dreiundvierzig</item>
+        <item>vierundvierzig</item>
+        <item>fünfundvierzig</item>
+        <item>sechsundvierzig</item>
+        <item>siebenundvierzig</item>
+        <item>achtundvierzig</item>
+        <item>neunundvierzig</item>
+        <item>fünfzig</item>
+        <item>einundfünfzig</item>
+        <item>zweiundfünfzig</item>
+        <item>dreiundfünfzig</item>
+        <item>vierundfünfzig</item>
+        <item>fünfundfünfzig</item>
+        <item>sechsundfünfzig</item>
+        <item>siebenundfünfzig</item>
+        <item>achtundfünfzig</item>
+        <item>neunundfünfzig</item>
+    </string-array>
 </resources>
