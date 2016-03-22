@@ -73,7 +73,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
         s.setUmgangminute(Settings.Umgangminute.minuteword);
         p = new Pieces("18:17");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist siebzehn nach sechs am Abend", out);
+        assertEquals("Es ist siebzehn nach sechs Uhr am Abend", out);
         s.setAmabend(Boolean.FALSE);
 
         p = new Pieces("17:05");

@@ -350,8 +350,10 @@ public class TimeInWords {
 				word = "Invalid hour ";
 				break;
 		}
-		if (s.getUhr())
-			word += "Uhr ";
+
+
+        if(s.getUhr())
+            word += "Uhr ";
 
 //three night variatne, nach, früh and morgen, mutually exclusive
 		if (p.getHr24() > 0
@@ -368,7 +370,7 @@ public class TimeInWords {
 			word += "in der Früh ";
 		else if (p.getHr24() > 0
 				&& p.getHr24() < 5
-				&& s.getMorgennacht())
+                && s.getMorgennacht())
 			word += "moregens ";
 		else if (p.getHr24() > 0
 				&& p.getHr24() < 5
@@ -388,7 +390,7 @@ public class TimeInWords {
 		if (p.getHr24() >= 10
 				&& p.getHr24() < 12
 				&& s.getVormittags())
-			word += "vormittags ";
+            word += "vormittags ";
 		if (p.getHr24() >= 10
 				&& p.getHr24() < 12
 				&& s.getAmmorgen())
@@ -396,39 +398,24 @@ public class TimeInWords {
 
 
 		if (p.getHr24() >= 12
-				&& p.getHr24() < 17
+				&& p.getHr24() < 18
 				&& s.getNachmittags())
 			word += "nachmittags ";
 		if (p.getHr24() >= 12
-				&& p.getHr24() < 17
+				&& p.getHr24() < 18
                 && s.getAmnachmittag())
 			word += "am Nachmittag ";
 
 
-		if (p.getHr24() >= 17
+		if (p.getHr24() >= 18
 				&& p.getHr24() <= 23
 				&& s.getAbends())
 			word += "abends ";
-		if (p.getHr24() >= 17
+		if (p.getHr24() >= 18
 				&& p.getHr24() <= 23
-				&& s.getAmmorgen())
+				&& s.getAmabend())
 			word += "am Abend ";
 
-        if(s.getUhr()
-                && !s.getAmnachmittag()
-                && !s.getAmabend()
-                && !s.getAmmorgennacht()
-                && !s.getAmmorgen()
-                && !s.getAmvormittag()
-                && !s.getNachmittags()
-                && !s.getAbends()
-                && !s.getMorgennacht()
-                && !s.getMorgens()
-                && !s.getVormittags()
-                && !s.getInderfrueh()
-                && !s.getIndernacht()
-                )
-            word += "Uhr ";
 
 		return word;
 
