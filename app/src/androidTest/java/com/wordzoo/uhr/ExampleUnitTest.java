@@ -1,6 +1,8 @@
 package com.wordzoo.uhr;
 
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnitRunner;
 import android.test.InstrumentationTestCase;
 
 import com.germanclock.time.Pieces;
@@ -16,21 +18,23 @@ import org.junit.runner.RunWith;
 import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ExampleUnitTest extends InstrumentationTestCase  {
+public class ExampleUnitTest extends AndroidJUnitRunner {
 
     private Context context;
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+
+       protected void tearDown() throws Exception {
+
     }
 
-    @Override
+
     protected void setUp() {
-        this.context =   getInstrumentation().getContext();
+        this.context =   InstrumentationRegistry.getContext();
+                //this.getInstrumentation().getTargetContext();
 
 
     }
@@ -43,7 +47,7 @@ public class ExampleUnitTest extends InstrumentationTestCase  {
         // Five ocklock Evening tests
         s.setUmgangssprachlich(Boolean.TRUE);
         Pieces p = new Pieces("17:00");
-        TimeInWords tiw = new TimeInWords(context);
+        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
         String out = tiw.getTimeAsSentance(p,s);
         assertEquals("fünf", out);
 

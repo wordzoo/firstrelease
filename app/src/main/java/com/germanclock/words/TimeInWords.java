@@ -13,7 +13,7 @@ public class TimeInWords {
     private Context context;
 
     public Context getContext() {
-        return context;
+        return this.context;
     }
 
     public void setContext(Context context) {
@@ -21,7 +21,7 @@ public class TimeInWords {
     }
 
     public TimeInWords(){;}
-    public TimeInWords(Context c){this.context = c;}
+    public TimeInWords(Context context){this.context = context;}
 	
 	public String getTimeAsSentance(Pieces p, Settings s) {
 		StringBuilder ret = new StringBuilder();
@@ -130,9 +130,10 @@ public class TimeInWords {
             Integer umgangMinutes = p.getMinutes();
             if(umgangMinutes > 30)
                 umgangMinutes = 60 - umgangMinutes;
-            int id = getContext().getResources().getIdentifier("germannumber"+umgangMinutes, "string",
-                    getContext().getPackageName());
-            String stringUmgangMinutes = getContext().getString(id);
+            Resources res = getContext().getResources();
+            String[] german_number = res.getStringArray(R.array.german_number);
+            String stringUmgangMinutes = german_number[p.getMinutes()-1];
+
             word.setMinute1(stringUmgangMinutes + " " + ((p.getMinutes() <= 30)?"nach":"vor"));
             if(p.getMinutes() > 30)
                 word.setPlusHour(Boolean.TRUE);
@@ -244,9 +245,7 @@ public class TimeInWords {
 	         //default: getMinuteOfficial(p);
 	           // break;
 		}
-		if(s.getUhr())
-			word.setUhr("Uhr");
-		
+
 		return word;
 	}
 
@@ -397,24 +396,39 @@ public class TimeInWords {
 
 
 		if (p.getHr24() >= 12
-				&& p.getHr24() < 18
+				&& p.getHr24() < 17
 				&& s.getNachmittags())
 			word += "nachmittags ";
 		if (p.getHr24() >= 12
-				&& p.getHr24() < 18
+				&& p.getHr24() < 17
                 && s.getAmnachmittag())
 			word += "am Nachmittag ";
 
 
-		if (p.getHr24() >= 18
+		if (p.getHr24() >= 17
 				&& p.getHr24() <= 23
 				&& s.getAbends())
 			word += "abends ";
-		if (p.getHr24() >= 18
+		if (p.getHr24() >= 17
 				&& p.getHr24() <= 23
 				&& s.getAmmorgen())
 			word += "am Abend ";
 
+        if(s.getUhr()
+                && !s.getAmnachmittag()
+                && !s.getAmabend()
+                && !s.getAmmorgennacht()
+                && !s.getAmmorgen()
+                && !s.getAmvormittag()
+                && !s.getNachmittags()
+                && !s.getAbends()
+                && !s.getMorgennacht()
+                && !s.getMorgens()
+                && !s.getVormittags()
+                && !s.getInderfrueh()
+                && !s.getIndernacht()
+                )
+            word += "Uhr ";
 
 		return word;
 
