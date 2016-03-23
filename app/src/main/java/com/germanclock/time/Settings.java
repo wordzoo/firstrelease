@@ -23,6 +23,15 @@ public class Settings {
 
     private Umgangminute umgangminute = Umgangminute.minutebar;
 
+    private Boolean minuteHybrid = Boolean.FALSE;
+
+    public Boolean getMinuteHybrid() {
+        return minuteHybrid;
+    }
+
+    public void setMinuteHybrid(Boolean minuteHybrid) {
+        this.minuteHybrid = minuteHybrid;
+    }
 
     //note if umgangssprachlich get false, nothing below here applies
     //note for block layout, you can only have Umgangminute.minutebar
@@ -249,7 +258,7 @@ public class Settings {
         return abends;
     }
 
-    public void setAbends(Boolean abdends) {
+    public void setAbends(Boolean abends) {
         this.abends = abends;
     }
 
