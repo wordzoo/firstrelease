@@ -3,19 +3,17 @@ package com.wordzoo.uhr;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnitRunner;
-import android.test.InstrumentationTestCase;
 
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
-import android.os.Parcel;
+
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.test.suitebuilder.annotation.SmallTest;
-import android.util.Pair;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -34,9 +32,6 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
     protected void setUp() {
         this.context =   InstrumentationRegistry.getContext();
-                //this.getInstrumentation().getTargetContext();
-
-
     }
 
     @Test
@@ -44,120 +39,64 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
 
         Settings s = new Settings();
-        // Five ocklock Evening tests
-        s.setUmgangssprachlich(Boolean.TRUE);
-        Pieces p = new Pieces("17:00");
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
-        String out = tiw.getTimeAsSentance(p,s);
-        assertEquals("fünf", out);
+
+        // Basic umgangsprashlich test
+        s.setUmgangssprachlich(Boolean.TRUE);
+        s.setMinuteHybrid(Boolean.TRUE);
+        s.setUmgangminute(Settings.Umgangminute.minutebar);
 
         s.setEsist(Boolean.TRUE);
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf", out);
-
         s.setUhr(Boolean.TRUE);
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Uhr", out);
+        s.setMinute(Boolean.TRUE);
 
+        s.setMitternacht(Boolean.TRUE);
+        s.setKurzvor(Boolean.TRUE);
+        s.setKurznach(Boolean.TRUE);
+
+        s.setMorgens(Boolean.TRUE);
+        s.setVormittags(Boolean.TRUE);
         s.setNachmittags(Boolean.TRUE);
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Uhr nachmittags", out);
-        s.setNachmittags(Boolean.FALSE);
-
-        s.setAmnachmittag(Boolean.TRUE);
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Uhr am Nachmittag", out);
-        s.setAmnachmittag(Boolean.FALSE);
-
-        s.setAmabend(Boolean.TRUE);
-        s.setUmgangminute(Settings.Umgangminute.minuteword);
-        p = new Pieces("18:17");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist siebzehn nach sechs Uhr am Abend", out);
-        s.setAmabend(Boolean.FALSE);
-
-        s.setMinuteHybrid(Boolean.TRUE);
         s.setAbends(Boolean.TRUE);
-        p = new Pieces("18:17");
+        s.setIndernacht(Boolean.TRUE);
+
+        s.setViertel(Settings.Viertel.viertelacht);
+        s.setFuenfvorviertelacht(Boolean.TRUE);
+        s.setFuenfnachviertelacht(Boolean.TRUE);
+
+        s.setHalb(Boolean.TRUE);
+        s.setFuenfvorhalb(Boolean.TRUE);
+        s.setFuenfnachhalb(Boolean.TRUE);
+        s.setKurzvorhalb(Boolean.TRUE);
+        s.setKurznachhalb(Boolean.TRUE);
+
+        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        s.setFuenfvordreiviertelacht(Boolean.TRUE);
+        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
+
+
+        Pieces p = new Pieces("00:00");
+        String out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist Mitternacht", out);
+
+        p = new Pieces("00:05");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist sechs Uhr siebzehn abends", out);
+        assertEquals("Es ist fünf Minuten nach Mitternacht", out);
 
-        p = new Pieces("17:05");
+        p = new Pieces("00:10");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf nach fünf Uhr", out);
+        assertEquals("Es ist fünf Minuten vor viertel eins in der Nacht", out);
 
-        //mitternachts
+        p = new Pieces("00:15");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist viertel eins in der Nacht", out);
+
+        p = new Pieces("00:20");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf Minuten nach viertel eins in der Nacht", out);
+
+
     }
 
 
-/*    private Boolean flag = Boolean.FALSE;
-
-    public enum FlagPattern {
-        vienna,
-        dambach,
-        kaernten
-    }
-
-    private FlagPattern flagPattern = FlagPattern.vienna;
-
-    private Boolean esist = Boolean.FALSE;;
-    private Boolean umgangssprachlich = Boolean.FALSE;;
-
-
-    //you can only choose this of umgangssprachlich is true
-    public enum Umgangminute {
-        minutebar,
-        minuteword
-    }
-
-    private Umgangminute umgangminute = Umgangminute.minutebar;
-
-
-    //note if umgangssprachlich get false, nothing below here applies
-    //note for block layout, you can only have Umgangminute.minutebar
-    public enum Clockface {
-        block,
-        sentance
-    }
-
-    private Clockface clockface = Clockface.sentance;
-
-
-
-
-	private Boolean kurznach = Boolean.FALSE;;
-
-
-    public enum Viertel {
-        viertelueber,
-        viertelnach,
-        viertelacht
-    }
-
-    private Viertel viertel = Viertel.viertelnach;
-
-	//if viertel == viertel.vieterlacht, two more options
-    private Boolean fuenfvorviertelacht = Boolean.FALSE;;
-    private Boolean fuenfnachviertelacht = Boolean.FALSE;;
-
-
-
-    //halb is selected be default with umgrangsprache
-    private Boolean halb = Boolean.FALSE;;
-
-    //these are available only if you choose halb
-    private Boolean fuenfvorhalb = Boolean.FALSE;;
-    private Boolean fuenfnachhalb = Boolean.FALSE;;
-    private Boolean kurzvorhalb = Boolean.FALSE;;
-    private Boolean kurznachhalb = Boolean.FALSE;;
-
-
-    private Boolean zehnvorhalb = Boolean.FALSE;;
-    private Boolean zehnnachhalb = Boolean.FALSE;;
-    //or
-    private Boolean zwanzignach = Boolean.FALSE;;
-    private Boolean zwanzigvor = Boolean.FALSE;;
-
-
-*/
 }

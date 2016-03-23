@@ -25,73 +25,116 @@ public class TimeInWords {
 	
 	public String getTimeAsSentance(Pieces p, Settings s) {
 		StringBuilder ret = new StringBuilder();
+        TimeInWordsDto tiw = new TimeInWordsDto(p, s);
 
-        if(isNotEmpty(getBegin(p, s))) {
-            ret.append(getBegin(p, s));
-            ret.append(" ");
-        }
+        //by ref populate the beginning
+        getBegin(tiw);
+
 
 
         //conversational time construction
         if (s.getUmgangssprachlich())
-            getUmgangConstruction(ret, s, p);
-
-        //offical time construction
+            getUmgangConstruction(tiw);
+            //offical time construction
         else
-            getOfficialConstruction(ret, s, p);
+            getOfficialConstruction(tiw);
 
-		return ret.toString().trim();
+        if(  !(s.getMitternacht()
+                && (p.getHr24() == 0))
+                )
+           tiw.setSectionOfDay(getSectionOfDay(tiw));
+
+        if(isNotEmpty(tiw.getBegin())) {
+            ret.append(tiw.getBegin());
+            ret.append(" ");
+        }
+
+        if(isNotEmpty(tiw.getMinute1())) {
+            ret.append(tiw.getMinute1());
+            ret.append(" ");
+        }
+
+        //word "Minute" or "Minuten"
+        if(isNotEmpty(tiw.getMinute())) {
+            ret.append(tiw.getMinute());
+            ret.append(" ");
+
+        if(isNotEmpty(tiw.getVornach())) {
+            ret.append(tiw.getVornach());
+            ret.append(" ");
+        }
+
+        if(isNotEmpty(tiw.getMinute2())) {
+            ret.append(tiw.getMinute2());
+            ret.append(" ");
+        }
+
+        if(isNotEmpty(tiw.getHour())) {
+            ret.append(tiw.getHour());
+            ret.append(" ");
+        }
+
+        if(isNotEmpty(tiw.getUhr())) {
+            ret.append(tiw.getUhr());
+            ret.append(" ");
+        }
+
+        if(isNotEmpty(tiw.getSectionOfDay())) {
+            ret.append(tiw.getSectionOfDay());
+            ret.append(" ");
+        }
+
+
+        return ret.toString().trim();
 	}
 
-    public StringBuilder getUmgangConstruction(StringBuilder ret, Settings s, Pieces p) {
-		TimeInWordsDto timeInWordsDto = getMinute(p, s);
-
+    public void getUmgangConstruction(TimeInWordsDto tiw) {
+		tiw.merge(getMinute(tiw.getPieces(), tiw.getSettings()));
 
 		//special case when the minutes are nto a multiple of 5, and user has selected in this case to use official construction,
 		//but because s.getUmganssprachlich() is true, we will still use the 12 hours system...
 		if( (p.getRemainderMinutes() > 0) &&
 				(s.getMinuteHybrid() && s.getUmgangminute().equals(Settings.Umgangminute.minuteword))
 				)
-			return getOfficialConstruction(ret, s, p);
+			return getOfficialConstruction(tiw);
 
 
 
-        if (isNotEmpty(timeInWordsDto.getMinute1())) {
-            ret.append(timeInWordsDto.getMinute1());
-            ret.append(" ");
+        if (isNotEmpty(tiw2.getMinute1())) {
+            tiw.setMinute1(tiw2.getMinute1() + " ");
+
+            if(s.getMinute()) {
+                if (p.getMinutes() > 1)
+                    tiw.setMinute("Minuten ");
+                else
+                    tiw.setMinute("Minute ");
+            }
+        }
+        if (isNotEmpty(tiw2.getVornach())) {
+            tiw.setVornach(tiw2.getVornach() + " ");
+
         }
 
-        if (isNotEmpty(timeInWordsDto.getMinute2())) {
-            ret.append(timeInWordsDto.getMinute2());
-            ret.append(" ");
+        if (isNotEmpty(tiw2.getMinute2())) {
+            tiw.setMinute2(tiw2.getMinute2() + " ");
         }
 
-        ret.append(getHour(p, s, timeInWordsDto.getPlusHour()));
+        tiw.setHour(getHour(p, s, tiw2.getPlusHour()));
 
-        ret.append(getSectionOfDay(s, p).toString());
-
-        return ret;
     }
 
-    public StringBuilder getOfficialConstruction(StringBuilder ret, Settings s, Pieces p) {
+    public void getOfficialConstruction(TimeInWordsDto tiw) {
         //official time
-        ret.append(getHour(p, s, Boolean.FALSE));
-
-        TimeInWordsDto timeInWordsDto = getMinute(p, s);
-        if (isNotEmpty(timeInWordsDto.getMinute1())) {
-            ret.append(timeInWordsDto.getMinute1());
-            ret.append(" ");
-        }
-        ret.append(getSectionOfDay(s, p).toString());
-        return ret;
+        tiw.setPlusHour(Boolean.FALSE);
+        tiw.setHour(getHour(tiw));
+        tiw.merge(getMinute(tiw));
     }
 
 
-	public String getBegin(Pieces p, Settings s) {
-		if(s.getEsist())
-			return "Es ist";
-		else
-			return null;
+	public void getBegin(TimeInWordsDto tiw) {
+		if(tiw.getSettings().getEsist())
+			tiw.setBegin("Es ist");
+
 	}
 
 
@@ -115,6 +158,10 @@ public class TimeInWords {
             else
                 timeInWordsDto = getUmgangMinutes(p, s);
         }
+
+        timeInWordsDto.setPieces(p);
+        timeInWordsDto.setSettings(s);
+
         return timeInWordsDto;
     }
 
@@ -124,7 +171,10 @@ public class TimeInWords {
         TimeInWordsDto ret = new TimeInWordsDto();
         Resources res = getContext().getResources();
         String[] german_number = res.getStringArray(R.array.german_number);
-        ret.setMinute1(german_number[p.getMinutes() - 1]);
+        if(s.getMinute() && p.getMinutes() == 1)
+            ret.setMinute1(german_number[0]);
+        else
+            ret.setMinute1(german_number[p.getMinutes()]);
 
         ret.setPlusHour(Boolean.FALSE);
         return ret;
@@ -137,11 +187,13 @@ public class TimeInWords {
 
 
 
-        //the point is that for Settings.Umgangminute.minutebar, rouding to the nearest 5 is what we want
-        // but for Settings.Umgangminute.minuteword, only when p.getMinutes() == p.getFiveMinuteBucket
-        //do we want to drop into a case....
+
 
         Integer testMinute;
+
+
+        //this block here is for the case where s.MinuteHybrid() is false
+        //here we still use vor and nach but with the full minutes in words
         if(s.getUmgangminute() == Settings.Umgangminute.minuteword) {
             testMinute = p.getMinutes();
             //set up defaults
@@ -150,9 +202,14 @@ public class TimeInWords {
                 umgangMinutes = 60 - umgangMinutes;
             Resources res = getContext().getResources();
             String[] german_number = res.getStringArray(R.array.german_number);
-            String stringUmgangMinutes = german_number[p.getMinutes()-1];
 
-            word.setMinute1(stringUmgangMinutes + " " + ((p.getMinutes() <= 30)?"nach":"vor"));
+            if(s.getMinute() && p.getMinutes() == 1)
+                word.setMinute1(german_number[0]);
+            else
+                word.setMinute1(german_number[p.getMinutes()]);
+
+
+            word.setVornach((p.getMinutes() <= 30)?"nach":"vor");
             if(p.getMinutes() > 30)
                 word.setPlusHour(Boolean.TRUE);
         }
@@ -161,22 +218,27 @@ public class TimeInWords {
 
 		switch (testMinute) {
 			 case 0:
-				 if(s.getKurznach() && p.getMinutes() > 0)
-					 word.setMinute1("kurz nach");
+				 if(s.getKurznach() && p.getMinutes() > 0) {
+                     word.setMinute1("kurz");
+                     word.setVornach("nach");
+                 }
                  break;
 			 case 5:
-                    word.setMinute1("fünf nach");
-
+                     word.setMinute1("fünf");
+                     word.setVornach("nach");
                  break;
 			 case 10:
                  if( (s.getViertel() == Settings.Viertel.viertelacht)
                          && s.getFuenfvorviertelacht()) {
-                     word.setMinute1("fünf vor");
+                     word.setMinute1("fünf");
+                     word.setVornach("vor");
                      word.setMinute2("viertel");
                      word.setPlusHour(Boolean.TRUE);
                  }
-                 else
-                     word.setMinute1("zehn nach");
+                 else {
+                     word.setMinute1("zehn");
+                     word.setVornach("nach");
+                 }
                  break;
 			 case 15:  
 			 	if(s.getViertel() == Settings.Viertel.viertelacht) {
@@ -185,80 +247,98 @@ public class TimeInWords {
                 }
 			 	else if(s.getViertel() == Settings.Viertel.viertelnach) {
                     word.setMinute1("viertel");
-                    word.setMinute2("nach");
+                    word.setVornach("nach");
                 }
                 else if(s.getViertel() == Settings.Viertel.viertelueber) {
                     word.setMinute1("viertel");
-                    word.setMinute2("über");
+                    word.setVornach("über");
                 }
 			 	break;
 			 case 20:
                  if(s.getZehnvorhalb()){
-                     word.setMinute1("zehn vor");
+                     word.setMinute1("zehn");
+                     word.setVornach("vor");
                      word.setMinute2("halb");
                      word.setPlusHour(Boolean.TRUE);
                  }
-                 else if(s.getZwanzignach())
-			 		word.setMinute1("zwanzig nach");
+                 else if(s.getZwanzignach()) {
+                     word.setMinute1("zwanzig");
+                     word.setVornach("nach");
+                 }
 
 				break;
 			 case 25:
                  if(s.getHalb()
                          && s.getFuenfvorhalb()) {
-                     word.setMinute1("fünf vor");
+                     word.setMinute1("fünf");
+                     word.setVornach("vor");
                      word.setMinute2("halb");
                      word.setPlusHour(Boolean.TRUE);
                  }
-				else
-			 		word.setMinute1("fünfundzwanzig nach");
+				else {
+                     word.setMinute1("fünfundzwanzig");
+                     word.setVornach("nach");
+                 }
 			 	break;
 			 case 30:  
 				if(s.getHalb()) {
                     word.setMinute1("halb");
                     word.setPlusHour(Boolean.TRUE);
                 }
-                else if (s.getDreissignach())
-                    word.setMinute1("dreißig nach");
+                else if (s.getDreissignach()) {
+                    word.setMinute1("dreißig");
+                    word.setVornach("nach");
+                }
                 break;
 			 case 35: 
 				if(s.getHalb()
                  && s.getFuenfnachhalb()) {
-                    word.setMinute1("fünf nach");
+                    word.setMinute1("fünf");
+                    word.setVornach("nach");
                     word.setMinute2("halb");
                     word.setPlusHour(Boolean.TRUE);
                 }
 			 	else {
-			 		word.setMinute1("fünfundzwanzig vor");
+			 		word.setMinute1("fünfundzwanzig");
+                    word.setVornach("vor");
                     word.setPlusHour(Boolean.TRUE);
 			 	}
 			 case 40:  
 				if(s.getDreiviertel() == Settings.Dreiviertel.dreiviertelacht) {
-                    word.setMinute1("fünf vor");
-                    word.setMinute2("dreiviertel");
+                    word.setMinute1("fünf");
+                    word.setVornach("vor");
+                    word.setMinute2("drei viertel");
                     word.setPlusHour(Boolean.TRUE);
                 }
 			 	else {
-                    word.setMinute1("zwanzig vor");
+                    word.setMinute1("zwanzig");
+                    word.setVornach("vor");
 			 	}
 			 	break;
 			 case 45:
                  if(s.getDreiviertel() == Settings.Dreiviertel.dreiviertelacht) {
-                     word.setMinute2("dreiviertel");
+                     word.setMinute2("drei viertel");
                      word.setPlusHour(Boolean.TRUE);
                  }
                  else if(s.getDreiviertel() == Settings.Dreiviertel.viertelvor){
-                     word.setMinute2("viertel vor");
+                     word.setMinute2("viertel");
+                     word.setVornach("vor");
                  }
-                 else if(s.getDreiviertel() == Settings.Dreiviertel.fuenfzehn)
-                     word.setMinute1("fünfzehn vor");
+                 else if(s.getDreiviertel() == Settings.Dreiviertel.fuenfzehn) {
+                     word.setMinute1("fünfzehn");
+                     word.setVornach("vor");
+                 }
 
 			 	break;
 			 case 50:
-                    word.setMinute1("zehn vor");
+                    word.setMinute1("zehn");
+                    word.setVornach("vor");
 			 	break;
 			 case 55:
-                 if(s.getKurzvor() && p.getMinutes() > 55)
-                     word.setMinute1("kurz vor");
+                 if(s.getKurzvor() && p.getMinutes() > 55) {
+                     word.setMinute1("kurz");
+                     word.setVornach("vor");
+                 }
 			 	break;             
 	         //default: getMinuteOfficial(p);
 	           // break;
@@ -271,129 +351,66 @@ public class TimeInWords {
 	
 
 	
-	public String getHour(Pieces p, Settings s, Boolean plusHour) {
+	public String getHour(TimeInWordsDto tiw) {
         String word;
         Integer number;
-        if (s.getUmgangssprachlich())
-            number = p.getHr();
+        if (tiw.getSettings().getUmgangssprachlich())
+            number = tiw.getPieces().getHr();
         else
-            number = p.getHr24();
+            number = tiw.getPieces().getHr24();
 
 
         //code to read the next hour for expressions like dreiviertel neun (8:45)
-        if (plusHour)
+        if (tiw.getPlusHour())
             number++;
 
         if (number.intValue() == 24)
             number = 0;
 
-        switch (number) {
-            case 0: {
-                if (s.getMitternachts())
-                    word = "Mitternacht ";
-                else
-                    word = "Null ";
-                break;
-            }
-            case 1:
-                word = "ein ";
-                break;
-            case 2:
-                word = "zwei ";
-                break;
-            case 3:
-                word = "drei ";
-                break;
-            case 4:
-                word = "vier ";
-                break;
-            case 5:
-                word = "fünf ";
-                break;
-            case 6:
-                word = "sechs ";
-                break;
-            case 7:
-                word = "sieben ";
-                break;
-            case 8:
-                word = "acht ";
-                break;
-            case 9:
-                word = "neun ";
-                break;
-            case 10:
-                word = "zehn ";
-                break;
-            case 11:
-                word = "elf ";
-                break;
-            case 12:
-                word = "zwölf ";
-                break;
-            case 13:
-                word = "dreizehn ";
-                break;
-            case 14:
-                word = "vierzehn ";
-                break;
-            case 15:
-                word = "fünfzehn ";
-                break;
-            case 16:
-                word = "sechszehn ";
-                break;
-            case 17:
-                word = "sebzehn ";
-                break;
-            case 18:
-                word = "achtzehn ";
-                break;
-            case 19:
-                word = "neunzehn ";
-                break;
-            case 20:
-                word = "zwanzig ";
-                break;
-            case 21:
-                word = "einundzwanzig ";
-                break;
-            case 22:
-                word = "zweiundzwanzig ";
-                break;
-            case 23:
-                word = "dreiundzwanzig ";
-                break;
-            default:
-                word = "Invalid hour ";
-                break;
+        Resources res = getContext().getResources();
+        String[] german_number = res.getStringArray(R.array.german_number);
+
+
+        if(number == 0) {
+            if (tiw.getSettings().getMitternacht())
+                word = "Mitternacht ";
+            else
+                word = "Null ";
+        }
+        else {
+            if( tiw.getSettings().getUhr() && number == 1 && tiw.getPlusHour().equals(Boolean.FALSE))
+                word = german_number[0] + " ";
+            else
+                word = german_number[number] + " ";
         }
 
 
-        if (s.getUhr())
+        if (tiw.getSettings().getUhr()
+                && !(tiw.getSettings().getMitternacht() && (tiw.getPieces().getHr24() == 0))
+                && !word.equals("eins"))
             word += "Uhr ";
         return word;
     }
     public StringBuilder getSectionOfDay(Settings s, Pieces p) {
         StringBuilder word = new StringBuilder();
 //three night variatne, nach, früh and morgen, mutually exclusive
-		if (p.getHr24() > 0
+		if (p.getHr24() >= 0
 				&& p.getHr24() < 5
                 && s.getNachts())
 			word.append("nachts ");
-		else if (p.getHr24() > 0
+		else if (p.getHr24() >= 0
 				&& p.getHr24() < 5
 				&& s.getIndernacht())
 			word.append("in der Nacht ");
-		else if (p.getHr24() > 0
+		else if (p.getHr24() >= 0
 				&& p.getHr24() < 5
 				&& s.getInderfrueh())
 			word.append("in der Früh ");
-		else if (p.getHr24() > 0
+		else if (p.getHr24() >= 0
 				&& p.getHr24() < 5
                 && s.getMorgennacht())
 			word.append("moregens ");
-		else if (p.getHr24() > 0
+		else if (p.getHr24() >= 0
 				&& p.getHr24() < 5
 				&& s.getAmmorgennacht())
 			word.append("am Morgen ");

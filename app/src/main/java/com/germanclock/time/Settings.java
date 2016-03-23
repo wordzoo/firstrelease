@@ -42,7 +42,7 @@ public class Settings {
 
     private Clockface clockface = Clockface.sentance;
 
-   private Boolean mitternachts = Boolean.FALSE;
+   private Boolean mitternacht = Boolean.FALSE;
 	private Boolean morgens = Boolean.FALSE;
 	private Boolean ammorgen = Boolean.FALSE;
 	private Boolean vormittags = Boolean.FALSE;
@@ -58,9 +58,10 @@ public class Settings {
     private Boolean morgennacht = Boolean.FALSE;
     private Boolean ammorgennacht = Boolean.FALSE;
 
-	private Boolean uhr = Boolean.FALSE;;
+	private Boolean uhr = Boolean.FALSE;
+    private Boolean minute = Boolean.FALSE;
 
-	private Boolean kurznach = Boolean.FALSE;;
+	private Boolean kurznach = Boolean.FALSE;
 
 
     public enum Viertel {
@@ -115,8 +116,15 @@ public class Settings {
 	private Boolean kurzvor = Boolean.FALSE;
 
     //this also does not work on block layout
-    private Boolean dreissignach;
+    private Boolean dreissignach = Boolean.FALSE;
 
+    public Boolean getMinute() {
+        return minute;
+    }
+
+    public void setMinute(Boolean minute) {
+        this.minute = minute;
+    }
 
     public Boolean getInderfrueh() {
         return inderfrueh;
@@ -190,12 +198,12 @@ public class Settings {
         this.clockface = clockface;
     }
 
-    public Boolean getMitternachts() {
-        return mitternachts;
+    public Boolean getMitternacht() {
+        return mitternacht;
     }
 
-    public void setMitternachts(Boolean mitternachts) {
-        this.mitternachts = mitternachts;
+    public void setMitternacht(Boolean mitternacht) {
+        this.mitternacht = mitternacht;
     }
 
     public Boolean getMorgens() {

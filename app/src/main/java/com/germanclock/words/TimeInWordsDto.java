@@ -1,5 +1,8 @@
 package com.germanclock.words;
 
+import com.germanclock.time.Pieces;
+import com.germanclock.time.Settings;
+
 /**
  * Created by ich on 19.03.2016.
  */
@@ -7,10 +10,76 @@ public class TimeInWordsDto {
     private String begin = "";
     private String minute1 = "";
     private String minute2 = "";
+    private String minute = "";
     private String hour = "";
     private String uhr = "";
+    private String vornach = "";
+    private String sectionOfDay = "";
+    private Settings settings = new Settings();
+    private Pieces pieces = new Pieces("");
+
     private Boolean plusHour = Boolean.FALSE;
     private Boolean umgangssprachlich = Boolean.FALSE;
+
+
+    public String getSectionOfDay() {
+        return sectionOfDay;
+    }
+
+    public void setSectionOfDay(String sectionOfDay) {
+        this.sectionOfDay = sectionOfDay;
+    }
+
+    public TimeInWordsDto(Pieces pieces, Settings settings) {
+        this.pieces = pieces;
+        this.settings = settings;
+    }
+
+    public void merge(TimeInWordsDto tiw) {
+
+        if (isNotEmpty(tiw.getMinute1())) {
+            setMinute1(tiw.getMinute1());
+            if(tiw.getSettings().getMinute()) {
+                if (tiw.getPieces().getMinutes() > 1)
+                    setMinute("Minuten ");
+                else
+                    setMinute("Minute ");
+            }
+        }
+    }
+
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    public Pieces getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(Pieces pieces) {
+        this.pieces = pieces;
+    }
+
+    public String getMinute() {
+        return minute;
+    }
+
+    public void setMinute(String minute) {
+        this.minute = minute;
+    }
+
+    public String getVornach() {
+        return vornach;
+    }
+
+    public void setVornach(String vornach) {
+        this.vornach = vornach;
+    }
 
     public Boolean getUmgangssprachlich() {
         return umgangssprachlich;
@@ -67,4 +136,12 @@ public class TimeInWordsDto {
     public void setUhr(String uhr) {
         this.uhr = uhr;
     }
+
+    public Boolean isNotEmpty(String in){
+        if(in != null && in != "")
+            return Boolean.TRUE;
+        else
+            return Boolean.FALSE;
+    }
+
 }

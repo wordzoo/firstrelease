@@ -12,7 +12,7 @@
 
     <string-array name="german_number">
 
-
+        <item>ein</item>
         <item>eins</item>
         <item>zwei</item>
         <item>drei</item>
