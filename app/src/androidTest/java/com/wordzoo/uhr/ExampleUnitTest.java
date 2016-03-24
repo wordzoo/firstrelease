@@ -35,7 +35,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
     }
 
     @Test
-    public void testWords()   {
+    public void testMinuteBarWords()   {
 
 
         Settings s = new Settings();
@@ -95,6 +95,40 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
         out = tiw.getTimeAsSentance(p,s);
         assertEquals("Es ist fünf Minuten nach viertel eins in der Nacht", out);
 
+
+        p = new Pieces("00:25");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf Minuten vor halb eins in der Nacht", out);
+
+
+        p = new Pieces("00:30");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist halb eins in der Nacht", out);
+
+
+        p = new Pieces("00:35");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf Minuten nach halb eins in der Nacht", out);
+
+
+        p = new Pieces("00:40");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf Minuten vor drei viertel eins in der Nacht", out);
+
+
+        p = new Pieces("00:45");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist drei viertel eins in der Nacht", out);
+
+
+        p = new Pieces("00:50");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist zehn Minuten vor ein Uhr in der Nacht", out);
+
+
+        p = new Pieces("00:55");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist fünf Minuten vor ein Uhr in der Nacht", out);
 
     }
 

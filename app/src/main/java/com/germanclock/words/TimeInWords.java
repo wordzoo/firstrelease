@@ -108,6 +108,7 @@ public class TimeInWords {
             if (isNotEmpty(tiw.getMinute())
                     && !tiw.getMinute1().equals("viertel")
                     && !tiw.getMinute1().equals("drei viertel")
+                    && !tiw.getMinute1().equals("halb")
                     ) {
                 ret.append(tiw.getMinute());
                 ret.append(" ");
@@ -293,6 +294,7 @@ public class TimeInWords {
                     tiw.setVornach("vor");
                     tiw.setPlusHour(Boolean.TRUE);
 			 	}
+                 break;
 			 case 40:  
 				if(tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.dreiviertelacht) {
                     tiw.setMinute1("fünf");
@@ -307,11 +309,11 @@ public class TimeInWords {
 			 	break;
 			 case 45:
                  if(tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.dreiviertelacht) {
-                     tiw.setMinute2("drei viertel");
+                     tiw.setMinute1("drei viertel");
                      tiw.setPlusHour(Boolean.TRUE);
                  }
                  else if(tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.viertelvor){
-                     tiw.setMinute2("viertel");
+                     tiw.setMinute1("viertel");
                      tiw.setVornach("vor");
                  }
                  else if(tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.fuenfzehn) {
