@@ -24,9 +24,12 @@ public class TimeInWords {
     public TimeInWords(Context context){this.context = context;}
 	
 	public String getTimeAsSentance(Pieces p, Settings s) {
-		StringBuilder ret = new StringBuilder();
-        TimeInWordsDto tiw = new TimeInWordsDto(p, s);
 
+        TimeInWordsDto tiw = new TimeInWordsDto(p, s);
+        developTimeWords(tiw);
+        return assembleTextTime(tiw);
+    }
+    public void developTimeWords(TimeInWordsDto tiw) {
         //by ref populate the beginning
         getBegin(tiw);
 
@@ -35,29 +38,42 @@ public class TimeInWords {
             getMinuteOfficial(tiw);
 
         if (tiw.getSettings().getUmgangssprachlich()) {
-            if( (tiw.getPieces().getRemainderMinutes() > 0)
+            if ((tiw.getPieces().getRemainderMinutes() > 0)
                     && tiw.getSettings().getMinuteHybrid()
                     && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword))
                 getMinuteOfficial(tiw);
             else
-               getUmgangMinutes(tiw);
+                getUmgangMinutes(tiw);
         }
 
         //pupulate word "minute" or "Minutes"
-        if(s.getMinute()) {
-            if (p.getMinutes() == 1)
+        if (tiw.getSettings().getMinute()) {
+            if (tiw.getPieces().getMinutes() == 1)
                 tiw.setMinute("Minute");
-            else if (p.getMinutes() > 1)
+            else if (tiw.getPieces().getMinutes() > 1)
                 tiw.setMinute("Minuten");
         }
+
         //by ref popualte hour
         getHour(tiw);
 
+        //populate wod "Uhr"
+        if (tiw.getSettings().getUhr()
+                && !tiw.getHour().equals("Mitternacht")
+                && !tiw.getHour().equals("eins")
+                && !tiw.getMinute2().equals("viertel")
+                && !tiw.getMinute2().equals("halb")
+                && !tiw.getMinute2().equals("drei viertel")
+                )
+            tiw.setUhr("Uhr");
+
         //by sectoin of day
         getSectionOfDay(tiw);
+    }
 
-
+    public String assembleTextTime(TimeInWordsDto tiw) {
         //build output string
+        StringBuilder ret = new StringBuilder();
 
         //common to all registers of time expressions
         if(isNotEmpty(tiw.getBegin())) {
@@ -305,6 +321,7 @@ public class TimeInWords {
 			 	else {
                     tiw.setMinute1("zwanzig");
                     tiw.setVornach("vor");
+                    tiw.setPlusHour(Boolean.TRUE);
 			 	}
 			 	break;
 			 case 45:
@@ -315,21 +332,30 @@ public class TimeInWords {
                  else if(tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.viertelvor){
                      tiw.setMinute1("viertel");
                      tiw.setVornach("vor");
+                     tiw.setPlusHour(Boolean.TRUE);
                  }
                  else if(tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.fuenfzehn) {
                      tiw.setMinute1("fünfzehn");
                      tiw.setVornach("vor");
+                     tiw.setPlusHour(Boolean.TRUE);
                  }
 
 			 	break;
 			 case 50:
                     tiw.setMinute1("zehn");
                     tiw.setVornach("vor");
+                    tiw.setPlusHour(Boolean.TRUE);
 			 	break;
 			 case 55:
                  if(tiw.getSettings().getKurzvor() && tiw.getPieces().getMinutes() > 55) {
                      tiw.setMinute1("kurz");
                      tiw.setVornach("vor");
+                     tiw.setPlusHour(Boolean.TRUE);
+                 }
+                 else {
+                     tiw.setMinute1("fünf");
+                     tiw.setVornach("vor");
+                     tiw.setPlusHour(Boolean.TRUE);
                  }
 			 	break;             
 
@@ -367,17 +393,19 @@ public class TimeInWords {
                 word = "Null";
         }
         else {
-            if( tiw.getSettings().getUhr() && number == 1 && tiw.getPlusHour().equals(Boolean.FALSE))
+            if( tiw.getSettings().getUhr()
+                    && number == 1
+                    && !tiw.getMinute1().equals("viertel")
+                    && !tiw.getMinute1().equals("halb")
+                    && !tiw.getMinute1().equals("drei viertel")
+                    && !tiw.getMinute2().equals("viertel")
+                    && !tiw.getMinute2().equals("halb")
+                    && !tiw.getMinute2().equals("drei viertel"))
                 word = german_number[0];
             else
                 word = german_number[number];
         }
 
-
-        if (tiw.getSettings().getUhr()
-                && !(tiw.getSettings().getMitternacht() && (tiw.getPieces().getHr24() == 0))
-                && !tiw.equals("eins"))
-            word += "Uhr";
 
         tiw.setHour(word);
     }
