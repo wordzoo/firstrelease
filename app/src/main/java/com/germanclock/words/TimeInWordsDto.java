@@ -16,7 +16,7 @@ public class TimeInWordsDto {
     private String vornach = "";
     private String sectionOfDay = "";
     private Settings settings = new Settings();
-    private Pieces pieces = new Pieces("");
+    private Pieces pieces = new Pieces("00:00");
 
     private Boolean plusHour = Boolean.FALSE;
     private Boolean umgangssprachlich = Boolean.FALSE;
@@ -33,19 +33,6 @@ public class TimeInWordsDto {
     public TimeInWordsDto(Pieces pieces, Settings settings) {
         this.pieces = pieces;
         this.settings = settings;
-    }
-
-    public void merge(TimeInWordsDto tiw) {
-
-        if (isNotEmpty(tiw.getMinute1())) {
-            setMinute1(tiw.getMinute1());
-            if(tiw.getSettings().getMinute()) {
-                if (tiw.getPieces().getMinutes() > 1)
-                    setMinute("Minuten ");
-                else
-                    setMinute("Minute ");
-            }
-        }
     }
 
 

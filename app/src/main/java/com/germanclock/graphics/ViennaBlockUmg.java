@@ -35,13 +35,13 @@ public class ViennaBlockUmg extends WordBlock {
 		
 		TimeInWords v = new TimeInWords();
 		
-		updateClock(v.getBegin(p,s),0,0);
+		//updateClock(v.getBegin(p,s),0,0);
 		
-		TimeInWordsDto timeInWordsDto = v.getMinute(p,s);
-		updateClock(timeInWordsDto.getMinute1(),0,2);
-		updateClock(timeInWordsDto.getMinute2(),3,4);
+		//TimeInWordsDto timeInWordsDto = v.getMinute(p,s);
+		//updateClock(timeInWordsDto.getMinute1(),0,2);
+		//updateClock(timeInWordsDto.getMinute2(),3,4);
 		
-		updateClock(v.getHour(p, s, timeInWordsDto.getPlusHour()),5,10);
+		//updateClock(v.getHour(p, s, timeInWordsDto.getPlusHour()),5,10);
 		
 		setRemainderMins(p.getRemainderMinutes());
 		
