@@ -64,16 +64,49 @@ public class GermanClock extends AppWidgetProvider {
     }
 
     public static String getVerbalTime(Context c) {
+
         Settings s = new Settings();
+        TimeInWords tiw = new TimeInWords(c);
+
+        // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
+        s.setMinuteHybrid(Boolean.TRUE);
+        s.setUmgangminute(Settings.Umgangminute.minutebar);
+
+        s.setEsist(Boolean.TRUE);
+        s.setUhr(Boolean.TRUE);
+        s.setMinute(Boolean.TRUE);
+
+        s.setMitternacht(Boolean.TRUE);
+        s.setKurzvor(Boolean.TRUE);
+        s.setKurznach(Boolean.TRUE);
+
+        s.setMorgens(Boolean.TRUE);
+        s.setVormittags(Boolean.TRUE);
+        s.setNachmittags(Boolean.TRUE);
+        s.setAbends(Boolean.TRUE);
+        s.setIndernacht(Boolean.TRUE);
+
+        s.setViertel(Settings.Viertel.viertelacht);
+        s.setFuenfvorviertelacht(Boolean.TRUE);
+        s.setFuenfnachviertelacht(Boolean.TRUE);
+
+        s.setHalb(Boolean.TRUE);
+        s.setFuenfvorhalb(Boolean.TRUE);
+        s.setFuenfnachhalb(Boolean.TRUE);
+        s.setKurzvorhalb(Boolean.TRUE);
+        s.setKurznachhalb(Boolean.TRUE);
+
+        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        s.setFuenfvordreiviertelacht(Boolean.TRUE);
+        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
 
 
         Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("h:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
         Pieces p = new Pieces(sdf.format(d));
 
-        TimeInWords v = new TimeInWords();
-        return v.getTimeAsSentance(p, s);
+        return tiw.getTimeAsSentance(p, s);
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {

@@ -22,7 +22,8 @@
         android:textAlignment="center"
         android:background="#030303"
         android:padding="3dp"
-        android:singleLine="true"
+        android:singleLine="false"
+        android:maxLines="2"
         android:layout_alignParentEnd="false"
         android:layout_alignParentRight="false"
          />

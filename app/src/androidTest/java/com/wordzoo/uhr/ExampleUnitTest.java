@@ -132,5 +132,350 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
     }
 
+    @Test
+    public void testMinuteWords() {
+
+        Settings s = new Settings();
+        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
+
+        // Basic umgangsprashlich test
+        s.setUmgangssprachlich(Boolean.TRUE);
+        s.setMinuteHybrid(Boolean.TRUE);
+        s.setUmgangminute(Settings.Umgangminute.minuteword);
+
+        s.setEsist(Boolean.TRUE);
+        s.setUhr(Boolean.TRUE);
+        s.setMinute(Boolean.FALSE);
+
+        s.setMitternacht(Boolean.TRUE);
+        s.setKurzvor(Boolean.TRUE);
+        s.setKurznach(Boolean.TRUE);
+
+        s.setMorgens(Boolean.TRUE);
+        s.setVormittags(Boolean.TRUE);
+        s.setNachmittags(Boolean.TRUE);
+        s.setAbends(Boolean.TRUE);
+        s.setIndernacht(Boolean.TRUE);
+
+        s.setViertel(Settings.Viertel.viertelacht);
+        s.setFuenfvorviertelacht(Boolean.TRUE);
+        s.setFuenfnachviertelacht(Boolean.TRUE);
+
+        s.setHalb(Boolean.TRUE);
+        s.setFuenfvorhalb(Boolean.TRUE);
+        s.setFuenfnachhalb(Boolean.TRUE);
+        s.setKurzvorhalb(Boolean.TRUE);
+        s.setKurznachhalb(Boolean.TRUE);
+
+        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        s.setFuenfvordreiviertelacht(Boolean.TRUE);
+        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
+
+
+        Pieces p = new Pieces("13:01");
+        String out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist kurz nach ein Uhr nachmittags", out);
+
+        s.setKurznach(Boolean.FALSE);
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr eins nachmittags", out);
+
+        p = new Pieces("13:02");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr zwei nachmittags", out);
+
+        p = new Pieces("13:03");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr drei nachmittags", out);
+
+        p = new Pieces("13:04");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr vier nachmittags", out);
+
+        p = new Pieces("13:05");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist fünf nach ein Uhr nachmittags", out);
+
+        p = new Pieces("13:06");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr sechs nachmittags", out);
+
+        p = new Pieces("13:07");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr seben nachmittags", out);
+
+        p = new Pieces("13:08");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr acht nachmittags", out);
+
+        p = new Pieces("13:09");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr neun nachmittags", out);
+
+        p = new Pieces("13:10");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach ein Uhr nachmittags", out);
+
+
+        s.setMinute(Boolean.TRUE); //with minutes
+
+        p = new Pieces("13:11");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist elf Minuten nach ein Uhr nachmittags", out);
+
+        /*
+        p = new Pieces("13:12");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:13");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:14");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:15");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:16");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:17");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:18");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:19");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:20");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:21");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:22");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:23");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:24");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:25");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:26");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:27");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:28");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:29");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:30");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:31");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:32");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:33");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:34");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:35");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:36");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:37");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:38");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:39");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:40");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:41");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:42");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:43");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:44");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:45");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:46");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:47");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:48");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:49");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:50");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:51");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:52");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:53");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:54");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:55");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:56");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:57");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:58");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+        p = new Pieces("13:59");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zehn nach eins nachmittags", out);
+
+*/
+
+
+
+        //TODO official time
+
+        //TODO kurz vor-nach halb not working
+    }
+/*
+    @Test
+    public void noHybridTest() {
+        //Es ist siebzehn Minuten nach fünf Uhr am Abend“
+        // leave off one word like „minuten“ then you can leave off the word „Uhr“ too.
+          //      Es ist siebzehn nach fünf am Abend
+        Settings s = new Settings();
+        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
+
+        // Basic umgangsprashlich test
+        s.setUmgangssprachlich(Boolean.TRUE);
+        s.setMinuteHybrid(Boolean.FALSE);
+        s.setUmgangminute(Settings.Umgangminute.minuteword);
+
+        s.setEsist(Boolean.TRUE);
+        s.setUhr(Boolean.TRUE);
+        s.setMinute(Boolean.FALSE);
+
+        s.setMitternacht(Boolean.TRUE);
+        s.setKurzvor(Boolean.TRUE);
+        s.setKurznach(Boolean.TRUE);
+
+        s.setMorgens(Boolean.TRUE);
+        s.setVormittags(Boolean.TRUE);
+        s.setNachmittags(Boolean.TRUE);
+        s.setAbends(Boolean.TRUE);
+        s.setIndernacht(Boolean.TRUE);
+
+        s.setViertel(Settings.Viertel.viertelacht);
+        s.setFuenfvorviertelacht(Boolean.TRUE);
+        s.setFuenfnachviertelacht(Boolean.TRUE);
+
+        s.setHalb(Boolean.TRUE);
+        s.setFuenfvorhalb(Boolean.TRUE);
+        s.setFuenfnachhalb(Boolean.TRUE);
+        s.setKurzvorhalb(Boolean.TRUE);
+        s.setKurznachhalb(Boolean.TRUE);
+
+        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        s.setFuenfvordreiviertelacht(Boolean.TRUE);
+        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
+
+
+        Pieces p = new Pieces("13:01");
+        String out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist kurz nach eins nachmittags", out);
+
+        s.setKurznach(Boolean.FALSE);
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist ein Uhr eins nachmittags", out);
+
+
+    }*/
 
 }

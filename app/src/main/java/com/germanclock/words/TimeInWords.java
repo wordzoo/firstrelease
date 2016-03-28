@@ -35,16 +35,9 @@ public class TimeInWords {
 
         //by ref populate minutes
         if (!tiw.getSettings().getUmgangssprachlich())
-            getMinuteOfficial(tiw);
-
-        if (tiw.getSettings().getUmgangssprachlich()) {
-            if ((tiw.getPieces().getRemainderMinutes() > 0)
-                    && tiw.getSettings().getMinuteHybrid()
-                    && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword))
-                getMinuteOfficial(tiw);
-            else
-                getUmgangMinutes(tiw);
-        }
+            getMinuteDetail(tiw, Boolean.TRUE);
+        else
+            getUmgangMinutes(tiw);
 
         //pupulate word "minute" or "Minutes"
         if (tiw.getSettings().getMinute()) {
@@ -61,6 +54,9 @@ public class TimeInWords {
         if (tiw.getSettings().getUhr()
                 && !tiw.getHour().equals("Mitternacht")
                 && !tiw.getHour().equals("eins")
+                && !tiw.getMinute1().equals("viertel")
+                && !tiw.getMinute1().equals("halb")
+                && !tiw.getMinute1().equals("drei viertel")
                 && !tiw.getMinute2().equals("viertel")
                 && !tiw.getMinute2().equals("halb")
                 && !tiw.getMinute2().equals("drei viertel")
@@ -125,6 +121,7 @@ public class TimeInWords {
                     && !tiw.getMinute1().equals("viertel")
                     && !tiw.getMinute1().equals("drei viertel")
                     && !tiw.getMinute1().equals("halb")
+                    && !tiw.getMinute1().equals("kurz")
                     ) {
                 ret.append(tiw.getMinute());
                 ret.append(" ");
@@ -171,17 +168,31 @@ public class TimeInWords {
 	}
 
 
-    public void getMinuteOfficial(TimeInWordsDto tiw){
+    public void getMinuteDetail(TimeInWordsDto tiw, Boolean official){
         Integer number = new Integer(tiw.getPieces().getMinutes());
 
+        if(!official) {
+            if (number > 30)
+                number = 60 - number;
+
+            if (tiw.getPieces().getMinutes() <= 30)
+                tiw.setVornach("nach");
+            else {
+                tiw.setVornach("vor");
+                tiw.setPlusHour(Boolean.TRUE);
+            }
+        }
+        else {
+            tiw.setPlusHour(Boolean.FALSE);
+        }
         Resources res = getContext().getResources();
         String[] german_number = res.getStringArray(R.array.german_number);
+
         if(tiw.getSettings().getMinute() && tiw.getPieces().getMinutes() == 1)
             tiw.setMinute1(german_number[0]);
         else
-            tiw.setMinute1(german_number[tiw.getPieces().getMinutes()]);
+            tiw.setMinute1(german_number[number]);
 
-        tiw.setPlusHour(Boolean.FALSE);
 
     }
 
@@ -191,31 +202,25 @@ public class TimeInWords {
         Integer testMinute;
 
 
-        //this block here is for the case where s.MinuteHybrid() is false
-        //here we still use vor and nach but with the full minutes in words
+        //set up language for detailed minutes
         if(tiw.getSettings().getUmgangminute() == Settings.Umgangminute.minuteword) {
-            testMinute = tiw.getPieces().getMinutes();
-            //set up defaults
-            Integer umgangMinutes = tiw.getPieces().getMinutes();
-            if(umgangMinutes > 30)
-                umgangMinutes = 60 - umgangMinutes;
-            Resources res = getContext().getResources();
-            String[] german_number = res.getStringArray(R.array.german_number);
+            //serves as default values if the special cases below to not apply
+            getMinuteDetail(tiw, Boolean.FALSE);
 
-            if(tiw.getSettings().getMinute() && tiw.getPieces().getMinutes() == 1)
-                tiw.setMinute1(german_number[0]);
+            //if we happened to be ona multiple of five
+            //or if we can possibly use a "kurz vor/ kurz nach", still run through the cases below
+            if (tiw.getPieces().getMinutes().equals(tiw.getPieces().getFiveMinBucket())
+                    || tiw.getPieces().getMinutes() < 5
+                    || tiw.getPieces().getMinutes() > 55
+                    || (tiw.getPieces().getMinutes() > 25
+                        && tiw.getPieces().getMinutes() > 35) )
+                ;//proceed
             else
-                tiw.setMinute1(german_number[umgangMinutes]);
-
-
-            tiw.setVornach((tiw.getPieces().getMinutes() <= 30)?"nach":"vor");
-            if(tiw.getPieces().getMinutes() > 30)
-                tiw.setPlusHour(Boolean.TRUE);
+                return; // we have enough information, nothing more to add for minutes
         }
-        else
-            testMinute = tiw.getPieces().getFiveMinBucket();
 
-		switch (testMinute) {
+
+		switch (tiw.getPieces().getFiveMinBucket()) {
 			 case 0:
 				 if(tiw.getSettings().getKurznach() && tiw.getPieces().getMinutes() > 0) {
                      tiw.setMinute1("kurz");
@@ -429,7 +434,7 @@ public class TimeInWords {
 		else if (tiw.getPieces().getHr24() >= 0
 				&& tiw.getPieces().getHr24() < 5
                 && tiw.getSettings().getMorgennacht())
-            tiw.setSectionOfDay("moregens");
+            tiw.setSectionOfDay("morgens");
 		else if (tiw.getPieces().getHr24() >= 0
 				&& tiw.getPieces().getHr24() < 5
 				&& tiw.getSettings().getAmmorgennacht())
