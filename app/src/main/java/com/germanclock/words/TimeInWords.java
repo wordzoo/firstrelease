@@ -78,9 +78,6 @@ public class TimeInWords {
         }
 
         //Official Construction
-
-        // or special case when the minutes are nto a multiple of 5, and user has selected in this case to use official construction,
-        //but because tiw.getSettings().getUmganssprachlich() is true, we will still use the 12 hours system...
         if(!tiw.getSettings().getUmgangssprachlich()
                 || ( (tiw.getPieces().getRemainderMinutes() > 0)
                 && (tiw.getSettings().getMinuteHybrid()
@@ -106,6 +103,13 @@ public class TimeInWords {
                 ret.append(tiw.getMinute());
                 ret.append(" ");
             }
+
+            if (tiw.getSettings().getMinuteHybrid()
+            && !tiw.getHour().contains("Mitternacht"))
+                if (isNotEmpty(tiw.getSectionOfDay())) {
+                    ret.append(tiw.getSectionOfDay());
+                    ret.append(" ");
+                }
         }
 
         //umgansprachlich
@@ -207,16 +211,21 @@ public class TimeInWords {
             //serves as default values if the special cases below to not apply
             getMinuteDetail(tiw, Boolean.FALSE);
 
-            //if we happened to be ona multiple of five
+            //if we happened to be on a minute that is a multiple of five
             //or if we can possibly use a "kurz vor/ kurz nach", still run through the cases below
-            if (tiw.getPieces().getMinutes().equals(tiw.getPieces().getFiveMinBucket())
+            // but if we are doing hybrid format, and we are not on a five-minute-bucket,
+            // stay with official'ish style minutes already set in tiw.minute1
+            if ((tiw.getPieces().getMinutes().equals(tiw.getPieces().getFiveMinBucket())
                     || tiw.getPieces().getMinutes() < 5
                     || tiw.getPieces().getMinutes() > 55
                     || (tiw.getPieces().getMinutes() > 25
-                        && tiw.getPieces().getMinutes() > 35) )
-                ;//proceed
+                        && tiw.getPieces().getMinutes() > 35))
+                    && !tiw.getSettings().getMinuteHybrid()
+                    )
+                    ;//proceed with very informal five minute buckets or "kurz" phrases below
             else
-                return; // we have enough information, nothing more to add for minutes
+                return;
+
         }
 
 
