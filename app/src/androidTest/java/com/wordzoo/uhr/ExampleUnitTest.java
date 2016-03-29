@@ -230,8 +230,8 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
         s.setUmgangminute(Settings.Umgangminute.minuteword);
 
         s.setEsist(Boolean.TRUE);
-        s.setUhr(Boolean.TRUE);
-        s.setMinute(Boolean.FALSE);
+        s.setUhr(Boolean.FALSE);
+        s.setMinute(Boolean.TRUE);
 
         s.setMitternacht(Boolean.TRUE);
         s.setKurzvor(Boolean.TRUE);
@@ -256,12 +256,13 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
         s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
         s.setFuenfvordreiviertelacht(Boolean.TRUE);
         s.setFuenfnachdreiviertelacht(Boolean.TRUE);
+        s.setKurzvordreiviertelacht(Boolean.TRUE);
+        s.setKurznachdreiviertelacht(Boolean.TRUE);
 
-        s.setMinute(Boolean.TRUE); //with minutes
 
         Pieces p = new Pieces("13:11");
         String out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es ist elf Minuten nach ein Uhr nachmittags", out);
+        assertEquals("Es ist elf Minuten nach eins nachmittags", out);
 
 
         p = new Pieces("13:12");
@@ -270,7 +271,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("13:13");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es ist treizehn Minuten nach eins nachmittags", out);
+        assertEquals("Es ist dreizehn Minuten nach eins nachmittags", out);
 
         s.setMinute(Boolean.FALSE); //no minutes
 
@@ -284,7 +285,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("13:16");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es ist sechszehn nach eins nachmittags", out);
+        assertEquals("Es ist sechzehn nach eins nachmittags", out);
 
         p = new Pieces("13:17");
         out = tiw.getTimeAsSentance(p, s);
@@ -312,7 +313,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("13:23");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es ist treiundzwanzig nach eins nachmittags", out);
+        assertEquals("Es ist dreiundzwanzig nach eins nachmittags", out);
 
         p = new Pieces("13:24");
         out = tiw.getTimeAsSentance(p, s);
@@ -320,7 +321,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("13:25");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es ist fünfundzwanzig nach eins nachmittags", out);
+        assertEquals("Es ist fünf vor halb zwei nachmittags", out);
 
         p = new Pieces("13:26");
         out = tiw.getTimeAsSentance(p, s);
@@ -364,19 +365,19 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("13:36");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es vierundzwanzig for zwei nachmittags", out);
+        assertEquals("Es ist vierundzwanzig vor zwei nachmittags", out);
 
         p = new Pieces("13:37");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es dreiundzwanzig for zwei nachmittags", out);
+        assertEquals("Es ist dreiundzwanzig vor zwei nachmittags", out);
 
         p = new Pieces("13:38");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es zweiundzwanzig for zwei nachmittags", out);
+        assertEquals("Es ist zweiundzwanzig vor zwei nachmittags", out);
 
         p = new Pieces("13:39");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es einundzwanzig for zwei nachmittags", out);
+        assertEquals("Es ist einundzwanzig vor zwei nachmittags", out);
 
         p = new Pieces("13:40");
         out = tiw.getTimeAsSentance(p, s);

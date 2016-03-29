@@ -112,6 +112,8 @@ public class Settings {
     //if dreiviertel == Dreiviertel.dreiviertelacht then two more options
     private Boolean fuenfvordreiviertelacht = Boolean.FALSE;
     private Boolean fuenfnachdreiviertelacht = Boolean.FALSE;
+    private Boolean kurzvordreiviertelacht = Boolean.FALSE;
+    private Boolean kurznachdreiviertelacht = Boolean.FALSE;
 
 	private Boolean kurzvor = Boolean.FALSE;
 
@@ -120,6 +122,22 @@ public class Settings {
 
     public Boolean getMinute() {
         return minute;
+    }
+
+    public Boolean getKurzvordreiviertelacht() {
+        return kurzvordreiviertelacht;
+    }
+
+    public void setKurzvordreiviertelacht(Boolean kurzvordreiviertelacht) {
+        this.kurzvordreiviertelacht = kurzvordreiviertelacht;
+    }
+
+    public Boolean getKurznachdreiviertelacht() {
+        return kurznachdreiviertelacht;
+    }
+
+    public void setKurznachdreiviertelacht(Boolean kurznachdreiviertelacht) {
+        this.kurznachdreiviertelacht = kurznachdreiviertelacht;
     }
 
     public void setMinute(Boolean minute) {
