@@ -73,9 +73,10 @@ public class Settings {
     private Viertel viertel = Viertel.viertelnach;
 
 	//if viertel == viertel.vieterlacht, two more options
-    private Boolean fuenfvorviertelacht = Boolean.FALSE;;
-    private Boolean fuenfnachviertelacht = Boolean.FALSE;;
-
+    private Boolean fuenfvorviertelacht = Boolean.FALSE;
+    private Boolean fuenfnachviertelacht = Boolean.FALSE;
+    private Boolean kurznachviertelacht = Boolean.FALSE;
+    private Boolean kurzvorviertelacht = Boolean.FALSE;
 
 
     //halb is selected be default with umgrangsprache
@@ -122,6 +123,23 @@ public class Settings {
 
     public Boolean getMinute() {
         return minute;
+    }
+
+
+    public Boolean getKurznachviertelacht() {
+        return kurznachviertelacht;
+    }
+
+    public void setKurznachviertelacht(Boolean kurznachviertelacht) {
+        this.kurznachviertelacht = kurznachviertelacht;
+    }
+
+    public Boolean getKurzvorviertelacht() {
+        return kurzvorviertelacht;
+    }
+
+    public void setKurzvorviertelacht(Boolean kurzvorviertelacht) {
+        this.kurzvorviertelacht = kurzvorviertelacht;
     }
 
     public Boolean getKurzvordreiviertelacht() {

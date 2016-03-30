@@ -113,17 +113,17 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("00:40");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor drei viertel eins in der Nacht", out);
+        assertEquals("Es ist fünf Minuten vor dreiviertel eins in der Nacht", out);
 
 
         p = new Pieces("00:45");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist drei viertel eins in der Nacht", out);
+        assertEquals("Es ist dreiviertel eins in der Nacht", out);
 
 
         p = new Pieces("00:50");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist zehn Minuten vor ein Uhr in der Nacht", out);
+        assertEquals("Es ist fünf Minuten nach dreiviertel eins in der Nacht", out);
 
 
         p = new Pieces("00:55");
@@ -214,7 +214,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("13:10");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es ist zehn nach ein Uhr nachmittags", out);
+        assertEquals("Es ist fünf vor viertel zwei nachmittags", out);
 
     }
 
@@ -421,7 +421,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("13:50");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("Es ist zehn vor zwei nachmittags", out);
+        assertEquals("Es ist fünf nach dreiviertel zwei nachmittags", out);
 
         p = new Pieces("13:51");
         out = tiw.getTimeAsSentance(p, s);
