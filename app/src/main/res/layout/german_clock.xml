@@ -1,0 +1,55 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/german_clock"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="@dimen/clock_margin"
+    android:gravity="center">
+
+
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minEms="30"
+        android:text="Es ist fünf über fünf"
+        android:id="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:background="#030303"
+        android:padding="3dp"
+        android:singleLine="false"
+        android:maxLines="2"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+         />
+
+    <!--TODO alt clock face layout-->
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minEms="30"
+        android:text="Es ist fünf über fünf"
+        android:id="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:background="#030303"
+        android:padding="3dp"
+        android:singleLine="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+        android:visibility="invisible"
+        />
+
+
+
+
+</RelativeLayout>

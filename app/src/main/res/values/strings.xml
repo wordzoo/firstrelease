@@ -1,4 +1,76 @@
 <resources>
-    <string name="app_name">uhr</string>
+
+
+    <string name="app_name">German Clock</string>
     <string name="action_settings">Settings</string>
+    <string name="settings_intro">Choose an option:</string>
+        <string name="hello">Hello\n\n
+    Thanks for installing the Custom Clock Widget.\n\n
+    You need to add the widget to your home screen to use it.
+    Long-press the home screen and select the widget from the
+    list of those installed on your device. </string>
+
+    <string-array name="german_number">
+
+        <item>ein</item>
+        <item>eins</item>
+        <item>zwei</item>
+        <item>drei</item>
+        <item>vier</item>
+        <item>fünf</item>
+        <item>sechs</item>
+        <item>sieben</item>
+        <item>acht</item>
+        <item>neun</item>
+        <item>zehn</item>
+        <item>elf</item>
+        <item>zwölf</item>
+        <item>dreizehn</item>
+        <item>vierzehn</item>
+        <item>fünfzehn</item>
+        <item>sechzehn</item>
+        <item>siebzehn</item>
+        <item>achtzehn</item>
+        <item>neunzehn</item>
+        <item>zwanzig</item>
+        <item>einundzwanzig</item>
+        <item>zweiundzwanzig</item>
+        <item>dreiundzwanzig</item>
+        <item>vierundzwanzig</item>
+        <item>fünfundzwanzig</item>
+        <item>sechsundzwanzig</item>
+        <item>siebenundzwanzig</item>
+        <item>achtundzwanzig</item>
+        <item>neunundzwanzig</item>
+        <item>dreißig</item>
+        <item>einunddreißig</item>
+        <item>zweiunddreißig</item>
+        <item>dreiunddreißig</item>
+        <item>vierunddreißig</item>
+        <item>fünfunddreißig</item>
+        <item>sechsunddreißig</item>
+        <item>siebenunddreißig</item>
+        <item>achtunddreißig</item>
+        <item>neununddreißig</item>
+        <item>vierzig</item>
+        <item>einundvierzig</item>
+        <item>zweiundvierzig</item>
+        <item>dreiundvierzig</item>
+        <item>vierundvierzig</item>
+        <item>fünfundvierzig</item>
+        <item>sechsundvierzig</item>
+        <item>siebenundvierzig</item>
+        <item>achtundvierzig</item>
+        <item>neunundvierzig</item>
+        <item>fünfzig</item>
+        <item>einundfünfzig</item>
+        <item>zweiundfünfzig</item>
+        <item>dreiundfünfzig</item>
+        <item>vierundfünfzig</item>
+        <item>fünfundfünfzig</item>
+        <item>sechsundfünfzig</item>
+        <item>siebenundfünfzig</item>
+        <item>achtundfünfzig</item>
+        <item>neunundfünfzig</item>
+    </string-array>
 </resources>

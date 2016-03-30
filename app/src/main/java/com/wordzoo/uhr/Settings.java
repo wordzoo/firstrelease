@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class Settings extends Activity {
 
     private static final String PREF_PREFIX_KEY = "prefix_";
 
-    EditText mEditText;
+    TextView mEditText;
     int mAppWidgetId;
 
     public Settings() {
@@ -43,7 +44,7 @@ public class Settings extends Activity {
 //                finish();
             }
         }
-        mEditText = (EditText) findViewById(R.id.app_widget_prefix_text);
+        mEditText = (TextView) findViewById(R.id.textView);
     }
 
     // When the Activity starts, initialize the text.
@@ -67,8 +68,8 @@ public class Settings extends Activity {
         // Push widget update to surface with newly set prefix
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         String newPrefValue = mEditText.getText().toString();
-        ExampleAppWidgetProvider.updateAppWidget(
-                this, appWidgetManager, mAppWidgetId, newPrefValue);
+        //GermanClock.update(
+          //      this, appWidgetManager, mAppWidgetId, newPrefValue);
 
         // Make sure we pass back the original appWidgetId
         Intent resultValue = new Intent();
@@ -92,7 +93,7 @@ public class Settings extends Activity {
         if (prefix != null) {
             return prefix;
         }
-        return context.getString(R.string.appwidget_prefix_default);
+        return "not sure what this should be"; //context.getString(R.string.appwidget_prefix_default);
     }
 
     static void deleteTitlePref(Context context, int appWidgetId) {
