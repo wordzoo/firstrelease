@@ -3,7 +3,14 @@
 
         <string name="app_name">German Clock</string>
         <string name="action_settings">Settings</string>
-        <string name="hello"> 
+
+	    <string name="choice_intro">Choose an option:</string>
+	<string name="design1">Default design</string>
+	<string name="design2">Stone design</string>
+	<string name="design3">Metal design</string>
+
+
+        <string name="hello">
 	    Hello\n\n 
 	    Thanks for installing the Custom Clock widget.  
 	    You need to add the widget to your home screen to use it.  

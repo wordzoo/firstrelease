@@ -10,42 +10,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settings_intro"
+            android:text="@string/choice_intro"
             android:textStyle="italic" />
-<!--Flag
-Vienna, Austria	Germany	Kärnten, Austria
-mitternachts
-morgens
-am morgen with minutes 5
-vormittags 6 - 12
-am vormittag with minutes
-mittags	Es ist zwölf Uhr mittags
-nachmittags 12 - 18
-am nachmittag with minutes
-abdends	18 - 24
-am abend with minutes
-nachts	24 - 5
-in der nacht w minutes
-Es ist
-Uhr
-minute as bars
-minutes in words (check this and for each day time period (e.g. morgens) you get the version with "am" checked.  uncheck and all the "with minutes" above become unchecked)
-kurz nach
-5 nach
-10 nach
-viertel über
-viertel nach
-viertel acht (7:15)
-20 nach
-25 nach
-halb
-25 vor
-20 for
-viertel vor
-dreiviertel acht (7:45)
-10 vor
-5 vor
-kurz vor
--->
+
+        <ImageButton
+            android:id="@+id/design_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a1"
+            android:contentDescription="@string/design1"
+            android:background="#00000000"
+            android:padding="5dp"/>
+        <ImageButton
+            android:id="@+id/design_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a2"
+            android:contentDescription="@string/design2"
+            android:background="#00000000"
+            android:padding="5dp"/>
+        <ImageButton
+            android:id="@+id/design_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3"
+            android:contentDescription="@string/design3"
+            android:background="#00000000"
+            android:padding="5dp" />
+
     </LinearLayout>
 </ScrollView>

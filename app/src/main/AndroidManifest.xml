@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wordzoo.uhr" >
 
-
-
-
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <application
         android:allowBackup="true"
@@ -13,19 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
-        <receiver android:name="GermanClock" >
+        <receiver android:name=".GermanClock" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/example_appwidget_info" />
         </receiver>
+
         <activity android:name=".Settings" android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
+
         <!--This is just if user makes mistake to try to launch widget as an app-->
         <activity
             android:name=".Intro"

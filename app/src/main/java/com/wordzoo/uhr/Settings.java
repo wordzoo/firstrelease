@@ -2,104 +2,89 @@ package com.wordzoo.uhr;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
-import android.content.Intent;
+import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.View;
+import android.view.View.OnClickListener;
 
-import java.util.ArrayList;
+import android.widget.ImageButton;
+import android.widget.RemoteViews;
 
-public class Settings extends Activity {
+public class Settings extends Activity implements OnClickListener {
 
-    private static final String PREFS_NAME
-            = "io.appium.android.apis.appwidget.ExampleAppWidgetProvider";
+    //count of designs
+    private int numDesigns = 3;
+    //image buttons for each design
+    private ImageButton[] designBtns;
+    //identifiers for each clock element
+    private int[] designs;
 
-    private static final String PREF_PREFIX_KEY = "prefix_";
+    //user prefs
+    private SharedPreferences clockPrefs;
 
-    TextView mEditText;
-    int mAppWidgetId;
+    public void onCreate(Bundle savedInstanceState) {
+        /*
+        example retrieve resource values, numDesigns = this.getResources().getInteger(R.integer.num_clocks);
+        e.g. in a numbers.xml file
+        <resources>
+    <integer name="num_clocks">3</integer>
+</resources>*/
 
-    public Settings() {
-        super();
-        mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    }
-
-    @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-        mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-        // Set the widget id from the intent.  (This never happens.)
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            mAppWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-            // If they gave us an intent without the widget id, just bail.
-            if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-                // Uncomment this once the widget ID is being set.
-//                finish();
+        designBtns = new ImageButton[numDesigns];
+        designs = new int[numDesigns];
+
+        for(int d=0; d<numDesigns; d++){
+            designs[d] = this.getResources().getIdentifier
+                    ("AnalogClock"+d, "id", getPackageName());
+            designBtns[d]=(ImageButton)findViewById(this.getResources().getIdentifier
+                    ("design_"+d, "id", getPackageName()));
+            designBtns[d].setOnClickListener(this);
+        }
+
+        //user prefs
+        clockPrefs = getSharedPreferences("CustomClockPrefs", 0);
+
+    }
+    public void onClick(View v) {
+        int picked = -1;
+        for(int c=0; c<numDesigns; c++){
+            if(v.getId()==designBtns[c].getId()){
+                picked=c;
+                break;
             }
         }
-        mEditText = (TextView) findViewById(R.id.textView);
-    }
+        int pickedClock = designs[picked];
 
-    // When the Activity starts, initialize the text.
-    @Override
-    public void onResume() {
-        super.onResume();
-        String oldPrefValue = loadTitlePref(this, mAppWidgetId);
-        mEditText.setText(oldPrefValue);
-    }
+        RemoteViews remoteViews = new RemoteViews
+                (this.getApplicationContext().getPackageName(),
+                        R.layout.german_clock);
 
-    // When the Activity ends, save the text.
-    @Override
-    public void onPause() {
-        super.onPause();
-        String newPrefValue = mEditText.getText().toString();
-        saveTitlePref(newPrefValue);
-    }
-
-    @Override
-    public void onDestroy() {
-        // Push widget update to surface with newly set prefix
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        String newPrefValue = mEditText.getText().toString();
-        //GermanClock.update(
-          //      this, appWidgetManager, mAppWidgetId, newPrefValue);
-
-        // Make sure we pass back the original appWidgetId
-        Intent resultValue = new Intent();
-        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-        setResult(RESULT_OK, resultValue);
-        super.onDestroy();
-    }
-
-    // Write the prefix to the SharedPreferences object for this widget
-    void saveTitlePref(String text) {
-        SharedPreferences.Editor prefs = getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + mAppWidgetId, text);
-        prefs.apply();
-    }
-
-    // Read the prefix from the SharedPreferences object for this widget.
-    // If there is no preference saved, get the default from a resource
-    static String loadTitlePref(Context context, int widgetId) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        String prefix = prefs.getString(PREF_PREFIX_KEY + widgetId, null);
-        if (prefix != null) {
-            return prefix;
+        for(int d=0; d<designs.length; d++){
+            if(d!=pickedClock)
+                remoteViews.setViewVisibility(designs[d], View.INVISIBLE);
         }
-        return "not sure what this should be"; //context.getString(R.string.appwidget_prefix_default);
-    }
 
-    static void deleteTitlePref(Context context, int appWidgetId) {
-    }
+        remoteViews.setViewVisibility(pickedClock, View.VISIBLE);
 
-    static void loadAllTitlePrefs(
-            Context context, ArrayList<Integer> appWidgetIds, ArrayList<String> texts) {
+        //get component name for widget class
+        ComponentName comp = new ComponentName(this, GermanClock.class);
+
+        //get AppWidgetManager
+        AppWidgetManager appWidgetManager =
+                AppWidgetManager.getInstance(this.getApplicationContext());
+
+        //update
+        appWidgetManager.updateAppWidget(comp, remoteViews);
+
+        //save prefs
+        SharedPreferences.Editor custClockEdit = clockPrefs.edit();
+        custClockEdit.putInt("clockdesign", picked);
+        custClockEdit.commit();
+
+        finish();
     }
 }
