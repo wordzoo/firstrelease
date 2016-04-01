@@ -25,8 +25,7 @@
         android:singleLine="false"
         android:maxLines="2"
         android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="false"
-         />
+        android:layout_alignParentRight="false"/>
 
     <!--TODO alt clock face layout-->
 
