@@ -7,11 +7,8 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.app.AlarmManager;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -25,76 +22,10 @@ import com.germanclock.words.TimeInWords;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.view.View.*;
-
 public class GermanClock extends AppWidgetProvider {
 
-   
+
     RemoteViews views;
-
-    //preferences
-    private SharedPreferences custClockPrefs;
-    //number of possible designs
-    private int numClocks = 3;
-    //IDs of Analog Clock elements
-    int[] clockDesigns;
-
-
-
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-
-        clockDesigns = new int[numClocks];
-        for(int d=0; d<numClocks; d++){
-            clockDesigns[d]=context.getResources().getIdentifier
-                    ("AnalogClock"+d, "id", context.getPackageName());
-        }
-
-        //get preferences
-        custClockPrefs = context.getSharedPreferences("CustomClockPrefs", 0);
-        int chosenDesign = custClockPrefs.getInt("clockdesign", -1);
-
-        if(chosenDesign>=0){
-            for(int d=0; d<numClocks; d++){
-                if(d!=chosenDesign)
-                    views.setViewVisibility(clockDesigns[d], INVISIBLE);
-            }
-            views.setViewVisibility(clockDesigns[chosenDesign], VISIBLE);
-        }
-
-
-
-    }
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
-
-        ComponentName thisWidget = new ComponentName(context,
-                GermanClock.class);
-
-        //Get the remote views
-        views = new RemoteViews(context.getPackageName(),
-                R.layout.german_clock);
-
-        // Set the text with the current time.
-        views.setTextViewText(R.id.textView, getVerbalTime(context));
-
-        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
-            appWidgetManager.updateAppWidget(widgetId, views);
-
-        }
-
-
-
-        Intent configIntent = new Intent(context, com.wordzoo.uhr.Settings.class);
-        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
-
-        views.setOnClickPendingIntent(R.id.german_clock, configPendingIntent);
-        appWidgetManager.updateAppWidget(appWidgetIds, views);
-
-
-    }
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
@@ -117,22 +48,39 @@ public class GermanClock extends AppWidgetProvider {
     public void onEnabled(Context context) {
         super.onEnabled(context);
 
+        //AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+
         //set clock
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View germanClock = inflater.inflate(R.layout.german_clock, null);
         TextView tv = (TextView)germanClock.findViewById(R.id.textView);
 
 
-        //String out = getTimeAsSentance(p,s);
-        //tv.setText(out);
-
         //set AlarmManager for next clock update
         AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ClockWakeup.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        //After after 1 min, but start with an even minute
-        //DateFormat.getDateTimeInstance().format(new Date(0))); 
+        //After after 3 seconds
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
+
+
+        //Settings click listener
+        Intent i = new Intent(context, Settings.class);
+        PendingIntent myPI = PendingIntent.getService(context, 0, i, 0);
+        //intent to start service
+
+        // Get the layout for the App Widget
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+        //attach the click listener for the service start command intent
+        views.setOnClickPendingIntent(R.id.textView, myPI);
+
+        //define the componenet for self
+        ComponentName comp = new ComponentName(context.getPackageName(), Settings.class.getName());
+        //tell the manager to update all instances of the toggle widget with the click listener
+
+
+       // mgr.updateAppWidget(comp, views);
+
     }
 
     public static String getVerbalTime(Context c) {
@@ -143,7 +91,7 @@ public class GermanClock extends AppWidgetProvider {
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setMinuteHybrid(Boolean.TRUE);
-        s.setUmgangminute(Settings.Umgangminute.minutebar);
+        s.setUmgangminute(Settings.Umgangminute.minuteword);
 
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
@@ -181,6 +129,23 @@ public class GermanClock extends AppWidgetProvider {
         return tiw.getTimeAsSentance(p, s);
     }
 
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
+
+        ComponentName thisWidget = new ComponentName(context,
+                GermanClock.class);
+
+        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
+
+            //Get the remote views
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                    R.layout.german_clock);
+
+            // Set the text with the current time.
+            remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
+            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+
+        }
+    }
 
 }
 
