@@ -83,12 +83,10 @@ public class Settings {
     private Boolean halb = Boolean.FALSE;;
 
     //these are available only if you choose halb
-    private Boolean fuenfvorhalb = Boolean.FALSE;;
-    private Boolean fuenfnachhalb = Boolean.FALSE;;
+    private Boolean fuenfvorhalb = Boolean.FALSE;
+    private Boolean fuenfnachhalb = Boolean.FALSE;
     private Boolean kurzvorhalb = Boolean.FALSE;;
     private Boolean kurznachhalb = Boolean.FALSE;;
-
-
     private Boolean zehnvorhalb = Boolean.FALSE;;
     private Boolean zehnnachhalb = Boolean.FALSE;;
     //or

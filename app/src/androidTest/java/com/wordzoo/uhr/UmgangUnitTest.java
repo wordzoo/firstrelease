@@ -2,25 +2,22 @@ package com.wordzoo.uhr;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.AndroidJUnitRunner;
+import android.test.suitebuilder.annotation.LargeTest;
 
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
 
-import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ExampleUnitTest extends AndroidJUnitRunner {
+public class UmgangUnitTest extends AndroidJUnitRunner {
 
     private Context context;
 
@@ -458,6 +455,7 @@ public class ExampleUnitTest extends AndroidJUnitRunner {
         p = new Pieces("13:59");
         out = tiw.getTimeAsSentance(p, s);
         assertEquals("Es ist kurz vor zwei nachmittags", out);
+
 
 
 
