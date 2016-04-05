@@ -5,10 +5,12 @@ package com.wordzoo.uhr;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.app.AlarmManager;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -25,7 +27,6 @@ import java.util.Date;
 public class GermanClock extends AppWidgetProvider {
 
 
-    RemoteViews views;
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
@@ -48,13 +49,10 @@ public class GermanClock extends AppWidgetProvider {
     public void onEnabled(Context context) {
         super.onEnabled(context);
 
-        //AppWidgetManager mgr = AppWidgetManager.getInstance(context);
-
         //set clock
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View germanClock = inflater.inflate(R.layout.german_clock, null);
         TextView tv = (TextView)germanClock.findViewById(R.id.textView);
-
 
         //set AlarmManager for next clock update
         AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -63,23 +61,6 @@ public class GermanClock extends AppWidgetProvider {
         //After after 3 seconds
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
 
-
-        //Settings click listener
-        Intent i = new Intent(context, Settings.class);
-        PendingIntent myPI = PendingIntent.getService(context, 0, i, 0);
-        //intent to start service
-
-        // Get the layout for the App Widget
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-        //attach the click listener for the service start command intent
-        views.setOnClickPendingIntent(R.id.textView, myPI);
-
-        //define the componenet for self
-        ComponentName comp = new ComponentName(context.getPackageName(), Settings.class.getName());
-        //tell the manager to update all instances of the toggle widget with the click listener
-
-
-       // mgr.updateAppWidget(comp, views);
 
     }
 
@@ -131,20 +112,18 @@ public class GermanClock extends AppWidgetProvider {
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
 
-        ComponentName thisWidget = new ComponentName(context,
-                GermanClock.class);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+        Intent configIntent = new Intent(context, com.wordzoo.uhr.Intro.class);
 
-        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
+        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
 
-            //Get the remote views
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.german_clock);
+        remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
 
-            // Set the text with the current time.
-            remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+        remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
 
-        }
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+
+
     }
 
 }
