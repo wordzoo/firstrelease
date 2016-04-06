@@ -60,18 +60,14 @@ public class GermanClock extends AppWidgetProvider {
         AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ClockWakeup.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
-        //After after 3 seconds
-        /*Calendar date = new GregorianCalendar();
-        date.setTime(new Date());
-        //long now = date.getTimeInMillis();
-        date.add(Calendar.MINUTE, 1);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        long next_minute = date.getTimeInMillis();
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
-        //am.setRepeating(AlarmManager.RTC_WAKEUP, next_minute, 60000, pi);
-*/
+        Calendar c = new GregorianCalendar();
+        c.setTime(new Date());
+        c.add(Calendar.MINUTE, 1);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        long next_minute = c.getTimeInMillis();
+        am.setRepeating(AlarmManager.RTC_WAKEUP, next_minute, 60000, pi);
+
     }
 
     public static String getVerbalTime(Context c) {
