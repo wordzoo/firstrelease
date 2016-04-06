@@ -31,7 +31,7 @@ public class ClockWakeup extends BroadcastReceiver {
         ComponentName thiswidget = new ComponentName(context, GermanClock.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(thiswidget, remoteViews);
-        
+
         //Release the lock
         wl.release();
     }

@@ -122,6 +122,8 @@ public class GermanClock extends AppWidgetProvider {
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
+        ComponentName thisWidget = new ComponentName(context, GermanClock.class);
+
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
         Intent configIntent = new Intent(context, com.wordzoo.uhr.Intro.class);
 
@@ -131,7 +133,7 @@ public class GermanClock extends AppWidgetProvider {
 
         remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
 
-        for (int widgetId : appWidgetIds)
+        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) 
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
 
