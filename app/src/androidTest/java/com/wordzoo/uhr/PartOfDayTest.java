@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class OfficalShortUnitTest extends AndroidJUnitRunner {
+public class PartOfDayTest extends AndroidJUnitRunner {
 
     private Context context;
 
@@ -38,8 +38,6 @@ public class OfficalShortUnitTest extends AndroidJUnitRunner {
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
 
-        //Miternacht is only for 00.  Then try Null uhr fünfzehn
-
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setMinuteHybrid(Boolean.TRUE);
@@ -47,58 +45,73 @@ public class OfficalShortUnitTest extends AndroidJUnitRunner {
 
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
-        s.setMinute(Boolean.TRUE);
+        s.setMinute(Boolean.FALSE);
 
         s.setMitternacht(Boolean.TRUE);
-        s.setKurzvor(Boolean.FALSE);
-        s.setKurznach(Boolean.FALSE);
+        s.setKurzvor(Boolean.TRUE);
+        s.setKurznach(Boolean.TRUE);
 
-        s.setMorgens(Boolean.TRUE);
-        s.setVormittags(Boolean.TRUE);
-        s.setNachmittags(Boolean.TRUE);
-        s.setAbends(Boolean.TRUE);
+        s.setAmmorgen(Boolean.TRUE);
+        s.setAmvormittag(Boolean.TRUE);
+        s.setAmnachmittag(Boolean.TRUE);
+        s.setAmabend(Boolean.TRUE);
         s.setIndernacht(Boolean.TRUE);
 
+        s.setViertel(Settings.Viertel.viertelacht);
+        s.setFuenfvorviertelacht(Boolean.TRUE);
+        s.setFuenfnachviertelacht(Boolean.TRUE);
 
-        Pieces p = new Pieces("23:00");
+        s.setHalb(Boolean.TRUE);
+        s.setFuenfvorhalb(Boolean.TRUE);
+        s.setFuenfnachhalb(Boolean.TRUE);
+        s.setKurzvorhalb(Boolean.TRUE);
+        s.setKurznachhalb(Boolean.TRUE);
+
+        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        s.setFuenfvordreiviertelacht(Boolean.TRUE);
+        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
+
+
+
+        Pieces p = new Pieces("21:00");
         String out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist Mitternacht", out);
+        assertEquals("Es ist neun Uhr am Abend", out);
 
-        p = new Pieces("23:01");
+        p = new Pieces("21:01");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach Mitternacht", out);
+        assertEquals("Es ist neun Uhr eins am Abend", out);
 
-        p = new Pieces("23:12");
+        p = new Pieces("21:12");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor viertel eins in der Nacht", out);
+        assertEquals("Es ist neun Uhr zwölf am Abend", out);
 
-        p = new Pieces("23:15");
+        p = new Pieces("21:15");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist viertel eins in der Nacht", out);
+        assertEquals("Es ist viertel zehn in der Nacht", out);
 
-        p = new Pieces("23:18");
+        p = new Pieces("21:18");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach viertel eins in der Nacht", out);
+        assertEquals("Es ist neun Uhr achtzehn in der Nacht", out);
 
 
-        p = new Pieces("23:29");
+        p = new Pieces("21:29");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor halb eins in der Nacht", out);
+        assertEquals("Es ist kurz vor halb zehn in der Nacht", out);
 
 
         p = new Pieces("23:31");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist halb eins in der Nacht", out);
+        assertEquals("Es ist kurz nach halb zehn in der Nacht", out);
 
 
         p = new Pieces("23:37");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach halb eins in der Nacht", out);
+        assertEquals("Es ist dreiundzwanzig vor zehn Uhr in der Nacht", out);
 
 
         p = new Pieces("23:45");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor dreiviertel eins in der Nacht", out);
+        assertEquals("Es ist dreiviertel zwölf in der Nacht", out);
 
 
         p = new Pieces("23:47");

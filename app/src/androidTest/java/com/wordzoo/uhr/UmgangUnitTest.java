@@ -2,17 +2,20 @@ package com.wordzoo.uhr;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.AndroidJUnitRunner;
-import android.test.suitebuilder.annotation.LargeTest;
 
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.LargeTest;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
@@ -22,7 +25,7 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
     private Context context;
 
 
-       protected void tearDown() throws Exception {
+    protected void tearDown() throws Exception {
 
     }
 
@@ -32,7 +35,7 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
     }
 
     @Test
-    public void testMinuteBarWords()   {
+    public void testMultipleOfFive()   {
 
 
         Settings s = new Settings();
@@ -40,36 +43,11 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
 
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
-        s.setMinuteHybrid(Boolean.FALSE);
         s.setUmgangminute(Settings.Umgangminute.minutebar);
 
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
         s.setMinute(Boolean.TRUE);
-
-        s.setMitternacht(Boolean.TRUE);
-        s.setKurzvor(Boolean.TRUE);
-        s.setKurznach(Boolean.TRUE);
-
-        s.setMorgens(Boolean.TRUE);
-        s.setVormittags(Boolean.TRUE);
-        s.setNachmittags(Boolean.TRUE);
-        s.setAbends(Boolean.TRUE);
-        s.setIndernacht(Boolean.TRUE);
-
-        s.setViertel(Settings.Viertel.viertelacht);
-        s.setFuenfvorviertelacht(Boolean.TRUE);
-        s.setFuenfnachviertelacht(Boolean.TRUE);
-
-        s.setHalb(Boolean.TRUE);
-        s.setFuenfvorhalb(Boolean.TRUE);
-        s.setFuenfnachhalb(Boolean.TRUE);
-        s.setKurzvorhalb(Boolean.TRUE);
-        s.setKurznachhalb(Boolean.TRUE);
-
-        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
-        s.setFuenfvordreiviertelacht(Boolean.TRUE);
-        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
 
 
         Pieces p = new Pieces("00:00");
