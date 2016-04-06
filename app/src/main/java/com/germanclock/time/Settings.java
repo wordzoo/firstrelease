@@ -67,10 +67,11 @@ public class Settings {
     public enum Viertel {
         viertelueber,
         viertelnach,
-        viertelacht
+        viertelacht,
+        viertelfuenfzehn
     }
 
-    private Viertel viertel = Viertel.viertelnach;
+    private Viertel viertel = Viertel.viertelfuenfzehn;
 
 	//if viertel == viertel.vieterlacht, two more options
     private Boolean fuenfvorviertelacht = Boolean.FALSE;
@@ -80,7 +81,13 @@ public class Settings {
 
 
     //halb is selected be default with umgrangsprache
-    private Boolean halb = Boolean.FALSE;;
+    private Halb halb = Settings.Halb.dreissig;;
+
+    public enum Halb {
+        halb,
+        dreissig
+    }
+
 
     //these are available only if you choose halb
     private Boolean fuenfvorhalb = Boolean.FALSE;
@@ -106,7 +113,7 @@ public class Settings {
     }
 
 
-    private Dreiviertel dreiviertel = Dreiviertel.viertelvor;
+    private Dreiviertel dreiviertel = Dreiviertel.fuenfzehn;
 
     //if dreiviertel == Dreiviertel.dreiviertelacht then two more options
     private Boolean fuenfvordreiviertelacht = Boolean.FALSE;
@@ -116,8 +123,14 @@ public class Settings {
 
 	private Boolean kurzvor = Boolean.FALSE;
 
-    //this also does not work on block layout
-    private Boolean dreissignach = Boolean.FALSE;
+
+    public Halb getHalb() {
+        return halb;
+    }
+
+    public void setHalb(Halb halb) {
+        this.halb = halb;
+    }
 
     public Boolean getMinute() {
         return minute;
@@ -368,13 +381,6 @@ public class Settings {
         this.fuenfnachviertelacht = fuenfnachviertelacht;
     }
 
-    public Boolean getHalb() {
-        return halb;
-    }
-
-    public void setHalb(Boolean halb) {
-        this.halb = halb;
-    }
 
     public Boolean getFuenfvorhalb() {
         return fuenfvorhalb;
@@ -472,11 +478,5 @@ public class Settings {
         this.kurzvor = kurzvor;
     }
 
-    public Boolean getDreissignach() {
-        return dreissignach;
-    }
 
-    public void setDreissignach(Boolean dreissignach) {
-        this.dreissignach = dreissignach;
-    }
 }

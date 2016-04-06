@@ -61,7 +61,7 @@ public class PartOfDayTest extends AndroidJUnitRunner {
         s.setFuenfvorviertelacht(Boolean.TRUE);
         s.setFuenfnachviertelacht(Boolean.TRUE);
 
-        s.setHalb(Boolean.TRUE);
+
         s.setFuenfvorhalb(Boolean.TRUE);
         s.setFuenfnachhalb(Boolean.TRUE);
         s.setKurzvorhalb(Boolean.TRUE);

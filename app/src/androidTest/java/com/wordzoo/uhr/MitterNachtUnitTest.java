@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class MitterNachtUnitTest extends AndroidJUnitRunner {
+public class MitternachtUnitTest extends AndroidJUnitRunner {
 
     private Context context;
 

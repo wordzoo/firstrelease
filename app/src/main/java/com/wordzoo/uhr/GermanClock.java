@@ -76,8 +76,12 @@ public class GermanClock extends AppWidgetProvider {
         TimeInWords tiw = new TimeInWords(c);
 
 
+        s.setUmgangssprachlich(Boolean.TRUE);
+        s.setUmgangminute(Settings.Umgangminute.minutebar);
+
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
+        s.setMinute(Boolean.TRUE);
 
 
         Date d = new Date();

@@ -116,6 +116,8 @@ public class TimeInWords {
                     ret.append(tiw.getSectionOfDay());
                     ret.append(" ");
                 }
+
+
         }
 
         //umgansprachlich
@@ -162,6 +164,14 @@ public class TimeInWords {
                     ret.append(tiw.getSectionOfDay());
                     ret.append(" ");
                 }
+
+            if(tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
+                    && tiw.getPieces().getRemainderMinutes() > 0) {
+                ret.append(" ");
+                for(int x = 1; x <= tiw.getPieces().getRemainderMinutes();x++) {
+                    ret.append(" ^ ");
+                }
+            }
         }
         return ret.toString().trim();
     }
@@ -305,11 +315,13 @@ public class TimeInWords {
                 } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelueber) {
                     tiw.setMinute1("viertel");
                     tiw.setVornach("über");
+                } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelfuenfzehn) {
+                    tiw.setMinute1("fünfzehn");
+                    tiw.setVornach("nach");
                 }
                 break;
             case 20:
-                if (tiw.getSettings().getHalb()
-                        && tiw.getSettings().getZehnvorhalb()) {
+                if (tiw.getSettings().getZehnvorhalb()) {
                     tiw.setMinute1("zehn");
                     tiw.setVornach("vor");
                     tiw.setMinute2("halb");
@@ -349,11 +361,11 @@ public class TimeInWords {
                     tiw.setVornach("nach");
                     tiw.setMinute2("halb");
                     tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getHalb()) {
+                } else if (tiw.getSettings().getHalb() == Settings.Halb.halb) {
                     tiw.setMinute1("halb");
                     tiw.setVornach("");
                     tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getDreissignach()) {
+                } else if (tiw.getSettings().getHalb() == Settings.Halb.dreissig) {
                     tiw.setMinute1("dreißig");
                     tiw.setVornach("nach");
                 }
@@ -465,7 +477,8 @@ public class TimeInWords {
 
 
         if (number == 0) {
-            if (tiw.getSettings().getMitternacht())
+            //note: umgangsprachlich does not work with null
+            if (tiw.getSettings().getUmgangssprachlich() || tiw.getSettings().getMitternacht())
                 word = "Mitternacht";
             else
                 word = "null";
@@ -592,7 +605,7 @@ some examples:
 8:45 - acht uhr fünfundvierzig
 8:50 - acht uhr fünfzig
 
-For Midnight we say Mitternacht und for 00:05 we say üNull uhr fünfü or üFünf Minuten nach Mitternachtü
+For Midnight we say Mitternacht und for 00:05 we say null Uhr fünf or fünf Minuten nach Mitternacht
 		*/
 
     /* karntnerisch
