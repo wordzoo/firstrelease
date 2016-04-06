@@ -60,18 +60,18 @@ public class GermanClock extends AppWidgetProvider {
         AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ClockWakeup.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
         //After after 3 seconds
-        Calendar date = new GregorianCalendar();
+        /*Calendar date = new GregorianCalendar();
         date.setTime(new Date());
         //long now = date.getTimeInMillis();
         date.add(Calendar.MINUTE, 1);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
         long next_minute = date.getTimeInMillis();
-        //long minute_after_that = date.getTimeInMillis() + 60000;
-        //am.setExact(AlarmManager.RTC_WAKEUP, next_minute, pi);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, next_minute, 60000, pi);
-
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
+        //am.setRepeating(AlarmManager.RTC_WAKEUP, next_minute, 60000, pi);
+*/
     }
 
     public static String getVerbalTime(Context c) {
@@ -133,7 +133,7 @@ public class GermanClock extends AppWidgetProvider {
 
         remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
 
-        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) 
+        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget))
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
 
