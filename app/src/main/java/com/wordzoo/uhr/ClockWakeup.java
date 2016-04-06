@@ -31,14 +31,7 @@ public class ClockWakeup extends BroadcastReceiver {
         ComponentName thiswidget = new ComponentName(context, GermanClock.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         manager.updateAppWidget(thiswidget, remoteViews);
-
-        //launch the settings dialog
-        Intent settingsIntent = new Intent(context, Settings.class);
-        PendingIntent clickPendIntent = PendingIntent.getActivity
-                (context, 0, settingsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.german_clock, clickPendIntent);
-
-
+        
         //Release the lock
         wl.release();
     }

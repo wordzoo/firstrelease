@@ -22,7 +22,9 @@ import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class GermanClock extends AppWidgetProvider {
 
@@ -59,8 +61,16 @@ public class GermanClock extends AppWidgetProvider {
         Intent intent = new Intent(context, ClockWakeup.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
         //After after 3 seconds
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 60), 60000, pi);
-
+        Calendar date = new GregorianCalendar();
+        date.setTime(new Date());
+        //long now = date.getTimeInMillis();
+        date.add(Calendar.MINUTE, 1);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        long next_minute = date.getTimeInMillis();
+        //long minute_after_that = date.getTimeInMillis() + 60000;
+        //am.setExact(AlarmManager.RTC_WAKEUP, next_minute, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, next_minute, 60000, pi);
 
     }
 
@@ -110,7 +120,7 @@ public class GermanClock extends AppWidgetProvider {
         return tiw.getTimeAsSentance(p, s);
     }
 
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
         Intent configIntent = new Intent(context, com.wordzoo.uhr.Intro.class);
@@ -121,7 +131,8 @@ public class GermanClock extends AppWidgetProvider {
 
         remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
 
-        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+        for (int widgetId : appWidgetIds)
+            appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
 
     }
