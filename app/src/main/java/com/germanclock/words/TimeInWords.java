@@ -192,8 +192,9 @@ public class TimeInWords {
         }
         Resources res = getContext().getResources();
         String[] german_number = res.getStringArray(R.array.german_number);
-
-        if (tiw.getSettings().getMinute() && tiw.getPieces().getMinutes() == 1)
+        if (tiw.getPieces().getMinutes() == 0)
+            tiw.setMinute1("");
+        else if (tiw.getSettings().getMinute() && tiw.getPieces().getMinutes() == 1)
             tiw.setMinute1(german_number[0]);
         else
             tiw.setMinute1(german_number[number]);
@@ -467,7 +468,7 @@ public class TimeInWords {
             if (tiw.getSettings().getMitternacht())
                 word = "Mitternacht";
             else
-                word = "Null";
+                word = "null";
         } else {
             if (tiw.getSettings().getUhr()
                     && number == 1
@@ -565,7 +566,7 @@ public class TimeInWords {
 		 * good to hear from you ;-)
 Interesting task üwriting a german word clockü ;-)
 
-From my perspective I donüt really see differences to articulate the clock time in different german areas.
+From my perspective I dont really see differences to articulate the clock time in different german areas.
 and I see no differences between formal and commonly use of the time. perhaps, some minimal usage in special case like
 for example 7:35 or 7:25 - in this cases we say twenty-five minutes after seven - fünfundzwanzig minuten nach sieben-
 or five minutes to half eight - fünf minuten vor halb acht.
@@ -574,20 +575,20 @@ This brings me to a generell statement:
 We bring the time never in relationship to the quarter or three quarter only to the full hour or half hour.
 
 Your examples:
-8:05 - we donüt say üzehn vor viertel nach achtü! we say only üfünf Minuten nach achtü
+8:05 - we dont say zehn vor viertel nach acht! we say only fünf Minuten nach acht
 8:10 - we say only 10 Minuten nach acht
 8:20 - we say zwanzig Minuten nach acht or zehn Minuten vor halb neun (both is possible)
 8:40 - we say often zwanzig Minuten vor neun or zehn Minuten nach halb neun
 
 To shorten this forms, we lost the words minutes. Instead of "zehn Minuten nach acht" - you can say "zehn nach acht"
 
-We donüt use the forms üzehn vor dreiviertel neunü (8:35)
+We dont use the forms zehn vor dreiviertel neun (8:35)
 
-AND we use in colloquial way very often the shortest form like üacht uhr zwanzigü for 8:20
+AND we use in colloquial way very often the shortest form like acht uhr zwanzig for 8:20
 some examples:
 8:05 - acht uhr fünf
 8:17 - acht uhr siebzehn
-8:35 - acht uhr fünfunddreiüig
+8:35 - acht uhr fünfunddreißig
 8:45 - acht uhr fünfundvierzig
 8:50 - acht uhr fünfzig
 
