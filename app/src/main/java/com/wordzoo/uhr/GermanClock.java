@@ -75,38 +75,9 @@ public class GermanClock extends AppWidgetProvider {
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(c);
 
-        // Basic umgangsprashlich test
-        s.setUmgangssprachlich(Boolean.TRUE);
-        s.setMinuteHybrid(Boolean.TRUE);
-        s.setUmgangminute(Settings.Umgangminute.minuteword);
 
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
-        s.setMinute(Boolean.TRUE);
-
-        s.setMitternacht(Boolean.TRUE);
-        s.setKurzvor(Boolean.TRUE);
-        s.setKurznach(Boolean.TRUE);
-
-        s.setMorgens(Boolean.TRUE);
-        s.setVormittags(Boolean.TRUE);
-        s.setNachmittags(Boolean.TRUE);
-        s.setAbends(Boolean.TRUE);
-        s.setIndernacht(Boolean.TRUE);
-
-        s.setViertel(Settings.Viertel.viertelacht);
-        s.setFuenfvorviertelacht(Boolean.TRUE);
-        s.setFuenfnachviertelacht(Boolean.TRUE);
-
-        s.setHalb(Boolean.TRUE);
-        s.setFuenfvorhalb(Boolean.TRUE);
-        s.setFuenfnachhalb(Boolean.TRUE);
-        s.setKurzvorhalb(Boolean.TRUE);
-        s.setKurznachhalb(Boolean.TRUE);
-
-        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
-        s.setFuenfvordreiviertelacht(Boolean.TRUE);
-        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
 
 
         Date d = new Date();
