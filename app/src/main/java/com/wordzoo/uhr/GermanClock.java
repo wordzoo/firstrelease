@@ -11,6 +11,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.app.AlarmManager;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.os.SystemClock;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -25,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GermanClock extends AppWidgetProvider {
 
@@ -47,17 +54,46 @@ public class GermanClock extends AppWidgetProvider {
     }
 
 
+
+
+
     @Override
-    public void onEnabled(Context context) {
+
+    public void onEnabled(final Context context) {
         super.onEnabled(context);
+        //start clock
+        Calendar c = new GregorianCalendar();
+        c.setTime(new Date());
+        c.add(Calendar.MINUTE, 1);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        long next_minute = c.getTimeInMillis();
+        final long interval = next_minute - System.currentTimeMillis();
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final Runnable task = new Runnable() {
+            public void run() {
+                ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
+                String time = getVerbalTime(context);
+                Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
 
-        //set clock
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View germanClock = inflater.inflate(R.layout.german_clock, null);
-        TextView tv = (TextView)germanClock.findViewById(R.id.textView);
+                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+                remoteViews.setTextViewText(R.id.textView, time);
+                AppWidgetManager appManager = AppWidgetManager.getInstance(context);
+                appManager.updateAppWidget(thisWidget, remoteViews);
+                handler.postDelayed(task, interval);
+            }
+        };
+        handler.postDelayed(task, interval);
 
-        //set AlarmManager for next clock update
-        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+        /*Date now = new Date();
+Date lastMinute = DateUtils.truncate(now, Calendar.MINUTE);
+Date nextMinute = DateUtils.addMinute(lastMinute, 1);
+long interval = nextMinute.getTime() - System.currentTimeMillis();*/
+
+
+                //set AlarmManager for next clock update
+/*        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ClockWakeup.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
         Calendar c = new GregorianCalendar();
@@ -67,7 +103,24 @@ public class GermanClock extends AppWidgetProvider {
         c.set(Calendar.MILLISECOND, 0);
         long next_minute = c.getTimeInMillis();
         am.setRepeating(AlarmManager.RTC_WAKEUP, next_minute, 60000, pi);
-
+*/
+       /* final Timer timer = new Timer(false);
+        final Handler handler = new Handler();
+        final TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                                R.layout.german_clock);
+                        remoteViews.setTextViewText(R.id.textView, GermanClock.getVerbalTime(context));
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, 60000);
+        */
     }
 
     public static String getVerbalTime(Context c) {
@@ -93,7 +146,7 @@ public class GermanClock extends AppWidgetProvider {
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        ComponentName thisWidget = new ComponentName(context, GermanClock.class);
+        ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
         Intent configIntent = new Intent(context, com.wordzoo.uhr.Intro.class);
@@ -104,6 +157,7 @@ public class GermanClock extends AppWidgetProvider {
 
         remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
 
+
         for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget))
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
@@ -111,5 +165,6 @@ public class GermanClock extends AppWidgetProvider {
     }
 
 }
+
 
 
