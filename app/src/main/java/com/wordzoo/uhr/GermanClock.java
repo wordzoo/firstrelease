@@ -55,10 +55,9 @@ public class GermanClock extends AppWidgetProvider {
 
 
 
-
+    private static Runnable task;
 
     @Override
-
     public void onEnabled(final Context context) {
         super.onEnabled(context);
         //start clock
@@ -68,9 +67,9 @@ public class GermanClock extends AppWidgetProvider {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
         long next_minute = c.getTimeInMillis();
-        final long interval = next_minute - System.currentTimeMillis();
+        final long first_interval = Math.abs(next_minute - System.currentTimeMillis());
         final Handler handler = new Handler(Looper.getMainLooper());
-        final Runnable task = new Runnable() {
+        task = new Runnable() {
             public void run() {
                 ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
                 String time = getVerbalTime(context);
@@ -80,47 +79,18 @@ public class GermanClock extends AppWidgetProvider {
                 remoteViews.setTextViewText(R.id.textView, time);
                 AppWidgetManager appManager = AppWidgetManager.getInstance(context);
                 appManager.updateAppWidget(thisWidget, remoteViews);
-                handler.postDelayed(task, interval);
+
+                Calendar c = new GregorianCalendar();
+                c.setTime(new Date());
+                c.add(Calendar.MINUTE, 1);
+                c.set(Calendar.SECOND, 0);
+                c.set(Calendar.MILLISECOND, 0);
+                long next_minute = c.getTimeInMillis();
+                long subsequent_interval = Math.abs(next_minute - System.currentTimeMillis());
+                handler.postDelayed(task, subsequent_interval);
             }
         };
-        handler.postDelayed(task, interval);
-
-
-        /*Date now = new Date();
-Date lastMinute = DateUtils.truncate(now, Calendar.MINUTE);
-Date nextMinute = DateUtils.addMinute(lastMinute, 1);
-long interval = nextMinute.getTime() - System.currentTimeMillis();*/
-
-
-                //set AlarmManager for next clock update
-/*        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, ClockWakeup.class);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        Calendar c = new GregorianCalendar();
-        c.setTime(new Date());
-        c.add(Calendar.MINUTE, 1);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        long next_minute = c.getTimeInMillis();
-        am.setRepeating(AlarmManager.RTC_WAKEUP, next_minute, 60000, pi);
-*/
-       /* final Timer timer = new Timer(false);
-        final Handler handler = new Handler();
-        final TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                                R.layout.german_clock);
-                        remoteViews.setTextViewText(R.id.textView, GermanClock.getVerbalTime(context));
-                    }
-                });
-            }
-        };
-        timer.schedule(timerTask, 60000);
-        */
+        handler.postDelayed(task, first_interval);
     }
 
     public static String getVerbalTime(Context c) {
