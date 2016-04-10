@@ -30,29 +30,27 @@
         android:text="save as..." />
     </LinearLayout>
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/def"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <RadioButton android:id="@+id/umgangsprachlich"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="umganssprachlich"
-            android:onClick="onDefaultClicked"/>
+            android:text="umganssprachlich"/>
         <RadioButton android:id="@+id/officiallong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="offiziell lang"
-            android:onClick="onDefaultClicked"/>
+            android:checked="true"/>
         <RadioButton android:id="@+id/officialshort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="offiziell kurz"
-            android:onClick="onDefaultClicked"/>
+            android:text="offiziell kurz"/>
         <RadioButton android:id="@+id/custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="benutzerdefinierte Einstellungen"
-            android:onClick="onDefaultClicked"/>
+            android:text="benutzerdefinierte Einstellungen"/>
     </RadioGroup>
 
 </LinearLayout>

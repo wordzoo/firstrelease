@@ -24,7 +24,7 @@ public class ClockWakeup extends BroadcastReceiver {
         //Acquire the lock
         //wl.acquire();
 
-       GermanClock.startClock(context);
+       GermanClock.getInstance().startClock(context);
 
         //Release the lock
         //wl.release();

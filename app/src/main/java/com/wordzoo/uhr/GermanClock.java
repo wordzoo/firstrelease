@@ -38,7 +38,22 @@ import java.util.TimerTask;
 
 public class GermanClock extends AppWidgetProvider {
 
+    private static class GermanClockHolder {
+        private static final GermanClock instance = new GermanClock();
+    }
+    public static GermanClock getInstance() {
+        return GermanClockHolder.instance;
+    }
 
+    private Settings settings = null;
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
@@ -76,7 +91,7 @@ public class GermanClock extends AppWidgetProvider {
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
 
-        remoteViews.setTextViewText(R.id.textView, getVerbalTime(context));
+        remoteViews.setTextViewText(R.id.textView, getVerbalTime(context, getSettings()));
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
@@ -97,21 +112,23 @@ public class GermanClock extends AppWidgetProvider {
 
     }
 
-    public static String getVerbalTime(Context c) {
 
-        Settings s = new Settings();
+    public static String getVerbalTime(Context c, Settings settings) {
+        if(settings == null) {
+            //official default style
+            settings = new Settings();
+            settings.setEsist(Boolean.TRUE);
+            settings.setUhr(Boolean.TRUE);
+            settings.setMinute(Boolean.TRUE);
+        }
+
         TimeInWords tiw = new TimeInWords(c);
-
-        //official default style
-        s.setEsist(Boolean.TRUE);
-        s.setUhr(Boolean.TRUE);
-        s.setMinute(Boolean.TRUE);
 
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
         Pieces p = new Pieces(sdf.format(d));
 
-        return tiw.getTimeAsSentance(p, s);
+        return tiw.getTimeAsSentance(p, settings);
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -123,7 +140,7 @@ public class GermanClock extends AppWidgetProvider {
 
 
 
-    public static synchronized void startClock(final Context context) {
+    public synchronized void startClock(final Context context) {
         Calendar c = new GregorianCalendar();
         c.setTime(new Date());
         c.add(Calendar.MINUTE, 1);
@@ -135,7 +152,7 @@ public class GermanClock extends AppWidgetProvider {
         task = new Runnable() {
             public void run() {
                 ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
-                String time = getVerbalTime(context);
+                String time = getVerbalTime(context, getSettings());
                 Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
 
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);

@@ -1,5 +1,9 @@
 package com.germanclock.time;
 
+import android.widget.RadioButton;
+
+import com.wordzoo.uhr.R;
+
 public class Settings {
     private Boolean flag = Boolean.FALSE;
 
@@ -113,7 +117,35 @@ public class Settings {
     }
 
 
+    public enum Default {
+        officiallong,
+        officialshort,
+        custom,
+        umgangssprachlich
+    }
+
+    private Default def = Default.officiallong;
+
     private Dreiviertel dreiviertel = Dreiviertel.fuenfzehn;
+
+    public void parse(RadioButton def) {
+        if(def.getId() == R.id.officiallong)
+            this.setDef(Default.officiallong);
+        if(def.getId() == R.id.officialshort)
+            this.setDef(Default.officialshort);
+        if(def.getId() == R.id.umgangsprachlich)
+            this.setDef(Default.umgangssprachlich);
+        if(def.getId() == R.id.custom)
+            this.setDef(Default.custom);
+    }
+
+    public Default getDef() {
+        return def;
+    }
+
+    public void setDef(Default def) {
+        this.def = def;
+    }
 
     //if dreiviertel == Dreiviertel.dreiviertelacht then two more options
     private Boolean fuenfvordreiviertelacht = Boolean.FALSE;
