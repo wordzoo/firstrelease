@@ -44,7 +44,14 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <receiver   android:name=".ClockWakeup"></receiver>
+        <receiver   android:name=".ClockWakeup">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SCREEN_ON"></action>
+                <action android:name="android.intent.action.ACTION_SCREEN_OFF"></action>
+                <action android:name="android.intent.action.ACTION_USER_PRESENT"></action>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

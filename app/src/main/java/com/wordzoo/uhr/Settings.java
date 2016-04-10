@@ -11,17 +11,19 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.RemoteViews;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Settings extends Activity implements OnClickListener {
 
-    //count of designs
-    private int numDesigns = 3;
-    //image buttons for each design
-    private ImageButton[] designBtns;
-    //identifiers for each clock element
-    private int[] designs;
 
     //user prefs
     private SharedPreferences clockPrefs;
+
 
     public void onCreate(Bundle savedInstanceState) {
         /*
@@ -29,49 +31,30 @@ public class Settings extends Activity implements OnClickListener {
         e.g. in a numbers.xml file
         <resources>
     <integer name="num_clocks">3</integer>
-</resources>*/
+</resources>
+*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-
-        designBtns = new ImageButton[numDesigns];
-        designs = new int[numDesigns];
-
-        for(int d=0; d<numDesigns; d++){
-            designs[d] = this.getResources().getIdentifier
-                    ("AnalogClock"+d, "id", getPackageName());
-            designBtns[d]=(ImageButton)findViewById(this.getResources().getIdentifier
-                    ("design_"+d, "id", getPackageName()));
-            designBtns[d].setOnClickListener(this);
-        }
 
         //user prefs
         clockPrefs = getSharedPreferences("CustomClockPrefs", 0);
 
     }
-    public void onClick(View v) {
-        int picked = -1;
-        for(int c=0; c<numDesigns; c++){
-            if(v.getId()==designBtns[c].getId()){
-                picked=c;
-                break;
-            }
-        }
-        int pickedClock = designs[picked];
+
+    private void updateClock(com.germanclock.time.Settings settings) {
+
 
         RemoteViews remoteViews = new RemoteViews
                 (this.getApplicationContext().getPackageName(),
                         R.layout.german_clock);
 
-        for(int d=0; d<designs.length; d++){
-            if(d!=pickedClock)
-                remoteViews.setViewVisibility(designs[d], View.INVISIBLE);
-        }
-
-        remoteViews.setViewVisibility(pickedClock, View.VISIBLE);
 
         //get component name for widget class
         ComponentName comp = new ComponentName(this, GermanClock.class);
+
+        //germanClock.setSettings(settings);
+        //germanClock.startClock(settings);
 
         //get AppWidgetManager
         AppWidgetManager appWidgetManager =
@@ -80,9 +63,11 @@ public class Settings extends Activity implements OnClickListener {
         //update
         appWidgetManager.updateAppWidget(comp, remoteViews);
 
+    }
+    public void onClick(View v) {
+
         //save prefs
         SharedPreferences.Editor custClockEdit = clockPrefs.edit();
-        custClockEdit.putInt("clockdesign", picked);
         custClockEdit.commit();
 
         finish();
