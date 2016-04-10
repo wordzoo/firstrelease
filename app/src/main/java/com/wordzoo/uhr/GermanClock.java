@@ -83,7 +83,7 @@ public class GermanClock extends AppWidgetProvider {
         final IntentFilter theFilter = new IntentFilter();
         /** System Defined Broadcast */
         theFilter.addAction(Intent.ACTION_SCREEN_ON);
-        theFilter.addAction(Intent.ACTION_TIME_TICK);
+        //theFilter.addAction(Intent.ACTION_TIME_TICK);
 
         ClockWakeup mPowerKeyReceiver = new ClockWakeup();
 

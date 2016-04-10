@@ -3,9 +3,56 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="there are going to be some major settings here...." />
+        android:text="Choose a default or customize your language settings...." />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp">
+    <Button
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="done" />
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel" />
+    <Button
+        android:id="@+id/saveas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save as..." />
+    </LinearLayout>
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/umgangsprachlich"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="umganssprachlich"
+            android:onClick="onDefaultClicked"/>
+        <RadioButton android:id="@+id/officiallong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="offiziell lang"
+            android:onClick="onDefaultClicked"/>
+        <RadioButton android:id="@+id/officialshort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="offiziell kurz"
+            android:onClick="onDefaultClicked"/>
+        <RadioButton android:id="@+id/custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="benutzerdefinierte Einstellungen"
+            android:onClick="onDefaultClicked"/>
+    </RadioGroup>
+
 </LinearLayout>

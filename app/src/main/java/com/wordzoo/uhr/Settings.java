@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RemoteViews;
 
 import java.lang.reflect.Field;
@@ -27,11 +28,10 @@ public class Settings extends Activity implements OnClickListener {
 
     public void onCreate(Bundle savedInstanceState) {
         /*
-        example retrieve resource values, numDesigns = this.getResources().getInteger(R.integer.num_clocks);
-        e.g. in a numbers.xml file
-        <resources>
-    <integer name="num_clocks">3</integer>
-</resources>
+        Boolean default = this.getResources().getBoolean(R.integer.officallong);
+        if(officiallong)
+            view.setChecked(default);
+
 */
 
         super.onCreate(savedInstanceState);
@@ -40,6 +40,31 @@ public class Settings extends Activity implements OnClickListener {
         //user prefs
         clockPrefs = getSharedPreferences("CustomClockPrefs", 0);
 
+    }
+
+    public void onDefaultClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.officiallong:
+                if (checked)
+                    // Pirates are the best
+                    break;
+            case R.id.officialshort:
+                if (checked)
+                    // Ninjas rule
+                    break;
+            case R.id.umgangsprachlich:
+                if (checked)
+                    // Ninjas rule
+                    break;
+            case R.id.custom:
+                if (checked)
+                    // Ninjas rule
+                    break;
+        }
     }
 
     private void updateClock(com.germanclock.time.Settings settings) {
