@@ -110,13 +110,13 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
     @Test
     public void testMinuteWordsHybrid() {
 
-        Settings s = new Settings();
+        ActivitySettings s = new ActivitySettings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
 
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setMinuteHybrid(Boolean.TRUE);
-        s.setUmgangminute(Settings.Umgangminute.minuteword);
+        s.setUmgangminute(ActivitySettings.Umgangminute.minuteword);
 
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
@@ -132,7 +132,7 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
         s.setAbends(Boolean.TRUE);
         s.setIndernacht(Boolean.TRUE);
 
-        s.setViertel(Settings.Viertel.viertelacht);
+        s.setViertel(ActivitySettings.Viertel.viertelacht);
         s.setFuenfvorviertelacht(Boolean.TRUE);
         s.setFuenfnachviertelacht(Boolean.TRUE);
 
@@ -142,7 +142,7 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
         s.setKurzvorhalb(Boolean.TRUE);
         s.setKurznachhalb(Boolean.TRUE);
 
-        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        s.setDreiviertel(ActivitySettings.Dreiviertel.dreiviertelacht);
         s.setFuenfvordreiviertelacht(Boolean.TRUE);
         s.setFuenfnachdreiviertelacht(Boolean.TRUE);
 
@@ -196,13 +196,13 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
     @Test
     public void testMinuteWordsNoHybrid() {
 
-        Settings s = new Settings();
+        ActivitySettings s = new ActivitySettings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
 
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setMinuteHybrid(Boolean.FALSE);
-        s.setUmgangminute(Settings.Umgangminute.minuteword);
+        s.setUmgangminute(ActivitySettings.Umgangminute.minuteword);
 
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.FALSE);
@@ -218,7 +218,7 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
         s.setAbends(Boolean.TRUE);
         s.setIndernacht(Boolean.TRUE);
 
-        s.setViertel(Settings.Viertel.viertelacht);
+        s.setViertel(ActivitySettings.Viertel.viertelacht);
         s.setFuenfvorviertelacht(Boolean.TRUE);
         s.setFuenfnachviertelacht(Boolean.TRUE);
 
@@ -228,7 +228,7 @@ public class UmgangUnitTest extends AndroidJUnitRunner {
         s.setKurzvorhalb(Boolean.TRUE);
         s.setKurznachhalb(Boolean.TRUE);
 
-        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        s.setDreiviertel(ActivitySettings.Dreiviertel.dreiviertelacht);
         s.setFuenfvordreiviertelacht(Boolean.TRUE);
         s.setFuenfnachdreiviertelacht(Boolean.TRUE);
         s.setKurzvordreiviertelacht(Boolean.TRUE);

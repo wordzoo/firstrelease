@@ -5,24 +5,14 @@ package com.wordzoo.uhr;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.app.AlarmManager;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
-import android.text.format.DateUtils;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.germanclock.time.Pieces;
@@ -33,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GermanClock extends AppWidgetProvider {
 
@@ -87,7 +75,7 @@ public class GermanClock extends AppWidgetProvider {
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
 
-        Intent configIntent = new Intent(context, com.wordzoo.uhr.Settings.class);
+        Intent configIntent = new Intent(context, ActivitySettings.class);
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
 
@@ -152,6 +140,7 @@ public class GermanClock extends AppWidgetProvider {
                 c.set(Calendar.MILLISECOND, 0);
                 long next_minute = c.getTimeInMillis();
                 long subsequent_interval = Math.abs(next_minute - System.currentTimeMillis());
+                handler.removeCallbacks(task);
                 handler.postDelayed(task, subsequent_interval);
             }
         };

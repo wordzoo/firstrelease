@@ -37,7 +37,7 @@
         <RadioButton android:id="@+id/umgangsprachlich"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="umganssprachlich"/>
+            android:text="umgangssprachlich"/>
         <RadioButton android:id="@+id/officiallong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

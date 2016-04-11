@@ -19,7 +19,7 @@
                 android:resource="@xml/example_appwidget_info" />
         </receiver>
 
-        <activity android:name=".Settings" android:theme="@android:style/Theme.Dialog">
+        <activity android:name=".ActivitySettings" android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
