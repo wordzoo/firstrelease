@@ -18,8 +18,15 @@ public class ClockWakeup extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        GermanClock.getInstance().setTime(context);
-        GermanClock.getInstance().startClock(context);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+        GermanClock gc = new GermanClock();
+
+        remoteViews.setTextViewText(R.id.textView, gc.getVerbalTime(context));
+        ComponentName thisWidget = new ComponentName(context, GermanClock.class);
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+
+        
     }
 
 }

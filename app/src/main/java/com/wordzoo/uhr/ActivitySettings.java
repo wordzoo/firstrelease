@@ -68,16 +68,18 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
                 Settings settings = new Settings();
                 settings.parse(defButton);
-                updateSettings(defButton.getText()+"");
+                Settings s = loadSettings(defButton.getText() + "");
 
 
 
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+                GermanClock gc = new GermanClock();
+                gc.setSettings(s);
+                remoteViews.setTextViewText(R.id.textView, gc.getVerbalTime(context));
+
                 ComponentName thisWidget = new ComponentName(context, GermanClock.class);
                 appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-
-                //GermanClock.getInstance().startClock(GermanClock.getInstance().context);
                 finish();
 
             }
@@ -90,7 +92,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
     }
 
-    public void updateSettings(String def) {
+    public Settings loadSettings(String def) {
         Settings s = new Settings();
 
 
@@ -141,10 +143,8 @@ public class ActivitySettings extends Activity implements OnClickListener {
         else if(def.equals(Settings.Default.custom)) {
             //comming soon.....
         }
-        GermanClock.getInstance().setSettings(s);
-        //GermanClock.getInstance().setTime(context);
-        GermanClock.getInstance().startClock(context);
 
+        return s;
 
     }
 

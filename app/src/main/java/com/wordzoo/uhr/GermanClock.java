@@ -26,13 +26,6 @@ import java.util.GregorianCalendar;
 
 public class GermanClock extends AppWidgetProvider {
 
-    private static class GermanClockHolder {
-        private static final GermanClock instance = new GermanClock();
-    }
-    public static GermanClock getInstance() {
-        return GermanClockHolder.instance;
-    }
-
     private Settings settings = null;
 
     public Settings getSettings() {
@@ -55,10 +48,6 @@ public class GermanClock extends AppWidgetProvider {
 
         super.onDisabled(context);
     }
-
-
-
-    private static Runnable task;
 
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
         //startClock(context);
@@ -94,13 +83,14 @@ public class GermanClock extends AppWidgetProvider {
     }
 
 
-    public static String getVerbalTime(Context c, Settings settings) {
-        if(settings == null) {
+    public String getVerbalTime(Context c) {
+        if(getSettings() == null) {
             //official default style
             settings = new Settings();
             settings.setEsist(Boolean.TRUE);
             settings.setUhr(Boolean.TRUE);
             settings.setMinute(Boolean.TRUE);
+            setSettings(settings);
         }
 
         TimeInWords tiw = new TimeInWords(c);
@@ -109,7 +99,7 @@ public class GermanClock extends AppWidgetProvider {
         SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
         Pieces p = new Pieces(sdf.format(d));
 
-        return tiw.getTimeAsSentance(p, settings);
+        return tiw.getTimeAsSentance(p, getSettings());
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -130,26 +120,28 @@ public class GermanClock extends AppWidgetProvider {
         long next_minute = c.getTimeInMillis();
         final long first_interval = Math.abs(next_minute - System.currentTimeMillis());
 
-        task = new Runnable() {
-            public void run() {
-                setTime(context);
-                Calendar c = new GregorianCalendar();
-                c.setTime(new Date());
-                c.add(Calendar.MINUTE, 1);
-                c.set(Calendar.SECOND, 0);
-                c.set(Calendar.MILLISECOND, 0);
-                long next_minute = c.getTimeInMillis();
-                long subsequent_interval = Math.abs(next_minute - System.currentTimeMillis());
-                handler.removeCallbacks(task);
-                handler.postDelayed(task, subsequent_interval);
-            }
-        };
-        handler.removeCallbacks(task);
-        handler.postDelayed(task, first_interval);
+        Runnable outer = new Object() {
+            Runnable task = new Runnable() {
+                public void run() {
+                    setTime(context);
+                    Calendar c = new GregorianCalendar();
+                    c.setTime(new Date());
+                    c.add(Calendar.MINUTE, 1);
+                    c.set(Calendar.SECOND, 0);
+                    c.set(Calendar.MILLISECOND, 0);
+                    long next_minute = c.getTimeInMillis();
+                    long subsequent_interval = Math.abs(next_minute - System.currentTimeMillis());
+                    handler.removeCallbacks(task);
+                    handler.postDelayed(task, subsequent_interval);
+                }
+            };
+        }.task;
+        handler.removeCallbacks(outer);
+        handler.postDelayed(outer, first_interval);
         setTime(context);
     }
     public void setTime(Context context) {
-        String time = getVerbalTime(context, getSettings());
+        String time = getVerbalTime(context);
         Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
