@@ -91,20 +91,13 @@ public class GermanClock extends AppWidgetProvider {
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
 
-        remoteViews.setTextViewText(R.id.textView, getVerbalTime(context, getSettings()));
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-
         final IntentFilter theFilter = new IntentFilter();
-        /** System Defined Broadcast */
         theFilter.addAction(Intent.ACTION_SCREEN_ON);
-        //theFilter.addAction(Intent.ACTION_TIME_TICK);
 
         ClockWakeup mPowerKeyReceiver = new ClockWakeup();
-
         context.getApplicationContext().registerReceiver(mPowerKeyReceiver, theFilter);
-        //context.registerReceiver(mPowerKeyReceiver, theFilter);
 
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget))
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
@@ -138,7 +131,7 @@ public class GermanClock extends AppWidgetProvider {
     }
 
 
-
+    final Handler handler = new Handler(Looper.getMainLooper());
 
     public synchronized void startClock(final Context context) {
         Calendar c = new GregorianCalendar();
@@ -148,18 +141,10 @@ public class GermanClock extends AppWidgetProvider {
         c.set(Calendar.MILLISECOND, 0);
         long next_minute = c.getTimeInMillis();
         final long first_interval = Math.abs(next_minute - System.currentTimeMillis());
-        final Handler handler = new Handler(Looper.getMainLooper());
+
         task = new Runnable() {
             public void run() {
-                ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
-                String time = getVerbalTime(context, getSettings());
-                Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
-
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-                remoteViews.setTextViewText(R.id.textView, time);
-                AppWidgetManager appManager = AppWidgetManager.getInstance(context);
-                appManager.updateAppWidget(thisWidget, remoteViews);
-
+                setTime(context);
                 Calendar c = new GregorianCalendar();
                 c.setTime(new Date());
                 c.add(Calendar.MINUTE, 1);
@@ -170,7 +155,19 @@ public class GermanClock extends AppWidgetProvider {
                 handler.postDelayed(task, subsequent_interval);
             }
         };
+        handler.removeCallbacks(task);
         handler.postDelayed(task, first_interval);
+        setTime(context);
+    }
+    public void setTime(Context context) {
+        String time = getVerbalTime(context, getSettings());
+        Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
+
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+        remoteViews.setTextViewText(R.id.textView, time);
+        AppWidgetManager appManager = AppWidgetManager.getInstance(context);
+        ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
+        appManager.updateAppWidget(thisWidget, remoteViews);
     }
 }
 

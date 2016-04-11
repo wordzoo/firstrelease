@@ -16,18 +16,10 @@ import android.widget.RemoteViews;
 
 public class ClockWakeup extends BroadcastReceiver {
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        //PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "GERMAN CLOCK");
-        //Acquire the lock
-        //wl.acquire();
-
-       GermanClock.getInstance().startClock(context);
-
-        //Release the lock
-        //wl.release();
+        GermanClock.getInstance().setTime(context);
+        GermanClock.getInstance().startClock(context);
     }
 
 }

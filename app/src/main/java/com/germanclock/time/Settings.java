@@ -15,8 +15,12 @@ public class Settings {
 
     private FlagPattern flagPattern = FlagPattern.vienna;
 
-    private Boolean esist = Boolean.FALSE;;
-    private Boolean umgangssprachlich = Boolean.FALSE;;
+    private Boolean esist = Boolean.FALSE;
+    private Boolean umgangssprachlich = Boolean.FALSE;
+
+    private Boolean um = Boolean.FALSE; //"um Zwölf"
+
+    private Boolean halber = Boolean.FALSE; //"sechs nach halber"
 
 
     //you can only choose this of umgangssprachlich is true
@@ -155,6 +159,22 @@ public class Settings {
 
 	private Boolean kurzvor = Boolean.FALSE;
 
+
+    public Boolean getUm() {
+        return um;
+    }
+
+    public void setUm(Boolean um) {
+        this.um = um;
+    }
+
+    public Boolean getHalber() {
+        return halber;
+    }
+
+    public void setHalber(Boolean halber) {
+        this.halber = halber;
+    }
 
     public Halb getHalb() {
         return halb;

@@ -34,6 +34,8 @@ public class Settings extends Activity implements OnClickListener {
     private RadioButton defButton;
     private Button done;
 
+    Context context;
+
     public void onCreate(Bundle savedInstanceState) {
         /*
         Boolean default = this.getResources().getBoolean(R.integer.officallong);
@@ -50,6 +52,7 @@ public class Settings extends Activity implements OnClickListener {
         //user prefs
         clockPrefs = getSharedPreferences("CustomClockPrefs", 0);
 
+        this.context = this;
     }
 
 
@@ -78,19 +81,21 @@ public class Settings extends Activity implements OnClickListener {
 
 
 
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+                ComponentName thisWidget = new ComponentName(context, GermanClock.class);
+                appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+
+                //GermanClock.getInstance().startClock(GermanClock.getInstance().context);
+                finish();
+
             }
+            
+
 
         });
 
-        /*
-        Context context = this;
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-        ComponentName thisWidget = new ComponentName(context, GermanClock.class);
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 
-        //GermanClock.getInstance().startClock(GermanClock.getInstance().context);
-        finish();*/
 
     }
 
