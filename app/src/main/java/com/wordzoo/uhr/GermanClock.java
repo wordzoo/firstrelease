@@ -50,11 +50,11 @@ public class GermanClock extends AppWidgetProvider {
     }
 
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
-        //startClock(context);
+
     }
 
     public void onRestored(Context context, int[] oldWidgetIds, int[] newWidgetIds) {
-        startClock(context);
+        setTime(context);
     }
 
     @Override
@@ -69,17 +69,36 @@ public class GermanClock extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
 
         final IntentFilter theFilter = new IntentFilter();
-        theFilter.addAction(Intent.ACTION_SCREEN_ON);
+        theFilter.addAction(Intent.ACTION_SCREEN_ON); //DREAM STOP, SLEEP STop
+        theFilter.addAction(Intent.ACTION_TIME_TICK);
+        theFilter.addAction(Intent.ACTION_DREAMING_STOPPED);
 
-        ClockWakeup mPowerKeyReceiver = new ClockWakeup();
-        context.getApplicationContext().registerReceiver(mPowerKeyReceiver, theFilter);
+        context.getApplicationContext().registerReceiver(this, theFilter);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget))
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
-        startClock(context);
+        setTime(context);
 
+
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+        String action = intent.getAction();
+        if (action.equals(Intent.ACTION_SCREEN_ON)
+                || action.equals(Intent.ACTION_TIME_TICK)
+                || action.equals(Intent.ACTION_DREAMING_STOPPED))
+        {
+            setTime(context);
+            //startClock(context);
+        }
+        else
+        {
+            super.onReceive(context, intent);
+        }
     }
 
 
@@ -103,43 +122,9 @@ public class GermanClock extends AppWidgetProvider {
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-
-        //startClock(context);
-
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
-
-    final Handler handler = new Handler(Looper.getMainLooper());
-
-    public synchronized void startClock(final Context context) {
-        Calendar c = new GregorianCalendar();
-        c.setTime(new Date());
-        c.add(Calendar.MINUTE, 1);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        long next_minute = c.getTimeInMillis();
-        final long first_interval = Math.abs(next_minute - System.currentTimeMillis());
-
-        Runnable outer = new Object() {
-            Runnable task = new Runnable() {
-                public void run() {
-                    setTime(context);
-                    Calendar c = new GregorianCalendar();
-                    c.setTime(new Date());
-                    c.add(Calendar.MINUTE, 1);
-                    c.set(Calendar.SECOND, 0);
-                    c.set(Calendar.MILLISECOND, 0);
-                    long next_minute = c.getTimeInMillis();
-                    long subsequent_interval = Math.abs(next_minute - System.currentTimeMillis());
-                    handler.removeCallbacks(task);
-                    handler.postDelayed(task, subsequent_interval);
-                }
-            };
-        }.task;
-        handler.removeCallbacks(outer);
-        handler.postDelayed(outer, first_interval);
-        setTime(context);
-    }
     public void setTime(Context context) {
         String time = getVerbalTime(context);
         Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
