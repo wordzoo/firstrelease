@@ -28,6 +28,7 @@ public class GermanClock extends AppWidgetProvider {
 
     private Settings settings = null;
 
+
     public Settings getSettings() {
         return settings;
     }
@@ -38,27 +39,29 @@ public class GermanClock extends AppWidgetProvider {
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
-        Toast.makeText(context, "onDeleted(): TimeWidgetRemoved id(s):"+appWidgetIds, Toast.LENGTH_SHORT).show();
         super.onDeleted(context, appWidgetIds);
+        Toast.makeText(context, "onDeleted(): TimeWidgetRemoved id(s):" + appWidgetIds, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onDisabled(Context context) {
+        super.onDisabled(context);
         Toast.makeText(context, "onDisabled():last widget instance removed", Toast.LENGTH_SHORT).show();
 
-        super.onDisabled(context);
-    }
-
-    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
 
     }
+
 
     public void onRestored(Context context, int[] oldWidgetIds, int[] newWidgetIds) {
+        super.onRestored(context, oldWidgetIds, newWidgetIds);
         setTime(context);
     }
 
+
     @Override
     public void onEnabled(final Context context) {
+
         super.onEnabled(context);
         ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
 
@@ -87,6 +90,8 @@ public class GermanClock extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        super.onReceive(context, intent);
+
         String action = intent.getAction();
         if (action.equals(Intent.ACTION_SCREEN_ON)
                 || action.equals(Intent.ACTION_TIME_TICK)
@@ -95,10 +100,7 @@ public class GermanClock extends AppWidgetProvider {
             setTime(context);
             //startClock(context);
         }
-        else
-        {
-            super.onReceive(context, intent);
-        }
+
     }
 
 
@@ -121,9 +123,7 @@ public class GermanClock extends AppWidgetProvider {
         return tiw.getTimeAsSentance(p, getSettings());
     }
 
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
-    }
+
 
     public void setTime(Context context) {
         String time = getVerbalTime(context);
