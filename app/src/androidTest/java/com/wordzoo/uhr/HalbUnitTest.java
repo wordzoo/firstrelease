@@ -32,8 +32,7 @@ public class HalbUnitTest extends AndroidJUnitRunner {
     }
 
     @Test
-    public void testMinuteBarWords()   {
-
+    public void zehnVorHalb()   {
 
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
@@ -43,70 +42,91 @@ public class HalbUnitTest extends AndroidJUnitRunner {
         s.setMinuteHybrid(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
 
-        s.setEsist(Boolean.TRUE);
-        s.setUhr(Boolean.TRUE);
-        s.setMinute(Boolean.TRUE);
+        s.setHalber(Boolean.TRUE);
+        s.setHalberRange(8);
 
-        s.setMitternacht(Boolean.TRUE);
-        s.setKurzvor(Boolean.FALSE);
-        s.setKurznach(Boolean.FALSE);
-
-        s.setMorgens(Boolean.TRUE);
-        s.setVormittags(Boolean.TRUE);
-        s.setNachmittags(Boolean.TRUE);
-        s.setAbends(Boolean.TRUE);
-        s.setIndernacht(Boolean.TRUE);
-
-
-        Pieces p = new Pieces("23:00");
+        Pieces p = new Pieces("11:20");
         String out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist Mitternacht", out);
+        assertEquals("zwanzig nach Elf", out);
 
-        p = new Pieces("23:01");
+        p = new Pieces("11:24");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach Mitternacht", out);
+        assertEquals("sechs vor halber", out);
 
-        p = new Pieces("23:12");
+        p = new Pieces("11:29");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor viertel eins in der Nacht", out);
+        assertEquals("eins vor halber", out);
 
-        p = new Pieces("23:15");
+        p = new Pieces("11:30");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist viertel eins in der Nacht", out);
+        assertEquals("halber", out);
 
-        p = new Pieces("23:18");
+        p = new Pieces("11:34");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach viertel eins in der Nacht", out);
+        assertEquals("vier nach halber", out);
 
 
-        p = new Pieces("23:29");
+        p = new Pieces("11:38");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor halb eins in der Nacht", out);
+        assertEquals("acht nach halber", out);
 
 
-        p = new Pieces("23:31");
+        p = new Pieces("11:40");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist halb eins in der Nacht", out);
-
-
-        p = new Pieces("23:37");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach halb eins in der Nacht", out);
-
-
-        p = new Pieces("23:45");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor dreiviertel eins in der Nacht", out);
-
-
-        p = new Pieces("23:47");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist dreiviertel eins in der Nacht", out);
-
-
-
+        assertEquals("zwanzig vor zwölf", out);
 
 
     }
 
+    @Test
+    public void halb() {
+
+        Settings s = new Settings();
+        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
+
+        // Basic umgangsprashlich test
+        s.setUmgangssprachlich(Boolean.TRUE);
+        s.setMinuteHybrid(Boolean.TRUE);
+        s.setUmgangminute(Settings.Umgangminute.minuteword);
+        s.setHalb(Settings.Halb.halb);
+
+        s.setFuenfnachhalb(Boolean.TRUE);
+        s.setFuenfvorhalb(Boolean.TRUE);
+        s.setZehnnachhalb(Boolean.TRUE);
+        s.setZehnvorhalb(Boolean.TRUE);
+        s.setKurzvorhalb(Boolean.TRUE);
+        s.setKurznachhalb(Boolean.TRUE);
+
+
+        Pieces p = new Pieces("11:20");
+        String out = tiw.getTimeAsSentance(p,s);
+        assertEquals("zehn vor halb zwölf", out);
+
+        p = new Pieces("11:24");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("vierundzwanzig nach elf", out);
+
+        p = new Pieces("11:29");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("kurz vor halb zwölf", out);
+
+        p = new Pieces("11:30");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("halb zwölf", out);
+
+        p = new Pieces("11:34");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("kurz nach halb zwölf", out);
+
+
+        p = new Pieces("11:38");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("zweiundzwanzig vor zwölf", out);
+
+
+        p = new Pieces("11:40");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("zehn nach hlb zwölf", out);
+
+    }
 }

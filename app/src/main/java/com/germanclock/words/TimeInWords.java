@@ -52,12 +52,19 @@ public class TimeInWords {
     }
 
     public TimeInWords() {
-        ;
+
+
     }
 
     public TimeInWords(Context context) {
         this.context = context;
+        Resources res = getContext().getResources();
+        this.german_number = res.getStringArray(R.array.german_number);
     }
+
+
+    private String[] german_number = new String[0];
+
 
     public String getTimeAsSentance(Pieces p, Settings s) {
 
@@ -231,8 +238,7 @@ public class TimeInWords {
         } else {
             tiw.setPlusHour(Boolean.FALSE);
         }
-        Resources res = getContext().getResources();
-        String[] german_number = res.getStringArray(R.array.german_number);
+
         if (tiw.getPieces().getMinutes() == 0)
             tiw.setMinute1("");
         else if (tiw.getSettings().getMinute() && tiw.getPieces().getMinutes() == 1)
@@ -352,7 +358,13 @@ public class TimeInWords {
                 }
                 break;
             case 20:
-                if (tiw.getSettings().getZehnvorhalb()) {
+                if(tiw.getSettings().getHalber() &&
+                        tiw.getSettings().getHalberRange() >= (10 - tiw.getPieces().getRemainderMinutes())) {
+                    tiw.setMinute1(german_number[(10 - tiw.getPieces().getRemainderMinutes())]);
+                    tiw.setVornach("vor");
+                    tiw.setMinute2("halber");
+                }
+                else if (tiw.getSettings().getZehnvorhalb()) {
                     tiw.setMinute1("zehn");
                     tiw.setVornach("vor");
                     tiw.setMinute2("halb");
@@ -370,7 +382,13 @@ public class TimeInWords {
 
                 break;
             case 25:
-                if (tiw.getSettings().getKurzvorhalb() && tiw.getPieces().getMinutes() > 25) {
+                if(tiw.getSettings().getHalber() &&
+                        tiw.getSettings().getHalberRange() >= (5 - tiw.getPieces().getRemainderMinutes())) {
+                    tiw.setMinute1(german_number[(5 - tiw.getPieces().getRemainderMinutes())]);
+                    tiw.setVornach("vor");
+                    tiw.setMinute2("halber");
+                }
+                else if (tiw.getSettings().getKurzvorhalb() && tiw.getPieces().getMinutes() > 25) {
                     tiw.setMinute1("kurz");
                     tiw.setVornach("vor");
                     tiw.setMinute2("halb");
@@ -386,7 +404,12 @@ public class TimeInWords {
                 }
                 break;
             case 30:
-                if (tiw.getSettings().getKurznachhalb()
+                if(tiw.getSettings().getHalber()) {
+                    tiw.setMinute1("");
+                    tiw.setVornach("");
+                    tiw.setMinute2("halber");
+                }
+                else if (tiw.getSettings().getKurznachhalb()
                         && tiw.getPieces().getMinutes() > 30) {
                     tiw.setMinute1("kurz");
                     tiw.setVornach("nach");
@@ -402,7 +425,13 @@ public class TimeInWords {
                 }
                 break;
             case 35:
-                if (tiw.getSettings().getKurznachhalb() && tiw.getPieces().getMinutes() < 35) {
+                if(tiw.getSettings().getHalber() &&
+                        tiw.getSettings().getHalberRange() >= (5 - tiw.getPieces().getRemainderMinutes())) {
+                    tiw.setMinute1(german_number[(5 - tiw.getPieces().getRemainderMinutes())]);
+                    tiw.setVornach("nach");
+                    tiw.setMinute2("halber");
+                }
+                else if (tiw.getSettings().getKurznachhalb() && tiw.getPieces().getMinutes() < 35) {
                     tiw.setMinute1("kurz");
                     tiw.setVornach("nach");
                     tiw.setMinute2("halb");
@@ -419,7 +448,13 @@ public class TimeInWords {
                 }
                 break;
             case 40:
-                if (tiw.getSettings().getKurzvordreiviertelacht()
+                if(tiw.getSettings().getHalber() &&
+                        tiw.getSettings().getHalberRange() >= (10 - tiw.getPieces().getRemainderMinutes())) {
+                    tiw.setMinute1(german_number[(10 - tiw.getPieces().getRemainderMinutes())]);
+                    tiw.setVornach("nach");
+                    tiw.setMinute2("halber");
+                }
+                else if (tiw.getSettings().getKurzvordreiviertelacht()
                         && tiw.getPieces().getMinutes() > 40) {
                     tiw.setMinute1("kurz");
                     tiw.setVornach("vor");
@@ -502,9 +537,6 @@ public class TimeInWords {
 
         if (number.intValue() == 24)
             number = 0;
-
-        Resources res = getContext().getResources();
-        String[] german_number = res.getStringArray(R.array.german_number);
 
 
         if (number == 0) {

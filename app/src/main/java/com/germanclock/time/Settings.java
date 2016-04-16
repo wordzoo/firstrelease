@@ -21,7 +21,7 @@ public class Settings {
     private Boolean um = Boolean.FALSE; //"um Zwölf"
 
     private Boolean halber = Boolean.FALSE; //"sechs nach halber"
-
+    private int halberRange = 6; //0 to 10, as in 10 nach (oder vor) halber
 
     //you can only choose this of umgangssprachlich is true
     public enum Umgangminute {
@@ -174,6 +174,14 @@ public class Settings {
 
     public void setHalber(Boolean halber) {
         this.halber = halber;
+    }
+
+    public int getHalberRange() {
+        return halberRange;
+    }
+
+    public void setHalberRange(int halberRange) {
+        this.halberRange = halberRange;
     }
 
     public Halb getHalb() {
