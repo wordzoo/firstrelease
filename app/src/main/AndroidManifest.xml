@@ -12,13 +12,18 @@
 
         <receiver android:name=".GermanClock" >
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-
+                <action android:name="android.intent.action.TIME_TICK"></action>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/example_appwidget_info" />
         </receiver>
+
+        <service android:name=".service.ClockService" android:process=":remote">
+            <intent-filter>
+                <action android:name="com.wordzoo.uhr.service.ClockService" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".ActivitySettings" android:theme="@android:style/Theme.Dialog">
             <intent-filter>
