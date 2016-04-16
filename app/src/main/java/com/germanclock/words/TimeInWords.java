@@ -417,10 +417,18 @@ public class TimeInWords {
                 }
                 break;
             case 30:
-                if(tiw.getSettings().getHalber()) {
-                    tiw.setMinute1("");
-                    tiw.setVornach("");
-                    tiw.setMinute2("halber");
+                if(tiw.getSettings().getHalber()
+                        && tiw.getSettings().getHalberRange() >= (tiw.getPieces().getRemainderMinutes())) {
+                    if(tiw.getPieces().getRemainderMinutes() == 0) {
+                        tiw.setMinute1("");
+                        tiw.setVornach("");
+                        tiw.setMinute2("halber");
+                    }
+                    else {
+                        tiw.setMinute1(german_number[tiw.getPieces().getRemainderMinutes()]);
+                        tiw.setVornach("nach");
+                        tiw.setMinute2("halber");
+                    }
                 }
                 else if (tiw.getSettings().getKurznachhalb()
                         && tiw.getPieces().getMinutes() > 30) {
@@ -438,9 +446,9 @@ public class TimeInWords {
                 }
                 break;
             case 35:
-                if(tiw.getSettings().getHalber() &&
-                        tiw.getSettings().getHalberRange() >= (5 - tiw.getPieces().getRemainderMinutes())) {
-                    tiw.setMinute1(german_number[(5 - tiw.getPieces().getRemainderMinutes())]);
+                if(tiw.getSettings().getHalber()
+                        && tiw.getSettings().getHalberRange() >= (5 + tiw.getPieces().getRemainderMinutes())) {
+                    tiw.setMinute1(german_number[tiw.getPieces().getRemainderMinutes() + 5]);
                     tiw.setVornach("nach");
                     tiw.setMinute2("halber");
                 }
