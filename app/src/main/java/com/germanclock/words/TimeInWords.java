@@ -10,6 +10,37 @@ import com.wordzoo.uhr.R;
 
 public class TimeInWords {
 
+    /*
+    public static final Parcelable.Creator<germanClock> CREATOR = new Parcelable.Creator<germanClock>() {
+
+        public GermanClock createFromParcel(Parcel in) {
+            return new GermanClock(in);
+        }
+
+        public GermanClock[] newArray(int size) {
+            return new GermanClock[size];
+        }
+
+    };
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        ;
+    }
+
+    public GermanClock(Parcel in) {
+        readFromParcel(in);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+    public void readFromParcel(Parcel in) {
+
+    }*/
     private Context context;
 
     public Context getContext() {

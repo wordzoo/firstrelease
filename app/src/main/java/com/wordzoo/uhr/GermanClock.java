@@ -2,6 +2,7 @@ package com.wordzoo.uhr;
 
 //import android.util.Log;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -12,6 +13,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.PowerManager;
+import android.os.SystemClock;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -26,7 +31,8 @@ import java.util.GregorianCalendar;
 
 public class GermanClock extends AppWidgetProvider {
 
-    private Settings settings = null;
+
+    private static Settings settings = null;
 
 
     public Settings getSettings() {
@@ -49,6 +55,10 @@ public class GermanClock extends AppWidgetProvider {
         super.onDisabled(context);
         Toast.makeText(context, "onDisabled():last widget instance removed", Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(context, ClockWakeup.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(sender);
 
     }
 
@@ -56,27 +66,33 @@ public class GermanClock extends AppWidgetProvider {
     public void onRestored(Context context, int[] oldWidgetIds, int[] newWidgetIds) {
         super.onRestored(context, oldWidgetIds, newWidgetIds);
         setTime(context);
+        Toast.makeText(context, "onRestored()", Toast.LENGTH_SHORT).show();
+
     }
 
+ @Override
+ public void onUpdate(Context context, AppWidgetManager awm, int[] ids) {
+    super.onUpdate(context, awm, ids);
+     Toast.makeText(context, "onUpdate(): update, call setTime() ", Toast.LENGTH_SHORT).show();
+     setTime(context);
+     setClock(context);
 
+
+ }
     @Override
     public void onEnabled(final Context context) {
 
         super.onEnabled(context);
         ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
-
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
 
         Intent configIntent = new Intent(context, ActivitySettings.class);
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
 
-        final IntentFilter theFilter = new IntentFilter();
-        theFilter.addAction(Intent.ACTION_SCREEN_ON); //DREAM STOP, SLEEP STop
-        theFilter.addAction(Intent.ACTION_TIME_TICK);
-        theFilter.addAction(Intent.ACTION_DREAMING_STOPPED);
 
-        context.getApplicationContext().registerReceiver(this, theFilter);
+        setClock(context);
+
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget))
@@ -84,34 +100,38 @@ public class GermanClock extends AppWidgetProvider {
 
         setTime(context);
 
+    }
+
+    public void setClock (Context context) {
+        //set AlarmManager for next clock update
+        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, ClockWakeup.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        Calendar c = new GregorianCalendar();
+        Date date = new Date(SystemClock.elapsedRealtime());
+        c.setTime(date);
+        c.add(Calendar.MINUTE, 1);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        long next_minute = c.getTimeInMillis();
+        long offset = 30000;
+        Toast.makeText(context, "onEnabled(): next minute " + next_minute, Toast.LENGTH_SHORT).show();
+
+        am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, next_minute, pi);
 
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent)
-    {
-        super.onReceive(context, intent);
-
-        String action = intent.getAction();
-        if (action.equals(Intent.ACTION_SCREEN_ON)
-                || action.equals(Intent.ACTION_TIME_TICK)
-                || action.equals(Intent.ACTION_DREAMING_STOPPED))
-        {
-            setTime(context);
-            //startClock(context);
-        }
-
-    }
 
 
-    public String getVerbalTime(Context c) {
-        if(getSettings() == null) {
+    public static String getVerbalTime(Context c) {
+        if(settings == null) {
             //official default style
             settings = new Settings();
             settings.setEsist(Boolean.TRUE);
             settings.setUhr(Boolean.TRUE);
             settings.setMinute(Boolean.TRUE);
-            setSettings(settings);
         }
 
         TimeInWords tiw = new TimeInWords(c);
@@ -120,17 +140,16 @@ public class GermanClock extends AppWidgetProvider {
         SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
         Pieces p = new Pieces(sdf.format(d));
 
-        return tiw.getTimeAsSentance(p, getSettings());
+        return tiw.getTimeAsSentance(p, settings);
     }
 
 
 
     public void setTime(Context context) {
         String time = getVerbalTime(context);
-        Toast.makeText(context, time, Toast.LENGTH_SHORT).show();
-
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
         remoteViews.setTextViewText(R.id.textView, time);
+        Toast.makeText(context, "setTime() setting time to: " +time, Toast.LENGTH_SHORT).show();
         AppWidgetManager appManager = AppWidgetManager.getInstance(context);
         ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
         appManager.updateAppWidget(thisWidget, remoteViews);
