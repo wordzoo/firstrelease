@@ -104,6 +104,7 @@ public class TimeInWords {
                 && !tiw.getMinute2().equals("viertel")
                 && !tiw.getMinute2().equals("halb")
                 && !tiw.getMinute2().equals("dreiviertel")
+                && !tiw.getMinute2().equals("halber")
                 )
             tiw.setUhr("Uhr");
 
@@ -198,11 +199,11 @@ public class TimeInWords {
                 ret.append(" ");
             }
 
-            if (!tiw.getHour().contains("Mitternacht"))
-                if (isNotEmpty(tiw.getSectionOfDay())) {
-                    ret.append(tiw.getSectionOfDay());
-                    ret.append(" ");
-                }
+
+            if (isNotEmpty(tiw.getSectionOfDay())) {
+                ret.append(tiw.getSectionOfDay());
+                ret.append(" ");
+            }
 
             if(tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
                     && tiw.getPieces().getRemainderMinutes() > 0) {
@@ -571,12 +572,21 @@ public class TimeInWords {
                 word = german_number[number];
         }
 
-
-        tiw.setHour(word);
+        if(tiw.getMinute2().equals("halber"))
+            tiw.setHour("");
+        else
+            tiw.setHour(word);
     }
 
 
     public void getSectionOfDay(TimeInWordsDto tiw) {
+
+        if(tiw.getMinute2().equals("halber")
+                || tiw.getHour().contains("Mitternacht")) {
+            tiw.setSectionOfDay("");
+            return;
+        }
+
 
 //three night variatne, nach, früh and morgen, mutually exclusive
         if (tiw.getPieces().getHr24() >= 0
@@ -638,6 +648,8 @@ public class TimeInWords {
                 && tiw.getPieces().getHr24() <= 23
                 && tiw.getSettings().getAmabend())
             tiw.setSectionOfDay("am Abend");
+
+
 
     }
 
