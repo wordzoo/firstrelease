@@ -125,7 +125,8 @@ public class TimeInWords {
         if (!tiw.getSettings().getUmgangssprachlich()
                 || ((tiw.getPieces().getRemainderMinutes() > 0)
                 && (tiw.getSettings().getMinuteHybrid()
-                && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)))) {
+                && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)
+                && !tiw.getSettings().getHalber()))) {
 
             if (isNotEmpty(tiw.getHour())) {
                 ret.append(tiw.getHour());
@@ -249,6 +250,19 @@ public class TimeInWords {
 
     }
 
+    public Boolean hasHalber(TimeInWordsDto tiw) {
+        Boolean ret = Boolean.FALSE;
+
+        if (tiw.getSettings().getHalber()) {
+            if( (tiw.getPieces().getMinutes() <= 30)
+                   && (tiw.getPieces().getMinutes() >= (30 - tiw.getSettings().getHalberRange()))  )
+                ret = Boolean.TRUE;
+            else if(tiw.getPieces().getMinutes() >= 30
+                    && tiw.getPieces().getMinutes() <= (30 + tiw.getSettings().getHalberRange()))
+                ret = Boolean.TRUE;
+        }
+        return ret;
+    }
 
     public Boolean hasKurz(TimeInWordsDto tiw) {
 
@@ -309,11 +323,9 @@ public class TimeInWords {
 
             //this is for cases when we do not want to use the five minute buckets
             if (tiw.getSettings().getMinuteHybrid()
-                    && tiw.getPieces().getRemainderMinutes() > 0)
-                return;
-            else if ((tiw.getPieces().getRemainderMinutes() > 0)
-                    && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)
-                    && !hasKurz(tiw))
+                    && (tiw.getPieces().getRemainderMinutes() > 0)
+                    && !hasKurz(tiw)
+                    && !hasHalber(tiw))
                 return;
         }
 
