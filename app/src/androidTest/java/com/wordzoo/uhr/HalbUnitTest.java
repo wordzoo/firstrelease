@@ -76,11 +76,11 @@ public class HalbUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("11:41");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("neunzehn vor elf", out);
+        assertEquals("neunzehn vor zwölf", out);
 
         p = new Pieces("11:43");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("siebzehn vor elf", out);
+        assertEquals("siebzehn vor zwölf", out);
 
         p = new Pieces("11:48");
         out = tiw.getTimeAsSentance(p,s);
