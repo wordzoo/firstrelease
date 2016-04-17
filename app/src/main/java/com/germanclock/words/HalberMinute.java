@@ -69,8 +69,9 @@ public class HalberMinute extends Minute {
                 break;
             case 40:
                 if(tiw.getSettings().getHalber() &&
-                        tiw.getSettings().getHalberRange() >= (10 - tiw.getPieces().getRemainderMinutes())) {
-                    tiw.setMinute1(german_number[(10 - tiw.getPieces().getRemainderMinutes())]);
+                        tiw.getSettings().getHalberRange() == 10
+                        && tiw.getPieces().getRemainderMinutes() == 0) {
+                    tiw.setMinute1(german_number[10]);
                     tiw.setVornach("nach");
                     tiw.setMinute2("halber");
                     ret = Boolean.TRUE;
