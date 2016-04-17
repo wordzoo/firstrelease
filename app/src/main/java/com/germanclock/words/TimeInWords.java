@@ -74,12 +74,14 @@ public class TimeInWords {
     }
 
     public void developTimeWords(TimeInWordsDto tiw) {
-        //by ref populate the beginning
+        //by ref populate
+
+        // the beginning
         getBegin(tiw);
 
-        //by ref populate minutes
-        if (!tiw.getSettings().getUmgangssprachlich())
-            getMinuteDetail(tiw, Boolean.TRUE);
+        //minutes
+        if (!tiw.getSettings().getUmgangssprachlich() )
+            getMinuteDetail(tiw);
         else
             getUmgangMinutes(tiw);
 
@@ -91,10 +93,10 @@ public class TimeInWords {
                 tiw.setMinute("Minuten");
         }
 
-        //by ref popualte hour
+        //hour
         getHour(tiw);
 
-        //populate wod "Uhr"
+        //populate word "Uhr"
         if (tiw.getSettings().getUhr()
                 && !tiw.getHour().equals("Mitternacht")
                 && !tiw.getHour().equals("eins")
@@ -223,23 +225,8 @@ public class TimeInWords {
 
     }
 
-
-    public void getMinuteDetail(TimeInWordsDto tiw, Boolean official) {
+    public void getMinuteDetail(TimeInWordsDto tiw) {
         Integer number = new Integer(tiw.getPieces().getMinutes());
-
-        if (!official) {
-            if (number > 30)
-                number = 60 - number;
-
-            if (tiw.getPieces().getMinutes() <= 30)
-                tiw.setVornach("nach");
-            else {
-                tiw.setVornach("vor");
-                tiw.setPlusHour(Boolean.TRUE);
-            }
-        } else {
-            tiw.setPlusHour(Boolean.FALSE);
-        }
 
         if (tiw.getPieces().getMinutes() == 0)
             tiw.setMinute1("");
@@ -247,300 +234,49 @@ public class TimeInWords {
             tiw.setMinute1(german_number[0]);
         else
             tiw.setMinute1(german_number[number]);
-
-
     }
 
-    public Boolean hasHalber(TimeInWordsDto tiw) {
-        Boolean ret = Boolean.FALSE;
-
-        if (tiw.getSettings().getHalber()) {
-            if( (tiw.getPieces().getMinutes() <= 30)
-                   && (tiw.getPieces().getMinutes() >= (30 - tiw.getSettings().getHalberRange()))  )
-                ret = Boolean.TRUE;
-            else if(tiw.getPieces().getMinutes() >= 30
-                    && tiw.getPieces().getMinutes() <= (30 + tiw.getSettings().getHalberRange()))
-                ret = Boolean.TRUE;
-        }
-        return ret;
-    }
-
-    public Boolean hasKurz(TimeInWordsDto tiw) {
-
-
-        if (tiw.getSettings().getKurznach()
-                && (tiw.getPieces().getMinutes() > 0)
-                && (tiw.getPieces().getMinutes() < 5))
-            return Boolean.TRUE;
-
-
-        if (tiw.getSettings().getKurzvor()
-                && (tiw.getPieces().getMinutes() > 55)
-                && (tiw.getPieces().getMinutes() <= 59))
-            return Boolean.TRUE;
-
-        if (tiw.getSettings().getKurzvorviertelacht()
-                && (tiw.getPieces().getMinutes() > 10)
-                && (tiw.getPieces().getMinutes() < 15))
-            return Boolean.TRUE;
-        if (tiw.getSettings().getKurznachviertelacht()
-                && (tiw.getPieces().getMinutes() > 15)
-                && (tiw.getPieces().getMinutes() < 20))
-            return Boolean.TRUE;
-
-        if (tiw.getSettings().getKurzvorhalb()
-                && (tiw.getPieces().getMinutes() > 25)
-                && (tiw.getPieces().getMinutes() < 30))
-            return Boolean.TRUE;
-
-        if (tiw.getSettings().getKurznachhalb()
-                && (tiw.getPieces().getMinutes() > 30)
-                && (tiw.getPieces().getMinutes() < 35))
-            return Boolean.TRUE;
-
-
-        if (tiw.getSettings().getKurzvordreiviertelacht()
-                && (tiw.getPieces().getMinutes() > 40)
-                && (tiw.getPieces().getMinutes() < 45))
-            return Boolean.TRUE;
-
-        if (tiw.getSettings().getKurznachdreiviertelacht()
-                && (tiw.getPieces().getMinutes() > 45)
-                && (tiw.getPieces().getMinutes() < 50))
-            return Boolean.TRUE;
-
-        return Boolean.FALSE;
-    }
+    private HalberMinute hm = new HalberMinute(german_number);
+    private KurzMinute km = new KurzMinute(german_number);
+    private ViertelMinute vm = new ViertelMinute(german_number);
+    private UmgangsMinute um = new UmgangsMinute(german_number);
 
     public void getUmgangMinutes(TimeInWordsDto tiw) {
 
-        Integer testMinute;
+       // here we have the priority of treatment of minutes
+        //this priority also applies to the setting dialog
+        // e.g. if you choose a halber setting, it will
+        //likely deactivate kurz settings related to halb (e.g. kurz for halb)
 
+        //these "get" fuctions will set the minutes if BOTH the settings and time apply
+        //and in that case return true....
 
-        //set up language for detailed minutes
-        if (tiw.getSettings().getUmgangminute() == Settings.Umgangminute.minuteword) {
-            //serves as default values if the special cases below to not apply
-            getMinuteDetail(tiw, Boolean.FALSE);
+        if(hm.getUmgangsMinute(tiw))
+            return;
 
-            //this is for cases when we do not want to use the five minute buckets
-            if (tiw.getSettings().getMinuteHybrid()
-                    && (tiw.getPieces().getRemainderMinutes() > 0)
-                    && !hasKurz(tiw)
-                    && !hasHalber(tiw))
-                return;
+        if( km.getUmgangsMinute(tiw))
+            return;
+
+        if( vm.getUmgangsMinute(tiw))
+            return;
+
+        if(hasHybrid(tiw)) {
+            getMinuteDetail(tiw);
+            return;
         }
-
-        //5 minute bucket is nearest multiple of five below current minute
-        switch (tiw.getPieces().getFiveMinBucket()) {
-            case 0:
-                if (tiw.getSettings().getKurznach() && tiw.getPieces().getMinutes() > 0) {
-                    tiw.setMinute1("kurz");
-                    tiw.setVornach("nach");
-                }
-                break;
-            case 5:
-                tiw.setMinute1("fünf");
-                tiw.setVornach("nach");
-                break;
-            case 10:
-                if ((tiw.getSettings().getViertel() == Settings.Viertel.viertelacht)
-                        && tiw.getSettings().getFuenfvorviertelacht()) {
-                    tiw.setMinute1("fünf");
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("viertel");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else {
-                    tiw.setMinute1("zehn");
-                    tiw.setVornach("nach");
-                }
-                break;
-            case 15:
-                if (tiw.getSettings().getViertel() == Settings.Viertel.viertelacht) {
-                    tiw.setMinute1("viertel");
-                    tiw.setVornach("");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelnach) {
-                    tiw.setMinute1("viertel");
-                    tiw.setVornach("nach");
-                } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelueber) {
-                    tiw.setMinute1("viertel");
-                    tiw.setVornach("über");
-                } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelfuenfzehn) {
-                    tiw.setMinute1("fünfzehn");
-                    tiw.setVornach("nach");
-                }
-                break;
-            case 20:
-                if(tiw.getSettings().getHalber() &&
-                        tiw.getSettings().getHalberRange() >= (10 - tiw.getPieces().getRemainderMinutes())) {
-                    tiw.setMinute1(german_number[(10 - tiw.getPieces().getRemainderMinutes())]);
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("halber");
-                }
-                else if (tiw.getSettings().getZehnvorhalb()) {
-                    tiw.setMinute1("zehn");
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("halb");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelacht
-                        && tiw.getSettings().getFuenfnachviertelacht()) {
-                    tiw.setMinute1("fünf");
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("viertel");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else { // default is tiw.getSettings().getZwanzignach()
-                    tiw.setMinute1("zwanzig");
-                    tiw.setVornach("nach");
-                }
-
-                break;
-            case 25:
-                if(tiw.getSettings().getHalber() &&
-                        tiw.getSettings().getHalberRange() >= (5 - tiw.getPieces().getRemainderMinutes())) {
-                    tiw.setMinute1(german_number[(5 - tiw.getPieces().getRemainderMinutes())]);
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("halber");
-                }
-                else if (tiw.getSettings().getKurzvorhalb() && tiw.getPieces().getMinutes() > 25) {
-                    tiw.setMinute1("kurz");
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("halb");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getFuenfvorhalb()) {
-                    tiw.setMinute1("fünf");
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("halb");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else {
-                    tiw.setMinute1("fünfundzwanzig");
-                    tiw.setVornach("nach");
-                }
-                break;
-            case 30:
-                if(tiw.getSettings().getHalber()
-                        && tiw.getSettings().getHalberRange() >= (tiw.getPieces().getRemainderMinutes())) {
-                    if(tiw.getPieces().getRemainderMinutes() == 0) {
-                        tiw.setMinute1("");
-                        tiw.setVornach("");
-                        tiw.setMinute2("halber");
-                    }
-                    else {
-                        tiw.setMinute1(german_number[tiw.getPieces().getRemainderMinutes()]);
-                        tiw.setVornach("nach");
-                        tiw.setMinute2("halber");
-                    }
-                }
-                else if (tiw.getSettings().getKurznachhalb()
-                        && tiw.getPieces().getMinutes() > 30) {
-                    tiw.setMinute1("kurz");
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("halb");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getHalb() == Settings.Halb.halb) {
-                    tiw.setMinute1("halb");
-                    tiw.setVornach("");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getHalb() == Settings.Halb.dreissig) {
-                    tiw.setMinute1("dreißig");
-                    tiw.setVornach("nach");
-                }
-                break;
-            case 35:
-                if(tiw.getSettings().getHalber()
-                        && tiw.getSettings().getHalberRange() >= (5 + tiw.getPieces().getRemainderMinutes())) {
-                    tiw.setMinute1(german_number[tiw.getPieces().getRemainderMinutes() + 5]);
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("halber");
-                }
-                else if (tiw.getSettings().getKurznachhalb() && tiw.getPieces().getMinutes() < 35) {
-                    tiw.setMinute1("kurz");
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("halb");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getFuenfnachhalb()) {
-                    tiw.setMinute1("fünf");
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("halb");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else {
-                    tiw.setMinute1("fünfundzwanzig");
-                    tiw.setVornach("vor");
-                    tiw.setPlusHour(Boolean.TRUE);
-                }
-                break;
-            case 40:
-                if(tiw.getSettings().getHalber() &&
-                        tiw.getSettings().getHalberRange() >= (10 - tiw.getPieces().getRemainderMinutes())) {
-                    tiw.setMinute1(german_number[(10 - tiw.getPieces().getRemainderMinutes())]);
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("halber");
-                }
-                else if (tiw.getSettings().getKurzvordreiviertelacht()
-                        && tiw.getPieces().getMinutes() > 40) {
-                    tiw.setMinute1("kurz");
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("dreiviertel");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.dreiviertelacht) {
-                    tiw.setMinute1("fünf");
-                    tiw.setVornach("vor");
-                    tiw.setMinute2("dreiviertel");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else {
-                    tiw.setMinute1("zwanzig");
-                    tiw.setVornach("vor");
-                    tiw.setPlusHour(Boolean.TRUE);
-                }
-                break;
-            case 45:
-                if (tiw.getSettings().getKurznachdreiviertelacht()
-                        && tiw.getPieces().getMinutes() > 45) {
-                    tiw.setMinute1("kurz");
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("dreiviertel");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.dreiviertelacht) {
-                    tiw.setMinute1("dreiviertel");
-                    tiw.setVornach("");
-                    tiw.setMinute2("");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.viertelvor) {
-                    tiw.setMinute1("viertel");
-                    tiw.setVornach("vor");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.fuenfzehn) {
-                    tiw.setMinute1("fünfzehn");
-                    tiw.setVornach("vor");
-                    tiw.setPlusHour(Boolean.TRUE);
-                }
-
-                break;
-            case 50:
-                if (tiw.getSettings().getFuenfnachdreiviertelacht()) {
-                    tiw.setMinute1("fünf");
-                    tiw.setVornach("nach");
-                    tiw.setMinute2("dreiviertel");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else {
-                    tiw.setMinute1("zehn");
-                    tiw.setVornach("vor");
-                    tiw.setPlusHour(Boolean.TRUE);
-                }
-                break;
-            case 55:
-                if (tiw.getSettings().getKurzvor() && tiw.getPieces().getMinutes() > 55) {
-                    tiw.setMinute1("kurz");
-                    tiw.setVornach("vor");
-                    tiw.setPlusHour(Boolean.TRUE);
-                } else {
-                    tiw.setMinute1("fünf");
-                    tiw.setVornach("vor");
-                    tiw.setPlusHour(Boolean.TRUE);
-                }
-                break;
-
-        }
+        um.getUmgangsMinute(tiw);
     }
+
+
+
+    public Boolean hasHybrid(TimeInWordsDto tiw) {
+        if(tiw.getPieces().getRemainderMinutes() > 0)
+            return Boolean.TRUE;
+        else
+            return Boolean.FALSE;
+    }
+
+
 
 
     public void getHour(TimeInWordsDto tiw) {
