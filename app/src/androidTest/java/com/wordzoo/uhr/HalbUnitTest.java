@@ -32,7 +32,7 @@ public class HalbUnitTest extends AndroidJUnitRunner {
     }
 
     @Test
-    public void zehnVorHalb()   {
+    public void halber()   {
 
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
@@ -78,7 +78,7 @@ public class HalbUnitTest extends AndroidJUnitRunner {
 
     }
 
-//    @Test
+    @Test
     public void halb() {
 
         Settings s = new Settings();
@@ -86,7 +86,6 @@ public class HalbUnitTest extends AndroidJUnitRunner {
 
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
-        s.setMinuteHybrid(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
         s.setHalb(Settings.Halb.halb);
 

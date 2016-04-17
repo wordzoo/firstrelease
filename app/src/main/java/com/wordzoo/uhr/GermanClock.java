@@ -136,6 +136,7 @@ public class GermanClock extends AppWidgetProvider
 			settings.setEsist(Boolean.TRUE);
 			settings.setUhr(Boolean.TRUE);
 			settings.setMinute(Boolean.TRUE);
+
 			setSettings(settings);
 		}
 

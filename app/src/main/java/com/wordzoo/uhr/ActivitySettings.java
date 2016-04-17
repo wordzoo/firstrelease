@@ -116,6 +116,8 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
             s.setUmgangssprachlich(Boolean.TRUE);
             s.setUmgangminute(Settings.Umgangminute.minuteword);
+            s.setHalber(Boolean.TRUE);
+            s.setHalberRange(10);
             s.setKurznach(Boolean.TRUE);
             s.setViertel(Settings.Viertel.viertelacht);
             s.setZehnvorhalb(Boolean.TRUE);

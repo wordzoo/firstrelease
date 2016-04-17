@@ -31,6 +31,7 @@ public class Settings {
 
     private Umgangminute umgangminute = Umgangminute.minutebar;
 
+    //this means that when the minutes are not exactly on a five minute bucket, the construction goes to officie (hour <<Uhr>>  minute <<Minute>>)
     private Boolean minuteHybrid = Boolean.FALSE;
 
     public Boolean getMinuteHybrid() {
