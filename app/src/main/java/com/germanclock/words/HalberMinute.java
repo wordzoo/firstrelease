@@ -6,8 +6,8 @@ import com.germanclock.time.Settings;
  * Created by ich on 17.04.2016.
  */
 public class HalberMinute extends Minute {
-    public void HalberMinute(String[] german_number) {
-        this.german_number = german_number;
+    public HalberMinute(String[] german_number) {
+        super(german_number);
     }
 
 

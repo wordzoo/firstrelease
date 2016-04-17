@@ -39,7 +39,6 @@ public class HalbUnitTest extends AndroidJUnitRunner {
 
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
-        s.setMinuteHybrid(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
 
         s.setHalber(Boolean.TRUE);
@@ -75,6 +74,17 @@ public class HalbUnitTest extends AndroidJUnitRunner {
         out = tiw.getTimeAsSentance(p,s);
         assertEquals("zwanzig vor zwölf", out);
 
+        p = new Pieces("11:41");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("neunzehn vor elf", out);
+
+        p = new Pieces("11:43");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("siebzehn vor elf", out);
+
+        p = new Pieces("11:48");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("zwölf vor zwölf", out);
 
     }
 

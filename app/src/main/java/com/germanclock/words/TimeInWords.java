@@ -239,6 +239,8 @@ public class TimeInWords {
     private HalberMinute hm = new HalberMinute(german_number);
     private KurzMinute km = new KurzMinute(german_number);
     private ViertelMinute vm = new ViertelMinute(german_number);
+    private HalbMinute hb = new HalbMinute(german_number);
+    private DreiviertelMinute dm = new DreiviertelMinute(german_number);
     private UmgangsMinute um = new UmgangsMinute(german_number);
 
     public void getUmgangMinutes(TimeInWordsDto tiw) {
@@ -251,19 +253,36 @@ public class TimeInWords {
         //these "get" fuctions will set the minutes if BOTH the settings and time apply
         //and in that case return true....
 
+        //HALBER
         if(hm.getUmgangsMinute(tiw))
             return;
 
+        //KURZ VOR NACH
         if( km.getUmgangsMinute(tiw))
             return;
 
+        //VIERTEL
         if( vm.getUmgangsMinute(tiw))
             return;
 
+        //HALB
+        if( hb.getUmgangsMinute(tiw))
+            return;
+
+        //DREIVIERTEL
+        if( dm.getUmgangsMinute(tiw))
+            return;
+
+        //HYBRID -- means, if non of the rules above applied,
+        // and minutes are not a multiple of five,
+        // instead of "Einundzwanzig Uhr siebzehn Minuten"
+        // you can switch to official short "siebzehn nach elf"
         if(hasHybrid(tiw)) {
             getMinuteDetail(tiw);
             return;
         }
+
+        //UMGANGSPRACHLICH
         um.getUmgangsMinute(tiw);
     }
 

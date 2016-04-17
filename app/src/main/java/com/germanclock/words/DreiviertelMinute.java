@@ -5,9 +5,9 @@ import com.germanclock.time.Settings;
 /**
  * Created by ich on 17.04.2016.
  */
-public class ViertelMinute  extends Minute {
+public class DreiviertelMinute  extends Minute {
 
-    public ViertelMinute(String[] german_number) {
+    public DreiviertelMinute(String[] german_number) {
         super(german_number);
     }
 
@@ -16,46 +16,41 @@ public class ViertelMinute  extends Minute {
         tiw.setPlusHour(Boolean.FALSE);
 
         switch (tiw.getPieces().getFiveMinBucket()) {
-            case 10:
-                if ((tiw.getSettings().getViertel() == Settings.Viertel.viertelacht)
-                        && tiw.getSettings().getFuenfvorviertelacht()) {
+
+            case 40:
+                if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.dreiviertelacht
+                        && tiw.getSettings().getFuenfvordreiviertelacht()) {
                     tiw.setMinute1("fünf");
                     tiw.setVornach("vor");
-                    tiw.setMinute2("viertel");
+                    tiw.setMinute2("dreiviertel");
                     tiw.setPlusHour(Boolean.TRUE);
                     ret = Boolean.TRUE;
                 }
                 break;
-            case 15:
-                if (tiw.getSettings().getViertel() == Settings.Viertel.viertelacht) {
-                    tiw.setMinute1("viertel");
+            case 45:
+                if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.dreiviertelacht) {
+                    tiw.setMinute1("dreiviertel");
                     tiw.setVornach("");
+                    tiw.setMinute2("");
                     tiw.setPlusHour(Boolean.TRUE);
                     ret = Boolean.TRUE;
-                } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelnach) {
+                } else if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.viertelvor) {
                     tiw.setMinute1("viertel");
-                    tiw.setVornach("nach");
-                    ret = Boolean.TRUE;
-                } else if (tiw.getSettings().getViertel() == Settings.Viertel.viertelueber) {
-                    tiw.setMinute1("viertel");
-                    tiw.setVornach("über");
+                    tiw.setVornach("vor");
+                    tiw.setPlusHour(Boolean.TRUE);
                     ret = Boolean.TRUE;
                 }
                 break;
-            case 20:
-
-                if (tiw.getSettings().getViertel() == Settings.Viertel.viertelacht
-                        && tiw.getSettings().getFuenfnachviertelacht()) {
+            case 50:
+                if (tiw.getSettings().getFuenfnachdreiviertelacht()) {
                     tiw.setMinute1("fünf");
                     tiw.setVornach("nach");
-                    tiw.setMinute2("viertel");
+                    tiw.setMinute2("dreiviertel");
                     tiw.setPlusHour(Boolean.TRUE);
                     ret = Boolean.TRUE;
                 }
                 break;
-
         }
         return ret;
     }
-
 }

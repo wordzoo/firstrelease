@@ -5,7 +5,7 @@ package com.germanclock.words;
  */
 public class Minute {
     protected String[] german_number = new String[0];
-    public void Minute(String[] german_number) {
+    public Minute(String[] german_number) {
         this.german_number = german_number;
     }
 
