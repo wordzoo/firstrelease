@@ -15,7 +15,7 @@ public class HalbMinute  extends Minute {
         Boolean ret = Boolean.FALSE;
         tiw.setPlusHour(Boolean.FALSE);
 
-        switch (tiw.getPieces().getFiveMinBucket()) {
+        switch (tiw.getPieces().getMinutes()) {
             case 20:
 
                 if (tiw.getSettings().getZehnvorhalb()) {

@@ -253,6 +253,23 @@ public class TimeInWords {
 
     public void getUmgangMinutes(TimeInWordsDto tiw) {
 
+        Integer testMinute = tiw.getPieces().getMinutes();
+
+        //these are the basic umgang minutes....
+        if (testMinute > 30)
+            testMinute = 60 - testMinute;
+
+        tiw.setMinute1(german_number[testMinute]);
+        if (tiw.getPieces().getMinutes() <= 30) {
+            tiw.setVornach("nach");
+            tiw.setPlusHour(Boolean.FALSE);
+        }
+        else {
+            tiw.setVornach("vor");
+            tiw.setPlusHour(Boolean.TRUE);
+        }
+
+
        // here we have the priority of treatment of minutes
         //this priority also applies to the setting dialog
         // e.g. if you choose a halber setting, it will
@@ -297,7 +314,8 @@ public class TimeInWords {
 
 
     public Boolean hasHybrid(TimeInWordsDto tiw) {
-        if(tiw.getPieces().getRemainderMinutes() > 0)
+        if(tiw.getSettings().getMinuteHybrid()
+               && tiw.getPieces().getRemainderMinutes() > 0)
             return Boolean.TRUE;
         else
             return Boolean.FALSE;
