@@ -51,6 +51,13 @@ public class TimeInWords {
         this.context = context;
     }
 
+    private HalberMinute hm = null;
+    private KurzMinute km = null;
+    private ViertelMinute vm = null;
+    private HalbMinute hb = null;
+    private DreiviertelMinute dm = null;
+    private UmgangsMinute um = null;
+
     public TimeInWords() {
 
 
@@ -60,6 +67,12 @@ public class TimeInWords {
         this.context = context;
         Resources res = getContext().getResources();
         this.german_number = res.getStringArray(R.array.german_number);
+        this.hm = new HalberMinute(german_number);
+        this.km = new KurzMinute(german_number);
+        this.vm = new ViertelMinute(german_number);
+        this.hb = new HalbMinute(german_number);
+        this.dm = new DreiviertelMinute(german_number);
+        this.um = new UmgangsMinute(german_number);
     }
 
 
@@ -236,12 +249,7 @@ public class TimeInWords {
             tiw.setMinute1(german_number[number]);
     }
 
-    private HalberMinute hm = new HalberMinute(german_number);
-    private KurzMinute km = new KurzMinute(german_number);
-    private ViertelMinute vm = new ViertelMinute(german_number);
-    private HalbMinute hb = new HalbMinute(german_number);
-    private DreiviertelMinute dm = new DreiviertelMinute(german_number);
-    private UmgangsMinute um = new UmgangsMinute(german_number);
+
 
     public void getUmgangMinutes(TimeInWordsDto tiw) {
 
