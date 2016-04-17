@@ -31,7 +31,7 @@ public class HalbUnitTest extends AndroidJUnitRunner {
         this.context =   InstrumentationRegistry.getContext();
     }
 
-    @Test
+   @Test
     public void halber()   {
 
         Settings s = new Settings();
@@ -135,7 +135,7 @@ public class HalbUnitTest extends AndroidJUnitRunner {
 
         p = new Pieces("11:40");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("zehn nach hlb zwölf", out);
+        assertEquals("zehn nach halb zwölf", out);
 
     }
 }

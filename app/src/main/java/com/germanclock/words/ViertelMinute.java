@@ -13,7 +13,6 @@ public class ViertelMinute  extends Minute {
 
     public Boolean getUmgangsMinute(TimeInWordsDto tiw) {
         Boolean ret = Boolean.FALSE;
-        tiw.setPlusHour(Boolean.FALSE);
 
         switch (tiw.getPieces().getFiveMinBucket()) {
             case 10:

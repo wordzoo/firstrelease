@@ -93,7 +93,7 @@ public class KurzMinute extends Minute {
             ret = Boolean.TRUE;
         }
 
-        return Boolean.FALSE;
+        return ret;
     }
 
 
