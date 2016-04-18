@@ -38,85 +38,72 @@ public class ViertelUnitTest extends AndroidJUnitRunner {
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
 
-        // Basic umgangsprashlich test
+
         s.setUmgangssprachlich(Boolean.TRUE);
-        s.setMinuteHybrid(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
 
-        s.setEsist(Boolean.TRUE);
-        s.setUhr(Boolean.TRUE);
-        s.setMinute(Boolean.FALSE);
-
-        s.setMitternacht(Boolean.TRUE);
-        s.setKurzvor(Boolean.TRUE);
-        s.setKurznach(Boolean.TRUE);
-
-        s.setAmmorgen(Boolean.TRUE);
-        s.setAmvormittag(Boolean.TRUE);
-        s.setAmnachmittag(Boolean.TRUE);
-        s.setAmabend(Boolean.TRUE);
-        s.setIndernacht(Boolean.TRUE);
-
         s.setViertel(Settings.Viertel.viertelacht);
-        s.setFuenfvorviertelacht(Boolean.TRUE);
-        s.setFuenfnachviertelacht(Boolean.TRUE);
 
-
-        s.setFuenfvorhalb(Boolean.TRUE);
-        s.setFuenfnachhalb(Boolean.TRUE);
-        s.setKurzvorhalb(Boolean.TRUE);
-        s.setKurznachhalb(Boolean.TRUE);
-
-        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
-        s.setFuenfvordreiviertelacht(Boolean.TRUE);
-        s.setFuenfnachdreiviertelacht(Boolean.TRUE);
-
-
-
-        Pieces p = new Pieces("21:00");
+        Pieces p = new Pieces("21:13");
         String out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist neun Uhr am Abend", out);
+        assertEquals("dreizehn nach neun", out);
 
-        p = new Pieces("21:01");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist neun Uhr eins am Abend", out);
-
-        p = new Pieces("21:12");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist neun Uhr zwölf am Abend", out);
 
         p = new Pieces("21:15");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist viertel zehn in der Nacht", out);
+        assertEquals("viertel zehn", out);
 
-        p = new Pieces("21:18");
+
+        s.setViertel(Settings.Viertel.viertelnach);
+        p = new Pieces("21:15");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist neun Uhr achtzehn in der Nacht", out);
+        assertEquals("viertel nach neun", out);
 
-
-        p = new Pieces("21:29");
+        p = new Pieces("21:17");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist kurz vor halb zehn in der Nacht", out);
+        assertEquals("siebzehn nach neun", out);
 
 
-        p = new Pieces("23:31");
+        s.setViertel(Settings.Viertel.viertelueber);
+        p = new Pieces("21:15");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist kurz nach halb zehn in der Nacht", out);
+        assertEquals("viertel über neun", out);
 
-
-        p = new Pieces("23:37");
+        p = new Pieces("21:14");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist dreiundzwanzig vor zehn Uhr in der Nacht", out);
+        assertEquals("vierzehn nach neun", out);
 
-
-        p = new Pieces("23:45");
+        s.setViertel(Settings.Viertel.viertelfuenfzehn);
+        p = new Pieces("21:15");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist dreiviertel zwölf in der Nacht", out);
+        assertEquals("fünfzehn nach neun", out);
 
 
-        p = new Pieces("23:47");
+
+        s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+        p = new Pieces("21:44");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist dreiviertel eins in der Nacht", out);
+        assertEquals("sechzehn vor zehn", out);
+
+        p = new Pieces("21:45");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("dreiviertel zehn", out);
+
+        s.setDreiviertel(Settings.Dreiviertel.viertelvor);
+        p = new Pieces("21:46");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("vierzehn vor zehn", out);
+
+        p = new Pieces("21:45");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("viertel vor zehn", out);
+
+
+        s.setDreiviertel(Settings.Dreiviertel.fuenfzehn);
+        p = new Pieces("21:45");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("fünfzehn vor zehn", out);
+
 
 
 

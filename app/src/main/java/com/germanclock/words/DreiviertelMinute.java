@@ -14,7 +14,7 @@ public class DreiviertelMinute  extends Minute {
     public Boolean getUmgangsMinute(TimeInWordsDto tiw) {
         Boolean ret = Boolean.FALSE;
 
-        switch (tiw.getPieces().getFiveMinBucket()) {
+        switch (tiw.getPieces().getMinutes()) {
 
             case 40:
                 if (tiw.getSettings().getDreiviertel() == Settings.Dreiviertel.dreiviertelacht
