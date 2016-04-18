@@ -345,8 +345,9 @@ public class TimeInWords {
             number = 0;
 
 
-        if (number == 0) {
-            //note: umgangsprachlich does not work with null
+        if (
+                (tiw.getPieces().getHr24() == 0 && tiw.getPlusHour() == Boolean.FALSE)
+                || (tiw.getPieces().getHr24() == 23 && tiw.getPlusHour() == Boolean.TRUE) ) {
             if (tiw.getSettings().getUmgangssprachlich() || tiw.getSettings().getMitternacht())
                 word = "Mitternacht";
             else

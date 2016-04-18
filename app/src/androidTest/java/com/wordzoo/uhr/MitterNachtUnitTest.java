@@ -40,16 +40,10 @@ public class MitternachtUnitTest extends AndroidJUnitRunner {
 
         //fünf Minuten nach Mitternacht
         s.setUmgangssprachlich(Boolean.TRUE);
-        s.setMinuteHybrid(Boolean.TRUE);
-        s.setUmgangminute(Settings.Umgangminute.minuteword);
+       s.setUmgangminute(Settings.Umgangminute.minuteword);
 
-        s.setEsist(Boolean.TRUE);
-        s.setUhr(Boolean.TRUE);
-        s.setMinute(Boolean.TRUE);
-
+        //official is null Uhr fünf ....
         s.setMitternacht(Boolean.TRUE);
-        s.setKurzvor(Boolean.FALSE);
-        s.setKurznach(Boolean.FALSE);
 
         s.setMorgens(Boolean.TRUE);
         s.setVormittags(Boolean.TRUE);
