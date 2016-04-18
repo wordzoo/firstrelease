@@ -260,7 +260,11 @@ public class TimeInWords {
             testMinute = 60 - testMinute;
 
         tiw.setMinute1(german_number[testMinute]);
-        if (tiw.getPieces().getMinutes() <= 30) {
+        if(tiw.getPieces().getMinutes() == 0) {
+            tiw.setVornach("");
+            tiw.setMinute1("");
+        }
+        else if (tiw.getPieces().getMinutes() <= 30) {
             tiw.setVornach("nach");
             tiw.setPlusHour(Boolean.FALSE);
         }
