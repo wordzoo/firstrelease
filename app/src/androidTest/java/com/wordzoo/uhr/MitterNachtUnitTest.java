@@ -38,17 +38,7 @@ public class MitternachtUnitTest extends AndroidJUnitRunner {
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
 
-        //Miternacht is only for 00.  Then try Null uhr fünfzehn
-        //From Frank:
-        //we say Mitternacht und for 00:05 we say üNull uhr fünfü or üFünf Minuten nach Mitternachtü
-
-        //so Short official is null Uhr fünf
-        //Long official null Uhr fünf Minuten
-        //Umgangssprachlich fünf Minuten nach Mitternacht
-
-        //So in this case the only Mitternacht we support is Umgangsprachlich....
-
-        // Basic umgangsprashlich test
+        //fünf Minuten nach Mitternacht
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setMinuteHybrid(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);

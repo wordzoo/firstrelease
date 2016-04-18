@@ -32,7 +32,7 @@ public class HybridTest extends AndroidJUnitRunner {
     }
 
    @Test
-    public void halber()   {
+    public void hybrid()   {
 
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
@@ -40,9 +40,7 @@ public class HybridTest extends AndroidJUnitRunner {
         // Basic umgangsprashlich test
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
-
-        s.setHalber(Boolean.TRUE);
-        s.setHalberRange(8);
+        s.setMinuteHybrid(Boolean.TRUE);
 
         Pieces p = new Pieces("11:20");
         String out = tiw.getTimeAsSentance(p,s);
@@ -50,92 +48,42 @@ public class HybridTest extends AndroidJUnitRunner {
 
         p = new Pieces("11:24");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("sechs vor halber", out);
+        assertEquals("elf vierundzwanzig", out);
 
         p = new Pieces("11:29");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("eins vor halber", out);
+        assertEquals("elf neunundzwanzig", out);
 
         p = new Pieces("11:30");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("halber", out);
+        assertEquals("dreißig nach elf", out);
 
         p = new Pieces("11:34");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("vier nach halber", out);
+        assertEquals("elf vierunddreizig", out);
 
 
         p = new Pieces("11:38");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("acht nach halber", out);
+        assertEquals("elf achtunddreißig", out);
 
 
         p = new Pieces("11:40");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("zwanzig vor zwölf", out);
+        assertEquals("vierzig nach elf", out);
 
         p = new Pieces("11:41");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("neunzehn vor zwölf", out);
+        assertEquals("elf einundvierzig", out);
 
         p = new Pieces("11:43");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("siebzehn vor zwölf", out);
+        assertEquals("elf dreiundvierzig", out);
 
         p = new Pieces("11:48");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("zwölf vor zwölf", out);
+        assertEquals("elf achtundvierzig", out);
 
     }
 
-    @Test
-    public void halb() {
-
-        Settings s = new Settings();
-        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
-
-        // Basic umgangsprashlich test
-        s.setUmgangssprachlich(Boolean.TRUE);
-        s.setUmgangminute(Settings.Umgangminute.minuteword);
-        s.setHalb(Settings.Halb.halb);
-
-        s.setFuenfnachhalb(Boolean.TRUE);
-        s.setFuenfvorhalb(Boolean.TRUE);
-        s.setZehnnachhalb(Boolean.TRUE);
-        s.setZehnvorhalb(Boolean.TRUE);
-        s.setKurzvorhalb(Boolean.TRUE);
-        s.setKurznachhalb(Boolean.TRUE);
-
-
-        Pieces p = new Pieces("11:20");
-        String out = tiw.getTimeAsSentance(p,s);
-        assertEquals("zehn vor halb zwölf", out);
-
-        p = new Pieces("11:24");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("vierundzwanzig nach elf", out);
-
-        p = new Pieces("11:29");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("kurz vor halb zwölf", out);
-
-        p = new Pieces("11:30");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("halb zwölf", out);
-
-        p = new Pieces("11:34");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("kurz nach halb zwölf", out);
-
-
-        p = new Pieces("11:38");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("zweiundzwanzig vor zwölf", out);
-
-
-        p = new Pieces("11:40");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("zehn nach halb zwölf", out);
-
-    }
 }

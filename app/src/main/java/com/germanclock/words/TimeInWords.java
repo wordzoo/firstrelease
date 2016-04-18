@@ -383,66 +383,60 @@ public class TimeInWords {
 
 //three night variatne, nach, früh and morgen, mutually exclusive
         if (tiw.getPieces().getHr24() >= 0
-                && tiw.getPieces().getHr24() < 5
-                && tiw.getSettings().getNachts())
-            tiw.setSectionOfDay("nachts");
-        else if (tiw.getPieces().getHr24() >= 0
-                && tiw.getPieces().getHr24() < 5
-                && tiw.getSettings().getIndernacht())
-            tiw.setSectionOfDay("in der Nacht");
-        else if (tiw.getPieces().getHr24() >= 0
-                && tiw.getPieces().getHr24() < 5
-                && tiw.getSettings().getInderfrueh())
-            tiw.setSectionOfDay("in der Früh");
-        else if (tiw.getPieces().getHr24() >= 0
-                && tiw.getPieces().getHr24() < 5
-                && tiw.getSettings().getMorgennacht())
-            tiw.setSectionOfDay("morgens");
-        else if (tiw.getPieces().getHr24() >= 0
-                && tiw.getPieces().getHr24() < 5
-                && tiw.getSettings().getAmmorgennacht())
-            tiw.setSectionOfDay("am Morgen");
-
+                && tiw.getPieces().getHr24() < 5) {
+            if (tiw.getSettings().getNachts())
+                tiw.setSectionOfDay("nachts");
+            if (tiw.getSettings().getIndernacht())
+                tiw.setSectionOfDay("in der Nacht");
+            if (tiw.getSettings().getInderfrueh())
+                tiw.setSectionOfDay("in der Früh");
+            if (tiw.getSettings().getMorgennacht())
+                tiw.setSectionOfDay("morgens");
+            if (tiw.getSettings().getAmmorgennacht())
+                tiw.setSectionOfDay("am Morgen");
+        }
         if (tiw.getPieces().getHr24() >= 5
-                && tiw.getPieces().getHr24() < 10
-                && tiw.getSettings().getMorgens())
-            tiw.setSectionOfDay("morgens");
-        if (tiw.getPieces().getHr24() >= 5
-                && tiw.getPieces().getHr24() < 10
-                && tiw.getSettings().getAmmorgen())
-            tiw.setSectionOfDay("am Morgen");
-
+                && tiw.getPieces().getHr24() < 10) {
+            if (tiw.getSettings().getMorgens())
+                tiw.setSectionOfDay("morgens");
+            if (tiw.getSettings().getAmmorgen())
+                tiw.setSectionOfDay("am Morgen");
+        }
 
         if (tiw.getPieces().getHr24() >= 10
-                && tiw.getPieces().getHr24() < 12
-                && tiw.getSettings().getVormittags())
-            tiw.setSectionOfDay("vormittags");
-        if (tiw.getPieces().getHr24() >= 10
-                && tiw.getPieces().getHr24() < 12
-                && tiw.getSettings().getAmmorgen())
-            tiw.setSectionOfDay("am Vormittag");
+                && tiw.getPieces().getHr24() < 12) {
 
+            if (tiw.getSettings().getVormittags())
+                tiw.setSectionOfDay("vormittags");
+            if (tiw.getSettings().getAmvormittag())
+                tiw.setSectionOfDay("am Vormittag");
+        }
 
         if (tiw.getPieces().getHr24() >= 12
-                && tiw.getPieces().getHr24() < 18
-                && tiw.getSettings().getNachmittags())
-            tiw.setSectionOfDay("nachmittags");
-        if (tiw.getPieces().getHr24() >= 12
-                && tiw.getPieces().getHr24() < 18
-                && tiw.getSettings().getAmnachmittag())
-            tiw.setSectionOfDay("am Nachmittag");
+                && tiw.getPieces().getHr24() < 14) {
+            if (tiw.getSettings().getMittags())
+                tiw.setSectionOfDay("mittags");
 
+            if (tiw.getSettings().getAmmittag())
+                tiw.setSectionOfDay("am Mittag");
+        }
+
+        if (tiw.getPieces().getHr24() >= 14
+                && tiw.getPieces().getHr24() < 18) {
+            if (tiw.getSettings().getNachmittags())
+                tiw.setSectionOfDay("nachmittags");
+
+            if (tiw.getSettings().getAmnachmittag())
+                tiw.setSectionOfDay("am Nachmittag");
+        }
 
         if (tiw.getPieces().getHr24() >= 18
-                && tiw.getPieces().getHr24() <= 23
-                && tiw.getSettings().getAbends())
-            tiw.setSectionOfDay("abends");
-        if (tiw.getPieces().getHr24() >= 18
-                && tiw.getPieces().getHr24() <= 23
-                && tiw.getSettings().getAmabend())
-            tiw.setSectionOfDay("am Abend");
-
-
+                && tiw.getPieces().getHr24() <= 23) {
+            if (tiw.getSettings().getAbends())
+                tiw.setSectionOfDay("abends");
+            if (tiw.getSettings().getAmabend())
+                tiw.setSectionOfDay("am Abend");
+        }
 
     }
 

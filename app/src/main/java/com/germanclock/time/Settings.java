@@ -57,6 +57,7 @@ public class Settings {
 	private Boolean vormittags = Boolean.FALSE;
 	private Boolean amvormittag = Boolean.FALSE;
 	private Boolean mittags = Boolean.FALSE;
+    private Boolean ammittag = Boolean.FALSE;
 	private Boolean nachmittags = Boolean.FALSE;
 	private Boolean amnachmittag = Boolean.FALSE;
 	private Boolean abends = Boolean.FALSE;
@@ -344,6 +345,14 @@ public class Settings {
 
     public void setAmvormittag(Boolean amvormittag) {
         this.amvormittag = amvormittag;
+    }
+
+    public Boolean getAmmittag() {
+        return ammittag;
+    }
+
+    public void setAmmittag(Boolean ammittag) {
+        this.ammittag = ammittag;
     }
 
     public Boolean getMittags() {
