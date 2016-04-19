@@ -70,5 +70,14 @@ public class UhrMinuteTest extends AndroidJUnitRunner {
         out = tiw.getTimeAsSentance(p, s);
         assertEquals("eins eins", out);
 
+        p = new Pieces("01:15");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("fünfzehn nach eins", out);
+
+        p = new Pieces("01:50");
+        out = tiw.getTimeAsSentance(p, s);
+        assertEquals("zehn vor zwei", out);
+
+
     }
 }
