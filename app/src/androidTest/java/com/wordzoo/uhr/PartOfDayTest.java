@@ -287,11 +287,11 @@ public class PartOfDayTest extends AndroidJUnitRunner {
 
         Pieces p = new Pieces("00:00");
         String out = tiw.getTimeAsSentance(p, s);
-        assertEquals("null Uhr in der Früh", out);
+        assertEquals("Mitternacht", out);
 
         p = new Pieces("04:10");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("vier Uhr zehn in der Früh", out);
+        assertEquals("zehn nach vier Uhr in der Früh", out);
 
     }
 

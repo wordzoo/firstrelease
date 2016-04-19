@@ -38,68 +38,27 @@ public class MitternachtUnitTest extends AndroidJUnitRunner {
         Settings s = new Settings();
         TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
 
-        //fünf Minuten nach Mitternacht
         s.setUmgangssprachlich(Boolean.TRUE);
-       s.setUmgangminute(Settings.Umgangminute.minuteword);
-
-        //official is null Uhr fünf ....
-        s.setMitternacht(Boolean.TRUE);
-
-        s.setMorgens(Boolean.TRUE);
-        s.setVormittags(Boolean.TRUE);
-        s.setNachmittags(Boolean.TRUE);
-        s.setAbends(Boolean.TRUE);
+        s.setMitternacht(Boolean.TRUE); //note: currently implied by setUmgangsprachlich()
+        s.setUmgangminute(Settings.Umgangminute.minuteword);
         s.setIndernacht(Boolean.TRUE);
 
-
-        Pieces p = new Pieces("23:00");
+        //fünf Minuten nach Mitternacht
+        Pieces p = new Pieces("00:00");
         String out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist Mitternacht", out);
+        assertEquals("Mitternacht", out);
 
-        p = new Pieces("23:01");
+        p = new Pieces("00:05");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach Mitternacht", out);
+        assertEquals("fünf nach Mitternacht", out);
 
-        p = new Pieces("23:12");
+        p = new Pieces("23:50");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor viertel eins in der Nacht", out);
+        assertEquals("zehn vor Mitternacht", out);
 
-        p = new Pieces("23:15");
+        p = new Pieces("00:50");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist viertel eins in der Nacht", out);
-
-        p = new Pieces("23:18");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach viertel eins in der Nacht", out);
-
-
-        p = new Pieces("23:29");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor halb eins in der Nacht", out);
-
-
-        p = new Pieces("23:31");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist halb eins in der Nacht", out);
-
-
-        p = new Pieces("23:37");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten nach halb eins in der Nacht", out);
-
-
-        p = new Pieces("23:45");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist fünf Minuten vor dreiviertel eins in der Nacht", out);
-
-
-        p = new Pieces("23:47");
-        out = tiw.getTimeAsSentance(p,s);
-        assertEquals("Es ist dreiviertel eins in der Nacht", out);
-
-
-
-
+        assertEquals("zehn vor eins in der Nacht", out);
 
     }
 

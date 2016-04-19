@@ -60,7 +60,7 @@ public class HybridTest extends AndroidJUnitRunner {
 
         p = new Pieces("11:34");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("elf vierunddreizig", out);
+        assertEquals("elf vierunddreißig", out);
 
 
         p = new Pieces("11:38");
@@ -70,7 +70,7 @@ public class HybridTest extends AndroidJUnitRunner {
 
         p = new Pieces("11:40");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("vierzig nach elf", out);
+        assertEquals("zwanzig vor zwölf", out);
 
         p = new Pieces("11:41");
         out = tiw.getTimeAsSentance(p,s);

@@ -41,6 +41,9 @@ public class MinutePriorityTest extends AndroidJUnitRunner {
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
 
+       s.setHalber(Boolean.TRUE);
+       s.setHalberRange(9);
+
         s.setKurznach(Boolean.TRUE);
         s.setKurzvor(Boolean.TRUE);
 
@@ -52,6 +55,8 @@ public class MinutePriorityTest extends AndroidJUnitRunner {
 
        s.setKurzvordreiviertelacht(Boolean.TRUE);
        s.setKurznachdreiviertelacht(Boolean.TRUE);
+
+       s.setFuenfnachdreiviertelacht(Boolean.TRUE);
 
         Pieces p = new Pieces("11:57");
         String out = tiw.getTimeAsSentance(p,s);
@@ -68,7 +73,7 @@ public class MinutePriorityTest extends AndroidJUnitRunner {
 
        p = new Pieces("11:29");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("kurz vor halb neun", out);
+        assertEquals("eins vor halber", out);
 
         p = new Pieces("11:30");
         out = tiw.getTimeAsSentance(p,s);
@@ -90,17 +95,25 @@ public class MinutePriorityTest extends AndroidJUnitRunner {
 
         p = new Pieces("11:41");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("neunzehn vor zwölf", out);
+        assertEquals("kurz vor dreiviertel zwölf", out);
 
         p = new Pieces("11:43");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("siebzehn vor zwölf", out);
+        assertEquals("kurz vor dreiviertel zwölf", out);
 
         p = new Pieces("11:48");
         out = tiw.getTimeAsSentance(p,s);
-        assertEquals("zwölf vor zwölf", out);
+        assertEquals("kurz nach dreiviertel zwölf", out);
 
-    }
+       p = new Pieces("11:50");
+       out = tiw.getTimeAsSentance(p,s);
+       assertEquals("fünf nach dreiviertel zwölf", out);
+
+       p = new Pieces("11:52");
+       out = tiw.getTimeAsSentance(p,s);
+       assertEquals("acht vor zwölf", out);
+
+   }
 
     @Test
     public void halb() {

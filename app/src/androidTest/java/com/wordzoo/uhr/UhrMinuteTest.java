@@ -46,7 +46,7 @@ public class UhrMinuteTest extends AndroidJUnitRunner {
 
         Pieces p = new Pieces("01:01");
         String out = tiw.getTimeAsSentance(p, s);
-        assertEquals("ein Uhr eins in der Nacht", out);
+        assertEquals("eins nach ein Uhr", out);
 
         s.setMinute(Boolean.TRUE);
 
