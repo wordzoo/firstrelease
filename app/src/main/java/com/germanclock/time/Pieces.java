@@ -48,7 +48,10 @@ public class Pieces {
     }
 
     public void setHr(Integer hour) {
-        this.hr = hour % 12;
+        if(hour > 12)
+            this.hr = hour - 12;
+        else
+            this.hr = hour;
     }
 
     public Integer getHr24() {

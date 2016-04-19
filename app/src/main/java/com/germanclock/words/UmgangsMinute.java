@@ -29,8 +29,14 @@ public class UmgangsMinute  extends Minute {
                 tiw.setMinute2("");
             }
             else {
-                tiw.setMinute1(german_number[tiw.getPieces().getFiveMinBucket()]);
-                //vor vs nach and plus hours we get from default umgang minutes (above)
+                int umMinute = 0;
+                if(tiw.getPieces().getFiveMinBucket() > 30)
+                    umMinute = 60 - tiw.getPieces().getFiveMinBucket();
+                else
+                    umMinute = tiw.getPieces().getFiveMinBucket();
+
+                tiw.setMinute1(german_number[umMinute]);
+                //vor vs nach and plus hours we get from default umgang defaults (in calling class)
             }
             ret = Boolean.TRUE;
         }
