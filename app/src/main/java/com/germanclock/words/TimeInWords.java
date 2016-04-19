@@ -239,14 +239,10 @@ public class TimeInWords {
     }
 
     public void getMinuteDetail(TimeInWordsDto tiw) {
-        Integer number = new Integer(tiw.getPieces().getMinutes());
+        if(!adjustAgainstEinsMinute(tiw))
+            tiw.setMinute1(german_number[tiw.getPieces().getMinutes()]);
 
-        if (tiw.getPieces().getMinutes() == 0)
-            tiw.setMinute1("");
-        else if (tiw.getSettings().getMinute() && tiw.getPieces().getMinutes() == 1)
-            tiw.setMinute1(german_number[0]);
-        else
-            tiw.setMinute1(german_number[number]);
+
     }
 
 
@@ -319,9 +315,28 @@ public class TimeInWords {
         }
 
         //UMGANGSPRACHLICH
-        um.getUmgangsMinute(tiw);
+        if(um.getUmgangsMinute(tiw))
+            return;
+
+        //only called if we fell through to getUmgangsMinute() and returned false
+       adjustAgainstEinsMinute(tiw);
+
     }
 
+    public Boolean adjustAgainstEinsMinute(TimeInWordsDto tiw) {
+        Boolean ret = Boolean.FALSE;
+
+        if (tiw.getPieces().getMinutes() == 0) {
+            tiw.setMinute1("");
+            ret = Boolean.TRUE;
+        }
+        else if (tiw.getSettings().getMinute() && tiw.getPieces().getMinutes() == 1) {
+            tiw.setMinute1(german_number[0]);
+            ret = Boolean.TRUE;
+        }
+
+        return ret;
+    }
 
 
     public Boolean hasHybrid(TimeInWordsDto tiw) {

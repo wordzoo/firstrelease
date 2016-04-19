@@ -32,7 +32,7 @@ public class UhrMinuteTest extends AndroidJUnitRunner {
     }
 
     @Test
-    public void testMinuteBarWords() {
+    public void testMinuteWords() {
 
 
         Settings s = new Settings();
@@ -52,23 +52,23 @@ public class UhrMinuteTest extends AndroidJUnitRunner {
 
         p = new Pieces("01:01");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("ein Uhr ein Minute", out);
+        assertEquals("ein Minute nach ein Uhr", out);
 
         p = new Pieces("01:02");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("ein Uhr zwei Minuten", out);
+        assertEquals("zwei Minuten nach ein Uhr", out);
 
         s.setUhr(Boolean.FALSE);
 
         p = new Pieces("01:02");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("eins zwei Minuten", out);
+        assertEquals("zwei Minuten nach eins", out);
 
         s.setMinute(Boolean.FALSE);
 
         p = new Pieces("01:01");
         out = tiw.getTimeAsSentance(p, s);
-        assertEquals("eins eins", out);
+        assertEquals("eins nach eins", out);
 
         p = new Pieces("01:15");
         out = tiw.getTimeAsSentance(p, s);

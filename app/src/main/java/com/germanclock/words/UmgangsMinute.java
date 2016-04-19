@@ -21,12 +21,14 @@ public class UmgangsMinute  extends Minute {
         // we verbalize the rounded (down) multiple of five for minutes
         if (tiw.getSettings().getUmgangminute() == Settings.Umgangminute.minutebar) {
 
-
-            if(tiw.getPieces().getFiveMinBucket() == 0) {
+            if(tiw.getPieces().getMinutes() == 1)
+                ret = Boolean.FALSE;
+            else if(tiw.getPieces().getMinutes() == 0) {
 
                 tiw.setMinute1("");
                 tiw.setVornach("");
                 tiw.setMinute2("");
+                ret = Boolean.TRUE;
             }
             else {
                 int umMinute = 0;
