@@ -1,0 +1,198 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Choose a default or customize your language settings...." />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp">
+        <Button
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="done" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cancel" />
+        <Button
+            android:id="@+id/saveas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save as..." />
+    </LinearLayout>
+    <TextView  android:id="@+id/example"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:gravity="bottom"
+        android:textStyle="bold"
+        android:paddingBottom="5dp"
+        android:text="EXAMPLE: Es ist kurz vor halb neun am Abend"/>
+
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/def"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/umgangsprachlich"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="umgangssprachlich"/>
+        <RadioButton android:id="@+id/officiallong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="offiziell lang"
+            android:checked="true"/>
+        <RadioButton android:id="@+id/officialshort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="offiziell kurz"/>
+        <RadioButton android:id="@+id/custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="benutzerdefinierte Einstellungen"/>
+    </RadioGroup>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+            <CheckBox android:id="@+id/esist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Es ist"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/uhr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uhr"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minute(n)"
+                android:onClick="onCheckboxClicked"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+            <CheckBox android:id="@+id/halber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Halber"
+                android:onClick="onCheckboxClicked"/>
+            <EditText
+                android:id="@+id/halber_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Range"
+                android:inputType="number" />
+
+        </LinearLayout>
+        <CheckBox android:id="@+id/lederhosen_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lederhosen Minuten"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_nach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz nach"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_vor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz vor"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_vor_viertel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz vor viertel"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_nach_viertel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz nach viertel"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_vor_halb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz vor halb"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_nach_halb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz nach halb"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_vor_dreiviertel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz vor dreiviertel"
+            android:onClick="onCheckboxClicked"/>
+        <CheckBox android:id="@+id/kurz_nach_dreiviertel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kurz nach dreiviertel"
+            android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/fuenf_vor_viertel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fuenf vor viertel"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/fuenf_nach_viertel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fuenf nach viertel"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/fuenf_vor_halb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fuenf vor halb"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/fuenf_nach_halb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fuenf nach halb"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/fuenf_vor_dreiviertel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fuenf vor dreiviertel"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/fuenf_nach_dreiviertel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fuenf nach dreiviertel"
+                android:onClick="onCheckboxClicked"/>
+            <Spinner
+                android:id="@+id/dreiviertel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

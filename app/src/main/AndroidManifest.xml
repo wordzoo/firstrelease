@@ -31,6 +31,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ActivityCustomSettings" android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
+
         <!--This is just if user makes mistake to try to launch widget as an app-->
         <activity
             android:name=".Intro"

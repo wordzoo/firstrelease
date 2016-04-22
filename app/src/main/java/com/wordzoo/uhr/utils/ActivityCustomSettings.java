@@ -1,4 +1,4 @@
-package com.wordzoo.uhr;
+package com.wordzoo.uhr.utils;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,8 +17,12 @@ import android.widget.RadioGroup;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.germanclock.time.Settings;
-public class ActivitySettings extends Activity implements OnClickListener {
+import com.wordzoo.uhr.GermanClock;
+import com.wordzoo.uhr.R;
+
+public class ActivityCustomSettings extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
 
 
     //user prefs
@@ -49,8 +52,16 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
         this.context = this;
 
+        spinner = (Spinner)findViewById(R.id.dreiviertel);
+        ArrayAdapter<String>adapter = new ArrayAdapter<String>(ActivityCustomSettings.this,
+                android.R.layout.simple_spinner_item, new String[]{"none","dreiviertel (next hour)","viertel (vor)", "fünfzehn"});
+
+        adapter.setDropDownViewResource(R.layout.settings);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
     }
+    private Spinner spinner;
 
     public void addDoneButtonListener() {
 
@@ -68,7 +79,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 // find the radiobutton by returned id
                 defButton = (RadioButton) findViewById(selectedId);
 
-                Toast.makeText(ActivitySettings.this,
+                Toast.makeText(ActivityCustomSettings.this,
                         defButton.getText(), Toast.LENGTH_SHORT).show();
 
                 Settings settings = new Settings();
@@ -101,7 +112,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
         Settings s = new Settings();
 
 
-        Toast.makeText(ActivitySettings.this,
+        Toast.makeText(ActivityCustomSettings.this,
                 "lookn for..." + def + "...", Toast.LENGTH_SHORT).show();
 
         // Is the button now checked?
@@ -165,7 +176,52 @@ public class ActivitySettings extends Activity implements OnClickListener {
         finish();
     }
 
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
+        switch (position) {
+            case 0:
+                // Whatever you want to happen when the first item gets selected
+                break;
+            case 1:
+                // Whatever you want to happen when the second item gets selected
+                break;
+            case 2:
+                // Whatever you want to happen when the thrid item gets selected
+                break;
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.uhr:
+                if (checked)
+                    ;
+                // Put some meat on the sandwich
+                else
+                    ;
+                // Remove the meat
+                break;
+            case R.id.esist:
+                if (checked)
+                    ;
+                // Cheese me
+                else
+                    ;
+                // I'm lactose intolerant
+                break;
+            // TODO: Veggie sandwich
+        }
+    }
 }
 /*package com.wordzoo.uhr;
 
