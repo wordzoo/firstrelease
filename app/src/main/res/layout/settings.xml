@@ -6,24 +6,20 @@
 
     <TextView  android:id="@+id/example"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="25dp"
         android:gravity="center_vertical"
         android:textStyle="bold"
         android:paddingBottom="5dp"
-        android:paddingTop="10dp"
         android:text="Preview:   20:27   Es ist kurz vor halb neun am Abend"/>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp">
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="25dp"
         android:gravity="center_vertical"
         android:text="Choose a language preset or customize...." />
-    </LinearLayout>
+
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

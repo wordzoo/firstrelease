@@ -4,11 +4,22 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+
+    <TextView  android:id="@+id/example"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:paddingBottom="5dp"
+        android:text="Preview:   20:27   Es ist kurz vor halb neun am Abend"/>
+
+
+
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Choose a default or customize your language settings...." />
+        android:layout_height="25dp"
+        android:gravity="center_vertical"
+        android:text="Choose a language preset or customize...." />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -29,14 +40,6 @@
             android:layout_height="wrap_content"
             android:text="save as..." />
     </LinearLayout>
-    <TextView  android:id="@+id/example"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:gravity="bottom"
-        android:textStyle="bold"
-        android:paddingBottom="5dp"
-        android:text="EXAMPLE: Es ist kurz vor halb neun am Abend"/>
-
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,30 +51,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/def"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <RadioButton android:id="@+id/umgangsprachlich"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="umgangssprachlich"/>
-        <RadioButton android:id="@+id/officiallong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="offiziell lang"
-            android:checked="true"/>
-        <RadioButton android:id="@+id/officialshort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="offiziell kurz"/>
-        <RadioButton android:id="@+id/custom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="benutzerdefinierte Einstellungen"/>
-    </RadioGroup>
 
 
         <LinearLayout

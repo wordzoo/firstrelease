@@ -4,21 +4,19 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RemoteViews;
-import android.widget.Spinner;
 import android.widget.Toast;
 import com.germanclock.time.Settings;
+
 public class ActivitySettings extends Activity implements OnClickListener {
 
 
@@ -28,6 +26,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
     private RadioGroup def;
     private RadioButton defButton;
     private Button done;
+    private Button custom;
 
     Context context;
 
@@ -43,6 +42,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
         setContentView(R.layout.settings);
 
         addDoneButtonListener();
+        addConfigButtonListener();
 
         //user prefs
         clockPrefs = getSharedPreferences("CustomClockPrefs", 0);
@@ -76,7 +76,6 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 Settings s = loadSettings(defButton.getText() + "");
 
 
-
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
                 GermanClock gc = new GermanClock();
@@ -88,7 +87,29 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 finish();
 
             }
-            
+
+
+        });
+
+
+
+    }
+
+    public void addConfigButtonListener() {
+
+
+        custom = (Button) findViewById(R.id.custom);
+
+        custom.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent configIntent = new Intent(context, ActivityCustomSettings.class);
+                startActivity(configIntent);
+                //PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+                //custom.setOnClickPendingIntent(R.id.custom, configPendingIntent);
+
+            }
 
 
         });
@@ -105,19 +126,17 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 "lookn for..." + def + "...", Toast.LENGTH_SHORT).show();
 
         // Is the button now checked?
-        if(def.equals("offiziell lang")) {
+        if (def.equals("offiziell lang")) {
 
             s.setEsist(Boolean.TRUE);
             s.setUhr(Boolean.TRUE);
             s.setMinute(Boolean.TRUE);
 
-        }
-        else if(def.equals("offiziell kurz")) {
+        } else if (def.equals("offiziell kurz")) {
 
             //
 
-        }
-        else if(def.equals("umgangssprachlich")) {
+        } else if (def.equals("umgangssprachlich")) {
 
             s.setUmgangssprachlich(Boolean.TRUE);
             s.setUmgangminute(Settings.Umgangminute.minuteword);
@@ -146,8 +165,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
             s.setEsist(Boolean.TRUE);
 
-        }
-        else if(def.equals(Settings.Default.custom)) {
+        } else if (def.equals(Settings.Default.custom)) {
             //comming soon.....
         }
 

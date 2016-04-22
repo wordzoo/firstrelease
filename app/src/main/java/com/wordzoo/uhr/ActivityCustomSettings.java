@@ -1,4 +1,4 @@
-package com.wordzoo.uhr.utils;
+package com.wordzoo.uhr;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -19,8 +19,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.germanclock.time.Settings;
-import com.wordzoo.uhr.GermanClock;
-import com.wordzoo.uhr.R;
 
 public class ActivityCustomSettings extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -56,10 +54,10 @@ public class ActivityCustomSettings extends Activity implements OnClickListener,
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(ActivityCustomSettings.this,
                 android.R.layout.simple_spinner_item, new String[]{"none","dreiviertel (next hour)","viertel (vor)", "fünfzehn"});
 
-        adapter.setDropDownViewResource(R.layout.settings);
+     /*   adapter.setDropDownViewResource(R.layout.customsettings);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
+*/
     }
     private Spinner spinner;
 
