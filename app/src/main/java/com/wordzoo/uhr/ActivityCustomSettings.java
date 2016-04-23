@@ -29,9 +29,18 @@ public class ActivityCustomSettings extends Activity implements OnClickListener,
     private RadioGroup def;
     private RadioButton defButton;
     private Button done;
+    private Button cancel;
 
     Context context;
 
+    public void setupSpinners(int id1, int id2) {
+        Spinner spinner = (Spinner) findViewById(id1);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                id2, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+    }
     public void onCreate(Bundle savedInstanceState) {
         /*
         Boolean default = this.getResources().getBoolean(R.integer.officallong);
@@ -41,59 +50,37 @@ public class ActivityCustomSettings extends Activity implements OnClickListener,
 */
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.customsettings);
 
         addDoneButtonListener();
-
+        setupSpinners(R.id.dreiviertel, R.array.settings_dreiviertel);
+        setupSpinners(R.id.viertel, R.array.settings_viertel);
+        setupSpinners(R.id.morgen, R.array.settings_morgen);
+        setupSpinners(R.id.vormittag, R.array.settings_vormittag);
+        setupSpinners(R.id.mittag, R.array.settings_mittag);
+        setupSpinners(R.id.nachmittag, R.array.settings_nachmittag);
+        setupSpinners(R.id.abend, R.array.settings_abend);
+        setupSpinners(R.id.nacht, R.array.settings_nacht);
+        setupSpinners(R.id.frueh, R.array.settings_frueh);
         //user prefs
         clockPrefs = getSharedPreferences("CustomClockPrefs", 0);
 
         this.context = this;
 
-        spinner = (Spinner)findViewById(R.id.dreiviertel);
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(ActivityCustomSettings.this,
-                android.R.layout.simple_spinner_item, new String[]{"none","dreiviertel (next hour)","viertel (vor)", "fünfzehn"});
 
-     /*   adapter.setDropDownViewResource(R.layout.customsettings);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-*/
     }
     private Spinner spinner;
 
     public void addDoneButtonListener() {
 
         def = (RadioGroup) findViewById(R.id.def);
-        done = (Button) findViewById(R.id.done);
+        cancel = (Button) findViewById(R.id.cancel);
 
-        done.setOnClickListener(new OnClickListener() {
+        cancel.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                // get selected radio button from radioGroup
-                int selectedId = def.getCheckedRadioButtonId();
-
-                // find the radiobutton by returned id
-                defButton = (RadioButton) findViewById(selectedId);
-
-                Toast.makeText(ActivityCustomSettings.this,
-                        defButton.getText(), Toast.LENGTH_SHORT).show();
-
-                Settings settings = new Settings();
-                settings.parse(defButton);
-                Settings s = loadSettings(defButton.getText() + "");
-
-
-
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-                GermanClock gc = new GermanClock();
-                gc.setSettings(s);
-                remoteViews.setTextViewText(R.id.textView, gc.getVerbalTime(context));
-
-                ComponentName thisWidget = new ComponentName(context, GermanClock.class);
-                appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                 finish();
 
             }

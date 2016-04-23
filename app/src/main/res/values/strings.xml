@@ -4,16 +4,73 @@
     <string name="app_name">German Clock</string>
     <string name="action_settings">Settings</string>
 
-    <string name="settings_intro">Choose an option:</string>
-    <string name="design1">Default design</string>
-    <string name="design2">Stone design</string>
-    <string name="design3">Metal design</string>
 
     <string name="hello">Hello\n\n
     Thanks for installing the Custom Clock Widget.\n\n
     You need to add the widget to your home screen to use it.
     Long-press the home screen and select the widget from the
     list of those installed on your device. </string>
+
+
+    <string-array name="settings_dreiviertel">
+        <item>kein</item>
+        <item>viertel vor</item>
+        <item>dreiviertel</item>
+        <item>fünfzehn vor</item>
+    </string-array>
+
+    <string-array name="settings_viertel">
+        <item>kein</item>
+        <item>viertel nach</item>
+        <item>viertel über</item>
+        <item>viertel</item>
+        <item>fünfzehn nach</item>
+    </string-array>
+
+
+    <string-array name="settings_morgen">
+        <item>kein</item>
+        <item>morgens</item>
+        <item>am Morgen</item>
+    </string-array>
+
+    <string-array name="settings_vormittag">
+        <item>kein</item>
+        <item>vormittags</item>
+        <item>am Vormittag</item>
+    </string-array>
+
+    <string-array name="settings_mittag">
+        <item>kein</item>
+        <item>mittags</item>
+        <item>am Mittag</item>
+    </string-array>
+
+    <string-array name="settings_nachmittag">
+        <item>kein</item>
+        <item>nachmittags</item>
+        <item>am Nachmittag</item>
+    </string-array>
+
+    <string-array name="settings_abend">
+        <item>kein</item>
+        <item>abends</item>
+        <item>am Abend</item>
+    </string-array>
+
+    <string-array name="settings_nacht">
+        <item>kein</item>
+        <item>nachts</item>
+        <item>in der Nacht</item>
+    </string-array>
+
+
+    <string-array name="settings_frueh">
+        <item>kein</item>
+        <item>morgens</item>
+        <item>am Morgen</item>
+        <item>in der Früh</item>
+    </string-array>
 
     <string-array name="german_number">
 

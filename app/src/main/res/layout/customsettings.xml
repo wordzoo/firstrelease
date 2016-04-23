@@ -24,21 +24,24 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="60dp">
-        <Button
-            android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="done" />
+
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cancel" />
         <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save"
+            android:visibility="gone"/>
+        <Button
             android:id="@+id/saveas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="save as..." />
+            android:text="save as..."
+            android:visibility="gone"/>
     </LinearLayout>
 
     <ScrollView
@@ -73,6 +76,8 @@
                 android:text="Minute(n)"
                 android:onClick="onCheckboxClicked"/>
         </LinearLayout>
+
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -81,12 +86,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Halber"
-                android:onClick="onCheckboxClicked"/>
+                android:onClick="onCheckboxClicked"
+                android:paddingRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="range before/after halb"
+                android:id="@+id/text1"
+                android:layout_centerHorizontal="true"
+                android:padding="3dp"
+                android:singleLine="false" />
             <EditText
                 android:id="@+id/halber_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Range"
+                android:hint="5"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -165,12 +179,87 @@
                 android:layout_height="wrap_content"
                 android:text="fuenf nach dreiviertel"
                 android:onClick="onCheckboxClicked"/>
-            <Spinner
-                android:id="@+id/dreiviertel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown" />
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="morgen suffix (8-10)" />
+                <Spinner
+                    android:id="@+id/dreiviertel"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="morgen suffix (8-10)" />
+                <Spinner
+                    android:id="@+id/viertel"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="morgen suffix (5 - 10)" />
+                <Spinner
+                    android:id="@+id/morgen"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="vormittag suffix (10 - 12)" />
+                <Spinner
+                    android:id="@+id/vormittag"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="mittag suffix (12 - 14)" />
+                <Spinner
+                    android:id="@+id/mittag"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="nachmittag suffix (14 - 18)" />
+                <Spinner
+                    android:id="@+id/nachmittag"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="abend suffix (18 - 22)" />
+                <Spinner
+                    android:id="@+id/abend"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="nacht suffix (22 - 5)" />
+                <Spinner
+                    android:id="@+id/nacht"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/DialogItem">
+                <TextView
+                    style="@style/DialogLabel"
+                    android:text="early suffix (0 - 5)" />
+                <Spinner
+                    android:id="@+id/frueh"
+                    style="@style/DropDownCombo" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
