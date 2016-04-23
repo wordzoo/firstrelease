@@ -179,6 +179,16 @@
                 android:layout_height="wrap_content"
                 android:text="fuenf nach dreiviertel"
                 android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/zehn_vor_halb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="zehn vor halb"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/zehn_nach_halb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="zehn nach halb"
+                android:onClick="onCheckboxClicked"/>
             <LinearLayout
                 style="@style/DialogItem">
                 <TextView
