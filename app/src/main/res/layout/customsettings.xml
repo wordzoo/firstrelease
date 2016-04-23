@@ -189,11 +189,16 @@
                 android:layout_height="wrap_content"
                 android:text="zehn nach halb"
                 android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/halb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="halb und nächste Uhr"
+                android:onClick="onCheckboxClicked"/>
             <LinearLayout
                 style="@style/DialogItem">
                 <TextView
                     style="@style/DialogLabel"
-                    android:text="morgen suffix (8-10)" />
+                    android:text="dreiviertel" />
                 <Spinner
                     android:id="@+id/dreiviertel"
                     style="@style/DropDownCombo" />
@@ -202,7 +207,7 @@
                 style="@style/DialogItem">
                 <TextView
                     style="@style/DialogLabel"
-                    android:text="morgen suffix (8-10)" />
+                    android:text="viertel" />
                 <Spinner
                     android:id="@+id/viertel"
                     style="@style/DropDownCombo" />
