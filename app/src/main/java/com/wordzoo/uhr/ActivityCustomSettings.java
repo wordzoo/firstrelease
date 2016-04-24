@@ -27,7 +27,7 @@ import com.germanclock.words.TimeInWords;
 
 import java.util.Date;
 
-public class ActivityCustomSettings extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
+public class ActivityCustomSettings extends Activity implements OnClickListener {
 
 
     //user prefs
@@ -50,6 +50,125 @@ public class ActivityCustomSettings extends Activity implements OnClickListener,
                 id2, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
+                switch(parentView.getId()) {
+                    case R.id.dreiviertel:
+                        if(((TextView)v).getText().equals("dreiviertel"))
+                            getSettings().setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+                        else if (((TextView)v).getText().equals("viertel vor"))
+                            getSettings().setDreiviertel(Settings.Dreiviertel.viertelvor);
+                        else
+                            getSettings().setDreiviertel(Settings.Dreiviertel.fuenfzehn);
+                        break;
+                    case R.id.viertel:
+                        if(((TextView)v).getText().equals("viertel nach"))
+                            getSettings().setViertel(Settings.Viertel.viertelnach);
+                        else if (((TextView)v).getText().equals("viertel über"))
+                            getSettings().setViertel(Settings.Viertel.viertelueber);
+                        else if (((TextView)v).getText().equals("viertel"))
+                            getSettings().setViertel(Settings.Viertel.viertelacht);
+                        else
+                            getSettings().setViertel(Settings.Viertel.viertelfuenfzehn);
+                        break;
+                    case R.id.morgen:
+                        if(((TextView)v).getText().equals("morgens"))
+                            getSettings().setMorgens(Boolean.TRUE);
+                        else
+                            getSettings().setMorgens(Boolean.FALSE);
+
+                        if(((TextView)v).getText().equals("am Morgen"))
+                            getSettings().setAmmorgen(Boolean.TRUE);
+                        else
+                            getSettings().setAmmorgen(Boolean.FALSE);
+                        break;
+                    case R.id.vormittag:
+                        if(((TextView)v).getText().equals("vormittags"))
+                            getSettings().setVormittags(Boolean.TRUE);
+                        else
+                            getSettings().setVormittags(Boolean.FALSE);
+
+                        if(((TextView)v).getText().equals("am Vormittag"))
+                            getSettings().setAmvormittag(Boolean.TRUE);
+                        else
+                            getSettings().setAmvormittag(Boolean.FALSE);
+                        break;
+                    case R.id.mittag:
+                        if(((TextView)v).getText().equals("mittags"))
+                            getSettings().setMittags(Boolean.TRUE);
+                        else
+                            getSettings().setMittags(Boolean.FALSE);
+
+                        if(((TextView)v).getText().equals("am Mittag"))
+                            getSettings().setAmmittag(Boolean.TRUE);
+                        else
+                            getSettings().setAmmittag(Boolean.FALSE);
+                        break;
+                    case R.id.nachmittag:
+                        if(((TextView)v).getText().equals("nachmittags"))
+                            getSettings().setNachmittags(Boolean.TRUE);
+                        else
+                            getSettings().setNachmittags(Boolean.FALSE);
+
+                        if(((TextView)v).getText().equals("am Nachmittag"))
+                            getSettings().setAmnachmittag(Boolean.TRUE);
+                        else
+                            getSettings().setAmnachmittag(Boolean.FALSE);
+                        break;
+                    case R.id.abend:
+                        if(((TextView)v).getText().equals("abends"))
+                            getSettings().setAbends(Boolean.TRUE);
+                        else
+                            getSettings().setAbends(Boolean.FALSE);
+
+                        if(((TextView)v).getText().equals("am Abend"))
+                            getSettings().setAmabend(Boolean.TRUE);
+                        else
+                            getSettings().setAmabend(Boolean.FALSE);
+                        break;
+                    case R.id.nacht:
+                        if(((TextView)v).getText().equals("nachts"))
+                            getSettings().setNachts(Boolean.TRUE);
+                        else
+                            getSettings().setNachts(Boolean.FALSE);
+
+                        if(((TextView)v).getText().equals("in der Nacht"))
+                            getSettings().setIndernacht(Boolean.TRUE);
+                        else
+                            getSettings().setIndernacht(Boolean.FALSE);
+                        break;
+                    
+                    case R.id.frueh:
+                        if(((TextView)v).getText().equals("morgens"))
+                            getSettings().setMorgens(Boolean.TRUE);
+                        else
+                            getSettings().setMorgens(Boolean.FALSE);
+
+                        if(((TextView)v).getText().equals("am Morgen"))
+                            getSettings().setAmmorgen(Boolean.TRUE);
+                        else
+                            getSettings().setAmmorgen(Boolean.FALSE);
+                        if(((TextView)v).getText().equals("in der Früh"))
+                            getSettings().setInderfrueh(Boolean.TRUE);
+                        else
+                            getSettings().setInderfrueh(Boolean.FALSE);
+                        break;
+
+                }
+
+                Toast.makeText(context, "onItemSelected() i just got called with view: " + ((TextView)v).getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "onItemSelected() parent view match drei viertel is: " + (parentView.getId() == R.id.dreiviertel), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> v) {
+                Toast.makeText(context, "onNothingSelected()", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
 
     }
 
@@ -138,26 +257,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener,
         finish();
     }
 
-    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-
-        switch (position) {
-            case 0:
-                // Whatever you want to happen when the first item gets selected
-                break;
-            case 1:
-                // Whatever you want to happen when the second item gets selected
-                break;
-            case 2:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
-
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
