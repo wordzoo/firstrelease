@@ -7,19 +7,27 @@
     <TextView
         android:id="@+id/example"
         style="@style/DialogLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="35dp"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
-        android:text="Preview:   20:27   Es ist kurz vor halb neun am Abend"
+        android:text="Preview: 20:27"
         android:textStyle="bold" />
 
 
-    <TextView
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="25dp"
-        android:gravity="center_vertical"
-        android:text="Choose a language preset or customize...." />
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
+    <TextView
+        android:id="@+id/example2"
+        style="@style/ClockWidget"
+        android:text="Es ist kurz vor halb neun am Abend"
+        android:textStyle="bold" />
+</LinearLayout>
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -31,6 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cancel" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="15sp"/>
 
         <Button
             android:id="@+id/save"
@@ -116,7 +128,9 @@
                     android:onClick="onCheckboxClicked"
                     android:text="kurz vor" />
             </LinearLayout>
-
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="15sp"/>
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -211,7 +225,9 @@
                     android:onClick="onCheckboxClicked"
                     android:text="kurz nach halb" />
             </LinearLayout>
-
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="15sp"/>
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -259,7 +275,9 @@
                     android:text="fuenf nach dreiviertel" />
 
             </LinearLayout>
-
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="15sp"/>
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -309,7 +327,9 @@
             </LinearLayout>
 
 
-
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="15sp"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"

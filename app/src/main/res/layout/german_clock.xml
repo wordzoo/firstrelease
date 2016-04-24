@@ -10,22 +10,8 @@
 
 
     <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minEms="30"
-        android:text="Es ist fünf über fünf"
-        android:id="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
-        android:textSize="25dp"
-        android:textAlignment="center"
-        android:background="#030303"
-        android:padding="3dp"
-        android:singleLine="false"
-        android:maxLines="2"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="false"/>
+        style="@style/ClockWidget"
+        android:id="@+id/textView" />
 
     <!--TODO alt clock face layout-->
 
