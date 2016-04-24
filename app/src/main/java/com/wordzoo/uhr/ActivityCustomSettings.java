@@ -233,7 +233,118 @@ public class ActivityCustomSettings extends Activity implements OnClickListener,
                 }
                 break;
 
+            case R.id.fuenf_vor_halb:
+                time = "09:25";
+                if (checked)
+                    getSettings().setFuenfvorhalb(Boolean.TRUE);
+                else
+                    getSettings().setFuenfvorhalb(Boolean.FALSE);
+                break;
+            case R.id.fuenf_nach_halb:
+                time = "09:35";
+                if (checked)
+                    getSettings().setFuenfnachhalb(Boolean.TRUE);
+                else
+                    getSettings().setFuenfnachhalb(Boolean.FALSE);
+                break;
+            case R.id.zehn_vor_halb:
+                time = "09:20";
+                if (checked)
+                    getSettings().setZehnvorhalb(Boolean.TRUE);
+                else
+                    getSettings().setZehnvorhalb(Boolean.FALSE);
+                break;
+            case R.id.zehn_nach_halb:
+                time = "09:40";
+                if (checked) {
+                    getSettings().setZehnnachhalb(Boolean.TRUE);
+                    toggleFuenfVorDreiviertel(Boolean.FALSE);
+                }
+                else {
+                    getSettings().setZehnnachhalb(Boolean.FALSE);
+                    toggleFuenfVorDreiviertel(Boolean.TRUE);
+                }
+                break;
+            case R.id.kurz_vor_halb:
+                time = "09:27";
+                if (checked)
+                    getSettings().setKurzvorhalb(Boolean.TRUE);
+                else
+                    getSettings().setKurzvorhalb(Boolean.FALSE);
+                break;
+            case R.id.kurz_nach_halb:
+                time = "09:32";
+                if (checked)
+                    getSettings().setKurznachhalb(Boolean.TRUE);
+                else
+                    getSettings().setKurznachhalb(Boolean.FALSE);
+                break;
+            case R.id.kurz_vor_dreiviertel:
+                time = "09:44";
+                if (checked)
+                    getSettings().setKurzvordreiviertelacht(Boolean.TRUE);
+                else
+                    getSettings().setKurzvordreiviertelacht(Boolean.FALSE);
+                break;
+            case R.id.kurz_nach_dreiviertel:
+                time = "09:48";
+                if (checked)
+                    getSettings().setKurznachdreiviertelacht(Boolean.TRUE);
+                else
+                    getSettings().setKurznachdreiviertelacht(Boolean.FALSE);
+                break;
+            case R.id.fuenf_vor_dreiviertel:
+                time = "09:40";
+                if (checked) {
+                    getSettings().setFuenfvordreiviertelacht(Boolean.TRUE);
+                    toggleZehnNachHalb(Boolean.FALSE);
+                }
+                else {
+                    getSettings().setFuenfvordreiviertelacht(Boolean.FALSE);
+                    toggleZehnNachHalb(Boolean.TRUE);
+                }
+                break;
+            case R.id.fuenf_nach_dreiviertel:
+                time = "09:50";
+                if (checked)
+                    getSettings().setFuenfnachdreiviertelacht(Boolean.TRUE);
+                else
+                    getSettings().setFuenfnachdreiviertelacht(Boolean.FALSE);
+                break;
+            case R.id.kurz_vor_viertel:
+                time = "09:13";
+                if (checked)
+                    getSettings().setKurzvorviertelacht(Boolean.TRUE);
+                else
+                    getSettings().setKurzvorviertelacht(Boolean.FALSE);
+                break;
+            case R.id.kurz_nach_viertel:
+                time = "09:18";
+                if (checked)
+                    getSettings().setKurznachviertelacht(Boolean.TRUE);
+                else
+                    getSettings().setKurznachviertelacht(Boolean.FALSE);
+                break;
+            case R.id.fuenf_vor_viertel:
+                time = "09:10";
+                if (checked)
+                    getSettings().setFuenfvorviertelacht(Boolean.TRUE);
+                else
+                    getSettings().setFuenfvorviertelacht(Boolean.FALSE);
+                break;
+            case R.id.fuenf_nach_viertel:
+                time = "09:20";
+                if (checked) {
+                    toggleZehnVorHalb(Boolean.FALSE);
+                    getSettings().setFuenfnachviertelacht(Boolean.TRUE);
+                }
+                else {
+                    toggleZehnVorHalb(Boolean.TRUE);
+                    getSettings().setFuenfnachviertelacht(Boolean.FALSE);
+                }
+                break;
         }
+
         preview.setText("Preview: " + time);
         testclock.setText(new TimeInWords(this.context).getTimeAsSentance(new Pieces(time), getSettings()));
     }
@@ -273,7 +384,19 @@ public class ActivityCustomSettings extends Activity implements OnClickListener,
         inp.setEnabled(t);
     }
 
-    public void enableAllKurz() {
-        ;
+    private void toggleZehnNachHalb(Boolean t) {
+        CheckBox def = (CheckBox) findViewById(R.id.zehn_nach_halb);
+        def.setEnabled(t);
+
+    }
+    private void toggleFuenfVorDreiviertel(Boolean t) {
+        CheckBox def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
+        def.setEnabled(t);
+
+    }
+    private void toggleZehnVorHalb(Boolean t) {
+        CheckBox def = (CheckBox) findViewById(R.id.zehn_vor_halb);
+        def.setEnabled(t);
+
     }
 }
