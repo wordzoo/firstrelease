@@ -1,8 +1,6 @@
 package com.wordzoo.uhr;
 
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,17 +13,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
-import com.germanclock.words.HalberMinute;
 import com.germanclock.words.TimeInWords;
-
-import java.util.Date;
 
 public class ActivityCustomSettings extends Activity implements OnClickListener {
 
@@ -54,6 +48,10 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
+                String time = "21:45";
+                TextView testclock = (TextView)findViewById(R.id.testclock);
+                TextView preview = (TextView)findViewById(R.id.preview);
+
                 switch(parentView.getId()) {
                     case R.id.dreiviertel:
                         if(((TextView)v).getText().equals("dreiviertel"))
@@ -64,16 +62,26 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setDreiviertel(Settings.Dreiviertel.fuenfzehn);
                         break;
                     case R.id.viertel:
-                        if(((TextView)v).getText().equals("viertel nach"))
+                        time = "21:15";
+                        if(((TextView)v).getText().equals("viertel nach")) {
                             getSettings().setViertel(Settings.Viertel.viertelnach);
-                        else if (((TextView)v).getText().equals("viertel über"))
+                            toggleViertelAdjustments(Boolean.FALSE);
+                        }
+                        else if (((TextView)v).getText().equals("viertel über")) {
                             getSettings().setViertel(Settings.Viertel.viertelueber);
-                        else if (((TextView)v).getText().equals("viertel"))
+                            toggleViertelAdjustments(Boolean.FALSE);
+                        }
+                        else if (((TextView)v).getText().equals("viertel")) {
                             getSettings().setViertel(Settings.Viertel.viertelacht);
-                        else
+                            toggleViertelAdjustments(Boolean.TRUE);
+                        }
+                        else {
                             getSettings().setViertel(Settings.Viertel.viertelfuenfzehn);
+                            toggleViertelAdjustments(Boolean.FALSE);
+                        }
                         break;
                     case R.id.morgen:
+                        time = "09:00";
                         if(((TextView)v).getText().equals("morgens"))
                             getSettings().setMorgens(Boolean.TRUE);
                         else
@@ -85,6 +93,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmmorgen(Boolean.FALSE);
                         break;
                     case R.id.vormittag:
+                        time = "11:00";
                         if(((TextView)v).getText().equals("vormittags"))
                             getSettings().setVormittags(Boolean.TRUE);
                         else
@@ -96,6 +105,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmvormittag(Boolean.FALSE);
                         break;
                     case R.id.mittag:
+                        time = "13:00";
                         if(((TextView)v).getText().equals("mittags"))
                             getSettings().setMittags(Boolean.TRUE);
                         else
@@ -107,6 +117,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmmittag(Boolean.FALSE);
                         break;
                     case R.id.nachmittag:
+                        time = "15:00";
                         if(((TextView)v).getText().equals("nachmittags"))
                             getSettings().setNachmittags(Boolean.TRUE);
                         else
@@ -118,6 +129,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmnachmittag(Boolean.FALSE);
                         break;
                     case R.id.abend:
+                        time = "18:00";
                         if(((TextView)v).getText().equals("abends"))
                             getSettings().setAbends(Boolean.TRUE);
                         else
@@ -129,6 +141,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmabend(Boolean.FALSE);
                         break;
                     case R.id.nacht:
+                        time = "23:00";
                         if(((TextView)v).getText().equals("nachts"))
                             getSettings().setNachts(Boolean.TRUE);
                         else
@@ -139,8 +152,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                         else
                             getSettings().setIndernacht(Boolean.FALSE);
                         break;
-                    
+
                     case R.id.frueh:
+                        time = "03:00";
                         if(((TextView)v).getText().equals("morgens"))
                             getSettings().setMorgens(Boolean.TRUE);
                         else
@@ -158,8 +172,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
                 }
 
-                Toast.makeText(context, "onItemSelected() i just got called with view: " + ((TextView)v).getText(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, "onItemSelected() parent view match drei viertel is: " + (parentView.getId() == R.id.dreiviertel), Toast.LENGTH_SHORT).show();
+                preview.setText("Preview: " + time);
+                testclock.setText(new TimeInWords(getContext()).getTimeAsSentance(new Pieces(time), getSettings()));
+
             }
 
             @Override
@@ -316,18 +331,22 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 break;
             case R.id.halb:
                 time = "09:30";
-                if (checked)
+                if (checked) {
                     getSettings().setHalb(Settings.Halb.halb);
-                else
+                }
+                else {
                     getSettings().setHalb(Settings.Halb.dreissig);
+                }
                 break;
             case R.id.halber:
                 time = "09:29";
                 if (checked) {
+                    toggleHalbAndAdjustments(Boolean.FALSE);
                     getSettings().setHalber(Boolean.TRUE);
                     getSettings().setHalberRange(5);
                 }
                 else {
+                    toggleHalbAndAdjustments(Boolean.TRUE);
                     getSettings().setHalber(Boolean.FALSE);
                 }
                 break;
@@ -472,6 +491,35 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
         def.setEnabled(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
+        def.setEnabled(t);
+
+    }
+
+    public void toggleHalbAndAdjustments(Boolean t) {
+        CheckBox def = (CheckBox) findViewById(R.id.halb);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.kurz_nach_halb);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.kurz_vor_halb);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.fuenf_nach_halb);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.fuenf_vor_halb);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.zehn_nach_halb);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.zehn_vor_halb);
+        def.setEnabled(t);
+    }
+
+    public void toggleViertelAdjustments(Boolean t){
+        CheckBox def = (CheckBox) findViewById(R.id.kurz_nach_viertel);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.kurz_vor_viertel);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.fuenf_vor_viertel);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.fuenf_nach_viertel);
         def.setEnabled(t);
 
     }

@@ -97,12 +97,6 @@
                         android:onClick="onCheckboxClicked"
                         android:text="Es ist" />
 
-                    <CheckBox
-                        android:id="@+id/uhr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onCheckboxClicked"
-                        android:text="Uhr" />
 
                     <CheckBox
                         android:id="@+id/minute"
@@ -110,6 +104,14 @@
                         android:layout_height="wrap_content"
                         android:onClick="onCheckboxClicked"
                         android:text="Minute(n)" />
+
+                    <CheckBox
+                        android:id="@+id/uhr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onCheckboxClicked"
+                        android:text="Uhr" />
+
 
                 </LinearLayout>
                 <CheckBox
