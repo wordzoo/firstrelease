@@ -220,13 +220,6 @@ public class TimeInWords {
                 ret.append(" ");
             }
 
-            if(tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
-                    && tiw.getPieces().getRemainderMinutes() > 0) {
-                ret.append(" ");
-                for(int x = 1; x <= tiw.getPieces().getRemainderMinutes();x++) {
-                    ret.append(" ^ ");
-                }
-            }
         }
         return ret.toString().trim();
     }

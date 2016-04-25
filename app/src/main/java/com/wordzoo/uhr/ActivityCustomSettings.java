@@ -54,6 +54,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
                 switch(parentView.getId()) {
                     case R.id.dreiviertel:
+                        time = "21:45";
                         if(((TextView)v).getText().equals("dreiviertel"))
                             getSettings().setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
                         else if (((TextView)v).getText().equals("viertel vor"))
@@ -81,7 +82,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                         }
                         break;
                     case R.id.morgen:
-                        time = "09:00";
                         if(((TextView)v).getText().equals("morgens"))
                             getSettings().setMorgens(Boolean.TRUE);
                         else
@@ -93,7 +93,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmmorgen(Boolean.FALSE);
                         break;
                     case R.id.vormittag:
-                        time = "11:00";
                         if(((TextView)v).getText().equals("vormittags"))
                             getSettings().setVormittags(Boolean.TRUE);
                         else
@@ -105,7 +104,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmvormittag(Boolean.FALSE);
                         break;
                     case R.id.mittag:
-                        time = "13:00";
                         if(((TextView)v).getText().equals("mittags"))
                             getSettings().setMittags(Boolean.TRUE);
                         else
@@ -117,7 +115,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmmittag(Boolean.FALSE);
                         break;
                     case R.id.nachmittag:
-                        time = "15:00";
                         if(((TextView)v).getText().equals("nachmittags"))
                             getSettings().setNachmittags(Boolean.TRUE);
                         else
@@ -129,7 +126,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmnachmittag(Boolean.FALSE);
                         break;
                     case R.id.abend:
-                        time = "18:00";
                         if(((TextView)v).getText().equals("abends"))
                             getSettings().setAbends(Boolean.TRUE);
                         else
@@ -141,7 +137,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmabend(Boolean.FALSE);
                         break;
                     case R.id.nacht:
-                        time = "23:00";
                         if(((TextView)v).getText().equals("nachts"))
                             getSettings().setNachts(Boolean.TRUE);
                         else
@@ -154,7 +149,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                         break;
 
                     case R.id.frueh:
-                        time = "03:00";
                         if(((TextView)v).getText().equals("morgens"))
                             getSettings().setMorgens(Boolean.TRUE);
                         else
@@ -463,10 +457,31 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 break;
         }
 
+        Pieces p = new Pieces(time);
         preview.setText("Preview: " + time);
-        testclock.setText(new TimeInWords(this.context).getTimeAsSentance(new Pieces(time), getSettings()));
-        testclock.setCompoundDrawablesWithIntrinsicBounds(
-                0, 0, R.drawable.lederhosen2, 0);
+        testclock.setText(new TimeInWords(this.context).getTimeAsSentance(p, getSettings()));
+        int drawableid = 0;
+        if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
+                && p.getRemainderMinutes() > 0) {
+            switch (p.getRemainderMinutes()){
+                case 1:
+                    drawableid = R.drawable.lederhosen1;
+                    break;
+                case 2:
+                    drawableid = R.drawable.lederhosen2;
+                    break;
+                case 3:
+                    drawableid = R.drawable.lederhosen3;
+                    break;
+                case 4:
+                    drawableid = R.drawable.lederhosen4;
+                    break;
+            }
+        }
+        if(drawableid > 0)
+            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableid, 0);
+        else
+            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
     }
 
     public Context getContext() {
