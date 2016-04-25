@@ -465,6 +465,8 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
         preview.setText("Preview: " + time);
         testclock.setText(new TimeInWords(this.context).getTimeAsSentance(new Pieces(time), getSettings()));
+        testclock.setCompoundDrawablesWithIntrinsicBounds(
+                0, 0, R.drawable.lederhosen2, 0);
     }
 
     public Context getContext() {
