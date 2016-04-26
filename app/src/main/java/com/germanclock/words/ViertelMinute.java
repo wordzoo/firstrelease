@@ -15,7 +15,16 @@ public class ViertelMinute  extends Minute {
         Boolean ret = Boolean.FALSE;
 
         switch (tiw.getPieces().getMinutes()) {
-
+            case 10:
+                if (tiw.getSettings().getViertel() == Settings.Viertel.viertelacht
+                        && tiw.getSettings().getFuenfvorviertelacht()) {
+                    tiw.setMinute1("fünf");
+                    tiw.setVornach("vor");
+                    tiw.setMinute2("viertel");
+                    tiw.setPlusHour(Boolean.TRUE);
+                    ret = Boolean.TRUE;
+                }
+                break;
             case 15:
                 if (tiw.getSettings().getViertel() == Settings.Viertel.viertelacht) {
                     tiw.setMinute1("viertel");
@@ -34,7 +43,16 @@ public class ViertelMinute  extends Minute {
                     ret = Boolean.TRUE;
                 }
                 break;
-
+            case 20:
+                if (tiw.getSettings().getViertel() == Settings.Viertel.viertelacht
+                        && tiw.getSettings().getFuenfnachviertelacht()) {
+                    tiw.setMinute1("fünf");
+                    tiw.setVornach("nach");
+                    tiw.setMinute2("viertel");
+                    tiw.setPlusHour(Boolean.TRUE);
+                    ret = Boolean.TRUE;
+                }
+                break;
 
         }
         return ret;

@@ -36,7 +36,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     private Context context;
     private Settings settings;
 
-
+    final String DEFAULT_TIME = "8:45";
 
     public void setupSpinners(int id1, int id2) {
         Spinner spinner = (Spinner) findViewById(id1);
@@ -48,19 +48,25 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
-                String time = "21:45";
+                String time = DEFAULT_TIME;
                 TextView testclock = (TextView)findViewById(R.id.testclock);
                 TextView preview = (TextView)findViewById(R.id.preview);
 
                 switch(parentView.getId()) {
                     case R.id.dreiviertel:
                         time = "21:45";
-                        if(((TextView)v).getText().equals("dreiviertel"))
+                        if(((TextView)v).getText().equals("dreiviertel")) {
                             getSettings().setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
-                        else if (((TextView)v).getText().equals("viertel vor"))
+                            toggleDreiviertelAdjustments(Boolean.TRUE);
+                        }
+                        else if (((TextView)v).getText().equals("viertel vor")) {
                             getSettings().setDreiviertel(Settings.Dreiviertel.viertelvor);
-                        else
+                            toggleDreiviertelAdjustments(Boolean.FALSE);
+                        }
+                        else {
                             getSettings().setDreiviertel(Settings.Dreiviertel.fuenfzehn);
+                            toggleDreiviertelAdjustments(Boolean.FALSE);
+                        }
                         break;
                     case R.id.viertel:
                         time = "21:15";
@@ -271,7 +277,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
-        String time = "08:45";
+        String time = DEFAULT_TIME;
         TextView testclock = (TextView)findViewById(R.id.testclock);
         TextView preview = (TextView)findViewById(R.id.preview);
 
@@ -333,7 +339,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 }
                 break;
             case R.id.halber:
-                time = "09:29";
+                time = "09:22";
                 if (checked) {
                     toggleHalbAndAdjustments(Boolean.FALSE);
                     getSettings().setHalber(Boolean.TRUE);
@@ -537,6 +543,18 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         def = (CheckBox) findViewById(R.id.fuenf_vor_viertel);
         def.setEnabled(t);
         def = (CheckBox) findViewById(R.id.fuenf_nach_viertel);
+        def.setEnabled(t);
+
+    }
+
+    public void toggleDreiviertelAdjustments(Boolean t){
+        CheckBox def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
+        def.setEnabled(t);
+        def = (CheckBox) findViewById(R.id.fuenf_nach_dreiviertel);
         def.setEnabled(t);
 
     }

@@ -53,6 +53,18 @@ public class ViertelUnitTest extends AndroidJUnitRunner {
         out = tiw.getTimeAsSentance(p,s);
         assertEquals("viertel zehn", out);
 
+        s.setFuenfnachviertelacht(Boolean.TRUE);
+        s.setFuenfvorviertelacht(Boolean.TRUE);
+
+        p = new Pieces("21:10");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("fünf vor viertel zehn", out);
+
+
+        p = new Pieces("21:20");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("fünf nach viertel zehn", out);
+
 
         s.setViertel(Settings.Viertel.viertelnach);
         p = new Pieces("21:15");
@@ -62,6 +74,8 @@ public class ViertelUnitTest extends AndroidJUnitRunner {
         p = new Pieces("21:17");
         out = tiw.getTimeAsSentance(p,s);
         assertEquals("siebzehn nach neun", out);
+
+
 
 
         s.setViertel(Settings.Viertel.viertelueber);
