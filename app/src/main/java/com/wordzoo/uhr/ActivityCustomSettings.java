@@ -20,17 +20,17 @@ import android.widget.Toast;
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
+import com.wordzoo.uhr.utils.Constants;
 
 public class ActivityCustomSettings extends Activity implements OnClickListener {
 
 
-    //user prefs
-    private SharedPreferences clockPrefs;
-
     private RadioGroup def;
     private RadioButton defButton;
-    private Button done;
+
     private Button cancel;
+    private Button save;
+    private Button saveas;
     private Spinner spinner;
 
     private Context context;
@@ -199,9 +199,10 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customsettings);
 
-        this.settings = loadSettings();
+        //assume its a new setting
+        setSettings(new Settings());
 
-        addDoneButtonListener();
+        addButtonListeners();
         setupSpinners(R.id.dreiviertel, R.array.settings_dreiviertel);
         setupSpinners(R.id.viertel, R.array.settings_viertel);
         setupSpinners(R.id.morgen, R.array.settings_morgen);
@@ -227,10 +228,37 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
 
 
-    public void addDoneButtonListener() {
+    public void addButtonListeners() {
 
         def = (RadioGroup) findViewById(R.id.def);
         cancel = (Button) findViewById(R.id.cancel);
+        save = (Button) findViewById(R.id.save);
+        saveas = (Button) findViewById(R.id.saveas);
+
+        saveas.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String newConfigName = prompt();
+                new Settings().createUpdateSettings(Constants.selectedClock, newConfigName, this);
+                finish();
+
+            }
+
+
+        });
+
+        save.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                finish();
+
+            }
+
+
+        });
 
         cancel.setOnClickListener(new OnClickListener() {
 
@@ -248,28 +276,12 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
     }
 
-    public Settings loadSettings() {
-        Settings s = new Settings();
-        s.setUmgangssprachlich(Boolean.TRUE);
-        s.setUmgangminute(Settings.Umgangminute.minuteword);
 
-        Toast.makeText(ActivityCustomSettings.this,
-                "lookn for..." + def + "...", Toast.LENGTH_SHORT).show();
-
-
-
-        return s;
-
-    }
 
 
     public void onClick(View v) {
 
-        //save prefs
-        SharedPreferences.Editor custClockEdit = clockPrefs.edit();
-        custClockEdit.commit();
-
-        finish();
+        ;
     }
 
 
@@ -581,4 +593,5 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         def.setEnabled(t);
 
     }
+
 }

@@ -16,46 +16,44 @@ import android.widget.RadioGroup;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 import com.germanclock.time.Settings;
+import com.wordzoo.uhr.utils.Constants;
+import java.util.Set;
 
 public class ActivitySettings extends Activity implements OnClickListener {
 
 
-    //user prefs
-    private SharedPreferences clockPrefs;
 
     private RadioGroup def;
     private RadioButton defButton;
     private Button done;
-    private Button custom;
+    private Button newConfig;
+    private Button editClock;
+
+
 
     Context context;
 
     public void onCreate(Bundle savedInstanceState) {
-        /*
-        Boolean default = this.getResources().getBoolean(R.integer.officallong);
-        if(officiallong)
-            view.setChecked(default);
-
-*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        addDoneButtonListener();
-        addConfigButtonListener();
+        SharedPreferences sharedPreferences = getSharedPreferences("germanClocks",0);
+        addButtonListeners();
 
-        //user prefs
-        clockPrefs = getSharedPreferences("CustomClockPrefs", 0);
+
 
         this.context = this;
 
 
     }
 
-    public void addDoneButtonListener() {
+    public void addButtonListeners() {
 
         def = (RadioGroup) findViewById(R.id.def);
         done = (Button) findViewById(R.id.done);
+        newConfig = (Button) findViewById(R.id.newClock);
+        //editClock = (Button) findViewById(R.id.editClock);
 
         done.setOnClickListener(new OnClickListener() {
 
@@ -72,8 +70,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
                         defButton.getText(), Toast.LENGTH_SHORT).show();
 
                 Settings settings = new Settings();
-                settings.parse(defButton);
-                Settings s = loadSettings(defButton.getText() + "");
+                Settings s = passSettingsDownToClock(defButton.getText() + "");
 
 
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -93,21 +90,18 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
 
-    }
 
-    public void addConfigButtonListener() {
-
-
-        custom = (Button) findViewById(R.id.custom);
-
-        custom.setOnClickListener(new OnClickListener() {
+        newConfig.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent configIntent = new Intent(context, ActivityCustomSettings.class);
+
+
+                configIntent.putExtra(Constants.CLOCK, Constants.selectedClock);
+
                 startActivity(configIntent);
-                //PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
-                //custom.setOnClickPendingIntent(R.id.custom, configPendingIntent);
+
 
             }
 
@@ -118,25 +112,21 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
     }
 
-    public Settings loadSettings(String def) {
+    public Settings passSettingsDownToClock(String configKey) {
         Settings s = new Settings();
 
 
         Toast.makeText(ActivitySettings.this,
-                "lookn for..." + def + "...", Toast.LENGTH_SHORT).show();
+                "lookn for germanClockKey..." + configKey + "...", Toast.LENGTH_SHORT).show();
 
         // Is the button now checked?
-        if (def.equals("offiziell lang")) {
+        if (configKey.equals("offiziell zeit")) {
 
             s.setEsist(Boolean.TRUE);
             s.setUhr(Boolean.TRUE);
             s.setMinute(Boolean.TRUE);
 
-        } else if (def.equals("offiziell kurz")) {
-
-            //
-
-        } else if (def.equals("umgangssprachlich")) {
+        } else if (configKey.equals("umgangssprachlich")) {
 
             s.setUmgangssprachlich(Boolean.TRUE);
             s.setUmgangminute(Settings.Umgangminute.minuteword);
@@ -165,8 +155,10 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
             s.setEsist(Boolean.TRUE);
 
-        } else if (def.equals(Settings.Default.custom)) {
-            //comming soon.....
+        } else  {
+            SharedPreferences preferences = getSharedPreferences(Constants.SETTING, 0);
+            //(crated when you call SharedPreferences.edit()) and then commit changes (Editor.commit()).
+            s.loadSettings(preferences.getAll(), Constants.selectedClock, configKey);
         }
 
         return s;
@@ -174,134 +166,12 @@ public class ActivitySettings extends Activity implements OnClickListener {
     }
 
 
+
     public void onClick(View v) {
 
-        //save prefs
-        SharedPreferences.Editor custClockEdit = clockPrefs.edit();
-        custClockEdit.commit();
 
         finish();
     }
 
 
 }
-/*package com.wordzoo.uhr;
-
-import android.app.Activity;
-import android.appwidget.AppWidgetManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.CheckBox;
-
-public class CleanClockWidgetConfigure extends Activity
-{
-	protected static final String PREFS_NAME = "it.sephiroth.apps.widget.cleanclock";
-	protected static final String PREF_PREFIX_KEY = "prefix42_";
-	protected int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
-	protected CheckBox mUse24Checkbox;
-	protected CheckBox mShadowCheckbox;
-
-	public CleanClockWidgetConfigure()
-	{
-		super();
-	}
-
-	@Override
-	public void onCreate( Bundle icicle )
-	{
-		super.onCreate( icicle );
-
-		setResult( RESULT_CANCELED );
-		setContentView( R.layout.configure );
-
-		mUse24Checkbox = (CheckBox) findViewById( R.id.checkbox_24 );
-		mShadowCheckbox = (CheckBox) findViewById( R.id.checkbox_shadow );
-
-		findViewById( R.id.save_button ).setOnClickListener( mOnClickListener );
-
-		Intent intent = getIntent();
-		Bundle extras = intent.getExtras();
-
-		if( extras != null )
-		{
-			mAppWidgetId = extras.getInt( AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID );
-		}
-
-		if( mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID )
-		{
-			finish();
-		}
-	}
-
-	protected View.OnClickListener mOnClickListener = new View.OnClickListener()
-	{
-
-		public void onClick( View v )
-		{
-			final Context context = getContext();
-			boolean use24 = mUse24Checkbox.isChecked();
-			boolean useShadow = mShadowCheckbox.isChecked();
-
-			savePrefs( context, use24, useShadow );
-
-			AppWidgetManager appWidgetManager = AppWidgetManager.getInstance( context );
-			Constants.log( "Configure completed!" );
-			updateAppWidget( context, use24, useShadow, appWidgetManager );
-
-			Intent resultValue = new Intent();
-			resultValue.putExtra( AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId );
-			setResult( RESULT_OK, resultValue );
-			finish();
-		}
-	};
-
-	protected Context getContext() {
-		Constants.log( this.getClass().getSimpleName() + "::getContext" );
-		return this;
-	}
-
-	protected void savePrefs( final Context context, boolean use24, boolean useShadow )
-	{
-		Constants.log( getClass().getSimpleName() + "::savePrefs" );
-		savePref( context, mAppWidgetId, Constants.PREF_24HOUR, use24 );
-		savePref( context, mAppWidgetId, Constants.PREF_SHADOW, useShadow  );
-	}
-
-	protected void updateAppWidget( final Context context, boolean use24, boolean useShadow, AppWidgetManager appWidgetManager )
-	{
-		Constants.log( getClass().getSimpleName() + "::updateAppWidget" );
-		ClockAppWidgetProvider.updateAppWidget( context, appWidgetManager, mAppWidgetId, use24, useShadow );
-	}
-
-	static void savePref( Context context, int appWidgetId, String name, Boolean value )
-	{
-		savePref( context, appWidgetId, PREF_PREFIX_KEY, name, value );
-	}
-
-	static boolean loadPref( Context context, int appWidgetId, String name )
-	{
-		return loadPref( context, appWidgetId, PREF_PREFIX_KEY, name );
-	}
-
-	protected static void savePref( Context context, int appWidgetId, String prefix, String name, Boolean value )
-	{
-		Constants.log( "savePrev. prefix=" + prefix + ", appWidgetId=" + appWidgetId + ", name=" + name );
-		SharedPreferences.Editor prefs = context.getSharedPreferences( PREFS_NAME, 0 ).edit();
-		prefs.putBoolean( prefix + appWidgetId + "-" + name, value );
-		prefs.commit();
-	}
-
-	protected static boolean loadPref( Context context, int appWidgetId, String prefix, String name )
-	{
-		Constants.log( "loadPrev. prefix=" + prefix + ", appWidgetId=" + appWidgetId + ", name=" + name );
-		SharedPreferences prefs = context.getSharedPreferences( PREFS_NAME, 0 );
-		boolean value = prefs.getBoolean( prefix + appWidgetId + "-" + name, false );
-		return value;
-	}
-
-}
-*/

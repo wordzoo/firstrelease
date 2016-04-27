@@ -55,14 +55,15 @@
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
-            <Button android:id="@+id/custom"
+            <Button android:id="@+id/newClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="choose time expressions"
+                android:text="new clock"
                 android:paddingRight="20dp"/>
                 <Space
                     android:layout_width="20dp"
                     android:layout_height="30dp"/>
+
             <Button
                 android:id="@+id/done"
                 android:layout_width="wrap_content"

@@ -3,8 +3,11 @@ package com.germanclock.time;
 import android.widget.RadioButton;
 
 import com.wordzoo.uhr.R;
+import com.wordzoo.uhr.utils.PersistantSettings;
 
-public class Settings {
+public class Settings extends PersistantSettings {
+    private String customName = "";
+
     private Boolean flag = Boolean.FALSE;
 
     public enum FlagPattern {
@@ -21,7 +24,7 @@ public class Settings {
     private Boolean um = Boolean.FALSE; //"um Zwölf"
 
     private Boolean halber = Boolean.FALSE; //"sechs nach halber"
-    private int halberRange = 6; //0 to 10, as in 10 nach (oder vor) halber
+    private Integer halberRange = 6; //0 to 10, as in 10 nach (oder vor) halber
 
     //you can only choose this of umgangssprachlich is true
     public enum Umgangminute {
@@ -134,24 +137,7 @@ public class Settings {
 
     private Dreiviertel dreiviertel = Dreiviertel.fuenfzehn;
 
-    public void parse(RadioButton def) {
-        if(def.getId() == R.id.officiallong)
-            this.setDef(Default.officiallong);
-        if(def.getId() == R.id.officialshort)
-            this.setDef(Default.officialshort);
-        if(def.getId() == R.id.umgangsprachlich)
-            this.setDef(Default.umgangssprachlich);
-        if(def.getId() == R.id.custom)
-            this.setDef(Default.custom);
-    }
 
-    public Default getDef() {
-        return def;
-    }
-
-    public void setDef(Default def) {
-        this.def = def;
-    }
 
     //if dreiviertel == Dreiviertel.dreiviertelacht then two more options
     private Boolean fuenfvordreiviertelacht = Boolean.FALSE;
@@ -178,11 +164,11 @@ public class Settings {
         this.halber = halber;
     }
 
-    public int getHalberRange() {
+    public Integer getHalberRange() {
         return halberRange;
     }
 
-    public void setHalberRange(int halberRange) {
+    public void setHalberRange(Integer halberRange) {
         this.halberRange = halberRange;
     }
 
@@ -548,5 +534,11 @@ public class Settings {
         this.kurzvor = kurzvor;
     }
 
+    public String getCustomName() {
+        return customName;
+    }
 
+    public void setCustomName(String customName) {
+        this.customName = customName;
+    }
 }
