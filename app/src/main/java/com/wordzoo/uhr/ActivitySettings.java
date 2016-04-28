@@ -17,6 +17,9 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 import com.germanclock.time.Settings;
 import com.wordzoo.uhr.utils.Constants;
+
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ActivitySettings extends Activity implements OnClickListener {
@@ -38,7 +41,10 @@ public class ActivitySettings extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("germanClocks",0);
+        //get all configs
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SETTING,0);
+        Set set = sharedPreferences.getStringSet(Constants.selectedClock + "~" + Constants.CONFIG, new HashSet());
+
         addButtonListeners();
 
 

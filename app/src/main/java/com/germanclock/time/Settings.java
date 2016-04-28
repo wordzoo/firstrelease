@@ -1,9 +1,14 @@
 package com.germanclock.time;
 
+import android.content.SharedPreferences;
 import android.widget.RadioButton;
 
 import com.wordzoo.uhr.R;
 import com.wordzoo.uhr.utils.PersistantSettings;
+
+import com.wordzoo.uhr.utils.Constants;
+
+import java.util.Map;
 
 public class Settings extends PersistantSettings {
     private String customName = "";
@@ -540,5 +545,146 @@ public class Settings extends PersistantSettings {
 
     public void setCustomName(String customName) {
         this.customName = customName;
+    }
+
+    public void loadSettings(Map<String, ?> map, String clock, String config) {
+
+        // an actual key covers, language~customname~setting
+        //get settings for language and customName
+        String prefix = clock + "~" + config + "~";
+        setPrefix(prefix);
+        setMap(map);
+        setEsist((Boolean) getSetting("esist"));
+        setUhr((Boolean) getSetting("uhr"));
+        setMinute((Boolean) getSetting("minute"));
+
+        setCustomName((String) getSetting("customName"));
+        setFlag((Boolean) getSetting("flag"));
+        setFlagPattern(Settings.FlagPattern.values()[(Integer) getSetting("flagPattern")]);
+        setUmgangssprachlich((Boolean) getSetting("umgangssprachlich"));
+        setUm((Boolean) getSetting("um"));
+        setHalber((Boolean) getSetting("halber"));
+        setHalberRange((Integer) getSetting("halberRange"));
+        setUmgangminute(Settings.Umgangminute.values()[(Integer) getSetting("umgangminute")]);
+        setMinuteHybrid((Boolean) getSetting("minuteHybrid"));
+        setClockface(Settings.Clockface.values()[(Integer) getSetting("clockface")]);
+
+        setMitternacht((Boolean) getSetting("mitternacht"));
+        setMorgens((Boolean) getSetting("morgens"));
+        setAmmorgen((Boolean) getSetting("ammorgen"));
+        setVormittags((Boolean) getSetting("vormittags"));
+        setAmvormittag((Boolean) getSetting("amvormittag"));
+        setMittags((Boolean) getSetting("mittags"));
+        setAmmittag((Boolean) getSetting("ammittag"));
+        setNachmittags((Boolean) getSetting("nachmittags"));
+        setAmnachmittag((Boolean) getSetting("amnachmittag"));
+        setAbends((Boolean) getSetting("abends"));
+        setAmabend((Boolean) getSetting("amabend"));
+        setNachts((Boolean) getSetting("nachts"));
+        setIndernacht((Boolean) getSetting("indernacht"));
+        setInderfrueh((Boolean) getSetting("inderfrueh"));
+        setMorgennacht((Boolean) getSetting("morgennacht"));
+        setAmmorgennacht((Boolean) getSetting("ammorgennacht"));
+        setKurznach((Boolean) getSetting("kurznach"));
+
+        setViertel(Settings.Viertel.values()[(Integer) getSetting("viertel")]);
+
+        setFuenfvorviertelacht((Boolean) getSetting("fuenfvorviertelacht"));
+        setFuenfnachviertelacht((Boolean) getSetting("fuenfnachviertelacht"));
+        setKurznachviertelacht((Boolean) getSetting("kurznachviertelacht"));
+        setKurzvorviertelacht((Boolean) getSetting("kurzvorviertelacht"));
+
+        setHalb(Settings.Halb.values()[(Integer) getSetting("halb")]);
+        setFuenfvorhalb((Boolean) getSetting("fuenfvorhalb"));
+        setFuenfnachhalb((Boolean) getSetting("fuenfnachhalb"));
+        setKurzvorhalb((Boolean) getSetting("kurzvorhalb"));
+        setKurznachhalb((Boolean) getSetting("kurznachhalb"));
+        setZehnvorhalb((Boolean) getSetting("zehnvorhalb"));
+        setZehnnachhalb((Boolean) getSetting("zehnnachhalb"));
+        setZwanzignach((Boolean) getSetting("zwanzignach"));
+        setZwanzigvor((Boolean) getSetting("zwanzigvor"));
+
+
+        setDreiviertel(Settings.Dreiviertel.values()[(Integer) getSetting("dreiviertel")]);
+
+        setFuenfvordreiviertelacht((Boolean) getSetting("fuenfvordreiviertelacht"));
+        setFuenfnachdreiviertelacht((Boolean) getSetting("fuenfnachdreiviertelacht"));
+        setKurzvordreiviertelacht((Boolean) getSetting("kurzvordreiviertelacht"));
+        setKurznachdreiviertelacht((Boolean) getSetting("kurznachdreiviertelacht"));
+        setKurzvor((Boolean) getSetting("kurzvor"));
+
+    }
+
+    public void createUpdateSettings(SharedPreferences sp, String selectedClock, String newConfigName) {
+        String prefix = selectedClock + "~" + newConfigName + "~";
+        setPrefix(prefix);
+        setMap(sp.getAll());
+        setEditor(sp.edit());
+
+        //save new config name
+        putConfigName(Constants.selectedClock + "~" + Constants.CONFIG, newConfigName);
+        //save settings for onfig
+        putBoolean("esist", getEsist());
+        putBoolean("uhr", getUhr());
+        putBoolean("minute", getMinute());
+
+        putString("customName", getCustomName());
+        putBoolean("flag", getFlag());
+
+        putInteger("flagPattern", FlagPattern.valueOf(getFlagPattern()+"").ordinal());
+        putBoolean("umgangssprachlich", getUmgangssprachlich());
+        putBoolean("um", getUm());
+        putBoolean("halber", getHalber());
+        putInteger("halberRange", getHalberRange());
+        putInteger("umgangminute", FlagPattern.valueOf(getUmgangminute()+"").ordinal());
+        putBoolean("minuteHybrid", getMinuteHybrid());
+        putInteger("clockface", FlagPattern.valueOf(getClockface()+"").ordinal());
+
+        putBoolean("mitternacht", getMitternacht());
+        putBoolean("morgens", getMorgens());
+        putBoolean("ammorgen", getAmmorgen());
+        putBoolean("vormittags", getVormittags());
+        putBoolean("amvormittag", getAmvormittag());
+        putBoolean("mittags", getMittags());
+        putBoolean("ammittag", getAmmittag());
+        putBoolean("nachmittags", getNachmittags());
+        putBoolean("amnachmittag", getAmnachmittag());
+        putBoolean("abends", getAbends());
+        putBoolean("amabend", getAmabend());
+        putBoolean("nachts", getNachts());
+        putBoolean("indernacht", getIndernacht());
+        putBoolean("inderfrueh", getInderfrueh());
+        putBoolean("morgennacht", getMorgennacht());
+        putBoolean("ammorgennacht", getAmmorgennacht());
+        putBoolean("kurznach", getKurznach());
+
+        putInteger("viertel", FlagPattern.valueOf(getViertel()+"").ordinal());
+
+        putBoolean("fuenfvorviertelacht", getFuenfvorviertelacht());
+        putBoolean("fuenfnachviertelacht", getFuenfnachviertelacht());
+        putBoolean("kurznachviertelacht", getKurznachviertelacht());
+        putBoolean("kurzvorviertelacht", getKurzvorviertelacht());
+
+        putInteger("halb", FlagPattern.valueOf(getHalb()+"").ordinal());
+        putBoolean("fuenfvorhalb", getFuenfvorhalb());
+        putBoolean("fuenfnachhalb", getFuenfnachhalb());
+        putBoolean("kurzvorhalb", getKurzvorhalb());
+        putBoolean("kurznachhalb", getKurznachhalb());
+        putBoolean("zehnvorhalb", getZehnvorhalb());
+        putBoolean("zehnnachhalb", getZehnnachhalb());
+        putBoolean("zwanzignach", getZwanzignach());
+        putBoolean("zwanzigvor", getZwanzigvor());
+
+
+        putInteger("dreiviertel", FlagPattern.valueOf(getDreiviertel()+"").ordinal());
+
+        putBoolean("fuenfvordreiviertelacht", getFuenfvordreiviertelacht());
+        putBoolean("fuenfnachdreiviertelacht", getFuenfnachdreiviertelacht());
+        putBoolean("kurzvordreiviertelacht", getKurzvordreiviertelacht());
+        putBoolean("kurznachdreiviertelacht", getKurznachdreiviertelacht());
+        putBoolean("kurzvor", getKurzvor());
+
+        getEditor().commit();
+
     }
 }

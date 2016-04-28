@@ -239,8 +239,11 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
             @Override
             public void onClick(View v) {
-                String newConfigName = prompt();
-                new Settings().createUpdateSettings(Constants.selectedClock, newConfigName, this);
+                String newConfigName = "prompt()";
+
+
+                SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
+                getSettings().createUpdateSettings(sp, Constants.selectedClock, newConfigName);
                 finish();
 
             }
