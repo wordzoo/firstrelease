@@ -6,6 +6,7 @@ import android.widget.RadioButton;
 import com.germanclock.time.Settings;
 import com.wordzoo.uhr.R;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Set;
 /**
  * customName is the name that people save their settings under
  */
-public class PersistantSettings {
+public class PersistantSettings implements Serializable{
     String prefix = "";
 
     //map for getting settings
@@ -47,8 +48,25 @@ public class PersistantSettings {
         this.prefix = prefix;
     }
 
-    public Object getSetting(String key) {
-        return getMap().get(getPrefix() + key);
+    public Integer getIntegerSetting(String key) {
+        if(getMap().get(getPrefix() + key) == null)
+            return 0;
+        else
+            return (Integer)getMap().get(getPrefix() + key);
+
+    }
+    public String getStringSetting(String key) {
+        if(getMap().get(getPrefix() + key) == null)
+            return "";
+        else
+            return (String)getMap().get(getPrefix() + key);
+    }
+
+    public Boolean getBooleanSetting(String key) {
+        if(getMap().get(getPrefix() + key) == null)
+            return Boolean.FALSE;
+        else
+            return (Boolean)getMap().get(getPrefix() + key);
     }
 
     public void putInteger(String key, Integer value) {
@@ -68,5 +86,7 @@ public class PersistantSettings {
         configs.add(value);
         getEditor().putStringSet(key, configs);
     }
+
+
 
 }

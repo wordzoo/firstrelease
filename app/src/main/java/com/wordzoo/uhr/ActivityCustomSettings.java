@@ -21,12 +21,10 @@ import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
 import com.wordzoo.uhr.utils.Constants;
+import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 
 public class ActivityCustomSettings extends Activity implements OnClickListener {
 
-
-    private RadioGroup def;
-    private RadioButton defButton;
 
     private Button cancel;
     private Button save;
@@ -230,7 +228,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
     public void addButtonListeners() {
 
-        def = (RadioGroup) findViewById(R.id.def);
         cancel = (Button) findViewById(R.id.cancel);
         save = (Button) findViewById(R.id.save);
         saveas = (Button) findViewById(R.id.saveas);
@@ -241,9 +238,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             public void onClick(View v) {
                 String newConfigName = "prompt()";
 
-
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
-                getSettings().createUpdateSettings(sp, Constants.selectedClock, newConfigName);
+                new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock, newConfigName, getSettings());
+
                 finish();
 
             }

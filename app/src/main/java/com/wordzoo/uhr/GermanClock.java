@@ -4,8 +4,11 @@ import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
 import com.wordzoo.uhr.service.ClockService;
+import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 import com.wordzoo.uhr.utils.StringUtils;
+import com.wordzoo.uhr.utils.Constants;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,10 +18,12 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-public class GermanClock extends AppWidgetProvider
+public class GermanClock extends AppWidgetProvider implements Serializable
 {
 
 	private Settings settings = null;
@@ -36,14 +41,14 @@ public class GermanClock extends AppWidgetProvider
 	@Override
 	public void onDeleted( Context context, int[] appWidgetIds )
 	{
-		Constants.log("GermanClock::onDeleted");
+
 		super.onDeleted(context, appWidgetIds);
 	}
 
 	@Override
 	public void onDisabled( Context context )
 	{
-		Constants.log( "GermanClock::onDisabled" );
+
 		stopClockService(context);
 		super.onDisabled(context);
 	}
@@ -59,17 +64,20 @@ public class GermanClock extends AppWidgetProvider
         context.stopService(serviceIntent);
 	}
 
+
+
 	@Override
 	public void onEnabled( Context context )
 	{
         super.onEnabled(context);
-		Constants.log("GermanClock::onEnabled");
+
+		new StoreRetrieveGerman().storeDeafultSettingsToDisk(context.getSharedPreferences(Constants.SETTING, 0));
 		startClockService(context);
 
         ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
 
-        Intent configIntent = new Intent(context, ActivitySettings.class);
+        final Intent configIntent = new Intent(context, ActivitySettings.class);
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
 
@@ -82,15 +90,18 @@ public class GermanClock extends AppWidgetProvider
 
     @Override
     public void onReceive( Context context, Intent intent) {
-        Constants.log(getClass().getSimpleName() + "::onReceive: " + intent.getAction() );
+
         super.onReceive(context, intent);
-        handleIntent( context, intent );
+        handleIntent(context, intent);
     }
 
     protected void handleIntent( Context context, Intent intent) {
-        Constants.log( getClass().getSimpleName() + "::handleIntent" );
 
-        if( intent.getAction().equals( Intent.ACTION_TIME_TICK ) )
+		setSettings((Settings) intent.getSerializableExtra(Constants.SETTING));
+		if(getSettings() != null) {
+			Toast.makeText(context, "handleIntent: the umgangsprachlich is: " + getSettings().getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
+		}
+		if( intent.getAction().equals( Intent.ACTION_TIME_TICK ) )
         {
             AppWidgetManager manager = AppWidgetManager.getInstance( context );
             int appWidgetIds[] = manager.getAppWidgetIds( new ComponentName( context, GermanClock.class.getName() ) );
@@ -100,13 +111,12 @@ public class GermanClock extends AppWidgetProvider
 	@Override
 	public void onUpdate( Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds )
 	{
-		Constants.log( getClass().getSimpleName() + "::onUpdate. " + appWidgetIds.length );
 
 		final int N = appWidgetIds.length;
 		for( int i = 0; i < N; i++ )
 		{
 			int appWidgetId = appWidgetIds[i];
-			Constants.log( "onUpdate() appWidgetId: " + appWidgetId );
+
 
 			setTime(context);
 		}
@@ -130,15 +140,16 @@ public class GermanClock extends AppWidgetProvider
 
 	public String getVerbalTime(Context c) {
 
-		if(getSettings() == null) {
-			//official default style
-			settings = new Settings();
-			settings.setEsist(Boolean.TRUE);
-			settings.setUhr(Boolean.TRUE);
-			settings.setMinute(Boolean.TRUE);
+		SharedPreferences sp = c.getSharedPreferences(Constants.SETTING, 0);
+		String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
 
-			setSettings(settings);
-		}
+		if(chosenConfig == null)
+			chosenConfig = Constants.OFFICIAL_TIME; //default
+
+		Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(c, chosenConfig);
+
+		Toast.makeText(c,
+				"service.createReciever(): key " + chosenConfig, Toast.LENGTH_SHORT).show();
 
 		TimeInWords tiw = new TimeInWords(c);
 
@@ -146,7 +157,7 @@ public class GermanClock extends AppWidgetProvider
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
 		Pieces p = new Pieces(sdf.format(d));
 
-		return tiw.getTimeAsSentance(p, getSettings());
+		return tiw.getTimeAsSentance(p, s);
 	}
 
 
@@ -155,9 +166,12 @@ public class GermanClock extends AppWidgetProvider
 		String time = getVerbalTime(context);
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
 		remoteViews.setTextViewText(R.id.textView, time);
-		Toast.makeText(context, "setTime() setting time to: " +time, Toast.LENGTH_SHORT).show();
+
 		AppWidgetManager appManager = AppWidgetManager.getInstance(context);
 		ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
 		appManager.updateAppWidget(thisWidget, remoteViews);
 	}
+
+
+
 }

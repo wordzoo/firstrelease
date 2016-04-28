@@ -1,12 +1,19 @@
 package com.wordzoo.uhr.service;
 
+import com.germanclock.time.Settings;
 import com.wordzoo.uhr.GermanClock;
-import com.wordzoo.uhr.Constants;
+import com.wordzoo.uhr.utils.Constants;
+
 import android.app.Service;
 import android.appwidget.AppWidgetProvider;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class ClockService extends Service
 {
@@ -14,49 +21,45 @@ public class ClockService extends Service
 
 	public ClockService()
 	{
-		Constants.log( getClass().getSimpleName() + "::newInstance" );
 	}
 
 	@Override
 	public IBinder onBind( Intent intent )
 	{
-		Constants.log( getClass().getSimpleName() + "::onBind" );
 		return null;
 	}
 
 	@Override
 	public void onStart( Intent intent, int startId )
 	{
-		Constants.log( getClass().getSimpleName() + "::onStart" );
-		super.onStart( intent, startId );
+		super.onStart(intent, startId);
 	}
 
 	@Override
 	public void onCreate()
 	{
-		Constants.log( getClass().getSimpleName() + "::onCreate" );
+
 		super.onCreate();
 		createReceiver();
-		registerReceiver( receiver, new IntentFilter( Intent.ACTION_TIME_TICK ) );
+		registerReceiver(receiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
 
 	protected void createReceiver()
 	{
 		receiver = new GermanClock();
-		Constants.log( getClass().getSimpleName() + "::createReceiver: " + receiver );
 	}
+
+
 
 	@Override
 	public void onDestroy()
 	{
-		Constants.log( getClass().getSimpleName() + "::onDestroy" );
 		unregisterReceiver();
 		super.onDestroy();
 	}
 
 	protected void unregisterReceiver()
 	{
-		Constants.log( getClass().getSimpleName() + "::unregisterReceiver: " + receiver );
 		unregisterReceiver( receiver );
 	}
 }

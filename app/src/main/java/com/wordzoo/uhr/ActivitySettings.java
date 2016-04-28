@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -18,7 +19,9 @@ import android.widget.Toast;
 import com.germanclock.time.Settings;
 import com.wordzoo.uhr.utils.Constants;
 
+import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,24 +29,51 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
 
-    private RadioGroup def;
-    private RadioButton defButton;
+    private RadioGroup  config; //group of configurations
+    private RadioButton selectedConfigButton; //selected configuration
     private Button done;
     private Button newConfig;
     private Button editClock;
 
-
+    private GermanClock germanClock;
 
     Context context;
+
+    public GermanClock getGermanClock() {
+        return germanClock;
+    }
+
+    public void setGermanClock(GermanClock germanClock) {
+        this.germanClock = germanClock;
+    }
 
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
+        //Settings settings = (Settings)getIntent().getExtras().getSerializable(Constants.SETTING);
+
+        //Store reference to our clock settings to update later
+        //settings.setUmgangssprachlich(Boolean.TRUE);
+        //settings.setEsist(Boolean.FALSE);
+
+
+
         //get all configs
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SETTING,0);
         Set set = sharedPreferences.getStringSet(Constants.selectedClock + "~" + Constants.CONFIG, new HashSet());
+        Iterator i = set.iterator();
+        String configName = "";
+        int id = 0;
+        config = (RadioGroup) findViewById(R.id.config);
+        while(i.hasNext()) {
+            configName = (String) i.next();
+            RadioButton rdbtn = new RadioButton(this);
+            rdbtn.setId(id); id++;
+            rdbtn.setText(configName);
+            config.addView(rdbtn);
+        }
 
         addButtonListeners();
 
@@ -56,10 +86,9 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
     public void addButtonListeners() {
 
-        def = (RadioGroup) findViewById(R.id.def);
+        config = (RadioGroup) findViewById(R.id.config);
         done = (Button) findViewById(R.id.done);
         newConfig = (Button) findViewById(R.id.newClock);
-        //editClock = (Button) findViewById(R.id.editClock);
 
         done.setOnClickListener(new OnClickListener() {
 
@@ -67,26 +96,29 @@ public class ActivitySettings extends Activity implements OnClickListener {
             public void onClick(View v) {
 
                 // get selected radio button from radioGroup
-                int selectedId = def.getCheckedRadioButtonId();
+                int selectedId = config.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
-                defButton = (RadioButton) findViewById(selectedId);
+                selectedConfigButton = (RadioButton) findViewById(selectedId);
 
                 Toast.makeText(ActivitySettings.this,
-                        defButton.getText(), Toast.LENGTH_SHORT).show();
+                        selectedConfigButton.getText(), Toast.LENGTH_SHORT).show();
 
-                Settings settings = new Settings();
-                Settings s = passSettingsDownToClock(defButton.getText() + "");
+                //pushes settings out to clock with result intent
+                SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, selectedConfigButton.getText()+"");
+                editor.commit();
 
-
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                //do a manual time update to immidate results of new clock configuration
+                /*AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-                GermanClock gc = new GermanClock();
-                gc.setSettings(s);
-                remoteViews.setTextViewText(R.id.textView, gc.getVerbalTime(context));
 
+                GermanClock gc = new GermanClock();
+                gc.setSettings(gc.getSettings().getSettingsFromDisk(sp, selectedConfigButton.getText()+""));
+                remoteViews.setTextViewText(R.id.textView, gc.getVerbalTime(context));
                 ComponentName thisWidget = new ComponentName(context, GermanClock.class);
-                appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+                appWidgetManager.updateAppWidget(thisWidget, remoteViews);*/
                 finish();
 
             }
@@ -118,58 +150,6 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
     }
 
-    public Settings passSettingsDownToClock(String configKey) {
-        Settings s = new Settings();
-
-
-        Toast.makeText(ActivitySettings.this,
-                "lookn for germanClockKey..." + configKey + "...", Toast.LENGTH_SHORT).show();
-
-        // Is the button now checked?
-        if (configKey.equals("offiziell zeit")) {
-
-            s.setEsist(Boolean.TRUE);
-            s.setUhr(Boolean.TRUE);
-            s.setMinute(Boolean.TRUE);
-
-        } else if (configKey.equals("umgangssprachlich")) {
-
-            s.setUmgangssprachlich(Boolean.TRUE);
-            s.setUmgangminute(Settings.Umgangminute.minuteword);
-            s.setHalber(Boolean.TRUE);
-            s.setHalberRange(10);
-            s.setKurznach(Boolean.TRUE);
-            s.setViertel(Settings.Viertel.viertelacht);
-            s.setZehnvorhalb(Boolean.TRUE);
-            s.setFuenfvorhalb(Boolean.TRUE);
-            s.setKurzvorhalb(Boolean.TRUE);
-            s.setHalb(Settings.Halb.halb);
-            s.setKurznachhalb(Boolean.TRUE);
-            s.setFuenfnachhalb(Boolean.TRUE);
-            s.setZehnnachhalb(Boolean.TRUE);
-            s.setFuenfvordreiviertelacht(Boolean.TRUE);
-            s.setKurzvordreiviertelacht(Boolean.TRUE);
-            s.setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
-            s.setKurznachdreiviertelacht(Boolean.TRUE);
-            s.setFuenfnachdreiviertelacht(Boolean.TRUE);
-            s.setKurzvor(Boolean.TRUE);
-            s.setAmabend(Boolean.TRUE);
-            s.setAmmorgen(Boolean.TRUE);
-            s.setInderfrueh(Boolean.TRUE);
-            s.setAmnachmittag(Boolean.TRUE);
-            s.setAmvormittag(Boolean.TRUE);
-
-            s.setEsist(Boolean.TRUE);
-
-        } else  {
-            SharedPreferences preferences = getSharedPreferences(Constants.SETTING, 0);
-            //(crated when you call SharedPreferences.edit()) and then commit changes (Editor.commit()).
-            s.loadSettings(preferences.getAll(), Constants.selectedClock, configKey);
-        }
-
-        return s;
-
-    }
 
 
 
