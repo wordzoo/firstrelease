@@ -20,7 +20,7 @@ import java.util.Set;
 public class StoreRetrieveGerman  {
 
 
-    public Settings loadSettingsFromDisk(SharedPreferences sp, String selectedClock, String configName) {
+    public Settings loadSettingsFromDisk(SharedPreferences sp, String selectedClock, String configName, Context c) {
         Settings s = new Settings();
 
         Map<String, ?> map = sp.getAll();
@@ -30,6 +30,9 @@ public class StoreRetrieveGerman  {
         String prefix = selectedClock + "~" + configName + "~";
 
         s.setUmgangssprachlich((Boolean) map.get(prefix + "umgangssprachlich")); //all variable settings are umgang/not official
+
+        Toast.makeText(c,
+                "loadSettings(): key under : " + prefix + "umgangssprachlich, is " + s.getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
 
         s.setEsist((Boolean) map.get(prefix + "esist"));
         s.setUhr((Boolean) map.get(prefix + "uhr"));
@@ -110,7 +113,7 @@ public class StoreRetrieveGerman  {
 
 
         //save settings for config
-        editor.putBoolean(prefix + "umgangssprachlich", Boolean.TRUE);
+        editor.putBoolean(prefix + "umgangssprachlich", s.getUmgangssprachlich());
 
         editor.putBoolean(prefix + "esist", s.getEsist());
         editor.putBoolean(prefix + "uhr", s.getUhr());
@@ -183,6 +186,7 @@ public class StoreRetrieveGerman  {
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
         s.setMinute(Boolean.TRUE);
+        s.setUmgangssprachlich(Boolean.FALSE);
         storeSettingsToDisk(sp, Constants.selectedClock, Constants.OFFICIAL_TIME, s);
 
         s = new Settings();

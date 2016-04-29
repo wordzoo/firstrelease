@@ -35,17 +35,8 @@ public class ActivitySettings extends Activity implements OnClickListener {
     private Button newConfig;
     private Button editClock;
 
-    private GermanClock germanClock;
 
     Context context;
-
-    public GermanClock getGermanClock() {
-        return germanClock;
-    }
-
-    public void setGermanClock(GermanClock germanClock) {
-        this.germanClock = germanClock;
-    }
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -106,9 +97,11 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 //pushes settings out to clock with result intent
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                 SharedPreferences.Editor editor = sp.edit();
-                editor.remove(Constants.selectedClock + "~" + Constants.selectedConfig);
-                editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, selectedConfigButton.getText()+"");
+                editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, selectedConfigButton.getText() + "");
                 editor.commit();
+
+                Toast.makeText(context,
+                        "ActivitySettings.done(): chosen config is : " + selectedConfigButton.getText() + "", Toast.LENGTH_SHORT).show();
 
                 //do a manual time update to immidate results of new clock configuration
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

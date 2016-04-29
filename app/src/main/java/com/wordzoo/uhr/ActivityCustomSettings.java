@@ -205,6 +205,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
         //assume its a new setting
         setSettings(new Settings());
+        getSettings().setUmgangssprachlich(Boolean.TRUE); //this page is only use to configure umgang variations
 
         addButtonListeners();
         setupSpinners(R.id.dreiviertel, R.array.settings_dreiviertel);

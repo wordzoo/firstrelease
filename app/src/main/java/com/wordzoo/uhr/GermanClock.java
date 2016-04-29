@@ -128,7 +128,10 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 		if(chosenConfig == null)
 			chosenConfig = Constants.OFFICIAL_TIME; //default
 
-		Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, chosenConfig);
+		Toast.makeText(c,
+				"GermanClock.getVerbalTime(): pulling settings for : " + chosenConfig, Toast.LENGTH_SHORT).show();
+
+		Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, chosenConfig, c);
 
 		//new StoreRetrieveGerman().debugthis(c.getSharedPreferences(Constants.SETTING, 0));
 
