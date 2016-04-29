@@ -101,8 +101,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 // find the radiobutton by returned id
                 selectedConfigButton = (RadioButton) findViewById(selectedId);
 
-                Toast.makeText(ActivitySettings.this,
-                        selectedConfigButton.getText(), Toast.LENGTH_SHORT).show();
+
 
                 //pushes settings out to clock with result intent
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
@@ -111,14 +110,10 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 editor.commit();
 
                 //do a manual time update to immidate results of new clock configuration
-                /*AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-
-                GermanClock gc = new GermanClock();
-                gc.setSettings(gc.getSettings().getSettingsFromDisk(sp, selectedConfigButton.getText()+""));
-                remoteViews.setTextViewText(R.id.textView, gc.getVerbalTime(context));
                 ComponentName thisWidget = new ComponentName(context, GermanClock.class);
-                appWidgetManager.updateAppWidget(thisWidget, remoteViews);*/
+                appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                 finish();
 
             }
@@ -138,7 +133,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
                 configIntent.putExtra(Constants.CLOCK, Constants.selectedClock);
 
-                startActivity(configIntent);
+                startActivityForResult(configIntent, 0);
 
 
             }
@@ -148,8 +143,19 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
 
+
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            Intent refresh = new Intent(this, ActivitySettings.class);
+            startActivity(refresh);
+            this.finish();
+        }
+    }
 
 
 

@@ -1,11 +1,15 @@
 package com.wordzoo.uhr;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.LayoutInflater;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,6 +39,8 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     private Settings settings;
 
     final String DEFAULT_TIME = "8:45";
+
+    String promptResultConfigName = "new config";
 
     public void setupSpinners(int id1, int id2) {
         Spinner spinner = (Spinner) findViewById(id1);
@@ -236,12 +242,12 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
             @Override
             public void onClick(View v) {
-                String newConfigName = "prompt()";
+                promptForName();
 
-                SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
-                new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock, newConfigName, getSettings());
+                //get a name for this new configuration
+                Toast.makeText(ActivityCustomSettings.this,
+                        "new config is: " + promptResultConfigName, Toast.LENGTH_SHORT).show();
 
-                finish();
 
             }
 
@@ -277,7 +283,48 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     }
 
 
+    public void promptForName(){
 
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.prompt, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                promptResultConfigName = userInput.getText().toString();
+                                SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
+                                new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock, promptResultConfigName, getSettings());
+                                setResult(RESULT_OK, null);
+                                finish();
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+    }
 
     public void onClick(View v) {
 
