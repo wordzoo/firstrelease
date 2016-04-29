@@ -26,17 +26,6 @@ import android.widget.Toast;
 public class GermanClock extends AppWidgetProvider implements Serializable
 {
 
-	private Settings settings = null;
-
-
-	public Settings getSettings() {
-		return settings;
-	}
-
-	public void setSettings(Settings settings) {
-		this.settings = settings;
-	}
-
 
 	@Override
 	public void onDeleted( Context context, int[] appWidgetIds )
@@ -97,10 +86,7 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 
     protected void handleIntent( Context context, Intent intent) {
 
-		setSettings((Settings) intent.getSerializableExtra(Constants.SETTING));
-		if(getSettings() != null) {
-			Toast.makeText(context, "handleIntent: the umgangsprachlich is: " + getSettings().getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
-		}
+
 		if( intent.getAction().equals( Intent.ACTION_TIME_TICK ) )
         {
             AppWidgetManager manager = AppWidgetManager.getInstance( context );
@@ -129,13 +115,9 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 	 */
 	protected static ComponentName getComponentName()
 	{
-		ComponentName alarmName = new ComponentName( "com.android.deskclock", "com.android.deskclock.DeskClock" );
-
-		if( android.os.Build.PRODUCT.equals( "GT-I9000" ) )
-			alarmName = new ComponentName( "com.sec.android.app.clockpackage", "com.sec.android.app.clockpackage.ClockPackage" );
-		else if( android.os.Build.PRODUCT.equals( "htc_bravo" ) )
-			alarmName = new ComponentName( "com.htc.android.worldclock", "com.htc.android.worldclock.WorldClockTabControl" );
+		ComponentName alarmName = new ComponentName( "com.wordzoo.uhr", "com.wordzoo.uhr.GermanClock" );
 		return alarmName;
+
 	}
 
 	public String getVerbalTime(Context c) {
@@ -146,10 +128,12 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 		if(chosenConfig == null)
 			chosenConfig = Constants.OFFICIAL_TIME; //default
 
-		Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(c, chosenConfig);
+		Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, chosenConfig);
+
+		//new StoreRetrieveGerman().debugthis(c.getSharedPreferences(Constants.SETTING, 0));
 
 		Toast.makeText(c,
-				"service.createReciever(): key " + chosenConfig, Toast.LENGTH_SHORT).show();
+				"GermanClock.getVerbalTime(): umgang is: " + s.getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
 
 		TimeInWords tiw = new TimeInWords(c);
 

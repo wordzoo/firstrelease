@@ -8,14 +8,13 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.wordzoo.uhr.R;
-import com.wordzoo.uhr.utils.PersistantSettings;
 
 import com.wordzoo.uhr.utils.Constants;
 
 import java.io.Serializable;
 import java.util.Map;
 
-public class Settings extends PersistantSettings implements Serializable {
+public class Settings implements Serializable {
     private String customName = "";
 
     private Boolean flag = Boolean.FALSE;

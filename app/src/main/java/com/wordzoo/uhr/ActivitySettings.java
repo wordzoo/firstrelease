@@ -106,6 +106,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 //pushes settings out to clock with result intent
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                 SharedPreferences.Editor editor = sp.edit();
+                editor.remove(Constants.selectedClock + "~" + Constants.selectedConfig);
                 editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, selectedConfigButton.getText()+"");
                 editor.commit();
 
