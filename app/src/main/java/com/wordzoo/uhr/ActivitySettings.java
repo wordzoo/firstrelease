@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -104,10 +105,24 @@ public class ActivitySettings extends Activity implements OnClickListener {
                         "ActivitySettings.done(): chosen config is : " + selectedConfigButton.getText() + "", Toast.LENGTH_SHORT).show();
 
                 //do a manual time update to immidate results of new clock configuration
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                Intent intent = new Intent(context.getApplicationContext(), GermanClock.class);
+                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+                // since it seems the onUpdate() is only fired on that:
+                AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+                int[] ids = widgetManager.getAppWidgetIds(new ComponentName(context, GermanClock.class));
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                    widgetManager.notifyAppWidgetViewDataChanged(ids, android.R.id.list);
+
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                context.sendBroadcast(intent);
+
+              /*  AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
                 ComponentName thisWidget = new ComponentName(context, GermanClock.class);
                 appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+                */
                 finish();
 
             }
