@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GermanClock extends AppWidgetProvider implements Serializable
@@ -120,39 +121,58 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 
 	}
 
-	public String getVerbalTime(Context c) {
 
-		SharedPreferences sp = c.getSharedPreferences(Constants.SETTING, 0);
+
+
+
+	public void setTime(Context context) {
+		SharedPreferences sp = context.getSharedPreferences(Constants.SETTING, 0);
 		String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
 
 		if(chosenConfig == null)
 			chosenConfig = Constants.OFFICIAL_TIME; //default
 
-		Toast.makeText(c,
-				"GermanClock.getVerbalTime(): pulling settings for : " + chosenConfig, Toast.LENGTH_SHORT).show();
 
-		Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, chosenConfig, c);
+		Settings settings =  new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, chosenConfig, context);
 
-		//new StoreRetrieveGerman().debugthis(c.getSharedPreferences(Constants.SETTING, 0));
 
-		Toast.makeText(c,
-				"GermanClock.getVerbalTime(): umgang is: " + s.getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
-
-		TimeInWords tiw = new TimeInWords(c);
+		TimeInWords tiw = new TimeInWords(context);
 
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
 		Pieces p = new Pieces(sdf.format(d));
 
-		return tiw.getTimeAsSentance(p, s);
-	}
 
+		String time = tiw.getTimeAsSentance(p, settings);
 
-
-	public void setTime(Context context) {
-		String time = getVerbalTime(context);
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
 		remoteViews.setTextViewText(R.id.textView, time);
+
+		int drawableid = 0;
+
+		if(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)
+				&& p.getRemainderMinutes() > 0) {
+			switch (p.getRemainderMinutes()){
+				case 1:
+					drawableid = R.drawable.lederhosen1;
+					break;
+				case 2:
+					drawableid = R.drawable.lederhosen2;
+					break;
+				case 3:
+					drawableid = R.drawable.lederhosen3;
+					break;
+				case 4:
+					drawableid = R.drawable.lederhosen4;
+					break;
+			}
+		}
+
+		if(drawableid > 0)
+			remoteViews.setTextViewCompoundDrawables(R.id.textView, 0, 0, drawableid, 0);
+		else
+			remoteViews.setTextViewCompoundDrawables(R.id.textView, 0, 0, 0, 0);
+
 
 		AppWidgetManager appManager = AppWidgetManager.getInstance(context);
 		ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());

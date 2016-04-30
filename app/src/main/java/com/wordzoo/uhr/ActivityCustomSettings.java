@@ -35,7 +35,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     private Button saveas;
     private Spinner spinner;
 
-    private Context context;
     private Settings settings;
 
     final String DEFAULT_TIME = "8:45";
@@ -177,13 +176,13 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 }
 
                 preview.setText("Preview: " + time);
-                testclock.setText(new TimeInWords(getContext()).getTimeAsSentance(new Pieces(time), getSettings()));
+                testclock.setText(new TimeInWords(getApplicationContext()).getTimeAsSentance(new Pieces(time), getSettings()));
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> v) {
-                Toast.makeText(context, "onNothingSelected()", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "onNothingSelected()", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -219,7 +218,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         setupSpinners(R.id.frueh, R.array.settings_frueh);
         //user prefs
 
-        this.context = this;
+
 
     }
 
@@ -287,11 +286,11 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     public void promptForName(){
 
         // get prompts.xml view
-        LayoutInflater li = LayoutInflater.from(context);
+        LayoutInflater li = LayoutInflater.from(getApplicationContext());
         View promptsView = li.inflate(R.layout.prompt, null);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                context);
+                getApplicationContext());
 
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
@@ -525,7 +524,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
         Pieces p = new Pieces(time);
         preview.setText("Preview: " + time);
-        testclock.setText(new TimeInWords(this.context).getTimeAsSentance(p, getSettings()));
+        testclock.setText(new TimeInWords(getApplicationContext()).getTimeAsSentance(p, getSettings()));
         int drawableid = 0;
         if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
                 && p.getRemainderMinutes() > 0) {
@@ -550,13 +549,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
     }
 
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
     public void toggleAllKurz(Boolean t){
         CheckBox def = (CheckBox) findViewById(R.id.kurz_nach);
