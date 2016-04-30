@@ -37,8 +37,6 @@ public class ActivitySettings extends Activity implements OnClickListener {
     private Button editClock;
 
 
-    Context context;
-
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -71,8 +69,6 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
 
-        this.context = this;
-
 
     }
 
@@ -98,31 +94,32 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 //pushes settings out to clock with result intent
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                 SharedPreferences.Editor editor = sp.edit();
+
                 editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, selectedConfigButton.getText() + "");
                 editor.commit();
 
-                Toast.makeText(context,
-                        "ActivitySettings.done(): chosen config is : " + selectedConfigButton.getText() + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "chosen config is : " + selectedConfigButton.getText() + "", Toast.LENGTH_SHORT).show();
+
+                String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
+
+
+                Toast.makeText(getApplicationContext(),
+                        "chosen config (from db) is :" + chosenConfig, Toast.LENGTH_SHORT).show();
+
 
                 //do a manual time update to immidate results of new clock configuration
-                Intent intent = new Intent(context.getApplicationContext(), GermanClock.class);
+                Intent intent = new Intent(getApplicationContext(), GermanClock.class);
                 intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
-                // since it seems the onUpdate() is only fired on that:
-                AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
-                int[] ids = widgetManager.getAppWidgetIds(new ComponentName(context, GermanClock.class));
+                AppWidgetManager widgetManager = AppWidgetManager.getInstance(getApplicationContext());
+                int[] ids = widgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), GermanClock.class));
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
                     widgetManager.notifyAppWidgetViewDataChanged(ids, android.R.id.list);
 
                 intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-                context.sendBroadcast(intent);
+                getApplicationContext().sendBroadcast(intent);
 
-              /*  AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-                ComponentName thisWidget = new ComponentName(context, GermanClock.class);
-                appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-                */
                 finish();
 
             }
@@ -137,7 +134,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
             @Override
             public void onClick(View v) {
-                Intent configIntent = new Intent(context, ActivityCustomSettings.class);
+                Intent configIntent = new Intent(getApplicationContext(), ActivityCustomSettings.class);
 
 
                 configIntent.putExtra(Constants.CLOCK, Constants.selectedClock);
