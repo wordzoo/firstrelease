@@ -33,8 +33,9 @@ public class ActivitySettings extends Activity implements OnClickListener {
     private RadioGroup  config; //group of configurations
     private RadioButton selectedConfigButton; //selected configuration
     private Button done;
+    private Button delete;
     private Button newConfig;
-    private Button editClock;
+    private Button edit;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,42 @@ public class ActivitySettings extends Activity implements OnClickListener {
         config = (RadioGroup) findViewById(R.id.config);
         done = (Button) findViewById(R.id.done);
         newConfig = (Button) findViewById(R.id.newClock);
+        delete = (Button) findViewById(R.id.delete);
+
+        delete.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                int selectedId = config.getCheckedRadioButtonId();
+                String configToDelete = ((RadioButton) findViewById(selectedId)).getText()+"";
+                SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
+                SharedPreferences.Editor editor = sp.edit();
+
+                //if this is currently active config, delete that key
+                String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
+                if(chosenConfig != null)
+                    editor.remove(Constants.selectedClock + "~" + Constants.selectedConfig);
+
+                //remove from config key from set of config options
+                String key_for_configs = Constants.selectedClock + "~" + Constants.CONFIG;
+                Set configs = sp.getStringSet(key_for_configs, new HashSet());
+                configs.remove(configToDelete);
+                editor.putStringSet(key_for_configs, configs);
+                editor.commit();
+
+                //remove all detailed config for this key
+                Map<String, ?> map = sp.getAll();
+                Set<String> keys = map.keySet();
+                Iterator<String> i = keys.iterator();
+                while(i.hasNext()) {
+                    String key = i.next();
+                    if(key.startsWith(Constants.selectedClock + "~" + chosenConfig))
+                        editor.remove(key);
+                }
+                editor.commit();
+            }
+        });
 
         done.setOnClickListener(new OnClickListener() {
 
@@ -126,8 +163,6 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
         });
-
-
 
 
         newConfig.setOnClickListener(new OnClickListener() {

@@ -49,14 +49,32 @@
                 android:text="new clock"
                 android:paddingRight="20dp"/>
                 <Space
-                    android:layout_width="20dp"
+                    android:layout_width="10dp"
                     android:layout_height="30dp"/>
 
-            <Button
+                <Button android:id="@+id/edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="eidt"
+                    android:paddingRight="20dp"/>
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"/>
+
+                <Button android:id="@+id/delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="delete"
+                    android:paddingRight="20dp"/>
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="30dp"/>
+
+                <Button
                 android:id="@+id/done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="apply" />
+                android:text="done" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
