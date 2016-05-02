@@ -84,13 +84,22 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
                 int selectedId = config.getCheckedRadioButtonId();
                 String configToDelete = ((RadioButton) findViewById(selectedId)).getText()+"";
+
+                //to base configs we don't delete
+                if(configToDelete.equals(Constants.INFORMAL)
+                        || configToDelete.equals(Constants.OFFICIAL_TIME))
+                    return;
+
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                 SharedPreferences.Editor editor = sp.edit();
 
-                //if this is currently active config, delete that key
+                //if this is currently active config, delete that key, and set default
                 String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
-                if(chosenConfig != null)
+                if(chosenConfig.equals(configToDelete)) {
                     editor.remove(Constants.selectedClock + "~" + Constants.selectedConfig);
+                    editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, Constants.OFFICIAL_TIME);
+                    editor.commit();
+                }
 
                 //remove from config key from set of config options
                 String key_for_configs = Constants.selectedClock + "~" + Constants.CONFIG;
@@ -105,10 +114,12 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 Iterator<String> i = keys.iterator();
                 while(i.hasNext()) {
                     String key = i.next();
-                    if(key.startsWith(Constants.selectedClock + "~" + chosenConfig))
+                    if(key.startsWith(Constants.selectedClock + "~" + configToDelete))
                         editor.remove(key);
                 }
                 editor.commit();
+                finish();
+                startActivity(getIntent());
             }
         });
 

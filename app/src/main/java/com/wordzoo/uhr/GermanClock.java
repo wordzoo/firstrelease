@@ -156,8 +156,11 @@ Toast.makeText(context,
 
 		if(settings.getUmgangssprachlich()
 		&& settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)
-				&& p.getRemainderMinutes() > 0) {
+				) {
 			switch (p.getRemainderMinutes()){
+				case 0:
+					drawableid = R.drawable.lederhosen;
+					break;
 				case 1:
 					drawableid = R.drawable.lederhosen1;
 					break;
