@@ -306,6 +306,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             public void onClick(DialogInterface dialog, int id) {
                                 promptResultConfigName = userInput.getText().toString();
                                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
+                                new StoreRetrieveGerman().storeNewConfigNameToDisk(sp, Constants.selectedClock, promptResultConfigName);
                                 new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock, promptResultConfigName, getSettings());
                                 setResult(RESULT_OK, null);
                                 finish();

@@ -116,8 +116,8 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 	 */
 	protected static ComponentName getComponentName()
 	{
-		ComponentName alarmName = new ComponentName( "com.wordzoo.uhr", "com.wordzoo.uhr.GermanClock" );
-		return alarmName;
+		ComponentName widgetName = new ComponentName( "com.wordzoo.uhr", "com.wordzoo.uhr.GermanClock" );
+		return widgetName;
 
 	}
 
@@ -133,7 +133,17 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 			chosenConfig = Constants.OFFICIAL_TIME; //default
 
 
+		Toast.makeText(context,
+				"settime: chosen: " + chosenConfig, Toast.LENGTH_SHORT).show();
+
 		Settings settings =  new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, chosenConfig, context);
+
+		Toast.makeText(context,
+				"settime: umgangssprachlich: " + settings.getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
+
+		Toast.makeText(context,
+				"settime: Umgangminute: " + settings.getUmgangminute(), Toast.LENGTH_SHORT).show();
+
 
 
 		TimeInWords tiw = new TimeInWords(context);
@@ -150,7 +160,8 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 
 		int drawableid = 0;
 
-		if(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)
+		if(settings.getUmgangssprachlich()
+		&& settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)
 				&& p.getRemainderMinutes() > 0) {
 			switch (p.getRemainderMinutes()){
 				case 1:

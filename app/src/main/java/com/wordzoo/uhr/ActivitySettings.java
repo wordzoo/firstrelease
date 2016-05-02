@@ -19,6 +19,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 import com.germanclock.time.Settings;
 import com.wordzoo.uhr.utils.Constants;
+import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -37,23 +38,18 @@ public class ActivitySettings extends Activity implements OnClickListener {
     private Button newConfig;
     private Button edit;
 
+    /*Toast.makeText(getApplicationContext(),
+                    "config: " + chosenConfig + ", configName: " + configName, Toast.LENGTH_SHORT).show();*/
 
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        //Settings settings = (Settings)getIntent().getExtras().getSerializable(Constants.SETTING);
-
-        //Store reference to our clock settings to update later
-        //settings.setUmgangssprachlich(Boolean.TRUE);
-        //settings.setEsist(Boolean.FALSE);
-
-
-
         //get all configs
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SETTING,0);
         Set set = sharedPreferences.getStringSet(Constants.selectedClock + "~" + Constants.CONFIG, new HashSet());
+        String chosenConfig = sharedPreferences.getString(Constants.selectedClock + "~" + Constants.selectedConfig, Constants.OFFICIAL_TIME);
         Iterator i = set.iterator();
         String configName = "";
         int id = 0;
@@ -64,6 +60,9 @@ public class ActivitySettings extends Activity implements OnClickListener {
             rdbtn.setId(id); id++;
             rdbtn.setText(configName);
             config.addView(rdbtn);
+            if(configName.equals(chosenConfig))
+                config.check(rdbtn.getId());
+
         }
 
         addButtonListeners();
@@ -126,23 +125,9 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 // find the radiobutton by returned id
                 selectedConfigButton = (RadioButton) findViewById(selectedId);
 
-
-
                 //pushes settings out to clock with result intent
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
-                SharedPreferences.Editor editor = sp.edit();
-
-                editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, selectedConfigButton.getText() + "");
-                editor.commit();
-
-                Toast.makeText(getApplicationContext(),
-                        "chosen config is : " + selectedConfigButton.getText() + "", Toast.LENGTH_SHORT).show();
-
-                String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
-
-
-                Toast.makeText(getApplicationContext(),
-                        "chosen config (from db) is :" + chosenConfig, Toast.LENGTH_SHORT).show();
+                new StoreRetrieveGerman().updateChosenConfig(sp, selectedConfigButton.getText() + "");
 
 
                 //do a manual time update to immidate results of new clock configuration

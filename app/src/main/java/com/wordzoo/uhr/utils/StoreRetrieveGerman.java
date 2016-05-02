@@ -31,8 +31,7 @@ public class StoreRetrieveGerman  {
 
         s.setUmgangssprachlich((Boolean) map.get(prefix + "umgangssprachlich")); //all variable settings are umgang/not official
 
-        Toast.makeText(c,
-                "loadSettings(): key under : " + prefix + "umgangssprachlich, is " + s.getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
+
 
         s.setEsist((Boolean) map.get(prefix + "esist"));
         s.setUhr((Boolean) map.get(prefix + "uhr"));
@@ -45,8 +44,12 @@ public class StoreRetrieveGerman  {
         s.setUm((Boolean) map.get(prefix + "um"));
         s.setHalber((Boolean) map.get(prefix + "halber"));
         s.setHalberRange((Integer) map.get(prefix + "halberRange"));
-        if(map.get(prefix + "umgangminute") != null)
+        if(map.get(prefix + "umgangminute") != null) {
             s.setUmgangminute(Settings.Umgangminute.values()[(Integer) map.get(prefix + "umgangminute")]);
+
+
+        }
+
         s.setMinuteHybrid((Boolean) map.get(prefix + "minuteHybrid"));
 
         if(map.get(prefix + "clockface") != null)
@@ -101,8 +104,7 @@ public class StoreRetrieveGerman  {
         return s;
     }
 
-    public void storeSettingsToDisk(SharedPreferences sp, String selectedClock, String newConfigName, Settings s) {
-        String prefix = selectedClock + "~" + newConfigName + "~";
+    public void storeNewConfigNameToDisk(SharedPreferences sp, String selectedClock, String newConfigName) {
         SharedPreferences.Editor editor = sp.edit();
 
         //save new config name
@@ -110,6 +112,13 @@ public class StoreRetrieveGerman  {
         Set configs = sp.getStringSet(key_for_configs, new HashSet());
         configs.add(newConfigName);
         editor.putStringSet(key_for_configs, configs);
+        editor.commit();
+    }
+
+
+    public void storeSettingsToDisk(SharedPreferences sp, String selectedClock, String newConfigName, Settings s) {
+        String prefix = selectedClock + "~" + newConfigName + "~";
+        SharedPreferences.Editor editor = sp.edit();
 
 
         //save settings for config
@@ -178,10 +187,18 @@ public class StoreRetrieveGerman  {
 
     }
 
+    public void updateChosenConfig(SharedPreferences sp, String chosenConfig) {
 
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, chosenConfig);
+        editor.commit();
+
+    }
 
     public void storeDeafultSettingsToDisk(SharedPreferences sp) {
 
+
+        storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.OFFICIAL_TIME);
         Settings s = new Settings();
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
@@ -189,6 +206,7 @@ public class StoreRetrieveGerman  {
         s.setUmgangssprachlich(Boolean.FALSE);
         storeSettingsToDisk(sp, Constants.selectedClock, Constants.OFFICIAL_TIME, s);
 
+        storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.INFORMAL);
         s = new Settings();
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
@@ -219,6 +237,9 @@ public class StoreRetrieveGerman  {
         s.setAmvormittag(Boolean.TRUE);
 
         storeSettingsToDisk(sp, Constants.selectedClock, Constants.INFORMAL, s);
+
+        //default on widget enabled to official time
+        updateChosenConfig(sp, Constants.OFFICIAL_TIME);
 
     }
 
