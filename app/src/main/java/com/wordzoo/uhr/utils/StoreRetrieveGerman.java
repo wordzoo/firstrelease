@@ -190,13 +190,13 @@ public class StoreRetrieveGerman  {
     public void updateChosenConfig(SharedPreferences sp, String chosenConfig, Context context) {
 
         SharedPreferences.Editor editor = sp.edit();
-        Toast.makeText(context,
-                "before update: " + chosenConfig, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,
+        //        "before update: " + chosenConfig, Toast.LENGTH_SHORT).show();
         editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, chosenConfig);
 
         editor.commit();
-        Toast.makeText(context,
-                "after update: " + sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, ""), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,
+        //        "after update: " + sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, ""), Toast.LENGTH_SHORT).show();
 
     }
 

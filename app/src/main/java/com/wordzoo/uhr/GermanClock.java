@@ -131,8 +131,8 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 		String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
 
 
-Toast.makeText(context,
-				"chosen: " + chosenConfig, Toast.LENGTH_SHORT).show();
+//Toast.makeText(context,
+//				"chosen: " + chosenConfig, Toast.LENGTH_SHORT).show();
 
 
 		if(chosenConfig == null)
