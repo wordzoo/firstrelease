@@ -38,8 +38,6 @@ public class ActivitySettings extends Activity implements OnClickListener {
     private Button newConfig;
     private Button edit;
 
-    /*Toast.makeText(getApplicationContext(),
-                    "config: " + chosenConfig + ", configName: " + configName, Toast.LENGTH_SHORT).show();*/
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -127,20 +125,21 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
                 //pushes settings out to clock with result intent
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
-                new StoreRetrieveGerman().updateChosenConfig(sp, selectedConfigButton.getText() + "");
+                new StoreRetrieveGerman().updateChosenConfig(sp, selectedConfigButton.getText() + "", ActivitySettings.this);
+
 
 
                 //do a manual time update to immidate results of new clock configuration
-                Intent intent = new Intent(getApplicationContext(), GermanClock.class);
+                Intent intent = new Intent(ActivitySettings.this, GermanClock.class);
                 intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                AppWidgetManager widgetManager = AppWidgetManager.getInstance(getApplicationContext());
-                int[] ids = widgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), GermanClock.class));
+                AppWidgetManager widgetManager = AppWidgetManager.getInstance(ActivitySettings.this);
+                int[] ids = widgetManager.getAppWidgetIds(new ComponentName(ActivitySettings.this, GermanClock.class));
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
                     widgetManager.notifyAppWidgetViewDataChanged(ids, android.R.id.list);
 
                 intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-                getApplicationContext().sendBroadcast(intent);
+                ActivitySettings.this.sendBroadcast(intent);
 
                 finish();
 
@@ -154,7 +153,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
             @Override
             public void onClick(View v) {
-                Intent configIntent = new Intent(getApplicationContext(), ActivityCustomSettings.class);
+                Intent configIntent = new Intent(ActivitySettings.this, ActivityCustomSettings.class);
 
 
                 configIntent.putExtra(Constants.CLOCK, Constants.selectedClock);

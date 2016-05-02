@@ -187,15 +187,20 @@ public class StoreRetrieveGerman  {
 
     }
 
-    public void updateChosenConfig(SharedPreferences sp, String chosenConfig) {
+    public void updateChosenConfig(SharedPreferences sp, String chosenConfig, Context context) {
 
         SharedPreferences.Editor editor = sp.edit();
+        Toast.makeText(context,
+                "before update: " + chosenConfig, Toast.LENGTH_SHORT).show();
         editor.putString(Constants.selectedClock + "~" + Constants.selectedConfig, chosenConfig);
+
         editor.commit();
+        Toast.makeText(context,
+                "after update: " + sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, ""), Toast.LENGTH_SHORT).show();
 
     }
 
-    public void storeDeafultSettingsToDisk(SharedPreferences sp) {
+    public void storeDeafultSettingsToDisk(SharedPreferences sp, Context context) {
 
 
         storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.OFFICIAL_TIME);
@@ -213,8 +218,6 @@ public class StoreRetrieveGerman  {
         s.setMinute(Boolean.TRUE);
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
-        s.setHalber(Boolean.TRUE);
-        s.setHalberRange(10);
         s.setKurznach(Boolean.TRUE);
         s.setViertel(Settings.Viertel.viertelacht);
         s.setZehnvorhalb(Boolean.TRUE);
@@ -239,7 +242,7 @@ public class StoreRetrieveGerman  {
         storeSettingsToDisk(sp, Constants.selectedClock, Constants.INFORMAL, s);
 
         //default on widget enabled to official time
-        updateChosenConfig(sp, Constants.OFFICIAL_TIME);
+        updateChosenConfig(sp, Constants.OFFICIAL_TIME, context);
 
     }
 

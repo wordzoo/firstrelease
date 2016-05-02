@@ -65,7 +65,7 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 	{
         super.onEnabled(context);
 
-		new StoreRetrieveGerman().storeDeafultSettingsToDisk(context.getSharedPreferences(Constants.SETTING, 0));
+		new StoreRetrieveGerman().storeDeafultSettingsToDisk(context.getSharedPreferences(Constants.SETTING, 0), context);
 		startClockService(context);
 
         ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
@@ -96,8 +96,9 @@ public class GermanClock extends AppWidgetProvider implements Serializable
         {
             AppWidgetManager manager = AppWidgetManager.getInstance( context );
             int appWidgetIds[] = manager.getAppWidgetIds( new ComponentName( context, GermanClock.class.getName() ) );
-            onUpdate( context, manager, appWidgetIds );
-        }
+            onUpdate(context, manager, appWidgetIds);
+
+		}
     }
 	@Override
 	public void onUpdate( Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds )
@@ -108,9 +109,8 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 		{
 			int appWidgetId = appWidgetIds[i];
 
-
-			setTime(context);
 		}
+		setTime(context);
 	}
 
 
@@ -132,6 +132,11 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 	public void setTime(Context context) {
 		SharedPreferences sp = context.getSharedPreferences(Constants.SETTING, 0);
 		String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
+
+
+Toast.makeText(context,
+				"chosen: " + chosenConfig, Toast.LENGTH_SHORT).show();
+
 
 		if(chosenConfig == null)
 			chosenConfig = Constants.OFFICIAL_TIME; //default
