@@ -19,6 +19,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextView;
@@ -94,6 +95,7 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 
 		if( intent.getAction().equals( Intent.ACTION_TIME_TICK ) )
         {
+			setTime(context);
             AppWidgetManager manager = AppWidgetManager.getInstance( context );
             int appWidgetIds[] = manager.getAppWidgetIds( new ComponentName( context, GermanClock.class.getName() ) );
             onUpdate(context, manager, appWidgetIds);
@@ -103,13 +105,7 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 	@Override
 	public void onUpdate( Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds )
 	{
-
-		final int N = appWidgetIds.length;
-		for( int i = 0; i < N; i++ )
-		{
-			int appWidgetId = appWidgetIds[i];
-
-		}
+		super.onUpdate(context, appWidgetManager, appWidgetIds);
 		setTime(context);
 	}
 
@@ -130,7 +126,8 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 
 
 	public void setTime(Context context) {
-		SharedPreferences sp = context.getSharedPreferences(Constants.SETTING, 0);
+		//PreferenceManager.getDefaultSharedPreferences();
+		SharedPreferences sp = context.getSharedPreferences(Constants.SETTING, 0 | Context.MODE_MULTI_PROCESS);
 		String chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
 
 

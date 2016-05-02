@@ -40,13 +40,7 @@ public class ClockService extends Service
 	{
 
 		super.onCreate();
-		createReceiver();
-		registerReceiver(receiver, new IntentFilter(Intent.ACTION_TIME_TICK));
-	}
-
-	protected void createReceiver()
-	{
-		receiver = new GermanClock();
+		registerReceiver(new GermanClock(), new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
 
 
