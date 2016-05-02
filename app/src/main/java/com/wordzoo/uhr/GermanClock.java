@@ -27,6 +27,10 @@ import android.widget.Toast;
 public class GermanClock extends AppWidgetProvider implements Serializable
 {
 
+//Toast.makeText(context,
+	//		"settime: Umgangminute: " + settings.getUmgangminute(), Toast.LENGTH_SHORT).show();
+
+
 
 	@Override
 	public void onDeleted( Context context, int[] appWidgetIds )
@@ -132,19 +136,7 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 		if(chosenConfig == null)
 			chosenConfig = Constants.OFFICIAL_TIME; //default
 
-
-		Toast.makeText(context,
-				"settime: chosen: " + chosenConfig, Toast.LENGTH_SHORT).show();
-
 		Settings settings =  new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, chosenConfig, context);
-
-		Toast.makeText(context,
-				"settime: umgangssprachlich: " + settings.getUmgangssprachlich(), Toast.LENGTH_SHORT).show();
-
-		Toast.makeText(context,
-				"settime: Umgangminute: " + settings.getUmgangminute(), Toast.LENGTH_SHORT).show();
-
-
 
 		TimeInWords tiw = new TimeInWords(context);
 

@@ -176,13 +176,13 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 }
 
                 preview.setText("Preview: " + time);
-                testclock.setText(new TimeInWords(getApplicationContext()).getTimeAsSentance(new Pieces(time), getSettings()));
+                testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(new Pieces(time), getSettings()));
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> v) {
-                Toast.makeText(getApplicationContext(), "onNothingSelected()", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityCustomSettings.this, "onNothingSelected()", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -244,11 +244,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             public void onClick(View v) {
                 promptForName();
 
-                //get a name for this new configuration
-                Toast.makeText(ActivityCustomSettings.this,
-                        "new config is: " + promptResultConfigName, Toast.LENGTH_SHORT).show();
-
-
             }
 
 
@@ -286,11 +281,11 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     public void promptForName(){
 
         // get prompts.xml view
-        LayoutInflater li = LayoutInflater.from(getApplicationContext());
+        LayoutInflater li = LayoutInflater.from(ActivityCustomSettings.this);
         View promptsView = li.inflate(R.layout.prompt, null);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                getApplicationContext());
+                ActivityCustomSettings.this);
 
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
@@ -525,7 +520,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
         Pieces p = new Pieces(time);
         preview.setText("Preview: " + time);
-        testclock.setText(new TimeInWords(getApplicationContext()).getTimeAsSentance(p, getSettings()));
+        testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings()));
         int drawableid = 0;
         if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
                 && p.getRemainderMinutes() > 0) {
