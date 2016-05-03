@@ -242,7 +242,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
 
 
-    public void addButtonListeners(String CONFIG_MODE, String selectedConfig) {
+    public void addButtonListeners(String CONFIG_MODE, final String selectedConfig) {
         cancel = (Button) findViewById(R.id.cancel);
         save = (Button) findViewById(R.id.save);
         saveas = (Button) findViewById(R.id.saveas);
@@ -272,6 +272,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             @Override
             public void onClick(View v) {
 
+                SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
+                new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock, selectedConfig, getSettings());
+                setResult(RESULT_OK, null);
                 finish();
 
             }
@@ -664,8 +667,8 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         //halb
         def = (CheckBox) findViewById(R.id.halber);
         def.setChecked(settings.getHalber());
-        EditText tv = (EditText) findViewById(R.id.halber_range);
-        tv.setText(settings.getHalberRange().intValue());
+       // EditText tv = (EditText) findViewById(R.id.halber_range);
+       // tv.setText(settings.getHalberRange().intValue());
         def = (CheckBox) findViewById(R.id.halb);
         def.setChecked(settings.getHalb().equals(Settings.Halb.halb));
         def = (CheckBox) findViewById(R.id.fuenf_vor_halb);
