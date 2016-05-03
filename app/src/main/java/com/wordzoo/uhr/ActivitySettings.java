@@ -76,6 +76,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
         done = (Button) findViewById(R.id.done);
         newConfig = (Button) findViewById(R.id.newClock);
         delete = (Button) findViewById(R.id.delete);
+        edit = (Button) findViewById(R.id.edit);
 
         delete.setOnClickListener(new OnClickListener() {
 
@@ -138,9 +139,12 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                 new StoreRetrieveGerman().updateChosenConfig(sp, selectedConfigButton.getText() + "", ActivitySettings.this);
 
+                Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, selectedConfigButton.getText()+ "", ActivitySettings.this);
+                Toast.makeText(ActivitySettings.this,
+                             "minuteword is: " + s.getUmgangminute(), Toast.LENGTH_SHORT).show();
 
 
-                //do a manual time update to immidate results of new clock configuration
+                        //do a manual time update to immidate results of new clock configuration
                 Intent intent = new Intent(ActivitySettings.this, GermanClock.class);
                 intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                 AppWidgetManager widgetManager = AppWidgetManager.getInstance(ActivitySettings.this);
@@ -168,7 +172,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
                 configIntent.putExtra(Constants.CLOCK, Constants.selectedClock);
-
+                configIntent.putExtra(Constants.CONFIG_MODE, Constants.CONFIG_MODE_NEW);
                 startActivityForResult(configIntent, 0);
 
 
@@ -177,6 +181,27 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
         });
 
+        edit.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent configIntent = new Intent(ActivitySettings.this, ActivityCustomSettings.class);
+
+
+                configIntent.putExtra(Constants.CLOCK, Constants.selectedClock);
+                configIntent.putExtra(Constants.CONFIG_MODE, Constants.CONFIG_MODE_EDIT);
+
+                int selectedId = config.getCheckedRadioButtonId();
+                String selectedConfig = ((RadioButton) findViewById(selectedId)).getText()+"";
+                configIntent.putExtra(Constants.selectedConfig, selectedConfig);
+
+                startActivityForResult(configIntent, 0);
+
+
+            }
+
+
+        });
 
 
 

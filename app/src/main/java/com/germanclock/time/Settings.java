@@ -41,7 +41,7 @@ public class Settings implements Serializable {
         minuteword
     }
 
-    private Umgangminute umgangminute = Umgangminute.minutebar;
+    private Umgangminute umgangminute = Umgangminute.minuteword;
 
     //this means that when the minutes are not exactly on a five minute bucket, the construction goes to officie (hour <<Uhr>>  minute <<Minute>>)
     private Boolean minuteHybrid = Boolean.FALSE;

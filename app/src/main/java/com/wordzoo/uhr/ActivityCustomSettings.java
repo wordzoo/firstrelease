@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -192,21 +193,29 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
 
     public void onCreate(Bundle savedInstanceState) {
-        /*
-        Boolean default = this.getResources().getBoolean(R.integer.officallong);
-        if(officiallong)
-            view.setChecked(default);
-
-*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customsettings);
 
         //assume its a new setting
-        setSettings(new Settings());
-        getSettings().setUmgangssprachlich(Boolean.TRUE); //this page is only use to configure umgang variations
+        Intent intent = getIntent();
+        String CONFIG_MODE = intent.getStringExtra(Constants.CONFIG_MODE);
+        String selectedConfig = intent.getStringExtra(Constants.selectedConfig);
 
-        addButtonListeners();
+
+        if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT))
+            setSettings(new StoreRetrieveGerman().loadSettingsFromDisk(
+                    getSharedPreferences(Constants.SETTING,0),
+                    Constants.selectedClock,
+                    selectedConfig,
+                    ActivityCustomSettings.this));
+
+
+        else {
+            setSettings(new Settings());
+            getSettings().setUmgangssprachlich(Boolean.TRUE); //this page is only use to configure umgang variations
+        }
+        addButtonListeners(CONFIG_MODE, selectedConfig);
         setupSpinners(R.id.dreiviertel, R.array.settings_dreiviertel);
         setupSpinners(R.id.viertel, R.array.settings_viertel);
         setupSpinners(R.id.morgen, R.array.settings_morgen);
@@ -217,7 +226,8 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         setupSpinners(R.id.nacht, R.array.settings_nacht);
         setupSpinners(R.id.frueh, R.array.settings_frueh);
         //user prefs
-
+        if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT))
+            loadUI(getSettings());
 
 
     }
@@ -232,11 +242,19 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
 
 
-    public void addButtonListeners() {
-
+    public void addButtonListeners(String CONFIG_MODE, String selectedConfig) {
         cancel = (Button) findViewById(R.id.cancel);
         save = (Button) findViewById(R.id.save);
         saveas = (Button) findViewById(R.id.saveas);
+        if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT)) {
+            save.setVisibility(View.VISIBLE);
+            save.setText("update " + selectedConfig);
+            saveas.setVisibility(View.GONE);
+        }
+        else {
+            save.setVisibility(View.GONE);
+            saveas.setVisibility(View.VISIBLE);
+        }
 
         saveas.setOnClickListener(new OnClickListener() {
 
@@ -357,7 +375,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 else
                     getSettings().setMinute(Boolean.FALSE);
                 break;
-            case R.id.lederhosen_minutes:
+            case R.id.mult_of_five:
                 time = "8:48";
                 if (checked) {
                     getSettings().setUmgangminute(Settings.Umgangminute.minutebar);
@@ -628,6 +646,125 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         CheckBox def = (CheckBox) findViewById(R.id.zehn_vor_halb);
         def.setEnabled(t);
 
+    }
+
+    public void loadUI(Settings settings) {
+        CheckBox def = (CheckBox) findViewById(R.id.esist);
+        def.setChecked(settings.getEsist());
+        def = (CheckBox) findViewById(R.id.minute);
+        def.setChecked(settings.getMinute());
+        def = (CheckBox) findViewById(R.id.uhr);
+        def.setChecked(settings.getUhr());
+        def = (CheckBox) findViewById(R.id.mult_of_five);
+        def.setChecked(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar));
+        def = (CheckBox) findViewById(R.id.kurz_nach);
+        def.setChecked(settings.getKurznach());
+        def = (CheckBox) findViewById(R.id.kurz_vor);
+        def.setChecked(settings.getKurzvor());
+        //halb
+        def = (CheckBox) findViewById(R.id.halber);
+        def.setChecked(settings.getHalber());
+        EditText tv = (EditText) findViewById(R.id.halber_range);
+        tv.setText(settings.getHalberRange().intValue());
+        def = (CheckBox) findViewById(R.id.halb);
+        def.setChecked(settings.getHalb().equals(Settings.Halb.halb));
+        def = (CheckBox) findViewById(R.id.fuenf_vor_halb);
+        def.setChecked(settings.getFuenfvorhalb());
+        def = (CheckBox) findViewById(R.id.fuenf_nach_halb);
+        def.setChecked(settings.getFuenfnachhalb());
+        def = (CheckBox) findViewById(R.id.zehn_vor_halb);
+        def.setChecked(settings.getZehnvorhalb());
+        def = (CheckBox) findViewById(R.id.zehn_nach_halb);
+        def.setChecked(settings.getZehnnachhalb());
+        def = (CheckBox) findViewById(R.id.kurz_vor_halb);
+        def.setChecked(settings.getKurzvorhalb());
+        def = (CheckBox) findViewById(R.id.kurz_nach_halb);
+        def.setChecked(settings.getKurznachhalb());
+
+        //dreiviertel
+        Spinner sp = (Spinner) findViewById(R.id.dreiviertel);
+        sp.setSelection(Settings.Dreiviertel.valueOf(settings.getDreiviertel().name()).ordinal());
+        def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
+        def.setChecked(settings.getKurzvordreiviertelacht());
+        def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
+        def.setChecked(settings.getKurznachdreiviertelacht());
+        def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
+        def.setChecked(settings.getFuenfvordreiviertelacht());
+        def = (CheckBox) findViewById(R.id.fuenf_nach_dreiviertel);
+        def.setChecked(settings.getFuenfnachdreiviertelacht());
+
+        //viertel
+        sp = (Spinner) findViewById(R.id.viertel);
+        sp.setSelection(Settings.Viertel.valueOf(settings.getViertel().name()).ordinal());
+        def = (CheckBox) findViewById(R.id.kurz_vor_viertel);
+        def.setChecked(settings.getKurzvorviertelacht());
+        def = (CheckBox) findViewById(R.id.kurz_nach_viertel);
+        def.setChecked(settings.getKurznachviertelacht());
+        def = (CheckBox) findViewById(R.id.fuenf_vor_viertel);
+        def.setChecked(settings.getFuenfvorviertelacht());
+        def = (CheckBox) findViewById(R.id.fuenf_nach_viertel);
+        def.setChecked(settings.getFuenfnachviertelacht());
+
+        //TOD
+        sp = (Spinner) findViewById(R.id.morgen);
+        if(settings.getMorgens())
+            sp.setSelection(1);
+        else if(settings.getAmmorgen())
+            sp.setSelection(1);
+        else
+            sp.setSelection(0);
+
+
+        sp = (Spinner) findViewById(R.id.vormittag);
+        if(settings.getVormittags())
+            sp.setSelection(1);
+        else if(settings.getAmvormittag())
+            sp.setSelection(1);
+        else
+            sp.setSelection(0);
+
+        sp = (Spinner) findViewById(R.id.mittag);
+        if(settings.getMittags())
+            sp.setSelection(1);
+        else if(settings.getAmmittag())
+            sp.setSelection(1);
+        else
+            sp.setSelection(0);
+
+
+        sp = (Spinner) findViewById(R.id.nachmittag);
+        if(settings.getNachmittags())
+            sp.setSelection(1);
+        else if(settings.getAmnachmittag())
+            sp.setSelection(1);
+        else
+            sp.setSelection(0);
+
+
+        sp = (Spinner) findViewById(R.id.abend);
+        if(settings.getAbends())
+            sp.setSelection(1);
+        else if(settings.getAmabend())
+            sp.setSelection(1);
+        else
+            sp.setSelection(0);
+
+
+        sp = (Spinner) findViewById(R.id.nacht);
+        if(settings.getNachts())
+            sp.setSelection(1);
+        else if(settings.getIndernacht())
+            sp.setSelection(1);
+        else
+            sp.setSelection(0);
+
+        sp = (Spinner) findViewById(R.id.frueh);
+        if(settings.getMorgennacht())
+            sp.setSelection(1);
+        else if(settings.getInderfrueh())
+            sp.setSelection(1);
+        else
+            sp.setSelection(0);
     }
 
 }
