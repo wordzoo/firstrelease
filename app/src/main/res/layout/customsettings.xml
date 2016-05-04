@@ -8,7 +8,7 @@
         android:id="@+id/preview"
         style="@style/DialogLabel"
         android:layout_width="fill_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
         android:text="Preview: 20:45"
@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/testclock"
         style="@style/ClockWidget"
-        android:text="fünfzehn vor neun"
+        android:text="Es ist fünfundzwanzig Minuten vor neu Uhr am Vormittag"
         android:textStyle="bold" />
 </LinearLayout>
     <Space

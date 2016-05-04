@@ -82,6 +82,27 @@ public class UhrMinuteTest extends AndroidJUnitRunner {
     }
 
     @Test
+    public void testTODMinuteUhr() {
+
+
+        Settings s = new Settings();
+        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
+        s.setUmgangssprachlich(Boolean.TRUE);
+        s.setUmgangminute(Settings.Umgangminute.minutebar);
+        s.setUhr(Boolean.TRUE);
+        s.setMinute(Boolean.TRUE);
+        s.setEsist(Boolean.TRUE);
+        s.setAmvormittag(Boolean.TRUE);
+
+
+        Pieces p = new Pieces("11:37");
+        String out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist fünfundzwanzig Minuten vor zwölf Uhr am Vormittag", out);
+
+
+    }
+
+    @Test
     public void testOfficialMinuteUhr() {
 
 
