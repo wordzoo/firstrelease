@@ -92,6 +92,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                         }
                         break;
                     case R.id.morgen:
+                        time = "8:45";
                         if(((TextView)v).getText().equals("morgens"))
                             getSettings().setMorgens(Boolean.TRUE);
                         else
@@ -103,6 +104,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmmorgen(Boolean.FALSE);
                         break;
                     case R.id.vormittag:
+                        time = "11:45";
                         if(((TextView)v).getText().equals("vormittags"))
                             getSettings().setVormittags(Boolean.TRUE);
                         else
@@ -114,6 +116,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmvormittag(Boolean.FALSE);
                         break;
                     case R.id.mittag:
+                        time = "12:45";
                         if(((TextView)v).getText().equals("mittags"))
                             getSettings().setMittags(Boolean.TRUE);
                         else
@@ -125,6 +128,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmmittag(Boolean.FALSE);
                         break;
                     case R.id.nachmittag:
+                        time = "14:45";
                         if(((TextView)v).getText().equals("nachmittags"))
                             getSettings().setNachmittags(Boolean.TRUE);
                         else
@@ -136,6 +140,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmnachmittag(Boolean.FALSE);
                         break;
                     case R.id.abend:
+                        time = "18:45";
                         if(((TextView)v).getText().equals("abends"))
                             getSettings().setAbends(Boolean.TRUE);
                         else
@@ -147,6 +152,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                             getSettings().setAmabend(Boolean.FALSE);
                         break;
                     case R.id.nacht:
+                        time = "22:45";
                         if(((TextView)v).getText().equals("nachts"))
                             getSettings().setNachts(Boolean.TRUE);
                         else
@@ -159,6 +165,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                         break;
 
                     case R.id.frueh:
+                        time = "03:45";
                         if(((TextView)v).getText().equals("morgens"))
                             getSettings().setMorgens(Boolean.TRUE);
                         else
