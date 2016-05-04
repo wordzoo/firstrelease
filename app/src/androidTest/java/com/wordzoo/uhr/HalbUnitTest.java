@@ -31,7 +31,33 @@ public class HalbUnitTest extends AndroidJUnitRunner {
         this.context =   InstrumentationRegistry.getContext();
     }
 
-   @Test
+
+
+    @Test
+    public void halberMinute() {
+
+        Settings s = new Settings();
+        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
+
+        s.setUmgangssprachlich(Boolean.TRUE);
+        s.setUmgangminute(Settings.Umgangminute.minuteword);
+
+        s.setHalber(Boolean.TRUE);
+        s.setHalberRange(8);
+        s.setMinute(Boolean.TRUE);
+        s.setEsist(Boolean.TRUE);
+
+        Pieces p = new Pieces("11:20");
+        String out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist zwanzig Minuten nach elf", out);
+
+        p = new Pieces("23:30");
+        out = tiw.getTimeAsSentance(p,s);
+        assertEquals("Es ist halber", out);
+
+    }
+
+    @Test
     public void halber()   {
 
         Settings s = new Settings();
@@ -85,6 +111,7 @@ public class HalbUnitTest extends AndroidJUnitRunner {
         p = new Pieces("11:48");
         out = tiw.getTimeAsSentance(p,s);
         assertEquals("zwölf vor zwölf", out);
+
 
     }
 

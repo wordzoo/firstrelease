@@ -80,4 +80,23 @@ public class UhrMinuteTest extends AndroidJUnitRunner {
 
 
     }
+
+    @Test
+    public void testOfficialMinuteUhr() {
+
+
+        Settings s = new Settings();
+        TimeInWords tiw = new TimeInWords(InstrumentationRegistry.getTargetContext());
+        s.setUmgangssprachlich(Boolean.FALSE);
+        s.setUhr(Boolean.TRUE);
+        s.setMinute(Boolean.TRUE);
+        s.setEsist(Boolean.TRUE);
+
+
+        Pieces p = new Pieces("11:27");
+        String out = tiw.getTimeAsSentance(p, s);
+        assertEquals("Es ist elf Uhr siebenundzwanzig Minuten", out);
+
+
+    }
 }

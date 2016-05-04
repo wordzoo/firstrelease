@@ -141,8 +141,8 @@ public class TimeInWords {
         if (!tiw.getSettings().getUmgangssprachlich()
                 || ((tiw.getPieces().getRemainderMinutes() > 0)
                 && (tiw.getSettings().getMinuteHybrid()
-                && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)
-                && !tiw.getSettings().getHalber()))) {
+                && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)))
+                ) {
 
             if (isNotEmpty(tiw.getHour())) {
                 ret.append(tiw.getHour());
@@ -189,6 +189,7 @@ public class TimeInWords {
                     && !tiw.getMinute1().equals("dreiviertel")
                     && !tiw.getMinute1().equals("halb")
                     && !tiw.getMinute1().equals("kurz")
+                    && !tiw.getMinute2().equals("halber")
                     ) {
                 ret.append(tiw.getMinute());
                 ret.append(" ");
