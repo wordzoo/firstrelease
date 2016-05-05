@@ -287,12 +287,15 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
         Pieces p = new Pieces(time);
-        preview.setText("Preview: " + time);
+        preview.setText("Preview " + time + ",");
         testclock.setText(new TimeInWords(ActivitySettings.this).getTimeAsSentance(p, settings));
         int drawableid = 0;
         if(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)
-                && p.getRemainderMinutes() > 0) {
+                && settings.getUmgangssprachlich()) {
             switch (p.getRemainderMinutes()){
+                case 0:
+                    drawableid = R.drawable.lederhosen;
+                    break;
                 case 1:
                     drawableid = R.drawable.lederhosen1;
                     break;

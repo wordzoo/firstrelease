@@ -844,12 +844,15 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
 
         Pieces p = new Pieces(time);
-        preview.setText("Preview: " + time);
+        preview.setText("Preview " + time + ",");
         testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings()));
         int drawableid = 0;
         if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
-                && p.getRemainderMinutes() > 0) {
+                && getSettings().getUmgangssprachlich()) {
             switch (p.getRemainderMinutes()){
+                case 0:
+                    drawableid = R.drawable.lederhosen;
+                    break;
                 case 1:
                     drawableid = R.drawable.lederhosen1;
                     break;
