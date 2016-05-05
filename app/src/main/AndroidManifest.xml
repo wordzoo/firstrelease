@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wordzoo.uhr" >
+    package="com.wordzoo.uhr"
+    android:versionCode=".01"
+    android:versionName="rebel">
 
 
     <application
@@ -11,7 +13,6 @@
         android:theme="@style/AppTheme">
 
 
-        <uses-permission android:name="android.permission.WRITE_DATA_STORAGE" />
 
         <receiver android:name=".GermanClock" >
             <intent-filter>
