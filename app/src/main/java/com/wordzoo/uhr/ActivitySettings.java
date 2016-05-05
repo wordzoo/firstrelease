@@ -185,14 +185,22 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
             @Override
             public void onClick(View v) {
+
+                int selectedId = config.getCheckedRadioButtonId();
+                String selectedConfig = ((RadioButton) findViewById(selectedId)).getText()+"";
+
+
+                //to base configs we don't delete
+                if(selectedConfig.equals(Constants.INFORMAL)
+                        || selectedConfig.equals(Constants.OFFICIAL_TIME))
+                    return;
+
                 Intent configIntent = new Intent(ActivitySettings.this, ActivityCustomSettings.class);
 
 
                 configIntent.putExtra(Constants.CLOCK, Constants.selectedClock);
                 configIntent.putExtra(Constants.CONFIG_MODE, Constants.CONFIG_MODE_EDIT);
 
-                int selectedId = config.getCheckedRadioButtonId();
-                String selectedConfig = ((RadioButton) findViewById(selectedId)).getText()+"";
                 configIntent.putExtra(Constants.selectedConfig, selectedConfig);
 
                 startActivityForResult(configIntent, 0);

@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <TextView
@@ -118,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onCheckboxClicked"
-                    android:text="minutes mult. of 5" />
+                    android:text="Min. nur Mult. 5 plus Sterne" />
 
                 <CheckBox
                     android:id="@+id/kurz_nach"
@@ -424,7 +425,33 @@
                         android:id="@+id/frueh"
                         style="@style/DropDownCombo" />
                 </LinearLayout>
+
             </LinearLayout>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="15sp"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
+
+        <TextView
+            style="@style/DialogLabel"
+            android:text="hybrid" />
+
+
+            <CheckBox
+                android:id="@+id/hybrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:paddingRight="10dp"
+                android:text="Umgang. bei Mult. 5, andere offizielle" />
+
+        </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

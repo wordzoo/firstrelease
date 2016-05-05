@@ -73,6 +73,14 @@ public class StoreRetrieveGerman  {
         s.setAmmorgennacht((Boolean) map.get(prefix + "ammorgennacht"));
         s.setKurznach((Boolean) map.get(prefix + "kurznach"));
 
+        Integer index = (Integer) map.get(prefix + "viertel");
+        String val = Settings.Viertel.values()[index].name();
+
+        //Toast.makeText(c,
+          //      "viertel index: " + index
+         //+ ", value: " + val, Toast.LENGTH_SHORT).show();
+
+
         if(map.get(prefix + "viertel") != null)
             s.setViertel(Settings.Viertel.values()[(Integer) map.get(prefix + "viertel")]);
 
@@ -116,7 +124,7 @@ public class StoreRetrieveGerman  {
     }
 
 
-    public void storeSettingsToDisk(SharedPreferences sp, String selectedClock, String newConfigName, Settings s) {
+    public void storeSettingsToDisk(SharedPreferences sp, String selectedClock, String newConfigName, Settings s, Context c) {
         String prefix = selectedClock + "~" + newConfigName + "~";
         SharedPreferences.Editor editor = sp.edit();
 
@@ -158,6 +166,13 @@ public class StoreRetrieveGerman  {
         editor.putBoolean(prefix + "kurznach", s.getKurznach());
 
         editor.putInt(prefix + "viertel", Settings.Viertel.valueOf(s.getViertel().name()).ordinal());
+
+        Integer index = Settings.Viertel.valueOf(s.getViertel().name()).ordinal();
+        String val = s.getViertel().name();
+
+        //Toast.makeText(c,
+          //      "viertel index: " + index
+            //            + ", value: " + val, Toast.LENGTH_SHORT).show();
 
         editor.putBoolean(prefix + "fuenfvorviertelacht", s.getFuenfvorviertelacht());
         editor.putBoolean(prefix + "fuenfnachviertelacht", s.getFuenfnachviertelacht());
@@ -209,7 +224,7 @@ public class StoreRetrieveGerman  {
         s.setUhr(Boolean.TRUE);
         s.setMinute(Boolean.TRUE);
         s.setUmgangssprachlich(Boolean.FALSE);
-        storeSettingsToDisk(sp, Constants.selectedClock, Constants.OFFICIAL_TIME, s);
+        storeSettingsToDisk(sp, Constants.selectedClock, Constants.OFFICIAL_TIME, s, context);
 
         storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.INFORMAL);
         s = new Settings();
@@ -239,7 +254,7 @@ public class StoreRetrieveGerman  {
         s.setAmnachmittag(Boolean.TRUE);
         s.setAmvormittag(Boolean.TRUE);
 
-        storeSettingsToDisk(sp, Constants.selectedClock, Constants.INFORMAL, s);
+        storeSettingsToDisk(sp, Constants.selectedClock, Constants.INFORMAL, s, context);
 
         //default on widget enabled to official time
         updateChosenConfig(sp, Constants.OFFICIAL_TIME, context);

@@ -87,13 +87,14 @@ public class Settings implements Serializable {
 
 
     public enum Viertel {
-        viertelueber,
+        kein,
         viertelnach,
+        viertelueber,
         viertelacht,
         viertelfuenfzehn
     }
 
-    private Viertel viertel = Viertel.viertelfuenfzehn;
+    private Viertel viertel = Viertel.kein;
 
 	//if viertel == viertel.vieterlacht, two more options
     private Boolean fuenfvorviertelacht = Boolean.FALSE;
@@ -129,22 +130,14 @@ public class Settings implements Serializable {
 
 
     public enum Dreiviertel {
+        kein,
         viertelvor,
         dreiviertelacht,
         fuenfzehn
     }
 
 
-    public enum Default {
-        officiallong,
-        officialshort,
-        custom,
-        umgangssprachlich
-    }
-
-    private Default def = Default.officiallong;
-
-    private Dreiviertel dreiviertel = Dreiviertel.fuenfzehn;
+    private Dreiviertel dreiviertel = Dreiviertel.kein;
 
 
 

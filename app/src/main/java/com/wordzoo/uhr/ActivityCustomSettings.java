@@ -59,37 +59,36 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 switch(parentView.getId()) {
                     case R.id.dreiviertel:
                         time = "21:45";
-                        if(((TextView)v).getText().equals("dreiviertel")) {
-                            getSettings().setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
-                            toggleDreiviertelAdjustments(Boolean.TRUE);
-                        }
-                        else if (((TextView)v).getText().equals("viertel vor")) {
+
+                        if (((TextView)v).getText().equals("viertel vor")) {
                             getSettings().setDreiviertel(Settings.Dreiviertel.viertelvor);
-                            toggleDreiviertelAdjustments(Boolean.FALSE);
                         }
-                        else {
+                        else if(((TextView)v).getText().equals("dreiviertel")) {
+                            getSettings().setDreiviertel(Settings.Dreiviertel.dreiviertelacht);
+                        }
+                        else if (((TextView)v).getText().equals("fünfzehn vor")) {
                             getSettings().setDreiviertel(Settings.Dreiviertel.fuenfzehn);
-                            toggleDreiviertelAdjustments(Boolean.FALSE);
                         }
+                        else
+                            getSettings().setDreiviertel(Settings.Dreiviertel.kein);
+
                         break;
                     case R.id.viertel:
                         time = "21:15";
                         if(((TextView)v).getText().equals("viertel nach")) {
                             getSettings().setViertel(Settings.Viertel.viertelnach);
-                            toggleViertelAdjustments(Boolean.FALSE);
                         }
                         else if (((TextView)v).getText().equals("viertel über")) {
                             getSettings().setViertel(Settings.Viertel.viertelueber);
-                            toggleViertelAdjustments(Boolean.FALSE);
                         }
                         else if (((TextView)v).getText().equals("viertel")) {
                             getSettings().setViertel(Settings.Viertel.viertelacht);
-                            toggleViertelAdjustments(Boolean.TRUE);
                         }
-                        else {
+                        else if (((TextView)v).getText().equals("fünfzehn nach")) {
                             getSettings().setViertel(Settings.Viertel.viertelfuenfzehn);
-                            toggleViertelAdjustments(Boolean.FALSE);
                         }
+                        else
+                            getSettings().setDreiviertel(Settings.Dreiviertel.kein);
                         break;
                     case R.id.morgen:
                         time = "8:45";
@@ -167,14 +166,14 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                     case R.id.frueh:
                         time = "03:45";
                         if(((TextView)v).getText().equals("morgens"))
-                            getSettings().setMorgens(Boolean.TRUE);
+                            getSettings().setMorgennacht(Boolean.TRUE);
                         else
-                            getSettings().setMorgens(Boolean.FALSE);
+                            getSettings().setMorgennacht(Boolean.FALSE);
 
                         if(((TextView)v).getText().equals("am Morgen"))
-                            getSettings().setAmmorgen(Boolean.TRUE);
+                            getSettings().setAmmorgennacht(Boolean.TRUE);
                         else
-                            getSettings().setAmmorgen(Boolean.FALSE);
+                            getSettings().setAmmorgennacht(Boolean.FALSE);
                         if(((TextView)v).getText().equals("in der Früh"))
                             getSettings().setInderfrueh(Boolean.TRUE);
                         else
@@ -183,8 +182,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
                 }
 
-                preview.setText("Preview: " + time);
-                testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(new Pieces(time), getSettings()));
+                updateAvailable();
+
+                drawTime(time);
 
             }
 
@@ -210,14 +210,14 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         String selectedConfig = intent.getStringExtra(Constants.selectedConfig);
 
 
-        if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT))
+        if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT)) {
             setSettings(new StoreRetrieveGerman().loadSettingsFromDisk(
-                    getSharedPreferences(Constants.SETTING,0),
+                    getSharedPreferences(Constants.SETTING, 0),
                     Constants.selectedClock,
                     selectedConfig,
                     ActivityCustomSettings.this));
 
-
+        }
         else {
             setSettings(new Settings());
             getSettings().setUmgangssprachlich(Boolean.TRUE); //this page is only use to configure umgang variations
@@ -233,8 +233,10 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         setupSpinners(R.id.nacht, R.array.settings_nacht);
         setupSpinners(R.id.frueh, R.array.settings_frueh);
         //user prefs
-        if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT))
-            loadUI(getSettings());
+        if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT)) {
+            loadUI();
+            updateAvailable();
+        }
 
 
     }
@@ -280,7 +282,11 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             public void onClick(View v) {
 
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
-                new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock, selectedConfig, getSettings());
+                new StoreRetrieveGerman().storeSettingsToDisk(sp,
+                        Constants.selectedClock,
+                        selectedConfig,
+                        getSettings(),
+                        ActivityCustomSettings.this);
                 setResult(RESULT_OK, null);
                 finish();
 
@@ -330,7 +336,10 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                                 promptResultConfigName = userInput.getText().toString();
                                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                                 new StoreRetrieveGerman().storeNewConfigNameToDisk(sp, Constants.selectedClock, promptResultConfigName);
-                                new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock, promptResultConfigName, getSettings());
+                                new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock,
+                                        promptResultConfigName,
+                                        getSettings(),
+                                        ActivityCustomSettings.this);
                                 setResult(RESULT_OK, null);
                                 finish();
                             }
@@ -389,13 +398,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 time = "8:48";
                 if (checked) {
                     getSettings().setUmgangminute(Settings.Umgangminute.minutebar);
-                    toggleAllKurz(Boolean.FALSE);
-                    toggleHalber(Boolean.FALSE);
                 }
                 else {
                     getSettings().setUmgangminute(Settings.Umgangminute.minuteword);
-                    toggleAllKurz(Boolean.TRUE);
-                    toggleHalber(Boolean.TRUE);
                 }
                 break;
             case R.id.kurz_vor:
@@ -424,12 +429,10 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             case R.id.halber:
                 time = "09:22";
                 if (checked) {
-                    toggleHalbAndAdjustments(Boolean.FALSE);
                     getSettings().setHalber(Boolean.TRUE);
-                    getSettings().setHalberRange(5);
+                    getSettings().setHalberRange(8);
                 }
                 else {
-                    toggleHalbAndAdjustments(Boolean.TRUE);
                     getSettings().setHalber(Boolean.FALSE);
                 }
                 break;
@@ -459,11 +462,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 time = "09:40";
                 if (checked) {
                     getSettings().setZehnnachhalb(Boolean.TRUE);
-                    toggleFuenfVorDreiviertel(Boolean.FALSE);
                 }
                 else {
                     getSettings().setZehnnachhalb(Boolean.FALSE);
-                    toggleFuenfVorDreiviertel(Boolean.TRUE);
                 }
                 break;
             case R.id.kurz_vor_halb:
@@ -498,11 +499,9 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 time = "09:40";
                 if (checked) {
                     getSettings().setFuenfvordreiviertelacht(Boolean.TRUE);
-                    toggleZehnNachHalb(Boolean.FALSE);
                 }
                 else {
                     getSettings().setFuenfvordreiviertelacht(Boolean.FALSE);
-                    toggleZehnNachHalb(Boolean.TRUE);
                 }
                 break;
             case R.id.fuenf_nach_dreiviertel:
@@ -536,41 +535,26 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             case R.id.fuenf_nach_viertel:
                 time = "09:20";
                 if (checked) {
-                    toggleZehnVorHalb(Boolean.FALSE);
                     getSettings().setFuenfnachviertelacht(Boolean.TRUE);
                 }
                 else {
-                    toggleZehnVorHalb(Boolean.TRUE);
                     getSettings().setFuenfnachviertelacht(Boolean.FALSE);
                 }
                 break;
-        }
+            case R.id.hybrid:
+                time = "09:49";
+                if (checked) {
+                    getSettings().setMinuteHybrid(Boolean.TRUE);
+                }
+                else {
+                    getSettings().setMinuteHybrid(Boolean.FALSE);
+                }
+                break;
 
-        Pieces p = new Pieces(time);
-        preview.setText("Preview: " + time);
-        testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings()));
-        int drawableid = 0;
-        if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
-                && p.getRemainderMinutes() > 0) {
-            switch (p.getRemainderMinutes()){
-                case 1:
-                    drawableid = R.drawable.lederhosen1;
-                    break;
-                case 2:
-                    drawableid = R.drawable.lederhosen2;
-                    break;
-                case 3:
-                    drawableid = R.drawable.lederhosen3;
-                    break;
-                case 4:
-                    drawableid = R.drawable.lederhosen4;
-                    break;
-            }
         }
-        if(drawableid > 0)
-            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableid, 0);
-        else
-            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        updateAvailable();
+
+        drawTime(time);
     }
 
 
@@ -658,123 +642,232 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
     }
 
-    public void loadUI(Settings settings) {
+    public void loadUI() {
         CheckBox def = (CheckBox) findViewById(R.id.esist);
-        def.setChecked(settings.getEsist());
+        def.setChecked(getSettings().getEsist());
         def = (CheckBox) findViewById(R.id.minute);
-        def.setChecked(settings.getMinute());
+        def.setChecked(getSettings().getMinute());
         def = (CheckBox) findViewById(R.id.uhr);
-        def.setChecked(settings.getUhr());
+        def.setChecked(getSettings().getUhr());
         def = (CheckBox) findViewById(R.id.mult_of_five);
-        def.setChecked(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar));
+        def.setChecked(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar));
         def = (CheckBox) findViewById(R.id.kurz_nach);
-        def.setChecked(settings.getKurznach());
+        def.setChecked(getSettings().getKurznach());
         def = (CheckBox) findViewById(R.id.kurz_vor);
-        def.setChecked(settings.getKurzvor());
+        def.setChecked(getSettings().getKurzvor());
         //halb
         def = (CheckBox) findViewById(R.id.halber);
-        def.setChecked(settings.getHalber());
+        def.setChecked(getSettings().getHalber());
        // EditText tv = (EditText) findViewById(R.id.halber_range);
-       // tv.setText(settings.getHalberRange().intValue());
+       // tv.setText(getSettings().getHalberRange().intValue());
         def = (CheckBox) findViewById(R.id.halb);
-        def.setChecked(settings.getHalb().equals(Settings.Halb.halb));
+        def.setChecked(getSettings().getHalb().equals(Settings.Halb.halb));
         def = (CheckBox) findViewById(R.id.fuenf_vor_halb);
-        def.setChecked(settings.getFuenfvorhalb());
+        def.setChecked(getSettings().getFuenfvorhalb());
         def = (CheckBox) findViewById(R.id.fuenf_nach_halb);
-        def.setChecked(settings.getFuenfnachhalb());
+        def.setChecked(getSettings().getFuenfnachhalb());
         def = (CheckBox) findViewById(R.id.zehn_vor_halb);
-        def.setChecked(settings.getZehnvorhalb());
+        def.setChecked(getSettings().getZehnvorhalb());
         def = (CheckBox) findViewById(R.id.zehn_nach_halb);
-        def.setChecked(settings.getZehnnachhalb());
+        def.setChecked(getSettings().getZehnnachhalb());
         def = (CheckBox) findViewById(R.id.kurz_vor_halb);
-        def.setChecked(settings.getKurzvorhalb());
+        def.setChecked(getSettings().getKurzvorhalb());
         def = (CheckBox) findViewById(R.id.kurz_nach_halb);
-        def.setChecked(settings.getKurznachhalb());
+        def.setChecked(getSettings().getKurznachhalb());
 
         //dreiviertel
         Spinner sp = (Spinner) findViewById(R.id.dreiviertel);
-        sp.setSelection(Settings.Dreiviertel.valueOf(settings.getDreiviertel().name()).ordinal());
+        sp.setSelection(Settings.Dreiviertel.valueOf(getSettings().getDreiviertel().name()).ordinal(), Boolean.FALSE);
         def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
-        def.setChecked(settings.getKurzvordreiviertelacht());
+        def.setChecked(getSettings().getKurzvordreiviertelacht());
         def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
-        def.setChecked(settings.getKurznachdreiviertelacht());
+        def.setChecked(getSettings().getKurznachdreiviertelacht());
         def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
-        def.setChecked(settings.getFuenfvordreiviertelacht());
+        def.setChecked(getSettings().getFuenfvordreiviertelacht());
         def = (CheckBox) findViewById(R.id.fuenf_nach_dreiviertel);
-        def.setChecked(settings.getFuenfnachdreiviertelacht());
+        def.setChecked(getSettings().getFuenfnachdreiviertelacht());
 
         //viertel
         sp = (Spinner) findViewById(R.id.viertel);
-        sp.setSelection(Settings.Viertel.valueOf(settings.getViertel().name()).ordinal());
+        sp.setSelection(Settings.Viertel.valueOf(getSettings().getViertel().name()).ordinal(), Boolean.FALSE); //ordinal is 0  based
         def = (CheckBox) findViewById(R.id.kurz_vor_viertel);
-        def.setChecked(settings.getKurzvorviertelacht());
+        def.setChecked(getSettings().getKurzvorviertelacht());
         def = (CheckBox) findViewById(R.id.kurz_nach_viertel);
-        def.setChecked(settings.getKurznachviertelacht());
+        def.setChecked(getSettings().getKurznachviertelacht());
         def = (CheckBox) findViewById(R.id.fuenf_vor_viertel);
-        def.setChecked(settings.getFuenfvorviertelacht());
+        def.setChecked(getSettings().getFuenfvorviertelacht());
         def = (CheckBox) findViewById(R.id.fuenf_nach_viertel);
-        def.setChecked(settings.getFuenfnachviertelacht());
+        def.setChecked(getSettings().getFuenfnachviertelacht());
 
         //TOD
         sp = (Spinner) findViewById(R.id.morgen);
-        if(settings.getMorgens())
-            sp.setSelection(1);
-        else if(settings.getAmmorgen())
-            sp.setSelection(1);
+        if(getSettings().getMorgens())
+            sp.setSelection(1, Boolean.FALSE);
+        else if(getSettings().getAmmorgen())
+            sp.setSelection(2, Boolean.FALSE);
         else
-            sp.setSelection(0);
+            sp.setSelection(0, Boolean.FALSE);
 
 
         sp = (Spinner) findViewById(R.id.vormittag);
-        if(settings.getVormittags())
-            sp.setSelection(1);
-        else if(settings.getAmvormittag())
-            sp.setSelection(1);
+        if(getSettings().getVormittags())
+            sp.setSelection(1, Boolean.FALSE);
+        else if(getSettings().getAmvormittag())
+            sp.setSelection(2, Boolean.FALSE);
         else
-            sp.setSelection(0);
+            sp.setSelection(0, Boolean.FALSE);
 
         sp = (Spinner) findViewById(R.id.mittag);
-        if(settings.getMittags())
-            sp.setSelection(1);
-        else if(settings.getAmmittag())
-            sp.setSelection(1);
+        if(getSettings().getMittags())
+            sp.setSelection(1, Boolean.FALSE);
+        else if(getSettings().getAmmittag())
+            sp.setSelection(2, Boolean.FALSE);
         else
-            sp.setSelection(0);
+            sp.setSelection(0, Boolean.FALSE);
 
 
         sp = (Spinner) findViewById(R.id.nachmittag);
-        if(settings.getNachmittags())
-            sp.setSelection(1);
-        else if(settings.getAmnachmittag())
-            sp.setSelection(1);
+        if(getSettings().getNachmittags())
+            sp.setSelection(1, Boolean.FALSE);
+        else if(getSettings().getAmnachmittag())
+            sp.setSelection(2, Boolean.FALSE);
         else
-            sp.setSelection(0);
+            sp.setSelection(0, Boolean.FALSE);
 
 
         sp = (Spinner) findViewById(R.id.abend);
-        if(settings.getAbends())
-            sp.setSelection(1);
-        else if(settings.getAmabend())
-            sp.setSelection(1);
+        if(getSettings().getAbends())
+            sp.setSelection(1, Boolean.FALSE);
+        else if(getSettings().getAmabend())
+            sp.setSelection(2, Boolean.FALSE);
         else
-            sp.setSelection(0);
+            sp.setSelection(0, Boolean.FALSE);
 
 
         sp = (Spinner) findViewById(R.id.nacht);
-        if(settings.getNachts())
-            sp.setSelection(1);
-        else if(settings.getIndernacht())
-            sp.setSelection(1);
+        if(getSettings().getNachts())
+            sp.setSelection(1, Boolean.FALSE);
+        else if(getSettings().getIndernacht())
+            sp.setSelection(2, Boolean.FALSE);
         else
-            sp.setSelection(0);
+            sp.setSelection(0, Boolean.FALSE);
 
         sp = (Spinner) findViewById(R.id.frueh);
-        if(settings.getMorgennacht())
-            sp.setSelection(1);
-        else if(settings.getInderfrueh())
-            sp.setSelection(1);
+        if(getSettings().getMorgennacht())
+            sp.setSelection(1, Boolean.FALSE);
+        else if(getSettings().getAmmorgennacht())
+            sp.setSelection(2, Boolean.FALSE);
+        else if(getSettings().getInderfrueh())
+            sp.setSelection(3, Boolean.FALSE);
         else
-            sp.setSelection(0);
+            sp.setSelection(0, Boolean.FALSE);
+    }
+
+    public void updateAvailable() {
+        if (getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)){
+            toggleAllKurz(Boolean.FALSE);
+            toggleHalber(Boolean.FALSE);
+        }
+        else if (getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)) {
+            toggleAllKurz(Boolean.TRUE);
+            toggleHalber(Boolean.TRUE);
+        }
+
+        if (getSettings().getHalber()) {
+            toggleHalbAndAdjustments(Boolean.FALSE);
+
+        }
+        else {
+            toggleHalbAndAdjustments(Boolean.TRUE);
+        }
+
+        if (getSettings().getZehnnachhalb()) {
+            toggleFuenfVorDreiviertel(Boolean.FALSE);
+        }
+        else {
+            toggleFuenfVorDreiviertel(Boolean.TRUE);
+        }
+
+        if (getSettings().getFuenfvordreiviertelacht()) {
+            toggleZehnNachHalb(Boolean.FALSE);
+        }
+        else {
+            toggleZehnNachHalb(Boolean.TRUE);
+        }
+
+        if (getSettings().getFuenfnachviertelacht()) {
+            toggleZehnVorHalb(Boolean.FALSE);
+        }
+        else {
+            toggleZehnVorHalb(Boolean.TRUE);
+        }
+        if (getSettings().getMinuteHybrid()) {
+            toggleAllKurz(Boolean.FALSE);
+        }
+        else {
+            toggleAllKurz(Boolean.TRUE);
+        }
+
+
+        if(getSettings().getDreiviertel().equals(Settings.Dreiviertel.dreiviertelacht)) {
+
+            toggleDreiviertelAdjustments(Boolean.TRUE);
+        }
+        else if(getSettings().getDreiviertel().equals(Settings.Dreiviertel.viertelvor)) {
+            toggleDreiviertelAdjustments(Boolean.FALSE);
+        }
+        else { //Settings.Dreiviertel.fuenfzehn);
+            toggleDreiviertelAdjustments(Boolean.FALSE);
+        }
+
+        if(getSettings().getViertel().equals(Settings.Viertel.viertelnach)) {
+            toggleViertelAdjustments(Boolean.FALSE);
+        }
+        else if(getSettings().getViertel().equals(Settings.Viertel.viertelueber)) {
+            toggleViertelAdjustments(Boolean.FALSE);
+        }
+        else if(getSettings().getViertel().equals(Settings.Viertel.viertelacht)) {
+
+            toggleViertelAdjustments(Boolean.TRUE);
+        }
+        else { //Settings.Viertel.viertelfuenfzehn);
+            toggleViertelAdjustments(Boolean.FALSE);
+        }
+
+
+    }
+
+    public void drawTime(String time) {
+
+        TextView testclock = (TextView)findViewById(R.id.testclock);
+        TextView preview = (TextView)findViewById(R.id.preview);
+
+
+        Pieces p = new Pieces(time);
+        preview.setText("Preview: " + time);
+        testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings()));
+        int drawableid = 0;
+        if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
+                && p.getRemainderMinutes() > 0) {
+            switch (p.getRemainderMinutes()){
+                case 1:
+                    drawableid = R.drawable.lederhosen1;
+                    break;
+                case 2:
+                    drawableid = R.drawable.lederhosen2;
+                    break;
+                case 3:
+                    drawableid = R.drawable.lederhosen3;
+                    break;
+                case 4:
+                    drawableid = R.drawable.lederhosen4;
+                    break;
+            }
+        }
+        if(drawableid > 0)
+            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableid, 0);
+        else
+            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
     }
 
 }
