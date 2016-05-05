@@ -14,30 +14,9 @@
         android:background="@drawable/border"
         android:orientation="vertical"
         android:paddingBottom="10dp">
-        <TextView
+    <TextView
             style="@style/ClockWidget"
             android:id="@+id/textView" />
     </LinearLayout>
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minEms="30"
-        android:text="Es ist fünf über fünf"
-        android:id="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
-        android:textSize="25dp"
-        android:textAlignment="center"
-        android:background="#030303"
-        android:padding="3dp"
-        android:singleLine="true"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="false"
-        android:visibility="invisible"
-        />
-
-
-
 
 </RelativeLayout>

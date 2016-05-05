@@ -2,7 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/preview"
+        style="@style/DialogLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        android:text="Preview 8:45" />
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -10,18 +21,16 @@
         android:background="@drawable/border"
         android:orientation="vertical"
         android:paddingBottom="10dp">
-
-        <TextView  android:id="@+id/example"
-        style="@style/ClockWidget"
-        android:text="Preview:   20:27   Es ist kurz vor halb neun am Abend"/>
-
+    <TextView
+            style="@style/ClockWidget"
+            android:id="@+id/example" />
     </LinearLayout>
 
-    <TextView
+    <Space
         android:layout_width="fill_parent"
-        android:layout_height="25dp"
-        android:gravity="center_vertical"
-        android:text="Choose a language preset or customize...." />
+        android:layout_height="15sp"/>
+
+
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -49,29 +58,18 @@
             <Button android:id="@+id/newClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="new clock"
-                android:paddingRight="20dp"/>
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="30dp"/>
+                android:text="new clock" />
 
                 <Button android:id="@+id/edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="edit"
-                    android:paddingRight="20dp"/>
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="30dp"/>
+                    android:text="edit" />
 
                 <Button android:id="@+id/delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="delete"
-                    android:paddingRight="20dp"/>
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="30dp"/>
+                    android:text="delete"/>
+
 
                 <Button
                 android:id="@+id/done"

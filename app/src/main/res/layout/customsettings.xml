@@ -16,18 +16,17 @@
         android:textStyle="bold" />
 
 
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
         android:orientation="vertical"
         android:paddingBottom="10dp">
-    <TextView
-        android:id="@+id/testclock"
-        style="@style/ClockWidget"
-        android:text="Es ist fünfundzwanzig Minuten vor neu Uhr am Vormittag"
-        android:textStyle="bold" />
-</LinearLayout>
+        <TextView
+            style="@style/ClockWidget"
+            android:id="@+id/testclock" />
+    </LinearLayout>
     <Space
         android:layout_width="fill_parent"
         android:layout_height="15sp"/>

@@ -35,11 +35,11 @@
         <item name="android:text">Es ist fünf über fünf</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:textSize">27dp</item>
+        <item name="android:textSize">25dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:background">#030303</item>
         <item name="android:singleLine">false</item>
-        <item name="android:maxLines">3</item>
+        <item name="android:padding">10dp</item>
             <item name="android:layout_alignParentEnd">false</item>
         <item name="android:layout_alignParentRight">false</item>
     </style>

@@ -16,8 +16,12 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
+import com.germanclock.words.TimeInWords;
 import com.wordzoo.uhr.utils.Constants;
 import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 
@@ -62,6 +66,47 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 config.check(rdbtn.getId());
 
         }
+
+
+        Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(getSharedPreferences(Constants.SETTING, 0),
+                Constants.selectedClock,
+                chosenConfig,
+                ActivitySettings.this);
+
+        drawTime("8:45", s);
+
+
+        config.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup rg, int i) {
+
+                String selectedConfig = ((RadioButton) findViewById(i)).getText() + "";
+
+                Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(getSharedPreferences(Constants.SETTING, 0),
+                        Constants.selectedClock,
+                        selectedConfig,
+                        ActivitySettings.this);
+
+                drawTime("8:45", s);
+
+                delete = (Button) findViewById(R.id.delete);
+                edit = (Button) findViewById(R.id.edit);
+
+                //to base configs we don't delete
+                if (selectedConfig.equals(Constants.INFORMAL)
+                        || selectedConfig.equals(Constants.OFFICIAL_TIME)) {
+                    delete.setEnabled(Boolean.FALSE);
+                    edit.setEnabled(Boolean.FALSE);
+                }
+                else {
+                    delete.setEnabled(Boolean.TRUE);
+                    edit.setEnabled(Boolean.TRUE);
+                }
+
+            }
+        });
+
 
         addButtonListeners();
 
@@ -140,8 +185,8 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 new StoreRetrieveGerman().updateChosenConfig(sp, selectedConfigButton.getText() + "", ActivitySettings.this);
 
                 Settings s = new StoreRetrieveGerman().loadSettingsFromDisk(sp, Constants.selectedClock, selectedConfigButton.getText()+ "", ActivitySettings.this);
-                Toast.makeText(ActivitySettings.this,
-                             "minuteword is: " + s.getUmgangminute(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ActivitySettings.this,
+                 //            "minuteword is: " + s.getUmgangminute(), Toast.LENGTH_SHORT).show();
 
 
                         //do a manual time update to immidate results of new clock configuration
@@ -187,11 +232,11 @@ public class ActivitySettings extends Activity implements OnClickListener {
             public void onClick(View v) {
 
                 int selectedId = config.getCheckedRadioButtonId();
-                String selectedConfig = ((RadioButton) findViewById(selectedId)).getText()+"";
+                String selectedConfig = ((RadioButton) findViewById(selectedId)).getText() + "";
 
 
                 //to base configs we don't delete
-                if(selectedConfig.equals(Constants.INFORMAL)
+                if (selectedConfig.equals(Constants.INFORMAL)
                         || selectedConfig.equals(Constants.OFFICIAL_TIME))
                     return;
 
@@ -234,5 +279,38 @@ public class ActivitySettings extends Activity implements OnClickListener {
         finish();
     }
 
+
+    public void drawTime(String time, Settings settings) {
+
+        TextView testclock = (TextView)findViewById(R.id.example);
+        TextView preview = (TextView)findViewById(R.id.preview);
+
+
+        Pieces p = new Pieces(time);
+        preview.setText("Preview: " + time);
+        testclock.setText(new TimeInWords(ActivitySettings.this).getTimeAsSentance(p, settings));
+        int drawableid = 0;
+        if(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)
+                && p.getRemainderMinutes() > 0) {
+            switch (p.getRemainderMinutes()){
+                case 1:
+                    drawableid = R.drawable.lederhosen1;
+                    break;
+                case 2:
+                    drawableid = R.drawable.lederhosen2;
+                    break;
+                case 3:
+                    drawableid = R.drawable.lederhosen3;
+                    break;
+                case 4:
+                    drawableid = R.drawable.lederhosen4;
+                    break;
+            }
+        }
+        if(drawableid > 0)
+            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableid, 0);
+        else
+            testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+    }
 
 }
