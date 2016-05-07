@@ -5,17 +5,27 @@
     android:padding="10dp">
 
 
+
     <TextView
-        android:id="@+id/preview"
+        android:id="@+id/preview_label"
         style="@style/DialogLabel"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
-        android:text="Preview: 20:45"
+        android:text="@string/preview"
         android:textStyle="bold" />
 
 
+    <TextView
+        android:id="@+id/preview"
+        style="@style/DialogLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        android:text="8:45"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -42,21 +52,21 @@
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cancel" />
+            android:text="@string/cancel" />
 
 
         <Button
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="save"
+            android:text="@string/save"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/saveas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="save as..." />
+            android:text="@string/saveas"/>
     </LinearLayout>
 
     <Space
@@ -82,7 +92,7 @@
 
                 <TextView
                     style="@style/DialogLabel"
-                    android:text="basic" />
+                    android:text="@string/basic" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -118,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onCheckboxClicked"
-                    android:text="Min. nur Mult. 5 plus Sterne" />
+                    android:text="@string/stars" />
 
                 <CheckBox
                     android:id="@+id/kurz_nach"
@@ -146,7 +156,7 @@
 
                 <TextView
                     style="@style/DialogLabel"
-                    android:text="halb" />
+                    android:text="@string/halb" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -168,7 +178,7 @@
                         android:layout_centerHorizontal="true"
                         android:padding="3dp"
                         android:singleLine="false"
-                        android:text="range before/after halb" />
+                        android:text="@string/range_before_after_halb" />
 
                     <EditText
                         android:id="@+id/halber_range"
@@ -245,7 +255,7 @@
 
                     <TextView
                         style="@style/DialogLabel"
-                        android:text="dreiviertel" />
+                        android:text="@string/dreiviertel" />
 
                     <Spinner
                         android:id="@+id/dreiviertel"
@@ -294,7 +304,7 @@
 
                     <TextView
                         style="@style/DialogLabel"
-                        android:text="viertel" />
+                        android:text="@string/viertel" />
 
                     <Spinner
                         android:id="@+id/viertel"
@@ -346,13 +356,13 @@
 
                 <TextView
                     style="@style/DialogLabel"
-                    android:text="time of day" />
+                    android:text="@string/time_of_day" />
 
                 <LinearLayout style="@style/DialogItem">
 
                     <TextView
                         style="@style/DialogLabelSmall"
-                        android:text="morgen (5 - 10)" />
+                        android:text="@string/morgen" />
 
                     <Spinner
                         android:id="@+id/morgen"
@@ -363,7 +373,7 @@
 
                     <TextView
                         style="@style/DialogLabelSmall"
-                        android:text="vormittag (10 - 12)" />
+                        android:text="@string/vormittag" />
 
                     <Spinner
                         android:id="@+id/vormittag"
@@ -374,7 +384,7 @@
 
                     <TextView
                         style="@style/DialogLabelSmall"
-                        android:text="mittag (12 - 14)" />
+                        android:text="@string/mittag" />
 
                     <Spinner
                         android:id="@+id/mittag"
@@ -385,7 +395,7 @@
 
                     <TextView
                         style="@style/DialogLabelSmall"
-                        android:text="nachmittag (14 - 18)" />
+                        android:text="@string/nachmittag" />
 
                     <Spinner
                         android:id="@+id/nachmittag"
@@ -396,7 +406,7 @@
 
                     <TextView
                         style="@style/DialogLabelSmall"
-                        android:text="abend (18 - 22)" />
+                        android:text="@string/abend" />
 
                     <Spinner
                         android:id="@+id/abend"
@@ -407,7 +417,7 @@
 
                     <TextView
                         style="@style/DialogLabelSmall"
-                        android:text="nacht (22 - 5)" />
+                        android:text="@string/nacht" />
 
                     <Spinner
                         android:id="@+id/nacht"
@@ -418,7 +428,7 @@
 
                     <TextView
                         style="@style/DialogLabelSmall"
-                        android:text="early (0 - 5)" />
+                        android:text="@string/early" />
 
                     <Spinner
                         android:id="@+id/frueh"
@@ -439,7 +449,7 @@
 
         <TextView
             style="@style/DialogLabel"
-            android:text="hybrid" />
+            android:text="@string/hybrid" />
 
 
             <CheckBox
@@ -448,7 +458,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="onCheckboxClicked"
                 android:paddingRight="10dp"
-                android:text="Umgang. bei Mult. 5, andere offizielle" />
+                android:text="@string/hybrid_desc" />
 
         </LinearLayout>
         </LinearLayout>

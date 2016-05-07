@@ -26,6 +26,8 @@ import com.wordzoo.uhr.utils.Constants;
 import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -73,8 +75,11 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 chosenConfig,
                 ActivitySettings.this);
 
-        drawTime("8:45", s);
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+        drawTime(sdf.format(d), s);
 
+        updateButtons(chosenConfig);
 
         config.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -88,21 +93,12 @@ public class ActivitySettings extends Activity implements OnClickListener {
                         selectedConfig,
                         ActivitySettings.this);
 
-                drawTime("8:45", s);
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+                drawTime(sdf.format(d), s);
 
-                delete = (Button) findViewById(R.id.delete);
-                edit = (Button) findViewById(R.id.edit);
 
-                //to base configs we don't delete
-                if (selectedConfig.equals(Constants.INFORMAL)
-                        || selectedConfig.equals(Constants.OFFICIAL_TIME)) {
-                    delete.setEnabled(Boolean.FALSE);
-                    edit.setEnabled(Boolean.FALSE);
-                }
-                else {
-                    delete.setEnabled(Boolean.TRUE);
-                    edit.setEnabled(Boolean.TRUE);
-                }
+                updateButtons(selectedConfig);
 
             }
         });
@@ -113,6 +109,22 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
 
+    }
+
+    public void updateButtons(String selectedConfig) {
+        delete = (Button) findViewById(R.id.delete);
+        edit = (Button) findViewById(R.id.edit);
+
+        //to base configs we don't delete
+        if (selectedConfig.equals(Constants.INFORMAL)
+                || selectedConfig.equals(Constants.OFFICIAL_TIME)) {
+            delete.setEnabled(Boolean.FALSE);
+            edit.setEnabled(Boolean.FALSE);
+        }
+        else {
+            delete.setEnabled(Boolean.TRUE);
+            edit.setEnabled(Boolean.TRUE);
+        }
     }
 
     public void addButtonListeners() {
@@ -287,7 +299,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
         Pieces p = new Pieces(time);
-        preview.setText("Preview " + time + ",");
+        preview.setText(time);
         testclock.setText(new TimeInWords(ActivitySettings.this).getTimeAsSentance(p, settings));
         int drawableid = 0;
         if(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)

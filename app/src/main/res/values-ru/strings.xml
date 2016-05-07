@@ -1,0 +1,46 @@
+<resources>
+
+    <string name="app_name">Немецкие Часы</string>
+
+    <string name="new_clock">новые часы</string>
+    <string name="edit">изменить</string>
+    <string name="delete">удалить</string>
+    <string name="done">применить</string>
+    <string name="cancel">отменить</string>
+    <string name="saveas">сохранить как...</string>
+    <string name="save">сохранить</string>
+    <string name="preview">предварительный просмотр</string>
+
+    <string name="basic">основной</string>
+    <string name="stars">Мин. на 5 плюс "звезды"</string>
+
+
+    <string name="halb">полчаса</string>
+    <string name="dreiviertel">без пятнадцати</string>
+    <string name="viertel">пятнадцать</string>
+
+    <string name="range_before_after_halb">диапазон до/после половины</string>
+    <string name="time_of_day">время суток</string>
+
+    <string name="morgen">утро (5 - 10)</string>
+    <string name="vormittag">до полудня (10-12)</string>
+    <string name="mittag">полдень (12 - 14)</string>
+    <string name="nachmittag">вторая половина дня (14-18)</string>
+    <string name="abend">вечер (18 - 22)</string>
+    <string name="nacht">ночь (22-5)</string>
+    <string name="early">поздно ночью (0 - 5)</string>
+
+    <string name="hybrid">гибрид</string>
+    <string name="hybrid_desc">разговор. на 5, другой официальный</string>
+
+
+
+    <string name="hello">
+Привет \n\n
+    Спасибо что вы устанавили Немецкый Часы\n\n
+    Вы должны добавить виджет на главном экране, чтобы использовать его.
+    Длительное нажать на главном экране и выберать "Виджеты".
+    Затем найдите Немецкый Часы из доступных виджетах
+    и тяните его на главны экран.</string>
+
+</resources>

@@ -1,4 +1,3 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -6,13 +5,25 @@
     android:layout_margin="10dp">
 
     <TextView
-        android:id="@+id/preview"
+        android:id="@+id/preview_label"
         style="@style/DialogLabel"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
-        android:text="Preview 8:45" />
+        android:text="@string/preview"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/preview"
+        style="@style/DialogLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        android:text="8:45"
+        android:textStyle="bold" />
 
 
     <LinearLayout
@@ -21,19 +32,18 @@
         android:background="@drawable/border"
         android:orientation="vertical"
         android:paddingBottom="10dp">
-    <TextView
+
+        <TextView
             style="@style/ClockWidget"
             android:id="@+id/example" />
     </LinearLayout>
 
     <Space
         android:layout_width="fill_parent"
-        android:layout_height="15sp"/>
+        android:layout_height="15sp" />
 
 
-
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -42,41 +52,51 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/config"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-    </RadioGroup>
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/config"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            <Button android:id="@+id/newClock"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="new clock" />
-
-                <Button android:id="@+id/edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="edit" />
-
-                <Button android:id="@+id/delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="delete"/>
+                android:orientation="vertical">
 
 
-                <Button
-                android:id="@+id/done"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="done" />
-            </LinearLayout>
+            </RadioGroup>
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1">
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/newClock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/new_clock" />
+
+                    <Button
+                        android:id="@+id/edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit" />
+                </TableRow>
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete" />
+
+
+                    <Button
+                        android:id="@+id/done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/done" />
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

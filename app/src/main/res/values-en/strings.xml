@@ -1,0 +1,37 @@
+<resources>
+
+
+    <string name="app_name">German Clock</string>
+
+    <string name="new_clock">new clock</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="done">done</string>
+    <string name="cancel">cancel</string>
+    <string name="saveas">save as...</string>
+    <string name="save">save</string>
+    <string name="preview">preview</string>
+
+    <string name="range_before_after_halb">range before/after halber</string>
+
+    <string name="basic">basic</string>
+    <string name="stars">Min. on mult. of 5 plus stars</string>
+
+    <string name="halb">half hour</string>
+    <string name="dreiviertel">quarter to</string>
+    <string name="viertel">quarter past</string>
+
+    <string name="time_of_day">time of day</string>
+    <string name="morgen">morning (5 - 10)</string>
+    <string name="vormittag">late morning (10 - 12)</string>
+    <string name="mittag">midday (12 - 14)</string>
+    <string name="nachmittag">afternoon (14 - 18)</string>
+    <string name="abend">evening (18 - 22)</string>
+    <string name="nacht">night (22 - 5)</string>
+    <string name="early">late night (0 - 5)</string>
+
+    <string name="hybrid">hybrid</string>
+    <string name="hybrid_desc">colloq. on mult. of 5, other official</string>
+
+
+</resources>

@@ -1,17 +1,45 @@
 <resources>
 
+    <string name="app_name">Deutsche Uhr</string>
 
-    <string name="app_name">German Clock</string>
-    <string name="action_settings">Settings</string>
+    <string name="new_clock">neue Uhr</string>
+    <string name="edit">editieren</string>
+    <string name="delete">löschen</string>
+    <string name="done">erledigt</string>
+    <string name="cancel">absagen</string>
+    <string name="saveas">speichern unter</string>
+    <string name="save">speichern</string>
+    <string name="preview">vorprüfen</string>
+    <string name="range_before_after_halb">umfang vor halb</string>
 
+    <string name="basic">grundlegend</string>
+    <string name="stars">Min. nur Mult. 5 plus Sterne</string>
 
-    <string name="hello">Hello\n\n
-    Thanks for installing the Custom Clock Widget.\n\n
-    You need to add the widget to your home screen to use it.
-    Long-press the home screen and select the widget from the
-    list of those installed on your device. </string>
+    <string name="halb">halbe stunde</string>
+    <string name="dreiviertel">dreiviertel</string>
+    <string name="viertel">viertel</string>
 
+    <string name="time_of_day">tageszeit</string>
+    <string name="morgen">morgen (5 - 10)</string>
+    <string name="vormittag">vormittag (10 - 12)</string>
+    <string name="mittag">mittag (12 - 14)</string>
+    <string name="nachmittag">nachmittag (14 - 18)</string>
+    <string name="abend">abend (18 - 22)</string>
+    <string name="nacht">nacht (22 - 5)</string>
+    <string name="early">früh (0 - 5)</string>
 
+    <string name="hybrid">hybrid</string>
+    <string name="hybrid_desc">Umgang. bei Mult. 5, andere offizielle</string>
+
+    <string name="hello">
+Hallo\n\n
+     Vielen Dank für die deutsche Clock Widget installieren.\n\n
+     Sie müssen das Widget auf dem Startbildschirm hinzufügen, es zu benutzen.
+     Lang drücken Sie die Home-Bildschirm, und wählen Sie "Widgets".
+         Dann finden Sie die deutsche Uhr von Ihrem verfügbaren Widgets
+         und ziehen Sie es auf Ihrem Home-Bildschirm aus.</string>
+
+    <!--stuff only for the german clock, no translations-->
     <string-array name="settings_dreiviertel">
         <item>kein</item>
         <item>viertel vor</item>

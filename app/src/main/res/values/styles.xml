@@ -32,7 +32,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minEms">30</item>
-        <item name="android:text">Es ist fünf über fünf</item>
+        <item name="android:text">Initializing...</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">25dp</item>

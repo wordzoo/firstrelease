@@ -287,6 +287,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                         selectedConfig,
                         getSettings(),
                         ActivityCustomSettings.this);
+                new StoreRetrieveGerman().updateChosenConfig(sp,selectedConfig, ActivityCustomSettings.this);
                 setResult(RESULT_OK, null);
                 finish();
 
@@ -340,6 +341,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                                         promptResultConfigName,
                                         getSettings(),
                                         ActivityCustomSettings.this);
+                                new StoreRetrieveGerman().updateChosenConfig(sp, promptResultConfigName, ActivityCustomSettings.this);
                                 setResult(RESULT_OK, null);
                                 finish();
                             }
@@ -844,7 +846,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
 
         Pieces p = new Pieces(time);
-        preview.setText("Preview " + time + ",");
+        preview.setText(time);
         testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings()));
         int drawableid = 0;
         if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
