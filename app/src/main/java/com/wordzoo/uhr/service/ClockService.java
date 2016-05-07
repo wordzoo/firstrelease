@@ -29,11 +29,12 @@ public class ClockService extends Service
 		return null;
 	}
 
+	/*
 	@Override
 	public void onStart( Intent intent, int startId )
 	{
 		super.onStart(intent, startId);
-	}
+	}*/
 
 	@Override
 	public void onCreate()
@@ -48,12 +49,13 @@ public class ClockService extends Service
 	@Override
 	public void onDestroy()
 	{
-		unregisterReceiver();
+		//unregisterReceiver();
 		super.onDestroy();
 	}
-
+/*
 	protected void unregisterReceiver()
 	{
 		unregisterReceiver( receiver );
 	}
+	*/
 }
