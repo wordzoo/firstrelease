@@ -19,6 +19,26 @@ import java.util.Set;
  */
 public class StoreRetrieveGerman  {
 
+    private Boolean myGetBoolean(Map map, String key) {
+        if(map.get(key) != null)
+            return (Boolean)map.get(key);
+        else
+            return Boolean.FALSE;
+    }
+
+    private String myGetString(Map map, String key) {
+        if(map.get(key) != null)
+            return (String)map.get(key);
+        else
+            return "";
+    }
+
+    private Integer myGetInteger(Map map, String key) {
+        if(map.get(key) != null)
+            return (Integer)map.get(key);
+        else
+            return 0;
+    }
 
     public Settings loadSettingsFromDisk(SharedPreferences sp, String selectedClock, String configName, Context c) {
         Settings s = new Settings();
@@ -29,52 +49,53 @@ public class StoreRetrieveGerman  {
         //get settings for language and customName
         String prefix = selectedClock + "~" + configName + "~";
 
-        s.setUmgangssprachlich((Boolean) map.get(prefix + "umgangssprachlich")); //all variable settings are umgang/not official
+        s.setUmgangssprachlich(myGetBoolean(map, prefix + "umgangssprachlich")); //all variable settings are umgang/not official
 
 
 
-        s.setEsist((Boolean) map.get(prefix + "esist"));
-        s.setUhr((Boolean) map.get(prefix + "uhr"));
-        s.setMinute((Boolean) map.get(prefix + "minute"));
+        s.setEsist(myGetBoolean(map, prefix + "esist"));
+        s.setUhr(myGetBoolean(map, prefix + "uhr"));
+        s.setMinute(myGetBoolean(map, prefix + "minute"));
 
-        s.setCustomName((String) map.get(prefix + "customName"));
-        s.setFlag((Boolean) map.get(prefix + "flag"));
+        s.setCustomName(myGetString(map, prefix + "customName"));
+        s.setFlag(myGetBoolean(map, prefix + "flag"));
         if(map.get(prefix + "flagPattern") != null)
             s.setFlagPattern(Settings.FlagPattern.values()[(Integer) map.get(prefix + "flagPattern")]);
-        s.setUm((Boolean) map.get(prefix + "um"));
-        s.setHalber((Boolean) map.get(prefix + "halber"));
-        s.setHalberRange((Integer) map.get(prefix + "halberRange"));
+        s.setUm(myGetBoolean(map, prefix + "um"));
+        s.setHalber(myGetBoolean(map, prefix + "halber"));
+        s.setHalberRange(myGetInteger(map, prefix + "halberRange"));
         if(map.get(prefix + "umgangminute") != null) {
             s.setUmgangminute(Settings.Umgangminute.values()[(Integer) map.get(prefix + "umgangminute")]);
 
 
         }
 
-        s.setMinuteHybrid((Boolean) map.get(prefix + "minuteHybrid"));
+        s.setMinuteHybrid(myGetBoolean(map, prefix + "minuteHybrid"));
 
         if(map.get(prefix + "clockface") != null)
             s.setClockface(Settings.Clockface.values()[(Integer) map.get(prefix + "clockface")]);
 
-        s.setMitternacht((Boolean) map.get(prefix + "mitternacht"));
-        s.setMorgens((Boolean) map.get(prefix + "morgens"));
-        s.setAmmorgen((Boolean) map.get(prefix + "ammorgen"));
-        s.setVormittags((Boolean) map.get(prefix + "vormittags"));
-        s.setAmvormittag((Boolean) map.get(prefix + "amvormittag"));
-        s.setMittags((Boolean) map.get(prefix + "mittags"));
-        s.setAmmittag((Boolean) map.get(prefix + "ammittag"));
-        s.setNachmittags((Boolean) map.get(prefix + "nachmittags"));
-        s.setAmnachmittag((Boolean) map.get(prefix + "amnachmittag"));
-        s.setAbends((Boolean) map.get(prefix + "abends"));
-        s.setAmabend((Boolean) map.get(prefix + "amabend"));
-        s.setNachts((Boolean) map.get(prefix + "nachts"));
-        s.setIndernacht((Boolean) map.get(prefix + "indernacht"));
-        s.setInderfrueh((Boolean) map.get(prefix + "inderfrueh"));
-        s.setMorgennacht((Boolean) map.get(prefix + "morgennacht"));
-        s.setAmmorgennacht((Boolean) map.get(prefix + "ammorgennacht"));
-        s.setKurznach((Boolean) map.get(prefix + "kurznach"));
+        s.setMitternacht(myGetBoolean(map, prefix + "mitternacht"));
+        s.setMorgens(myGetBoolean(map, prefix + "morgens"));
+        s.setAmmorgen(myGetBoolean(map, prefix + "ammorgen"));
+        s.setVormittags(myGetBoolean(map, prefix + "vormittags"));
+        s.setAmvormittag(myGetBoolean(map, prefix + "amvormittag"));
+        s.setMittags(myGetBoolean(map, prefix + "mittags"));
+        s.setAmmittag(myGetBoolean(map, prefix + "ammittag"));
+        s.setNachmittags(myGetBoolean(map, prefix + "nachmittags"));
+        s.setAmnachmittag(myGetBoolean(map, prefix + "amnachmittag"));
+        s.setAbends(myGetBoolean(map, prefix + "abends"));
+        s.setAmabend(myGetBoolean(map, prefix + "amabend"));
+        s.setNachts(myGetBoolean(map, prefix + "nachts"));
+        s.setIndernacht(myGetBoolean(map, prefix + "indernacht"));
+        s.setInderfrueh(myGetBoolean(map, prefix + "inderfrueh"));
+        s.setMorgennacht(myGetBoolean(map, prefix + "morgennacht"));
+        s.setAmmorgennacht(myGetBoolean(map, prefix + "ammorgennacht"));
+        s.setKurznach(myGetBoolean(map, prefix + "kurznach"));
 
-        Integer index = (Integer) map.get(prefix + "viertel");
-        String val = Settings.Viertel.values()[index].name();
+        //Integer index = (Integer) map.get(prefix + "viertel");
+        //if(index != null)
+        //    String val = Settings.Viertel.values()[index].name();
 
         //Toast.makeText(c,
           //      "viertel index: " + index
@@ -84,31 +105,31 @@ public class StoreRetrieveGerman  {
         if(map.get(prefix + "viertel") != null)
             s.setViertel(Settings.Viertel.values()[(Integer) map.get(prefix + "viertel")]);
 
-        s.setFuenfvorviertelacht((Boolean) map.get(prefix + "fuenfvorviertelacht"));
-        s.setFuenfnachviertelacht((Boolean) map.get(prefix + "fuenfnachviertelacht"));
-        s.setKurznachviertelacht((Boolean) map.get(prefix + "kurznachviertelacht"));
-        s.setKurzvorviertelacht((Boolean) map.get(prefix + "kurzvorviertelacht"));
+        s.setFuenfvorviertelacht(myGetBoolean(map, prefix + "fuenfvorviertelacht"));
+        s.setFuenfnachviertelacht(myGetBoolean(map, prefix + "fuenfnachviertelacht"));
+        s.setKurznachviertelacht(myGetBoolean(map, prefix + "kurznachviertelacht"));
+        s.setKurzvorviertelacht(myGetBoolean(map, prefix + "kurzvorviertelacht"));
 
         if(map.get(prefix + "halb") != null)
             s.setHalb(Settings.Halb.values()[(Integer) map.get(prefix + "halb")]);
 
-        s.setFuenfvorhalb((Boolean) map.get(prefix + "fuenfvorhalb"));
-        s.setFuenfnachhalb((Boolean) map.get(prefix + "fuenfnachhalb"));
-        s.setKurzvorhalb((Boolean) map.get(prefix + "kurzvorhalb"));
-        s.setKurznachhalb((Boolean) map.get(prefix + "kurznachhalb"));
-        s.setZehnvorhalb((Boolean) map.get(prefix + "zehnvorhalb"));
-        s.setZehnnachhalb((Boolean) map.get(prefix + "zehnnachhalb"));
-        s.setZwanzignach((Boolean) map.get(prefix + "zwanzignach"));
-        s.setZwanzigvor((Boolean) map.get(prefix + "zwanzigvor"));
+        s.setFuenfvorhalb(myGetBoolean(map, prefix + "fuenfvorhalb"));
+        s.setFuenfnachhalb(myGetBoolean(map, prefix + "fuenfnachhalb"));
+        s.setKurzvorhalb(myGetBoolean(map, prefix + "kurzvorhalb"));
+        s.setKurznachhalb(myGetBoolean(map, prefix + "kurznachhalb"));
+        s.setZehnvorhalb(myGetBoolean(map, prefix + "zehnvorhalb"));
+        s.setZehnnachhalb(myGetBoolean(map, prefix + "zehnnachhalb"));
+        s.setZwanzignach(myGetBoolean(map, prefix + "zwanzignach"));
+        s.setZwanzigvor(myGetBoolean(map, prefix + "zwanzigvor"));
 
         if(map.get(prefix + "dreiviertel") != null)
             s.setDreiviertel(Settings.Dreiviertel.values()[(Integer) map.get(prefix + "dreiviertel")]);
 
-        s.setFuenfvordreiviertelacht((Boolean) map.get(prefix + "fuenfvordreiviertelacht"));
-        s.setFuenfnachdreiviertelacht((Boolean) map.get(prefix + "fuenfnachdreiviertelacht"));
-        s.setKurzvordreiviertelacht((Boolean) map.get(prefix + "kurzvordreiviertelacht"));
-        s.setKurznachdreiviertelacht((Boolean) map.get(prefix + "kurznachdreiviertelacht"));
-        s.setKurzvor((Boolean) map.get(prefix + "kurzvor"));
+        s.setFuenfvordreiviertelacht(myGetBoolean(map, prefix + "fuenfvordreiviertelacht"));
+        s.setFuenfnachdreiviertelacht(myGetBoolean(map, prefix + "fuenfnachdreiviertelacht"));
+        s.setKurzvordreiviertelacht(myGetBoolean(map, prefix + "kurzvordreiviertelacht"));
+        s.setKurznachdreiviertelacht(myGetBoolean(map, prefix + "kurznachdreiviertelacht"));
+        s.setKurzvor(myGetBoolean(map, prefix + "kurzvor"));
         return s;
     }
 

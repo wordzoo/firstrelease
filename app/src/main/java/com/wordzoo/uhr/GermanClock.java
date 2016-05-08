@@ -69,8 +69,10 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 		String chosenConfig = "";
 		SharedPreferences sp = context.getSharedPreferences(Constants.SETTING, 0 | Context.MODE_MULTI_PROCESS);
 		chosenConfig = sp.getString(Constants.selectedClock + "~" + Constants.selectedConfig, null);
-		if(chosenConfig.equals(""))
+		if((chosenConfig == null)
+				|| chosenConfig.equals("")) {
 			new StoreRetrieveGerman().storeDeafultSettingsToDisk(context.getSharedPreferences(Constants.SETTING, 0), context);
+		}
 
 		startClockService(context);
 

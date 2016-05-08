@@ -562,140 +562,120 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
     public void toggleAllKurz(Boolean t){
         CheckBox def = (CheckBox) findViewById(R.id.kurz_nach);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurznach(t);
         def = (CheckBox) findViewById(R.id.kurz_vor);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurzvor(t);
         def = (CheckBox) findViewById(R.id.kurz_nach_viertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurznachviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_viertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurzvorviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_nach_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurznachhalb(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurzvorhalb(t);
         def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurznachdreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurzvordreiviertelacht(t);
 
     }
 
     public void toggleHalbAndAdjustments(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         def = (CheckBox) findViewById(R.id.kurz_nach_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurznachhalb(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurzvorhalb(t);
         def = (CheckBox) findViewById(R.id.fuenf_nach_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setFuenfnachhalb(t);
         def = (CheckBox) findViewById(R.id.fuenf_vor_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setFuenfvorhalb(t);
         def = (CheckBox) findViewById(R.id.zehn_nach_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setZehnnachhalb(t);
         def = (CheckBox) findViewById(R.id.zehn_vor_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setZehnvorhalb(t);
     }
 
     public void toggleViertelAdjustments(Boolean t){
         CheckBox def = (CheckBox) findViewById(R.id.kurz_nach_viertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurznachviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_viertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurzvorviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_vor_viertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setFuenfvorviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_nach_viertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setFuenfnachviertelacht(t);
 
     }
 
     public void toggleDreiviertelAdjustments(Boolean t){
         CheckBox def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurznachdreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setKurzvordreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setFuenfvordreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_nach_dreiviertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setFuenfnachdreiviertelacht(t);
 
     }
 
     private void toggleHalber(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.halber);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setHalber(t);
         EditText inp = (EditText) findViewById(R.id.halber_range);
-        inp.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
     }
 
     private void toggleZehnNachHalb(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.zehn_nach_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setZehnnachhalb(t);
     }
     private void toggleFuenfVorDreiviertel(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setFuenfvordreiviertelacht(t);
     }
     private void toggleZehnVorHalb(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.zehn_vor_halb);
-        def.setEnabled(t);
-        def.setChecked(t);
+        updateCheckBox(def, t);
         getSettings().setZehnvorhalb(t);
 
     }
 
+    private void updateCheckBox(CheckBox def, Boolean t) {
+        if(t)
+            def.setEnabled(t);
+        else {
+            def.setChecked(t);
+            def.setEnabled(t);
+        }
+    }
     public void loadUI() {
         CheckBox def = (CheckBox) findViewById(R.id.esist);
         def.setChecked(getSettings().getEsist());
@@ -825,17 +805,14 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
     public void updateAvailable() {
         if (getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)){
-            toggleAllKurz(Boolean.FALSE);
             toggleHalber(Boolean.FALSE);
         }
         else if (getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)) {
-            toggleAllKurz(Boolean.TRUE);
             toggleHalber(Boolean.TRUE);
         }
 
         if (getSettings().getHalber()) {
             toggleHalbAndAdjustments(Boolean.FALSE);
-
         }
         else {
             toggleHalbAndAdjustments(Boolean.TRUE);

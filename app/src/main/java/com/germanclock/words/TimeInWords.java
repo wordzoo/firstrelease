@@ -140,8 +140,7 @@ public class TimeInWords {
         //Official Construction
         if (!tiw.getSettings().getUmgangssprachlich()
                 || ((tiw.getPieces().getRemainderMinutes() > 0)
-                && (tiw.getSettings().getMinuteHybrid()
-                && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)))
+                && (tiw.getSettings().getMinuteHybrid()))
                 ) {
 
             if (isNotEmpty(tiw.getHour())) {
@@ -164,13 +163,6 @@ public class TimeInWords {
                 ret.append(tiw.getMinute());
                 ret.append(" ");
             }
-
-            if (tiw.getSettings().getMinuteHybrid()
-                    && !tiw.getHour().contains("Mitternacht"))
-                if (isNotEmpty(tiw.getSectionOfDay())) {
-                    ret.append(tiw.getSectionOfDay());
-                    ret.append(" ");
-                }
 
 
         }
