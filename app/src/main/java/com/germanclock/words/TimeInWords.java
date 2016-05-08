@@ -99,7 +99,10 @@ public class TimeInWords {
             getUmgangMinutes(tiw);
 
         //pupulate word "minute" or "Minutes"
-        if (tiw.getSettings().getMinute()) {
+        if (tiw.getPieces().getFiveMinBucket() == 0
+                && tiw.getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar))
+            ;
+        else if (tiw.getSettings().getMinute()) {
             if (tiw.getPieces().getMinutes() == 1)
                 tiw.setMinute("Minute");
             else if (tiw.getPieces().getMinutes() > 1)

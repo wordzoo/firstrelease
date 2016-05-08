@@ -57,12 +57,12 @@ public class MinuteBarUnitTest extends AndroidJUnitRunner {
 
         s.setKurzvor(Boolean.TRUE);
         s.setKurznach(Boolean.TRUE);
-        p = new Pieces("11:59");
+        p = new Pieces("23:59");
         out = tiw.getTimeAsSentance(p, s);
         assertEquals("Es ist kurz vor Mitternacht", out);
         assertEquals(p.getRemainderMinutes(), new Integer(4));
 
-        p = new Pieces("12:01");
+        p = new Pieces("00:01");
         out = tiw.getTimeAsSentance(p, s);
         assertEquals("Es ist kurz nach Mitternacht", out);
         assertEquals(p.getRemainderMinutes(), new Integer(1));
