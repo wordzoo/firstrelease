@@ -33,5 +33,14 @@
     <string name="hybrid">hybrid</string>
     <string name="hybrid_desc">colloq. on mult. of 5, other official</string>
 
+<string name="hello">
+Hallo\n\n
+    Thank you for installing German Clock!\n\n
+     To use this application you have to add it to your home screen as a widget.
+     First, find an empty place on your home screen and tap your finder, and hold it down on the scree.
+    The screen should change appearance slightly, and you will see "Widgets" appear.
+         Please select "Widgets" and then scroll through all your widgets to find "German Clock".
+After you find it, just click on it, hold down your finger on the screen, and drag it out to your home screen.
+That is it!  Now you can use your German Clock widget!</string>
 
 </resources>

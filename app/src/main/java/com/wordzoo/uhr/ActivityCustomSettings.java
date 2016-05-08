@@ -563,84 +563,136 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     public void toggleAllKurz(Boolean t){
         CheckBox def = (CheckBox) findViewById(R.id.kurz_nach);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurznach(t);
         def = (CheckBox) findViewById(R.id.kurz_vor);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurzvor(t);
         def = (CheckBox) findViewById(R.id.kurz_nach_viertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurznachviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_viertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurzvorviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_nach_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurznachhalb(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurzvorhalb(t);
         def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurznachdreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurzvordreiviertelacht(t);
 
     }
 
     public void toggleHalbAndAdjustments(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.halb);
         def.setEnabled(t);
+        def.setChecked(t);
         def = (CheckBox) findViewById(R.id.kurz_nach_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurznachhalb(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurzvorhalb(t);
         def = (CheckBox) findViewById(R.id.fuenf_nach_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setFuenfnachhalb(t);
         def = (CheckBox) findViewById(R.id.fuenf_vor_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setFuenfvorhalb(t);
         def = (CheckBox) findViewById(R.id.zehn_nach_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setZehnnachhalb(t);
         def = (CheckBox) findViewById(R.id.zehn_vor_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setZehnvorhalb(t);
     }
 
     public void toggleViertelAdjustments(Boolean t){
         CheckBox def = (CheckBox) findViewById(R.id.kurz_nach_viertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurznachviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_viertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurzvorviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_vor_viertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setFuenfvorviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_nach_viertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setFuenfnachviertelacht(t);
 
     }
 
     public void toggleDreiviertelAdjustments(Boolean t){
         CheckBox def = (CheckBox) findViewById(R.id.kurz_nach_dreiviertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurznachdreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.kurz_vor_dreiviertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setKurzvordreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setFuenfvordreiviertelacht(t);
         def = (CheckBox) findViewById(R.id.fuenf_nach_dreiviertel);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setFuenfnachdreiviertelacht(t);
 
     }
 
     private void toggleHalber(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.halber);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setHalber(t);
         EditText inp = (EditText) findViewById(R.id.halber_range);
         inp.setEnabled(t);
+        def.setChecked(t);
     }
 
     private void toggleZehnNachHalb(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.zehn_nach_halb);
         def.setEnabled(t);
-
+        def.setChecked(t);
+        getSettings().setZehnnachhalb(t);
     }
     private void toggleFuenfVorDreiviertel(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.fuenf_vor_dreiviertel);
         def.setEnabled(t);
-
+        def.setChecked(t);
+        getSettings().setFuenfvordreiviertelacht(t);
     }
     private void toggleZehnVorHalb(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.zehn_vor_halb);
         def.setEnabled(t);
+        def.setChecked(t);
+        getSettings().setZehnvorhalb(t);
 
     }
 
@@ -676,6 +728,8 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         def.setChecked(getSettings().getKurzvorhalb());
         def = (CheckBox) findViewById(R.id.kurz_nach_halb);
         def.setChecked(getSettings().getKurznachhalb());
+
+
 
         //dreiviertel
         Spinner sp = (Spinner) findViewById(R.id.dreiviertel);
@@ -763,6 +817,10 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             sp.setSelection(3, Boolean.FALSE);
         else
             sp.setSelection(0, Boolean.FALSE);
+
+        //hybrid
+        def = (CheckBox) findViewById(R.id.hybrid);
+        def.setChecked(getSettings().getMinuteHybrid());
     }
 
     public void updateAvailable() {
