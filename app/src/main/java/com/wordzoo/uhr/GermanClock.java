@@ -93,12 +93,6 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 
         super.onReceive(context, intent);
 
-		//need to reregister this because we can loose it on restart of phone
-		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
-		final Intent configIntent = new Intent(context, ActivitySettings.class);
-		PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
-		remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
-
         handleIntent(context, intent);
     }
 
@@ -119,6 +113,17 @@ public class GermanClock extends AppWidgetProvider implements Serializable
 	{
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 		setTime(context);
+
+		//need to reregister this because we can loose it on restart of phone
+		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.german_clock);
+		final Intent configIntent = new Intent(context, ActivitySettings.class);
+		PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+		remoteViews.setOnClickPendingIntent(R.id.textView, configPendingIntent);
+		ComponentName thisWidget = new ComponentName(context.getPackageName(), GermanClock.class.getName());
+
+		for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget))
+			appWidgetManager.updateAppWidget(widgetId, remoteViews);
+
 	}
 
 
