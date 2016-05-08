@@ -117,7 +117,6 @@ public class TimeInWords {
                 && !tiw.getHour().equals("Mitternacht")
                 && !tiw.getHour().equals("eins")
                 && !tiw.getMinute1().equals("viertel")
-                && !tiw.getMinute1().equals("halb")
                 && !tiw.getMinute1().equals("dreiviertel")
                 && !tiw.getMinute2().equals("viertel")
                 && !tiw.getMinute2().equals("halb")
