@@ -367,14 +367,21 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     }
 
 
+    public void onHalberRangeClick(View view) {
+        Integer range = new Integer(((EditText) view).getText()+"");
+        getSettings().setHalberRange(range);
+
+        String time = "09:22";;
+
+        drawTime(time);
+
+    }
+
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         String time = DEFAULT_TIME;
-        TextView testclock = (TextView)findViewById(R.id.testclock);
-        TextView preview = (TextView)findViewById(R.id.preview);
-
 
         // Check which checkbox was clicked
         switch(view.getId()) {
@@ -692,10 +699,12 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         //halb
         def = (CheckBox) findViewById(R.id.halber);
         def.setChecked(getSettings().getHalber());
-       // EditText tv = (EditText) findViewById(R.id.halber_range);
-       // tv.setText(getSettings().getHalberRange().intValue());
+        EditText tv = (EditText) findViewById(R.id.halber_range);
+        tv.setText(getSettings().getHalberRange()+"");
+
         def = (CheckBox) findViewById(R.id.halb);
         def.setChecked(getSettings().getHalb().equals(Settings.Halb.halb));
+
         def = (CheckBox) findViewById(R.id.fuenf_vor_halb);
         def.setChecked(getSettings().getFuenfvorhalb());
         def = (CheckBox) findViewById(R.id.fuenf_nach_halb);

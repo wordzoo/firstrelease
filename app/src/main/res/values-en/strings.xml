@@ -12,7 +12,7 @@
     <string name="save">save</string>
     <string name="preview">preview</string>
 
-    <string name="range_before_after_halb">range before/after halber</string>
+    <string name="range_before_after_halb">#min bf./aft. half</string>
 
     <string name="basic">basic</string>
     <string name="stars">Min. on mult. of 5 plus stars</string>

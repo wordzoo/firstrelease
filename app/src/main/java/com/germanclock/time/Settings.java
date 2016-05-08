@@ -33,7 +33,7 @@ public class Settings implements Serializable {
     private Boolean um = Boolean.FALSE; //"um Zwölf"
 
     private Boolean halber = Boolean.FALSE; //"sechs nach halber"
-    private Integer halberRange = 6; //0 to 10, as in 10 nach (oder vor) halber
+    private Integer halberRange = 0; //0 to 10, as in 10 nach (oder vor) halber
 
     //you can only choose this of umgangssprachlich is true
     public enum Umgangminute {

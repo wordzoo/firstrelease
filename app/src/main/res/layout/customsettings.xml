@@ -187,8 +187,11 @@
                         android:id="@+id/halber_range"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="5"
-                        android:inputType="number" />
+                        android:hint="   "
+                        android:inputType="number"
+                        android:onClick="onHalberRangeClick"/>
+
+
 
 
                 </LinearLayout>
