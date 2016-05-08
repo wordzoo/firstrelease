@@ -40,7 +40,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:background">#030303</item>
         <item name="android:singleLine">false</item>
-        <item name="android:padding">1sp</item>
+        <item name="android:padding">5dp</item>
             <item name="android:layout_alignParentEnd">false</item>
         <item name="android:layout_alignParentRight">false</item>
     </style>
