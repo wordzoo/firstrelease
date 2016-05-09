@@ -34,10 +34,12 @@
 
         <Button
             android:id="@+id/setTime"
+            style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingBottom="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="9dp"
             android:text="@string/set_preview_time"
             android:onClick="timeOnClick"/>
 
@@ -67,19 +69,24 @@
 
         <Button
             android:id="@+id/cancel"
+            style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel" />
 
 
         <Button
+            android:layout_marginLeft="10dp"
             android:id="@+id/save"
+            style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"
             android:visibility="gone" />
 
         <Button
+            android:layout_marginLeft="10dp"
+            style="@style/Button"
             android:id="@+id/saveas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

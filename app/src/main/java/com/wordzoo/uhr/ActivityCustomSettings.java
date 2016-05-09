@@ -41,7 +41,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
 
     private Settings settings;
 
-    final String DEFAULT_TIME = "8:45";
+    final String DEFAULT_TIME = "08:45";
 
     String promptResultConfigName = "new config";
 
@@ -94,7 +94,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
                             getSettings().setDreiviertel(Settings.Dreiviertel.kein);
                         break;
                     case R.id.morgen:
-                        time = "8:45";
+                        time = "08:45";
                         if(((TextView)v).getText().equals("morgens"))
                             getSettings().setMorgens(Boolean.TRUE);
                         else

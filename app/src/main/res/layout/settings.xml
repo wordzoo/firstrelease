@@ -70,11 +70,14 @@
 
                     <Button
                         android:id="@+id/newClock"
+                        style="@style/Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/new_clock" />
 
                     <Button
+                        android:layout_marginLeft="10dp"
+                        style="@style/Button"
                         android:id="@+id/edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,6 +87,8 @@
                 <TableRow>
 
                     <Button
+                        android:layout_marginTop="10dp"
+                        style="@style/Button"
                         android:id="@+id/delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -91,6 +96,9 @@
 
 
                     <Button
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        style="@style/Button"
                         android:id="@+id/done"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
