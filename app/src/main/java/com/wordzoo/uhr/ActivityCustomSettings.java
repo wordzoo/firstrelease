@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
@@ -27,8 +29,9 @@ import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
 import com.wordzoo.uhr.utils.Constants;
 import com.wordzoo.uhr.utils.StoreRetrieveGerman;
+import com.wordzoo.uhr.utils.TimePickerFragment;
 
-public class ActivityCustomSettings extends Activity implements OnClickListener {
+public class ActivityCustomSettings extends FragmentActivity implements OnClickListener {
 
 
     private Button cancel;
@@ -182,7 +185,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
 
                 }
 
-                updateAvailable();
+                //updateAvailable();
 
                 drawTime(time);
 
@@ -235,7 +238,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
         //user prefs
         if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT)) {
             loadUI();
-            updateAvailable();
+            //updateAvailable();
         }
 
 
@@ -248,7 +251,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     public void setSettings(Settings settings) {
         this.settings = settings;
     }
-
 
 
     public void addButtonListeners(String CONFIG_MODE, final String selectedConfig) {
@@ -367,12 +369,20 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     }
 
 
+    public void timeOnClick(View view) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+
     public void onHalberRangeClick(View view) {
+        if(((EditText) view).getText() == null
+                || ((EditText) view).getText().equals(""))
+            return;
         Integer range = new Integer(((EditText) view).getText()+"");
         getSettings().setHalberRange(range);
 
         String time = "09:22";;
-
         drawTime(time);
 
     }
@@ -439,7 +449,6 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
                 time = "09:22";
                 if (checked) {
                     getSettings().setHalber(Boolean.TRUE);
-                    getSettings().setHalberRange(8);
                 }
                 else {
                     getSettings().setHalber(Boolean.FALSE);
@@ -813,20 +822,20 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
     }
 
     public void updateAvailable() {
-        if (getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)){
+       /* if (getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)){
             toggleHalber(Boolean.FALSE);
         }
         else if (getSettings().getUmgangminute().equals(Settings.Umgangminute.minuteword)) {
             toggleHalber(Boolean.TRUE);
         }
-
+*/
         if (getSettings().getHalber()) {
             toggleHalbAndAdjustments(Boolean.FALSE);
         }
         else {
             toggleHalbAndAdjustments(Boolean.TRUE);
         }
-
+/*
         if (getSettings().getZehnnachhalb()) {
             toggleFuenfVorDreiviertel(Boolean.FALSE);
         }
@@ -880,7 +889,7 @@ public class ActivityCustomSettings extends Activity implements OnClickListener 
             toggleViertelAdjustments(Boolean.FALSE);
         }
 
-
+*/
     }
 
     public void drawTime(String time) {

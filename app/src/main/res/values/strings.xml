@@ -9,6 +9,9 @@
     <string name="cancel">absagen</string>
     <string name="saveas">speichern unter</string>
     <string name="save">speichern</string>
+
+    <string name="set_preview_time">ändern</string>
+
     <string name="preview">vorprüfen</string>
     <string name="range_before_after_halb">umfang vor halb</string>
 

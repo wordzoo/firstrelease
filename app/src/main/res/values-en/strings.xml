@@ -12,6 +12,9 @@
     <string name="save">save</string>
     <string name="preview">preview</string>
 
+
+    <string name="set_preview_time">change</string>
+
     <string name="range_before_after_halb">#min bf./aft. half</string>
 
     <string name="basic">basic</string>

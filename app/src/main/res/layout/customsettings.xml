@@ -15,17 +15,34 @@
         android:text="@string/preview"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
     <TextView
         android:id="@+id/preview"
         style="@style/DialogLabel"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:paddingBottom="5dp"
         android:text="8:45"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="timeOnClick"/>
 
+        <Button
+            android:id="@+id/setTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:text="@string/set_preview_time"
+            android:onClick="timeOnClick"/>
+
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -185,9 +202,9 @@
 
                     <EditText
                         android:id="@+id/halber_range"
-                        android:layout_width="wrap_content"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:hint="   "
+                        android:digits="1234567890"
                         android:inputType="number"
                         android:onClick="onHalberRangeClick"/>
 
