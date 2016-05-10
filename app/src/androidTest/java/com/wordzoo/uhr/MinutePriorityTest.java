@@ -41,8 +41,7 @@ public class MinutePriorityTest extends AndroidJUnitRunner {
         s.setUmgangssprachlich(Boolean.TRUE);
         s.setUmgangminute(Settings.Umgangminute.minuteword);
 
-       s.setHalber(Boolean.TRUE);
-       s.setHalberRange(9);
+
 
         s.setKurznach(Boolean.TRUE);
         s.setKurzvor(Boolean.TRUE);

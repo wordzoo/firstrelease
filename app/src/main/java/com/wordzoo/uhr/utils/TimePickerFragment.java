@@ -29,6 +29,7 @@ public class TimePickerFragment extends DialogFragment
         String time = String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute);
         TextView tv = (TextView)getActivity().findViewById(R.id.preview);
         tv.setText(time);
-        ((ActivityCustomSettings)getActivity()).drawTime(time);
+        ((ActivityCustomSettings)getActivity()).time = time;
+        ((ActivityCustomSettings)getActivity()).drawTime();
     }
 }

@@ -12,7 +12,7 @@
     <string name="preview">предварительный просмотр</string>
 
     <string name="basic">основной</string>
-    <string name="stars">Мин. на 5 плюс "звезды"</string>
+    <string name="stars">5-минутный-интервал + каждая доп.* = 1 минута</string>
 
     <string name="set_preview_time">изменить</string>
 
@@ -20,12 +20,15 @@
     <string name="dreiviertel">без пятнадцати</string>
     <string name="viertel">пятнадцать</string>
 
+    <string name="range_before_after_halb">диапазон до/после половины</string>
+
+
     <string name="esist">это</string>
     <string name="minuten">минут(а)</string>
     <string name="uhr">час</string>
-    <string name="kurz_nach">чуть чуть после</string>
-    <string name="kurz_vor">чуть чуть до</string>
-
+    <string name="kurz_nach">немного больше</string>
+    <string name="kurz_vor">почти</string>
+    <string name="halber">полчаса</string>
 
 
     <string name="halb_stunde">полчаса</string>
@@ -35,17 +38,15 @@
     <string name="zehn_vor_halb">десять до полчаса</string>
     <string name="zehn_nach_halb">десять после полчаса</string>
     <string name="kurz_vor_halb">почти полчаса</string>
-    <string name="kurz_nach_halb">чуть чуть после полчаса</string>
+    <string name="kurz_nach_halb">немного больше после полчаса</string>
     <string name="kurz_vor_dreiviertel">почти три четверти</string>
-    <string name="kurz_nach_dreiviertel">чуть чуть после три четверти</string>
+    <string name="kurz_nach_dreiviertel">немного больше после три четверти</string>
     <string name="fuenf_vor_dreiviertel">пять до три четверти</string>
     <string name="fuenf_nach_dreiviertel">пять после три четверти</string>
     <string name="kurz_vor_viertel">почти четверт</string>
-    <string name="kurz_nach_viertel">чуть чуть после четверт</string>
+    <string name="kurz_nach_viertel">немного больше четверти</string>
     <string name="fuenf_vor_viertel">пять до четверт</string>
-    <string name="fuenf_nach_viertel">пять после четверт</string>
-
-
+    <string name="fuenf_nach_viertel">пять после четверти</string>
 
 
     <string name="time_of_day">время суток</string>
@@ -58,8 +59,10 @@
     <string name="nacht">ночь (22-5)</string>
     <string name="early">поздно ночью (0 - 5)</string>
 
-    <string name="hybrid">гибрид</string>
-    <string name="hybrid_desc">разговор. на 5, другой официальный</string>
+    <string name="hybrid">"Смешанное время"</string>
+    <string name="hybrid_desc">разговор.- кратно 5 + официальное</string>
+
+
 
 
 
