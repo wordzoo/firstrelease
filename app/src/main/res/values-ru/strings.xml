@@ -21,6 +21,36 @@
     <string name="viertel">пятнадцать</string>
 
     <string name="range_before_after_halb">диапазон до/после половины</string>
+
+
+    <string name="esist">это</string>
+    <string name="minuten">минут(а)</string>
+    <string name="uhr">час</string>
+    <string name="kurz_nach">чуть чуть после</string>
+    <string name="kurz_vor">чуть чуть до</string>
+    <string name="halber">пол часик</string>
+
+
+    <string name="halb_stunde">полчаса</string>
+
+    <string name="fuenf_vor_halb">пять до полчаса</string>
+    <string name="fuenf_nach_halb">пять после полчаса</string>
+    <string name="zehn_vor_halb">десять до полчаса</string>
+    <string name="zehn_nach_halb">десять после полчаса</string>
+    <string name="kurz_vor_halb">почти полчаса</string>
+    <string name="kurz_nach_halb">чуть чуть после полчаса</string>
+    <string name="kurz_vor_dreiviertel">почти три четверти</string>
+    <string name="kurz_nach_dreiviertel">чуть чуть после три четверти</string>
+    <string name="fuenf_vor_dreiviertel">пять до три четверти</string>
+    <string name="fuenf_nach_dreiviertel">пять после три четверти</string>
+    <string name="kurz_vor_viertel">почти четверт</string>
+    <string name="kurz_nach_viertel">чуть чуть после четверт</string>
+    <string name="fuenf_vor_viertel">пять до четверт</string>
+    <string name="fuenf_nach_viertel">пять после четверт</string>
+
+
+
+
     <string name="time_of_day">время суток</string>
 
     <string name="morgen">утро (5 - 10)</string>

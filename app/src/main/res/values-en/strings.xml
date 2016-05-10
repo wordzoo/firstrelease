@@ -15,14 +15,39 @@
 
     <string name="set_preview_time">change</string>
 
-    <string name="range_before_after_halb">#min bf./aft. half</string>
+    <string name="range_before_after_halb">min bf./aft. half</string>
 
     <string name="basic">basic</string>
     <string name="stars">Min. on mult. of 5 plus stars</string>
 
-    <string name="halb">half hour</string>
-    <string name="dreiviertel">quarter to</string>
-    <string name="viertel">quarter past</string>
+    <string name="esist">It is</string>
+    <string name="minuten">minute(s)</string>
+    <string name="uhr">hour</string>
+    <string name="kurz_nach">just after</string>
+    <string name="kurz_vor">just before</string>
+    <string name="halber">the half hour</string>
+
+
+    <string name="halb_stunde">half hour</string>
+
+    <string name="halb">half</string>
+    <string name="fuenf_vor_halb">five before half</string>
+    <string name="fuenf_nach_halb">five past half</string>
+    <string name="zehn_vor_halb">ten before half</string>
+    <string name="zehn_nach_halb">ten after half</string>
+    <string name="kurz_vor_halb">just before half</string>
+    <string name="kurz_nach_halb">just after half</string>
+    <string name="dreiviertel">three-quarters</string>
+    <string name="kurz_vor_dreiviertel">just before three-quarters</string>
+    <string name="kurz_nach_dreiviertel">just after three-quarters</string>
+    <string name="fuenf_vor_dreiviertel">five before three-quarters</string>
+    <string name="fuenf_nach_dreiviertel">five after three-quarters</string>
+    <string name="viertel">quarter</string>
+    <string name="kurz_vor_viertel">just before quarter</string>
+    <string name="kurz_nach_viertel">just after quarter</string>
+    <string name="fuenf_vor_viertel">five before quarter</string>
+    <string name="fuenf_nach_viertel">five after quarter</string>
+
 
     <string name="time_of_day">time of day</string>
     <string name="morgen">morning (5 - 10)</string>
