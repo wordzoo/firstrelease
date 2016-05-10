@@ -32,8 +32,7 @@ public class Settings implements Serializable {
 
     private Boolean um = Boolean.FALSE; //"um Zwölf"
 
-    private Boolean halber = Boolean.FALSE; //"sechs nach halber"
-    private Integer halberRange = 0; //0 to 10, as in 10 nach (oder vor) halber
+
 
     //you can only choose this of umgangssprachlich is true
     public enum Umgangminute {
@@ -158,21 +157,7 @@ public class Settings implements Serializable {
         this.um = um;
     }
 
-    public Boolean getHalber() {
-        return halber;
-    }
 
-    public void setHalber(Boolean halber) {
-        this.halber = halber;
-    }
-
-    public Integer getHalberRange() {
-        return halberRange;
-    }
-
-    public void setHalberRange(Integer halberRange) {
-        this.halberRange = halberRange;
-    }
 
     public Halb getHalb() {
         return halb;

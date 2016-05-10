@@ -375,17 +375,6 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
     }
 
 
-    public void onHalberRangeClick(View view) {
-        if(((EditText) view).getText() == null
-                || ((EditText) view).getText().equals(""))
-            return;
-        Integer range = new Integer(((EditText) view).getText()+"");
-        getSettings().setHalberRange(range);
-
-        String time = "09:22";;
-        drawTime(time);
-
-    }
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
@@ -445,15 +434,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
                     getSettings().setHalb(Settings.Halb.dreissig);
                 }
                 break;
-            case R.id.halber:
-                time = "09:22";
-                if (checked) {
-                    getSettings().setHalber(Boolean.TRUE);
-                }
-                else {
-                    getSettings().setHalber(Boolean.FALSE);
-                }
-                break;
+
 
             case R.id.fuenf_vor_halb:
                 time = "09:25";
@@ -659,13 +640,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
 
     }
 
-    private void toggleHalber(Boolean t) {
-        CheckBox def = (CheckBox) findViewById(R.id.halber);
-        updateCheckBox(def, t);
-        getSettings().setHalber(t);
-        EditText inp = (EditText) findViewById(R.id.halber_range);
-        updateCheckBox(def, t);
-    }
+
 
     private void toggleZehnNachHalb(Boolean t) {
         CheckBox def = (CheckBox) findViewById(R.id.zehn_nach_halb);
@@ -706,10 +681,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
         def = (CheckBox) findViewById(R.id.kurz_vor);
         def.setChecked(getSettings().getKurzvor());
         //halb
-        def = (CheckBox) findViewById(R.id.halber);
-        def.setChecked(getSettings().getHalber());
-        EditText tv = (EditText) findViewById(R.id.halber_range);
-        tv.setText(getSettings().getHalberRange()+"");
+
 
         def = (CheckBox) findViewById(R.id.halb);
         def.setChecked(getSettings().getHalb().equals(Settings.Halb.halb));
@@ -829,12 +801,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
             toggleHalber(Boolean.TRUE);
         }
 */
-        if (getSettings().getHalber()) {
-            toggleHalbAndAdjustments(Boolean.FALSE);
-        }
-        else {
-            toggleHalbAndAdjustments(Boolean.TRUE);
-        }
+
 /*
         if (getSettings().getZehnnachhalb()) {
             toggleFuenfVorDreiviertel(Boolean.FALSE);

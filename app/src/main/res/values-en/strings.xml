@@ -15,7 +15,6 @@
 
     <string name="set_preview_time">change</string>
 
-    <string name="range_before_after_halb">min bf./aft. half</string>
 
     <string name="basic">basic</string>
     <string name="stars">Min. on mult. of 5 plus stars</string>
@@ -25,7 +24,7 @@
     <string name="uhr">hour</string>
     <string name="kurz_nach">just after</string>
     <string name="kurz_vor">just before</string>
-    <string name="halber">the half hour</string>
+
 
 
     <string name="halb_stunde">half hour</string>

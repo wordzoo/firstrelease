@@ -185,41 +185,6 @@
                     style="@style/DialogLabel"
                     android:text="@string/halb_stunde" />
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/halber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onCheckboxClicked"
-                        android:paddingRight="10dp"
-                        android:text="@string/halber" />
-
-                    <TextView
-                        android:id="@+id/text1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:padding="3dp"
-                        android:singleLine="false"
-                        android:text="@string/range_before_after_halb" />
-
-                    <EditText
-                        android:id="@+id/halber_range"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:digits="1234567890"
-                        android:inputType="number"
-                        android:onClick="onHalberRangeClick"/>
-
-
-
-
-                </LinearLayout>
-
                 <CheckBox
                     android:id="@+id/halb"
                     android:layout_width="wrap_content"

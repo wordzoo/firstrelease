@@ -51,7 +51,6 @@ public class TimeInWords {
         this.context = context;
     }
 
-    private HalberMinute hm = null;
     private KurzMinute km = null;
     private ViertelMinute vm = null;
     private HalbMinute hb = null;
@@ -67,7 +66,7 @@ public class TimeInWords {
         this.context = context;
         Resources res = getContext().getResources();
         this.german_number = res.getStringArray(R.array.german_number);
-        this.hm = new HalberMinute(german_number);
+
         this.km = new KurzMinute(german_number);
         this.vm = new ViertelMinute(german_number);
         this.hb = new HalbMinute(german_number);
@@ -273,9 +272,7 @@ public class TimeInWords {
         //these "get" fuctions will set the minutes if BOTH the settings and time apply
         //and in that case return true....
 
-        //HALBER
-        if(hm.getUmgangsMinute(tiw))
-            return;
+
 
         //KURZ VOR NACH
         if( km.getUmgangsMinute(tiw))

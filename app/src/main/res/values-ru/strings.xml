@@ -20,15 +20,12 @@
     <string name="dreiviertel">без пятнадцати</string>
     <string name="viertel">пятнадцать</string>
 
-    <string name="range_before_after_halb">диапазон до/после половины</string>
-
-
     <string name="esist">это</string>
     <string name="minuten">минут(а)</string>
     <string name="uhr">час</string>
     <string name="kurz_nach">чуть чуть после</string>
     <string name="kurz_vor">чуть чуть до</string>
-    <string name="halber">пол часик</string>
+
 
 
     <string name="halb_stunde">полчаса</string>

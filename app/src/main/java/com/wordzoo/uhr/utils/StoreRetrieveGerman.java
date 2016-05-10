@@ -62,8 +62,7 @@ public class StoreRetrieveGerman  {
         if(map.get(prefix + "flagPattern") != null)
             s.setFlagPattern(Settings.FlagPattern.values()[(Integer) map.get(prefix + "flagPattern")]);
         s.setUm(myGetBoolean(map, prefix + "um"));
-        s.setHalber(myGetBoolean(map, prefix + "halber"));
-        s.setHalberRange(myGetInteger(map, prefix + "halberRange"));
+
         if(map.get(prefix + "umgangminute") != null) {
             s.setUmgangminute(Settings.Umgangminute.values()[(Integer) map.get(prefix + "umgangminute")]);
 
@@ -162,8 +161,7 @@ public class StoreRetrieveGerman  {
 
         editor.putInt(prefix + "flagPattern", Settings.FlagPattern.valueOf(s.getFlagPattern().name()).ordinal());
         editor.putBoolean(prefix + "um", s.getUm());
-        editor.putBoolean(prefix + "halber", s.getHalber());
-        editor.putInt(prefix + "halberRange", s.getHalberRange());
+
         editor.putInt(prefix + "umgangminute", Settings.Umgangminute.valueOf(s.getUmgangminute().name()).ordinal());
         editor.putBoolean(prefix + "minuteHybrid", s.getMinuteHybrid());
         editor.putInt(prefix + "clockface", Settings.Clockface.valueOf(s.getClockface().name()).ordinal());
