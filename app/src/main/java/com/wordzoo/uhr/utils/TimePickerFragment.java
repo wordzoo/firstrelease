@@ -2,6 +2,9 @@ package com.wordzoo.uhr.utils;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
@@ -28,7 +31,17 @@ public class TimePickerFragment extends DialogFragment
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         String time = String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute);
         TextView tv = (TextView)getActivity().findViewById(R.id.preview);
+
+        if(!time.equals(tv.getText())){
+            ColorDrawable[] color = {new ColorDrawable(Color.BLUE), new ColorDrawable(Color.BLACK)};
+            TransitionDrawable trans = new TransitionDrawable(color);
+            tv.setBackgroundDrawable(trans);
+            trans.startTransition(1000);
+        }
+
         tv.setText(time);
+
+
         ((ActivityCustomSettings)getActivity()).time = time;
         ((ActivityCustomSettings)getActivity()).drawTime();
     }

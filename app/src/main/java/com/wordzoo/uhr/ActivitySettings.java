@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -118,10 +119,14 @@ public class ActivitySettings extends Activity implements OnClickListener {
         //to base configs we don't delete
         if (selectedConfig.equals(Constants.INFORMAL)
                 || selectedConfig.equals(Constants.OFFICIAL_TIME)) {
+            delete.setBackgroundColor(Color.GRAY);
+            edit.setBackgroundColor(Color.GRAY);
             delete.setEnabled(Boolean.FALSE);
             edit.setEnabled(Boolean.FALSE);
         }
         else {
+            delete.setBackground(getResources().getDrawable(R.drawable.mybutton));
+            edit.setBackground(getResources().getDrawable(R.drawable.mybutton));
             delete.setEnabled(Boolean.TRUE);
             edit.setEnabled(Boolean.TRUE);
         }

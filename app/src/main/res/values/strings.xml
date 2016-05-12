@@ -17,8 +17,8 @@
     <string name="minuten">Minute(n)</string>
     <string name="uhr">Uhr</string>
     <string name="stars">Min. nur Mult. 5 plus Sterne</string>
-    <string name="kurz_nach">kurz nach</string>
-    <string name="kurz_vor">kurz vor</string>
+    <string name="kurz_nach">kurz nach Uhr</string>
+    <string name="kurz_vor">kurz vor Uhr</string>
 
     <string name="basic">grundlegend</string>
 

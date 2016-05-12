@@ -17,7 +17,7 @@ android {
         applicationId "com.wordzoo.uhr"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 4
+        versionCode 5
         versionName "alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

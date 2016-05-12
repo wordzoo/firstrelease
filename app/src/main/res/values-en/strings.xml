@@ -13,52 +13,52 @@
     <string name="preview">preview</string>
 
 
-    <string name="set_preview_time">change</string>
-
-
-    <string name="basic">basic</string>
-    <string name="stars">Min. on mult. of 5 plus stars</string>
-
-    <string name="esist">It is</string>
-    <string name="minuten">minute(s)</string>
-    <string name="uhr">hour</string>
-    <string name="kurz_nach">just after</string>
-    <string name="kurz_vor">just before</string>
 
 
 
-    <string name="halb_stunde">half hour</string>
+    <string name="xbasic">basic</string>
+    <string name="xstars">Min. on mult. of 5 plus stars</string>
 
-    <string name="halb">half</string>
-    <string name="fuenf_vor_halb">five before half</string>
-    <string name="fuenf_nach_halb">five past half</string>
-    <string name="zehn_vor_halb">ten before half</string>
-    <string name="zehn_nach_halb">ten after half</string>
-    <string name="kurz_vor_halb">just before half</string>
-    <string name="kurz_nach_halb">just after half</string>
-    <string name="dreiviertel">three-quarters</string>
-    <string name="kurz_vor_dreiviertel">just before three-quarters</string>
-    <string name="kurz_nach_dreiviertel">just after three-quarters</string>
-    <string name="fuenf_vor_dreiviertel">five before three-quarters</string>
-    <string name="fuenf_nach_dreiviertel">five after three-quarters</string>
-    <string name="viertel">quarter</string>
-    <string name="kurz_vor_viertel">just before quarter</string>
-    <string name="kurz_nach_viertel">just after quarter</string>
-    <string name="fuenf_vor_viertel">five before quarter</string>
-    <string name="fuenf_nach_viertel">five after quarter</string>
+    <string name="xesist">It is</string>
+    <string name="xminuten">minute(s)</string>
+    <string name="xuhr">hour</string>
+    <string name="xkurz_nach">just after</string>
+    <string name="xkurz_vor">just before</string>
 
 
-    <string name="time_of_day">time of day</string>
-    <string name="morgen">morning (5 - 10)</string>
-    <string name="vormittag">late morning (10 - 12)</string>
-    <string name="mittag">midday (12 - 14)</string>
-    <string name="nachmittag">afternoon (14 - 18)</string>
-    <string name="abend">evening (18 - 22)</string>
-    <string name="nacht">night (22 - 5)</string>
-    <string name="early">late night (0 - 5)</string>
 
-    <string name="hybrid">hybrid</string>
-    <string name="hybrid_desc">colloq. on mult. of 5, other official</string>
+    <string name="xhalb_stunde">half hour</string>
+
+    <string name="xhalb">half</string>
+    <string name="xfuenf_vor_halb">five before half</string>
+    <string name="xfuenf_nach_halb">five past half</string>
+    <string name="xzehn_vor_halb">ten before half</string>
+    <string name="xzehn_nach_halb">ten after half</string>
+    <string name="xkurz_vor_halb">just before half</string>
+    <string name="xkurz_nach_halb">just after half</string>
+    <string name="xdreiviertel">three-quarters</string>
+    <string name="xkurz_vor_dreiviertel">just before three-quarters</string>
+    <string name="xkurz_nach_dreiviertel">just after three-quarters</string>
+    <string name="xfuenf_vor_dreiviertel">five before three-quarters</string>
+    <string name="xfuenf_nach_dreiviertel">five after three-quarters</string>
+    <string name="xviertel">quarter</string>
+    <string name="xkurz_vor_viertel">just before quarter</string>
+    <string name="xkurz_nach_viertel">just after quarter</string>
+    <string name="xfuenf_vor_viertel">five before quarter</string>
+    <string name="xfuenf_nach_viertel">five after quarter</string>
+
+
+    <string name="xtime_of_day">time of day</string>
+    <string name="xmorgen">morning (5 - 10)</string>
+    <string name="xvormittag">late morning (10 - 12)</string>
+    <string name="xmittag">midday (12 - 14)</string>
+    <string name="xnachmittag">afternoon (14 - 18)</string>
+    <string name="xabend">evening (18 - 22)</string>
+    <string name="xnacht">night (22 - 5)</string>
+    <string name="xearly">late night (0 - 5)</string>
+
+    <string name="xhybrid">hybrid</string>
+    <string name="xhybrid_desc">colloq. on mult. of 5, other official</string>
 
 <string name="hello">
 Hallo\n\n

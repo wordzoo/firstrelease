@@ -1,5 +1,8 @@
 package com.wordzoo.uhr;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 
@@ -7,6 +10,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -38,7 +44,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
     private Button save;
     private Button saveas;
     private Spinner spinner;
-    boolean customTimeState = Boolean.FALSE;
+   // boolean customTimeState = Boolean.FALSE;
     final String DEFAULT_TIME = "08:45";
     //state full string so it can remain if use is setting it explicitly
     //otherwise it changes to showcase a selected time feature
@@ -202,8 +208,8 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
 
             @Override
             public void onNothingSelected(AdapterView<?> v) {
-                Toast.makeText(ActivityCustomSettings.this, "onNothingSelected()", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(ActivityCustomSettings.this, "onNothingSelected()", Toast.LENGTH_SHORT).show();
+;
             }
 
         });
@@ -290,8 +296,8 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(ActivityCustomSettings.this,"save kurz v vier: "
-                        + getSettings().getKurzvorviertelacht(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ActivityCustomSettings.this,"save kurz v vier: "
+                 //       + getSettings().getKurzvorviertelacht(), Toast.LENGTH_SHORT).show();
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                 new StoreRetrieveGerman().storeSettingsToDisk(sp,
                         Constants.selectedClock,
@@ -378,12 +384,12 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
     }
 
     private void ifNotCustomTimeState(String time) {
-        if(!this.customTimeState)
+       // if(!this.customTimeState)
             this.time = time;
     }
 
     public void timeOnClick(View view) {
-        this.customTimeState = Boolean.TRUE;
+        //this.customTimeState = Boolean.TRUE;
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
@@ -529,8 +535,8 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
                 else
                     getSettings().setKurzvorviertelacht(Boolean.FALSE);
 
-                Toast.makeText(ActivityCustomSettings.this,"click kurz v vier: "
-                        + getSettings().getKurzvorviertelacht(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ActivityCustomSettings.this,"click kurz v vier: "
+                 //       + getSettings().getKurzvorviertelacht(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.kurz_nach_viertel:
                 ifNotCustomTimeState("09:18");
@@ -841,19 +847,34 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
             toggleViertelAdjustments(Boolean.FALSE);
         }
 
-        Toast.makeText(ActivityCustomSettings.this,"avail kurz v vier: "
-                + getSettings().getKurzvorviertelacht(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(ActivityCustomSettings.this,"avail kurz v vier: "
+         //       + getSettings().getKurzvorviertelacht(), Toast.LENGTH_SHORT).show();
     }
 
     public void drawTime() {
 
-        TextView testclock = (TextView)findViewById(R.id.testclock);
-        TextView preview = (TextView)findViewById(R.id.preview);
-
-
+        TextView testclock = (TextView) findViewById(R.id.testclock);
+        TextView preview = (TextView) findViewById(R.id.preview);
         Pieces p = new Pieces(this.time);
+
+        if (!this.time.equals(preview.getText())) {
+            ColorDrawable[] color = {new ColorDrawable(Color.BLUE), new ColorDrawable(Color.BLACK)};
+            TransitionDrawable trans = new TransitionDrawable(color);
+            preview.setBackgroundDrawable(trans);
+            trans.startTransition(1000);
+        }
         preview.setText(this.time);
-        testclock.setText(new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings()));
+
+        String newtiw = new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings());
+        if(!testclock.getText().equals(newtiw)){
+            ColorDrawable[] color = {new ColorDrawable(Color.CYAN), new ColorDrawable(Color.BLACK)};
+            TransitionDrawable trans = new TransitionDrawable(color);
+            //This will work also on old devices. The latest API says you have to use setBackground instead.
+            testclock.setBackgroundDrawable(trans);
+            trans.startTransition(1000);
+        }
+        testclock.setText(newtiw);
+
         int drawableid = 0;
         if(getSettings().getUmgangminute().equals(Settings.Umgangminute.minutebar)
                 && getSettings().getUmgangssprachlich()) {
@@ -879,6 +900,12 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
             testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableid, 0);
         else
             testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+
     }
+
+
+
+
 
 }
