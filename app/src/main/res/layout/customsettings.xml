@@ -1,35 +1,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="10dp">
-
 
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/border"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/preview"
-        style="@style/DialogLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:textAlignment="center"
-        android:text="8:45"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:onClick="timeOnClick"/>
-
-
+        <TextView
+            android:id="@+id/preview"
+            style="@style/DialogLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="timeOnClick"
+            android:paddingBottom="5dp"
+            android:text="8:45"
+            android:textAlignment="center"
+            android:textSize="40dp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -61,23 +59,22 @@
 
 
         <Button
-            android:layout_marginLeft="10dp"
             android:id="@+id/save"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/save"
             android:visibility="gone" />
 
         <Button
-            android:layout_marginLeft="10dp"
-            style="@style/Button"
             android:id="@+id/saveas"
+            style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/saveas" />
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -88,327 +85,590 @@
         android:paddingBottom="10dp">
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+            android:layout_height="fill_parent">
 
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
 
 
                 <TextView
                     style="@style/DialogLabel"
-                    android:text="@string/basic"
-                    />
-
-
-                    <CheckBox
-                        android:id="@+id/esist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onCheckboxClicked"
-                        android:text="@string/esist"
-                        tools:context=".ActivityCustomSettings"/>
-
-
-                    <CheckBox
-                        android:id="@+id/minute"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onCheckboxClicked"
-                        android:text="@string/minuten" />
-
-                    <CheckBox
-                        android:id="@+id/uhr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onCheckboxClicked"
-                        android:text="@string/uhr" />
-
-
-
-
-
-
-                <CheckBox
-                    android:id="@+id/kurz_vor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_vor" />
-
-                <CheckBox
-                    android:id="@+id/kurz_nach"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_nach" />
-
-            <Space
-                android:layout_width="fill_parent"
-                android:layout_height="15sp" />
-
-
-                <TextView
-                    style="@style/DialogLabel"
-                    android:text="@string/halb_stunde" />
-
-                <CheckBox
-                    android:id="@+id/halb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/halb" />
-
-
-                <CheckBox
-                    android:id="@+id/fuenf_vor_halb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/fuenf_vor_halb" />
-
-                <CheckBox
-                    android:id="@+id/fuenf_nach_halb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/fuenf_nach_halb" />
-
-                <CheckBox
-                    android:id="@+id/zehn_vor_halb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/zehn_vor_halb" />
-
-                <CheckBox
-                    android:id="@+id/zehn_nach_halb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/zehn_nach_halb" />
-
-
-                <CheckBox
-                    android:id="@+id/kurz_vor_halb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_vor_halb" />
-
-                <CheckBox
-                    android:id="@+id/kurz_nach_halb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_nach_halb" />
-
-            <Space
-                android:layout_width="fill_parent"
-                android:layout_height="15sp" />
-
-
-                <LinearLayout style="@style/DialogItem">
-
-                    <TextView
-                        style="@style/DialogLabel"
-                        android:text="@string/dreiviertel" />
-
-                    <Spinner
-                        android:id="@+id/dreiviertel_combo"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
-
-                <CheckBox
-                    android:id="@+id/kurz_vor_dreiviertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_vor_dreiviertel" />
-
-                <CheckBox
-                    android:id="@+id/kurz_nach_dreiviertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_nach_dreiviertel" />
-
-                <CheckBox
-                    android:id="@+id/fuenf_vor_dreiviertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/fuenf_vor_dreiviertel" />
-
-                <CheckBox
-                    android:id="@+id/fuenf_nach_dreiviertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/fuenf_nach_dreiviertel" />
-
-
-            <Space
-                android:layout_width="fill_parent"
-                android:layout_height="15sp" />
-
-
-                <LinearLayout style="@style/DialogItem">
-
-                    <TextView
-                        style="@style/DialogLabel"
-                        android:text="@string/viertel" />
-
-                    <Spinner
-                        android:id="@+id/viertel_combo"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
-
-                <CheckBox
-                    android:id="@+id/kurz_vor_viertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_vor_viertel" />
-
-                <CheckBox
-                    android:id="@+id/kurz_nach_viertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/kurz_nach_viertel" />
+                    android:text="@string/basic" />
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1">
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/esist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/esist" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xesist" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/minute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/minuten" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xminuten" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/uhr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/uhr" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xuhr" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_vor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_vor" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_vor" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_nach"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_nach" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_nach" />
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="fill_parent"
+                        android:layout_height="15sp" />
+
+                    <TableRow>
+
+                        <TextView
+                            style="@style/DialogLabel"
+                            android:text="@string/halb_stunde" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xhalb_stunde" />
+                    </TableRow>
+
+                    <TableRow>
+
+
+                        <CheckBox
+                            android:id="@+id/halb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/halb" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xhalb" />
+                    </TableRow>
+
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/fuenf_vor_halb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_vor_halb" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xfuenf_vor_halb" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/fuenf_nach_halb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_nach_halb" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xfuenf_nach_halb" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/zehn_vor_halb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/zehn_vor_halb" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xzehn_vor_halb" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/zehn_nach_halb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/zehn_nach_halb" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xzehn_nach_halb" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_vor_halb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_vor_halb" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_vor_halb" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_nach_halb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_nach_halb" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_nach_halb" />
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="fill_parent"
+                        android:layout_height="15sp" />
+
+                </TableLayout>
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1">
+
+                    <TableRow>
+
+                        <LinearLayout style="@style/DialogItem">
+
+                            <TextView
+                                style="@style/DialogLabel"
+                                android:text="@string/dreiviertel" />
+
+                            <Spinner
+                                android:id="@+id/dreiviertel_combo"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xdreiviertel" />
+                    </TableRow>
+
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_vor_dreiviertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_vor_dreiviertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_vor_dreiviertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_nach_dreiviertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_nach_dreiviertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_nach_dreiviertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/fuenf_vor_dreiviertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_vor_dreiviertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xfuenf_vor_dreiviertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/fuenf_nach_dreiviertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_nach_dreiviertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xfuenf_nach_dreiviertel" />
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="fill_parent"
+                        android:layout_height="15sp" />
+
+                </TableLayout>
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1">
+
+                    <TableRow>
+
+                        <LinearLayout style="@style/DialogItem">
+
+                            <TextView
+                                style="@style/DialogLabel"
+                                android:text="@string/viertel" />
+
+                            <Spinner
+                                android:id="@+id/viertel_combo"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xviertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_vor_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_vor_viertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_vor_viertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_nach_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_nach_viertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_nach_viertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/fuenf_vor_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_vor_viertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_vor_viertel" />
+                    </TableRow>
+
+                    <TableRow>
 
-                <CheckBox
-                    android:id="@+id/fuenf_vor_viertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/fuenf_vor_viertel" />
+                        <CheckBox
+                            android:id="@+id/fuenf_nach_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_nach_viertel" />
 
-                <CheckBox
-                    android:id="@+id/fuenf_nach_viertel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/fuenf_nach_viertel" />
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xfuenf_nach_viertel" />
+                    </TableRow>
 
+                </TableLayout>
 
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="15sp" />
 
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1">
 
-            <Space
-                android:layout_width="fill_parent"
-                android:layout_height="15sp" />
+                    <TableRow>
 
-                <TextView
-                    style="@style/DialogLabel"
-                    android:text="@string/time_of_day" />
-
-                <LinearLayout style="@style/DialogItem">
-
-                    <TextView
-                        style="@style/DialogLabelSmall"
-                        android:text="@string/morgen" />
+                        <TextView
+                            style="@style/DialogLabel"
+                            android:text="@string/time_of_day" />
 
-                    <Spinner
-                        android:id="@+id/morgen"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xtime_of_day" />
+                    </TableRow>
 
-                <LinearLayout style="@style/DialogItem">
+                    <TableRow>
 
-                    <TextView
-                        style="@style/DialogLabelSmall"
-                        android:text="@string/vormittag" />
+                        <LinearLayout style="@style/DialogItem">
 
-                    <Spinner
-                        android:id="@+id/vormittag"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
+                            <TextView
+                                style="@style/DialogLabelSmall"
+                                android:text="@string/morgen" />
 
-                <LinearLayout style="@style/DialogItem">
+                            <Spinner
+                                android:id="@+id/morgen"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
 
-                    <TextView
-                        style="@style/DialogLabelSmall"
-                        android:text="@string/mittag" />
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xmorgen" />
+                    </TableRow>
 
-                    <Spinner
-                        android:id="@+id/mittag"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
+                    <TableRow>
 
-                <LinearLayout style="@style/DialogItem">
+                        <LinearLayout style="@style/DialogItem">
 
-                    <TextView
-                        style="@style/DialogLabelSmall"
-                        android:text="@string/nachmittag" />
+                            <TextView
+                                style="@style/DialogLabelSmall"
+                                android:text="@string/vormittag" />
 
-                    <Spinner
-                        android:id="@+id/nachmittag"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
+                            <Spinner
+                                android:id="@+id/vormittag"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
 
-                <LinearLayout style="@style/DialogItem">
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xvormittag" />
+                    </TableRow>
 
-                    <TextView
-                        style="@style/DialogLabelSmall"
-                        android:text="@string/abend" />
+                    <TableRow>
 
-                    <Spinner
-                        android:id="@+id/abend"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
+                        <LinearLayout style="@style/DialogItem">
 
-                <LinearLayout style="@style/DialogItem">
+                            <TextView
+                                style="@style/DialogLabelSmall"
+                                android:text="@string/mittag" />
 
-                    <TextView
-                        style="@style/DialogLabelSmall"
-                        android:text="@string/nacht" />
 
-                    <Spinner
-                        android:id="@+id/nacht"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
+                            <Spinner
+                                android:id="@+id/mittag"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
 
-                <LinearLayout style="@style/DialogItem">
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xmittag" />
+                    </TableRow>
 
-                    <TextView
-                        style="@style/DialogLabelSmall"
-                        android:text="@string/early" />
 
-                    <Spinner
-                        android:id="@+id/frueh"
-                        style="@style/DropDownCombo" />
-                </LinearLayout>
+                    <TableRow>
 
-            <Space
-                android:layout_width="fill_parent"
-                android:layout_height="15sp" />
+                        <LinearLayout style="@style/DialogItem">
 
+                            <TextView
+                                style="@style/DialogLabelSmall"
+                                android:text="@string/nachmittag" />
 
-                <TextView
-                    style="@style/DialogLabel"
-                    android:text="@string/hybrid" />
+                            <Spinner
+                                android:id="@+id/nachmittag"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
 
 
-                <CheckBox
-                    android:id="@+id/mult_of_five"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/stars" />
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xnachmittag" />
+                    </TableRow>
 
-                <CheckBox
-                    android:id="@+id/hybrid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onCheckboxClicked"
-                    android:paddingRight="10dp"
-                    android:text="@string/hybrid_desc" />
+                    <TableRow>
 
+                        <LinearLayout style="@style/DialogItem">
+
+                            <TextView
+                                style="@style/DialogLabelSmall"
+                                android:text="@string/abend" />
+
+                            <Spinner
+                                android:id="@+id/abend"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
+
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xabend" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <LinearLayout style="@style/DialogItem">
+
+                            <TextView
+                                style="@style/DialogLabelSmall"
+                                android:text="@string/nacht" />
+
+                            <Spinner
+                                android:id="@+id/nacht"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
+
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xnacht" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <LinearLayout style="@style/DialogItem">
+
+                            <TextView
+                                style="@style/DialogLabelSmall"
+                                android:text="@string/early" />
+
+                            <Spinner
+                                android:id="@+id/frueh"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
+
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xearly" />
+                    </TableRow>
+                </TableLayout>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="15sp" />
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1">
+
+
+                    <TableRow>
+
+                        <TextView
+                            style="@style/DialogLabel"
+                            android:text="@string/hybrid" />
+
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xhybrid" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/mult_of_five"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/stars" />
+
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xstars" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/hybrid"
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:paddingRight="10dp"
+                            android:text="@string/hybrid_desc" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xhybrid_desc" />
+                    </TableRow>
+                </TableLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

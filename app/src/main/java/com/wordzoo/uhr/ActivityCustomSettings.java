@@ -395,7 +395,10 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
-
+    public void help(View view) {
+        ChromeHelpPopup chromeHelpPopup = new ChromeHelpPopup(ActivityCustomSettings.this, view.getContentDescription()+"");
+        chromeHelpPopup.show(view);
+    }
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
@@ -410,8 +413,6 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
                     getSettings().setUhr(Boolean.FALSE);
                 break;
             case R.id.esist:
-                ChromeHelpPopup chromeHelpPopup = new ChromeHelpPopup(ActivityCustomSettings.this,"Hello!");
-                chromeHelpPopup.show(view);
                 if (checked)
                     getSettings().setEsist(Boolean.TRUE);
                 else
