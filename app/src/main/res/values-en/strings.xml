@@ -1,6 +1,6 @@
 <resources>
 
-
+	<!--TRANSALATIONS -->
     <string name="app_name">German Clock</string>
 
     <string name="new_clock">new clock</string>
@@ -14,51 +14,59 @@
 
 
 
+	<!-- EXPLANATIONS -->
+
+    <string name="xbasic">basic settings</string>
+
+    <string name="xesist">add the prefix "It is" to the start of the time</string>
+    <string name="xminuten">add the word minute or minutes (not always applicable)</string>
+    <string name="xuhr">add the word hour (not always applicable)</string>
+    <string name="xkurz_nach">just after the hour (0 to 4 minutes)</string>
+    <string name="xkurz_vor">just before the hour (56 - 59)</string>
 
 
-    <string name="xbasic">basic</string>
-    <string name="xstars">Min. on mult. of 5 plus stars</string>
 
-    <string name="xesist">It is</string>
-    <string name="xminuten">minute(s)</string>
-    <string name="xuhr">hour</string>
-    <string name="xkurz_nach">just after</string>
-    <string name="xkurz_vor">just before</string>
+    <string name="xhalb_stunde">this section inludes all of the settings related to half hour</string>
 
-
-
-    <string name="xhalb_stunde">half hour</string>
-
-    <string name="xhalb">half</string>
-    <string name="xfuenf_vor_halb">five before half</string>
-    <string name="xfuenf_nach_halb">five past half</string>
-    <string name="xzehn_vor_halb">ten before half</string>
-    <string name="xzehn_nach_halb">ten after half</string>
-    <string name="xkurz_vor_halb">just before half</string>
-    <string name="xkurz_nach_halb">just after half</string>
-    <string name="xdreiviertel">three-quarters</string>
-    <string name="xkurz_vor_dreiviertel">just before three-quarters</string>
-    <string name="xkurz_nach_dreiviertel">just after three-quarters</string>
-    <string name="xfuenf_vor_dreiviertel">five before three-quarters</string>
-    <string name="xfuenf_nach_dreiviertel">five after three-quarters</string>
-    <string name="xviertel">quarter</string>
-    <string name="xkurz_vor_viertel">just before quarter</string>
-    <string name="xkurz_nach_viertel">just after quarter</string>
-    <string name="xfuenf_vor_viertel">five before quarter</string>
-    <string name="xfuenf_nach_viertel">five after quarter</string>
+    <string name="xhalb">when the time is on an even half hour, display "halb" and the next hour</string>
+    <string name="xfuenf_vor_halb">five before the current half hour</string>
+    <string name="xfuenf_nach_halb">five past the current half hour</string>
+    <string name="xzehn_vor_halb">ten before the current half hour</string>
+    <string name="xzehn_nach_halb">ten after the current half hour</string>
+    <string name="xkurz_vor_halb">just before the current half hour (0 - 4 minutes)</string>
+    <string name="xkurz_nach_halb">just after the current half hour hour (31 - 34 minutes)</string>
+    
+    <string name="xdreiviertel">this section inlcudes all of the settings related to three-quarters of an hour</string>
+    <string name="xkurz_vor_dreiviertel">just before three-quarters of an hour (41 - 44 minutes)</string>
+    <string name="xkurz_nach_dreiviertel">just after three-quarters of an hour (46 - 49 minutes)</string>
+    <string name="xfuenf_vor_dreiviertel">five before three-quarters of an hour</string>
+    <string name="xfuenf_nach_dreiviertel">five after three-quarters of an hour</string>
+    
+    
+    <string name="xviertel">this section includes all of the settings related to quarter past the hour</string>
+    <string name="xkurz_vor_viertel">just before quarter past the hour (11 - 14 minutes)</string>
+    <string name="xkurz_nach_viertel">just after quarter past the hour (16 - 19 minutes)</string>
+    <string name="xfuenf_vor_viertel">five before quarter past the hour</string>
+    <string name="xfuenf_nach_viertel">five after quarter past the hour</string>
 
 
-    <string name="xtime_of_day">time of day</string>
-    <string name="xmorgen">morning (5 - 10)</string>
-    <string name="xvormittag">late morning (10 - 12)</string>
-    <string name="xmittag">midday (12 - 14)</string>
-    <string name="xnachmittag">afternoon (14 - 18)</string>
-    <string name="xabend">evening (18 - 22)</string>
-    <string name="xnacht">night (22 - 5)</string>
-    <string name="xearly">late night (0 - 5)</string>
+    <string name="xtime_of_day">this section includes all of the settings related to time of day</string>
+    <string name="xmorgen">morning (5 AM - 10 AM)</string>
+    <string name="xvormittag">late morning (10 AM - 12 PM)</string>
+    <string name="xmittag">midday (12 PM - 2 PM)</string>
+    <string name="xnachmittag">afternoon (2 PM - 6 PM)</string>
+    <string name="xabend">evening (6 PM - 10 PM)</string>
+    <string name="xnacht">night (10 PM - 5 AM)</string>
+    <string name="xearly">late night (midnight - 5 AM)</string>
 
-    <string name="xhybrid">hybrid</string>
-    <string name="xhybrid_desc">colloq. on mult. of 5, other official</string>
+    <string name="xhybrid">Here we keep the special language tools added to make the 
+    verbal time just as it is spoken</string>
+    <string name="xhybrid_desc">the verbal minutes diplay spoken style time just 
+    to the nearest multiple of five. but when the time is not a multiple of five, 
+    use the official time language.</string>
+
+    <string name="xstars">the verbal minutes diplay just to the nearest multiple of five.  then the 
+    remainder of minutes are shows as starts.  for example, 9:13, the verbal time is ten minutes plus 3 stars</string>
 
 <string name="hello">
 Hallo\n\n

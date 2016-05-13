@@ -3,6 +3,46 @@
 
 
     <!--stuff only for the german clock, no translations-->
+
+    <string name="esist">Es ist</string>
+    <string name="minuten">Minute(n)</string>
+    <string name="uhr">Uhr</string>
+    <string name="stars">Min. nur Mult. 5 plus Sterne</string>
+    <string name="kurz_nach">kurz nach Uhr</string>
+    <string name="kurz_vor">kurz vor Uhr</string>
+
+    <string name="basic">grundlegend</string>
+
+    <string name="halb_stunde">halbe stunde</string>
+
+    <string name="halb">halb</string>
+    <string name="fuenf_vor_halb">fünf vor halb</string>
+    <string name="fuenf_nach_halb">fünf nach halb</string>
+    <string name="zehn_vor_halb">zehn vor halb</string>
+    <string name="zehn_nach_halb">zehn nach halb</string>
+    <string name="kurz_vor_halb">kurz vor halb</string>
+    <string name="kurz_nach_halb">kurz nach halb</string>
+    <string name="dreiviertel">dreiviertel</string>
+    <string name="kurz_vor_dreiviertel">kurz vor dreiviertel</string>
+    <string name="kurz_nach_dreiviertel">kurz nach dreiviertel</string>
+    <string name="fuenf_vor_dreiviertel">fünf vor dreiviertel</string>
+    <string name="fuenf_nach_dreiviertel">fünf nach dreiviertel</string>
+    <string name="viertel">viertel</string>
+    <string name="kurz_vor_viertel">kurz vor viertel</string>
+    <string name="kurz_nach_viertel">kurz nach viertel</string>
+    <string name="fuenf_vor_viertel">fünf vor viertel</string>
+    <string name="fuenf_nach_viertel">fünf nach viertel</string>
+    <string name="time_of_day">tageszeit</string>
+    <string name="morgen">morgen (5 - 10)</string>
+    <string name="vormittag">vormittag (10 - 12)</string>
+    <string name="mittag">mittag (12 - 14)</string>
+    <string name="nachmittag">nachmittag (14 - 18)</string>
+    <string name="abend">abend (18 - 22)</string>
+    <string name="nacht">nacht (22 - 5)</string>
+    <string name="early">früh (0 - 5)</string>
+    <string name="hybrid">hybrid</string>
+    <string name="hybrid_desc">Umgang. bei Mult. 5, andere offizielle</string>
+
     <string-array name="settings_dreiviertel">
         <item>kein</item>
         <item>viertel vor</item>

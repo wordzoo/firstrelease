@@ -14,20 +14,15 @@
     <string name="xbasic">основной</string>
     <string name="xstars">5-минутный-интервал + каждая доп.* = 1 минута</string>
 
-
-
     <string name="xhalb">полчаса</string>
     <string name="xdreiviertel">без пятнадцати</string>
     <string name="xviertel">пятнадцать</string>
-
-
 
     <string name="xesist">это</string>
     <string name="xminuten">минут(а)</string>
     <string name="xuhr">час</string>
     <string name="xkurz_nach">немного больше</string>
     <string name="xkurz_vor">почти</string>
-
 
     <string name="xhalb_stunde">полчаса</string>
 
