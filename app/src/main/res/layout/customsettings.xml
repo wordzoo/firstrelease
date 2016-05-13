@@ -1,7 +1,7 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -101,7 +101,8 @@
 
                 <TextView
                     style="@style/DialogLabel"
-                    android:text="@string/basic" />
+                    android:text="@string/basic"
+                    />
 
 
                     <CheckBox
@@ -109,7 +110,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onCheckboxClicked"
-                        android:text="@string/esist" />
+                        android:text="@string/esist"
+                        tools:context=".ActivityCustomSettings"/>
 
 
                     <CheckBox

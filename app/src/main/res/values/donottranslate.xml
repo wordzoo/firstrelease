@@ -1,7 +1,5 @@
 <resources>
 
-
-
     <!--stuff only for the german clock, no translations-->
 
     <string name="esist">Es ist</string>

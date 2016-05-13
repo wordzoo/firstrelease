@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
+import com.wordzoo.uhr.utils.ChromeHelpPopup;
 import com.wordzoo.uhr.utils.Constants;
 import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 import com.wordzoo.uhr.utils.TimePickerFragment;
@@ -409,6 +410,8 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
                     getSettings().setUhr(Boolean.FALSE);
                 break;
             case R.id.esist:
+                ChromeHelpPopup chromeHelpPopup = new ChromeHelpPopup(ActivityCustomSettings.this,"Hello!");
+                chromeHelpPopup.show(view);
                 if (checked)
                     getSettings().setEsist(Boolean.TRUE);
                 else
