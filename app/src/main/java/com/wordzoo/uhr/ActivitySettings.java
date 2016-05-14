@@ -3,22 +3,18 @@ package com.wordzoo.uhr;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RemoteViews;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
@@ -26,7 +22,6 @@ import com.germanclock.words.TimeInWords;
 import com.wordzoo.uhr.utils.Constants;
 import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -117,8 +112,10 @@ public class ActivitySettings extends Activity implements OnClickListener {
         edit = (Button) findViewById(R.id.edit);
 
         //to base configs we don't delete
-        if (selectedConfig.equals(Constants.INFORMAL)
-                || selectedConfig.equals(Constants.OFFICIAL_TIME)) {
+        if (selectedConfig.equals(Constants.INFORMAL_TIME)
+                || selectedConfig.equals(Constants.OFFICIAL_TIME)
+                || selectedConfig.equals(Constants.MIXED_TIME)
+                || selectedConfig.equals(Constants.STAR_TIME)) {
             delete.setBackgroundColor(Color.GRAY);
             edit.setBackgroundColor(Color.GRAY);
             delete.setEnabled(Boolean.FALSE);
@@ -149,8 +146,10 @@ public class ActivitySettings extends Activity implements OnClickListener {
                 String configToDelete = ((RadioButton) findViewById(selectedId)).getText()+"";
 
                 //to base configs we don't delete
-                if(configToDelete.equals(Constants.INFORMAL)
-                        || configToDelete.equals(Constants.OFFICIAL_TIME))
+                if(configToDelete.equals(Constants.INFORMAL_TIME)
+                        || configToDelete.equals(Constants.OFFICIAL_TIME)
+                        || configToDelete.equals(Constants.STAR_TIME)
+                        || configToDelete.equals(Constants.MIXED_TIME))
                     return;
 
                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
@@ -253,7 +252,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
 
                 //to base configs we don't delete
-                if (selectedConfig.equals(Constants.INFORMAL)
+                if (selectedConfig.equals(Constants.INFORMAL_TIME)
                         || selectedConfig.equals(Constants.OFFICIAL_TIME))
                     return;
 
@@ -293,7 +292,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
     public void onClick(View v) {
 
 
-        finish();
+            finish();
     }
 
 

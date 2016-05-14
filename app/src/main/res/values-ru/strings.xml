@@ -1,5 +1,13 @@
 <resources>
 
+    <string name="initializing">Инициализация...</string>
+
+    <string name="conv_time">Разговорное Время</string>
+    <string name="official_time">Официальный Время</string>
+    <string name="mixed_time">Смешанное Время</string>
+    <string name="star_time">Звезды</string>
+
+
     <string name="app_name">Немецкие Часы</string>
 
     <string name="new_clock">новые часы</string>

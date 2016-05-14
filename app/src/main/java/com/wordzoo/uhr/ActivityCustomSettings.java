@@ -353,6 +353,15 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 promptResultConfigName = userInput.getText().toString();
+                                if (new StoreRetrieveGerman()
+                                        .configExists(getSharedPreferences(Constants.SETTING, 0),
+                                                promptResultConfigName)) {
+                                    Toast.makeText(ActivityCustomSettings.this, "New config name : "
+                                            + promptResultConfigName + " exists.  Please choose another name.", Toast.LENGTH_LONG ).show();
+                                    setResult(RESULT_OK, null);
+                                    finish();
+                                }
+
                                 SharedPreferences sp = getSharedPreferences(Constants.SETTING, 0);
                                 new StoreRetrieveGerman().storeNewConfigNameToDisk(sp, Constants.selectedClock, promptResultConfigName);
                                 new StoreRetrieveGerman().storeSettingsToDisk(sp, Constants.selectedClock,
@@ -380,6 +389,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
         alertDialog.show();
 
     }
+
 
     public void onClick(View v) {
 

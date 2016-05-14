@@ -1,5 +1,12 @@
 <resources>
 
+    <string name="initializing">Initializing...</string>
+    
+    <string name="conv_time">Conversational</string>
+    <string name="official_time">Official Time</string>
+    <string name="mixed_time">Mixed</string>
+    <string name="star_time">Stars</string>
+
 	<!--TRANSALATIONS -->
     <string name="app_name">German Clock</string>
 
@@ -59,7 +66,7 @@
     <string name="xnacht">Night (10 PM - 5 AM)</string>
     <string name="xearly">Late night (midnight - 5 AM)</string>
 
-    <string name="xhybrid">Here are special language</string>
+    <string name="xhybrid">Here are special language settings, focused on conversational style</string>
     <string name="xhybrid_desc">The verbal minutes diplay spoken style time just
     to the nearest multiple of five. But when the time is not a multiple of five,
     use the official time language.</string>

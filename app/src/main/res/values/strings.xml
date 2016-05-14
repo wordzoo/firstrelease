@@ -1,4 +1,10 @@
 <resources>
+
+    <string name="initializing">Initialisierend...</string>
+    <string name="conv_time">Umgangssprachlich</string>
+    <string name="official_time">Offizielle Zeit</string>
+    <string name="mixed_time">Gemischt</string>
+    <string name="star_time">Sterne</string>
     <!-- TRANSALATIONS -->
     <string name="app_name">Deutsche Uhrzeit</string>
     <string name="new_clock">Neues Profil</string>

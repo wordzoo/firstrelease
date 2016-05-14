@@ -3,14 +3,16 @@ package com.wordzoo.uhr.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
-import android.widget.Toast;
+import android.widget.RadioGroup;
 
 import com.germanclock.time.Settings;
+import com.wordzoo.uhr.R;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -245,7 +247,7 @@ public class StoreRetrieveGerman  {
         s.setUmgangssprachlich(Boolean.FALSE);
         storeSettingsToDisk(sp, Constants.selectedClock, Constants.OFFICIAL_TIME, s, context);
 
-        storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.INFORMAL);
+        storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.INFORMAL_TIME);
         s = new Settings();
         s.setEsist(Boolean.TRUE);
         s.setUhr(Boolean.TRUE);
@@ -273,11 +275,22 @@ public class StoreRetrieveGerman  {
         s.setAmnachmittag(Boolean.TRUE);
         s.setAmvormittag(Boolean.TRUE);
 
-        storeSettingsToDisk(sp, Constants.selectedClock, Constants.INFORMAL, s, context);
+        storeSettingsToDisk(sp, Constants.selectedClock, Constants.INFORMAL_TIME, s, context);
 
         //default on widget enabled to official time
         updateChosenConfig(sp, Constants.OFFICIAL_TIME, context);
 
+    }
+
+    public Boolean configExists(SharedPreferences sp, String configName) {
+        //get all configs
+        Set set = sp.getStringSet(Constants.selectedClock + "~" + Constants.CONFIG, new HashSet());
+        Iterator i = set.iterator();
+        while(i.hasNext()) {
+            if (configName.equals((String) i.next()))
+                return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 
     public void debugthis(SharedPreferences prefs) {

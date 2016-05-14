@@ -11,8 +11,10 @@ public class Constants {
 
     public final static String CONFIG = "CONFIG"; //note key includes clock, e.g. germanclock~myconfig
     public final static String SETTING = "SETTING"; //note key includes clock~config~setting e.g. germanclock~myconfig~kurznach
-    public final static String OFFICIAL_TIME = "offizielle zeit";
-    public final static String INFORMAL = "umgangssprachlich";
+    public final static String OFFICIAL_TIME = "Offizielle Zeit";
+    public final static String INFORMAL_TIME = "Umgangssprachlich";
+    public final static String MIXED_TIME = "Gemischt";
+    public final static String STAR_TIME = "Sterne";
 
     public final static String CONFIG_MODE_EDIT = "CONFIG_MODE_EDIT";
     public final static String CONFIG_MODE_NEW = "CONFIG_MODE_NEW";
