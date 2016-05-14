@@ -31,13 +31,13 @@
     <string name="fuenf_vor_viertel">fünf vor viertel</string>
     <string name="fuenf_nach_viertel">fünf nach viertel</string>
     <string name="time_of_day">tageszeit</string>
-    <string name="morgen">morgen (5 - 10)</string>
-    <string name="vormittag">vormittag (10 - 12)</string>
-    <string name="mittag">mittag (12 - 14)</string>
-    <string name="nachmittag">nachmittag (14 - 18)</string>
-    <string name="abend">abend (18 - 22)</string>
-    <string name="nacht">nacht (22 - 5)</string>
-    <string name="early">früh (0 - 5)</string>
+    <string name="morgen">morgen</string>
+    <string name="vormittag">vormittag</string>
+    <string name="mittag">mittag</string>
+    <string name="nachmittag">nachmittag</string>
+    <string name="abend">abend</string>
+    <string name="nacht">nacht</string>
+    <string name="early">früh</string>
     <string name="hybrid">hybrid</string>
     <string name="hybrid_desc">Umgang. bei Mult. 5, andere offizielle</string>
 

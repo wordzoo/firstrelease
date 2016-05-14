@@ -291,11 +291,99 @@
                             android:contentDescription="@string/xkurz_nach_halb" />
                     </TableRow>
 
-                    <Space
-                        android:layout_width="fill_parent"
-                        android:layout_height="15sp" />
 
                 </TableLayout>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="15sp" />
+
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1">
+
+                    <TableRow>
+
+                        <LinearLayout style="@style/DialogItem">
+
+                            <TextView
+                                style="@style/DialogLabel"
+                                android:text="@string/viertel" />
+
+                            <Spinner
+                                android:id="@+id/viertel_combo"
+                                style="@style/DropDownCombo" />
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xviertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_vor_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_vor_viertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_vor_viertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/kurz_nach_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/kurz_nach_viertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xkurz_nach_viertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/fuenf_vor_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_vor_viertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xfuenf_vor_viertel" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <CheckBox
+                            android:id="@+id/fuenf_nach_viertel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onCheckboxClicked"
+                            android:text="@string/fuenf_nach_viertel" />
+
+                        <ImageView
+                            style="@style/HelpImage"
+                            android:contentDescription="@string/xfuenf_nach_viertel" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="15sp" />
+
 
                 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
@@ -383,86 +471,6 @@
 
                 </TableLayout>
 
-                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:stretchColumns="1">
-
-                    <TableRow>
-
-                        <LinearLayout style="@style/DialogItem">
-
-                            <TextView
-                                style="@style/DialogLabel"
-                                android:text="@string/viertel" />
-
-                            <Spinner
-                                android:id="@+id/viertel_combo"
-                                style="@style/DropDownCombo" />
-                        </LinearLayout>
-
-                        <ImageView
-                            style="@style/HelpImage"
-                            android:contentDescription="@string/xviertel" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <CheckBox
-                            android:id="@+id/kurz_vor_viertel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="onCheckboxClicked"
-                            android:text="@string/kurz_vor_viertel" />
-
-                        <ImageView
-                            style="@style/HelpImage"
-                            android:contentDescription="@string/xkurz_vor_viertel" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <CheckBox
-                            android:id="@+id/kurz_nach_viertel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="onCheckboxClicked"
-                            android:text="@string/kurz_nach_viertel" />
-
-                        <ImageView
-                            style="@style/HelpImage"
-                            android:contentDescription="@string/xkurz_nach_viertel" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <CheckBox
-                            android:id="@+id/fuenf_vor_viertel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="onCheckboxClicked"
-                            android:text="@string/fuenf_vor_viertel" />
-
-                        <ImageView
-                            style="@style/HelpImage"
-                            android:contentDescription="@string/xkurz_vor_viertel" />
-                    </TableRow>
-
-                    <TableRow>
-
-                        <CheckBox
-                            android:id="@+id/fuenf_nach_viertel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="onCheckboxClicked"
-                            android:text="@string/fuenf_nach_viertel" />
-
-                        <ImageView
-                            style="@style/HelpImage"
-                            android:contentDescription="@string/xfuenf_nach_viertel" />
-                    </TableRow>
-
-                </TableLayout>
 
                 <Space
                     android:layout_width="fill_parent"

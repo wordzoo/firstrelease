@@ -11,21 +11,21 @@
     <string name="preview">Vorschau</string>
     <!--  EXPLANATIONS  -->
     <string name="xbasic">Grundeinstellungen</string>
-    <string name="xesist">Am Anfang der Zeitangabe den Präfix "Es ist" hinzufügen</string>
-    <string name="xminuten">das Wort "Minute(n)" hinzufügen (nicht immer sinnvoll)</string>
-    <string name="xuhr">das Wort "Stunde" hinzufügen (nicht immer sinnvoll)</string>
+    <string name="xesist">Am Anfang der Zeitangabe den Präfix \"Es ist\" hinzufügen</string>
+    <string name="xminuten">das Wort \"Minute(n)\" hinzufügen (nicht immer sinnvoll)</string>
+    <string name="xuhr">das Wort \"Stunde\" hinzufügen (nicht immer sinnvoll)</string>
     <string name="xkurz_nach">kurz nach einer vollen Stunde (0 bis 4 Minuten)</string>
-    <string name="xkurz_vor">kurz vor einer vollen Stunde (56 - 59)</string>
+    <string name="xkurz_vor">kurz vor einer vollen Stunde (56 - 59 4 Minuten)</string>
 
     <string name="xhalb_stunde">Dieser Teil beinhaltet alle Einstellungen zu der Zeitangabe zur halben Stunde</string>
 
-    <string name="xhalb">Uhrzeitangabe zur halben Stunde, "halb" und die nächste volle Stunde hinzufügen</string>
+    <string name="xhalb">Uhrzeitangabe zur halben Stunde, \"halb\" und die nächste volle Stunde hinzufügen</string>
 
     <string name="xfuenf_vor_halb">fünf vor der halben Stunde</string>
     <string name="xfuenf_nach_halb">fünf nach der halben Stunde</string>
     <string name="xzehn_vor_halb">zehn vor der halben Stunde</string>
     <string name="xzehn_nach_halb">zehn nach der halben Stunde</string>
-    <string name="xkurz_vor_halb">kurz vor der halben Stunde (0 - 4 Minuten)</string>
+    <string name="xkurz_vor_halb">kurz vor der halben Stunde (26 - 29 Minuten)</string>
     <string name="xkurz_nach_halb">kurz nach der halben stunde (31 - 34 Minuten)</string>
 
     <string name="xdreiviertel">Dieser Teil beinhaltet alle Einstellungen zu der Zeitangabe "Dreiviertel" einer Stunde</string>
@@ -44,20 +44,20 @@
 
     <string name="xtime_of_day">Dieser Teil beinhaltet alle Einstellungen zu der Tagesuhrzeit</string>
 
-    <string name="xmorgen">am Morgen (5 AM - 10 AM)</string>
-    <string name="xvormittag">am Vormittag (10 AM - 12 PM)</string>
-    <string name="xmittag">am Mittag (12 PM - 2 PM)</string>
-    <string name="xnachmittag">am Nachmittag (2 PM - 6 PM)</string>
-    <string name="xabend">am Abend (6 PM - 10 PM)</string>
-    <string name="xnacht">spät am Abend / in der Nacht (10 PM - 5 AM)</string>
-    <string name="xearly">in der Nacht (Mitternacht - 5 AM)</string>
+    <string name="xmorgen">am Morgen (5 - 10)</string>
+    <string name="xvormittag">am Vormittag (10 - 12)</string>
+    <string name="xmittag">am Mittag (12 - 14)</string>
+    <string name="xnachmittag">am Nachmittag (14 - 18)</string>
+    <string name="xabend">am Abend (18 - 22)</string>
+    <string name="xnacht">spät am Abend / in der Nacht (22 - 5)</string>
+    <string name="xearly">in der Nacht (0 - 5)</string>
 
     <string name="xhybrid">Hier befinden sich alle besonderen Spracheinstellungen um die Zeit so darzustellen wie sie mündlich und ausgeschrieben angegeben wird.</string>
 
     <string name="xhybrid_desc">Die ausgeschriebene mündliche Minutenangabe als nächstliegende vielfache von Fünf. Jedoch wenn die Uhrzeit nicht ein vielfaches von fünf ist, dann verwende die offizielle Zeitangabe.</string>
 
-    <string name="xstars">Die ausgeschriebene mündliche Minutenangabe als nächstliegende vielfache von Fünf. Die restlichen Minuten werden als Sterne angezeigt. Zum Beispiel: 9:13 ausgeschrieben, ist dann "zehn Minuten ***"</string>
+    <string name="xstars">Die ausgeschriebene mündliche Minutenangabe als nächstliegende vielfache von Fünf. Die restlichen Minuten werden als Sterne angezeigt. Zum Beispiel: 9:13 ausgeschrieben, ist dann \"zehn Minuten ***\"</string>
 
-    <string name="hello">Hallo\n\n vielen Dank dass Sie die "Deutsche Uhrzeit"-Widget installiert haben!\n\n Sie sollten, um das Widget nutzen zu können, dieses auf Ihrem "Homescreen" installieren. Zuerst finden Sie einen freien Bereich auf Ihrem Homescreen und halten Ihren Finger auf dem Display gedrückt. Die Anzeige ändert sich und Sie gelangen ins Auswahl-Menü. Wählen Sie den Widgets-Tab aus und suchen Sie nach dem "Deutschen Uhrzeit"-Widget. Halten Sie den Finger auf dem Widget-Symbol und ziehen Sie es auf Ihren Homescreen. Das wars! Probieren Sie das "Deutsche Uhrzeit"-Widget aus!</string>
+    <string name="hello">Hallo\n\n vielen Dank dass Sie die \"Deutsche Uhrzeit\"-Widget installiert haben!\n\n Sie sollten, um das Widget nutzen zu können, dieses auf Ihrem "Homescreen" installieren. Zuerst finden Sie einen freien Bereich auf Ihrem Homescreen und halten Ihren Finger auf dem Display gedrückt. Die Anzeige ändert sich und Sie gelangen ins Auswahl-Menü. Wählen Sie den Widgets-Tab aus und suchen Sie nach dem "Deutschen Uhrzeit"-Widget. Halten Sie den Finger auf dem Widget-Symbol und ziehen Sie es auf Ihren Homescreen. Das wars! Probieren Sie das "Deutsche Uhrzeit"-Widget aus!</string>
 
 </resources>
