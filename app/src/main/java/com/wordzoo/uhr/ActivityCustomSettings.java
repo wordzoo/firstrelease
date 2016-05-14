@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -340,7 +341,6 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 ActivityCustomSettings.this);
 
-        // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
 
         final EditText userInput = (EditText) promptsView
@@ -373,6 +373,8 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         // show it
         alertDialog.show();
