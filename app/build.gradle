@@ -17,8 +17,8 @@ android {
         applicationId "com.wordzoo.uhr"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 8
-        versionName "alpha"
+        versionCode 9
+        versionName "German Clock 1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

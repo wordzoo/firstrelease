@@ -276,7 +276,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
         saveas = (Button) findViewById(R.id.saveas);
         if(CONFIG_MODE.equals(Constants.CONFIG_MODE_EDIT)) {
             save.setVisibility(View.VISIBLE);
-            save.setText("update " + selectedConfig);
+            save.setText(getResources().getString(R.string.save) + " " + selectedConfig);
             saveas.setVisibility(View.GONE);
         }
         else {
