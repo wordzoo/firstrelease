@@ -1,11 +1,7 @@
 <resources>
 
     <string name="initializing">Initializing...</string>
-    
-    <string name="conv_time">Conversational</string>
-    <string name="official_time">Official Time</string>
-    <string name="mixed_time">Mixed</string>
-    <string name="star_time">Stars</string>
+
 
 	<!--TRANSALATIONS -->
     <string name="app_name">German Clock</string>
@@ -22,6 +18,14 @@
 
 
 	<!-- EXPLANATIONS -->
+    <string name="xconv_time">Basic conversational time</string>
+    <string name="xofficial_time">Official time</string>
+    <string name="xmixed_time">The verbal minutes diplay spoken style time just
+    to the nearest multiple of five. But when the time is not a multiple of five,
+    use the official time language.</string>
+    <string name="xstar_time">The verbal minutes diplay just to the nearest multiple of five.  Then the
+    remainder of minutes are shown as stars.  For example, 9:13, the verbal time is ten minutes plus 3 stars.</string>
+
 
     <string name="xbasic">Basic Settings</string>
 

@@ -274,8 +274,16 @@ public class StoreRetrieveGerman  {
         s.setInderfrueh(Boolean.TRUE);
         s.setAmnachmittag(Boolean.TRUE);
         s.setAmvormittag(Boolean.TRUE);
-
         storeSettingsToDisk(sp, Constants.selectedClock, Constants.INFORMAL_TIME, s, context);
+
+        storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.STAR_TIME);
+        s.setUmgangminute(Settings.Umgangminute.minutebar);
+        storeSettingsToDisk(sp, Constants.selectedClock, Constants.STAR_TIME, s, context);
+
+        storeNewConfigNameToDisk(sp, Constants.selectedClock, Constants.MIXED_TIME);
+        s.setUmgangminute(Settings.Umgangminute.minuteword);
+        s.setMinuteHybrid(Boolean.TRUE);
+        storeSettingsToDisk(sp, Constants.selectedClock, Constants.MIXED_TIME, s, context);
 
         //default on widget enabled to official time
         updateChosenConfig(sp, Constants.OFFICIAL_TIME, context);

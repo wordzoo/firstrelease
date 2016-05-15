@@ -1,10 +1,6 @@
 <resources>
 
     <string name="initializing">Initialisierend...</string>
-    <string name="conv_time">Umgangssprachlich</string>
-    <string name="official_time">Offizielle Zeit</string>
-    <string name="mixed_time">Gemischt</string>
-    <string name="star_time">Sterne</string>
     <!-- TRANSALATIONS -->
     <string name="app_name">Deutsche Uhrzeit</string>
     <string name="new_clock">Neues Profil</string>
@@ -16,6 +12,13 @@
     <string name="save">Speichern</string>
     <string name="preview">Vorschau</string>
     <!--  EXPLANATIONS  -->
+    <string name="xconv_time">Umgangssprachlich Zeit</string>
+    <string name="xofficial_time">Offizielle Zeit</string>
+    <string name="xmixed_time">Die ausgeschriebene mündliche Minutenangabe als nächstliegende vielfache von Fünf. Jedoch wenn die Uhrzeit nicht ein vielfaches von fünf ist, dann verwende die offizielle Zeitangabe.</string>
+    <string name="xstar_time">Die ausgeschriebene mündliche Minutenangabe als nächstliegende vielfache von Fünf. Die restlichen Minuten werden als Sterne angezeigt. Zum Beispiel: 9:13 ausgeschrieben, ist dann \"zehn Minuten ***\"</string>
+
+
+
     <string name="xbasic">Grundeinstellungen</string>
     <string name="xesist">Am Anfang der Zeitangabe den Präfix \"Es ist\" hinzufügen</string>
     <string name="xminuten">das Wort \"Minute(n)\" hinzufügen (nicht immer sinnvoll)</string>

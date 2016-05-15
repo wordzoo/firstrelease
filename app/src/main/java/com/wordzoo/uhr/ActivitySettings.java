@@ -40,6 +40,16 @@ public class ActivitySettings extends Activity implements OnClickListener {
     private Button newConfig;
     private Button edit;
 
+    private Boolean configNotDefault(String config) {
+        if(!config.equals(Constants.OFFICIAL_TIME)
+                && !config.equals(Constants.INFORMAL_TIME)
+                && !config.equals(Constants.STAR_TIME)
+                && !config.equals(Constants.MIXED_TIME))
+            return Boolean.TRUE;
+        else
+            return Boolean.FALSE;
+
+    }
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -57,11 +67,13 @@ public class ActivitySettings extends Activity implements OnClickListener {
         while(i.hasNext()) {
             configName = (String) i.next();
             RadioButton rdbtn = new RadioButton(this);
-            rdbtn.setId(id); id++;
+            rdbtn.setId(id);
+            id++;
             rdbtn.setText(configName);
             config.addView(rdbtn);
-            if(configName.equals(chosenConfig))
+            if (configName.equals(chosenConfig))
                 config.check(rdbtn.getId());
+
 
         }
 

@@ -2,10 +2,6 @@
 
     <string name="initializing">Инициализация...</string>
 
-    <string name="conv_time">Разговорное Время</string>
-    <string name="official_time">Официальный Время</string>
-    <string name="mixed_time">Смешанное Время</string>
-    <string name="star_time">Звезды</string>
 
 
     <string name="app_name">Немецкие Часы</string>
@@ -18,6 +14,13 @@
     <string name="saveas">сохранить как...</string>
     <string name="save">сохранить</string>
     <string name="preview">предварительный просмотр</string>
+
+
+    <string name="xconv_time">Разговорное Время</string>
+    <string name="xofficial_time">Официальный Время</string>
+    <string name="xmixed_time">Смешанное Время</string>
+    <string name="xstar_time">Звезды</string>
+
 
     <string name="xbasic">основной</string>
     <string name="xstars">5-минутный-интервал + каждая доп.* = 1 минута</string>

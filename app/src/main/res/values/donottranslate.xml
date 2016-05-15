@@ -2,6 +2,12 @@
 
     <!--stuff only for the german clock, no translations-->
 
+    <string name="conv_time">Umgangssprachlich</string>
+    <string name="official_time">Offizielle Zeit</string>
+    <string name="mixed_time">Gemischt</string>
+    <string name="star_time">Sterne</string>
+
+
     <string name="esist">Es ist</string>
     <string name="minuten">Minute(n)</string>
     <string name="uhr">Uhr</string>
