@@ -29,8 +29,11 @@
 
     </style>
 
+
     <style name="ClockWidget" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/border_no_padding</item>
+
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minEms">30</item>
         <item name="android:layout_gravity">fill</item>
@@ -39,9 +42,8 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">25dp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:background">#030303</item>
         <item name="android:singleLine">false</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">10dp</item>
         <item name="android:layout_alignParentEnd">false</item>
         <item name="android:layout_alignParentRight">false</item>
     </style>

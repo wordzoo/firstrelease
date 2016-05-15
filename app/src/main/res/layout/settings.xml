@@ -37,26 +37,64 @@
             android:contentDescription="@string/xofficial_time" />
 </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:orientation="vertical"
-        android:paddingBottom="10dp">
 
         <TextView
             style="@style/ClockWidget"
             android:id="@+id/example" />
-    </LinearLayout>
 
     <Space
         android:layout_width="fill_parent"
         android:layout_height="15sp" />
 
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/newClock"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_clock" />
+
+            <Button
+                android:layout_marginLeft="10dp"
+                style="@style/Button"
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:layout_marginTop="10dp"
+                style="@style/Button"
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete" />
+
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                style="@style/Button"
+                android:id="@+id/done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/done" />
+        </TableRow>
+    </TableLayout>
+
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
@@ -71,51 +109,9 @@
 
             </RadioGroup>
 
-            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="1">
 
-                <TableRow>
-
-                    <Button
-                        android:id="@+id/newClock"
-                        style="@style/Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/new_clock" />
-
-                    <Button
-                        android:layout_marginLeft="10dp"
-                        style="@style/Button"
-                        android:id="@+id/edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/edit" />
-                </TableRow>
-
-                <TableRow>
-
-                    <Button
-                        android:layout_marginTop="10dp"
-                        style="@style/Button"
-                        android:id="@+id/delete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/delete" />
-
-
-                    <Button
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        style="@style/Button"
-                        android:id="@+id/done"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/done" />
-                </TableRow>
-            </TableLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
 

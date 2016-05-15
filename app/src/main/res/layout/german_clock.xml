@@ -8,15 +8,9 @@
 
 
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:orientation="vertical"
-        android:paddingBottom="10dp">
+
     <TextView
             style="@style/ClockWidget"
-            android:id="@+id/textView" />
-    </LinearLayout>
+        android:id="@+id/textView" />
 
 </RelativeLayout>
