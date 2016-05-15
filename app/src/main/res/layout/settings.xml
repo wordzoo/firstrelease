@@ -4,27 +4,38 @@
     android:layout_height="fill_parent"
     android:layout_margin="10dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal">
     <TextView
         android:id="@+id/preview_label"
         style="@style/DialogLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
-        android:text="@string/preview"
+        android:text="@string/official_time"
         android:textStyle="bold" />
 
 
     <TextView
         android:id="@+id/preview"
         style="@style/DialogLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
         android:text="8:45"
         android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/xpreview"
+            android:paddingBottom="8dp"
+            style="@style/HelpImage"
+            android:contentDescription="@string/xofficial_time" />
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"

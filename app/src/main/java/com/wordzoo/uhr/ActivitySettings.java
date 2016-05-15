@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.germanclock.time.Pieces;
 import com.germanclock.time.Settings;
 import com.germanclock.words.TimeInWords;
+import com.wordzoo.uhr.utils.ChromeHelpPopup;
 import com.wordzoo.uhr.utils.Constants;
 import com.wordzoo.uhr.utils.StoreRetrieveGerman;
 
@@ -85,7 +87,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-        drawTime(sdf.format(d), s);
+        drawTime(sdf.format(d), s, chosenConfig);
 
         updateButtons(chosenConfig);
 
@@ -103,7 +105,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
 
                 Date d = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-                drawTime(sdf.format(d), s);
+                drawTime(sdf.format(d), s, selectedConfig);
 
 
                 updateButtons(selectedConfig);
@@ -307,15 +309,37 @@ public class ActivitySettings extends Activity implements OnClickListener {
             finish();
     }
 
+    public String setXPreviewDescription(String chosenConfig) {
+        if(chosenConfig.equals(Constants.OFFICIAL_TIME))
+            return getResources().getString(R.string.xofficial_time);
+        if(chosenConfig.equals(Constants.INFORMAL_TIME))
+            return getResources().getString(R.string.xconv_time);
+        if(chosenConfig.equals(Constants.STAR_TIME))
+            return getResources().getString(R.string.xstar_time);
+        if(chosenConfig.equals(Constants.MIXED_TIME))
+            return getResources().getString(R.string.xmixed_time);
 
-    public void drawTime(String time, Settings settings) {
+        return "Custom";
+    }
+
+    public void help(View view) {
+        ChromeHelpPopup chromeHelpPopup = new ChromeHelpPopup(ActivitySettings.this, view.getContentDescription()+"");
+        chromeHelpPopup.show(view);
+    }
+
+    public void drawTime(String time, Settings settings, String chosenConfig) {
 
         TextView testclock = (TextView)findViewById(R.id.example);
         TextView preview = (TextView)findViewById(R.id.preview);
+        TextView previewLabel = (TextView)findViewById(R.id.preview_label);
+        ImageView xpreview = (ImageView)findViewById(R.id.xpreview);
 
 
         Pieces p = new Pieces(time);
         preview.setText(time);
+        previewLabel.setText(chosenConfig);
+        xpreview.setContentDescription(setXPreviewDescription(chosenConfig));
+
         testclock.setText(new TimeInWords(ActivitySettings.this).getTimeAsSentance(p, settings));
         int drawableid = 0;
         if(settings.getUmgangminute().equals(Settings.Umgangminute.minutebar)
