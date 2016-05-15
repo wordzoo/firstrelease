@@ -1,0 +1,66 @@
+<resources>
+    <!--TRANSALATIONS -->
+    <string name="initializing">初始化...</string>
+    <string name="app_name">德国时钟</string>
+    <string name="new_clock">新的时钟</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="done">完成</string>
+    <string name="cancel">取消</string>
+    <string name="saveas">另存为...</string>
+    <string name="save">储存</string>
+    <string name="preview">预览</string>
+
+    <!-- EXPLANATIONS -->
+    <string name="xconv_time">口語選項</string>
+    <string name="xofficial_time">官方草案</string>
+    <string name="xmixed_time">此口頭分鐘顯示口語風格時間接近五的倍數，但當時間不是五的倍數，使用官方時間語言</string>
+    <string name="xstar_time">此口頭分鐘只是顯示接近五的倍數，然後剩餘的分鈡顯示為星星。舉例來說，09:13，此口頭時間是十分鐘加上（三個星星）</string>
+    <string name="xcustom_time">定制時間</string>
+    <string name="xbasic">基本设置/基本设定</string>
+    <string name="xesist">添加字首\"這是\"於開始的時間</string>
+    <string name="xminuten">添加分鐘或幾分鐘（並不是總適用）</string>
+    <string name="xuhr">添加此字小時（並不是總適用）</string>
+    <string name="xkurz_nach">在這小時後（零到四分鐘）</string>
+    <string name="xkurz_vor"> 在這小時前（五十六-五十九）</string>
+    <string name="xhalb_stunde">這部分包含所有有關半小時的設定(設置)</string>
+    <string name="xhalb">當時間是在半小時，在一小時后顯示 \"halb\"</string>
+    <string name="xfuenf_vor_halb">五點前的半小時 </string>
+    <string name="xfuenf_nach_halb">五點後的半小時</string>
+    <string name="xzehn_vor_halb">十點前的半小時</string>
+    <string name="xzehn_nach_halb">十點後的半小時</string>
+    <string name="xkurz_vor_halb">  只是當前的半小時之前（26-29 分鐘） </string>
+    <string name="xkurz_nach_halb"> 只是當前的半小時之後  （三十一  -  三十四分鐘）</string>
+    <string name="xdreiviertel">本節包括所有四分之三小時的相關設置</string>
+    <string name="xkurz_vor_dreiviertel">只是四分之三小時之前</string>
+    <string name="xkurz_nach_dreiviertel">只是在四分之三小時後（四十六-四十九分鐘）</string>
+    <string name="xfuenf_vor_dreiviertel">五點前的四分之三小時</string>
+    <string name="xfuenf_nach_dreiviertel">五點後的四分之三小時</string>
+    <string name="xviertel">本節包括所有和一刻鐘相關的設定</string>
+    <string name="xkurz_vor_viertel">只是前一刻（十一分鐘 – 十四分鐘）</string>
+    <string name="xkurz_nach_viertel">只是後一刻 （十六分鐘—十九分鐘）</string>
+    <string name="xfuenf_vor_viertel">五點之前的一刻</string>
+    <string name="xfuenf_nach_viertel">五點後的一刻</string>
+    <string name="xtime_of_day">本節包括所有與時間相關的設置</string>
+    <string name="xmorgen">早上（早上五點-早上十點）</string>
+    <string name="xvormittag">傍午（早上十點 – 中午十二點 ）</string>
+    <string name="xmittag">正午（中午十二點 – 下午兩點 ）</string>
+    <string name="xnachmittag">下午 （下午兩點-傍晚六點）</string>
+    <string name="xabend">晚間（傍晚六點-晚上十點）</string>
+    <string name="xnacht">晚上 （晚上十點-淩晨五點）</string>
+    <string name="xearly">深夜（午夜-淩晨五點）</string>
+    <string name="xhybrid"> 這裡我們保持加入特別語言工具使口頭的時間就像其說一樣</string>
+    <string name="xhybrid_desc">此口頭分鐘顯示口語風格時間接近五的倍數，但當時間不是五的倍數，使用官方時間語言</string>
+    <string name="xstars">此口頭分鐘只是顯示接近五的倍數，然後剩餘的分鈡顯示為星星。舉例來說，09:13，此口頭時間是十分鐘加上（三個星星）</string>
+    <string name="hello">
+哈囖\n\n
+ 感謝您安裝德國時鐘\n\n
+爲了應用此程式您必須在您的主屏幕中添加此小部件\n
+首先，在您的主屏幕中尋找一個空位接著用手指輕觸，然後在屏幕上方按著此應用程式不放\n
+此屏幕应该會稍微改变外观，你会看到“小部件”出现。\n
+请选择“小工具”，然后通过滚动所有部件查找“德国時钟”。\n
+当您找到它，只需点击它，使用您的手指按住屏幕上方，并将其拖动到主屏幕。\n
+(沒了) 就這樣。！现在您可以使用您的德语时钟部件了！
+</string>
+
+</resources>
