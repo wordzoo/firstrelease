@@ -319,7 +319,7 @@ public class ActivitySettings extends Activity implements OnClickListener {
         if(chosenConfig.equals(Constants.MIXED_TIME))
             return getResources().getString(R.string.xmixed_time);
 
-        return "Custom";
+        return getResources().getString(R.string.xcustom_time);
     }
 
     public void help(View view) {

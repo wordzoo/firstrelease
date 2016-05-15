@@ -25,7 +25,7 @@
     use the official time language.</string>
     <string name="xstar_time">The verbal minutes diplay just to the nearest multiple of five.  Then the
     remainder of minutes are shown as stars.  For example, 9:13, the verbal time is ten minutes plus 3 stars.</string>
-
+    <string name="xcustom_time">Custom time settings</string>
 
     <string name="xbasic">Basic Settings</string>
 

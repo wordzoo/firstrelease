@@ -16,7 +16,7 @@
     <string name="xofficial_time">Offizielle Zeit</string>
     <string name="xmixed_time">Die ausgeschriebene mündliche Minutenangabe als nächstliegende vielfache von Fünf. Jedoch wenn die Uhrzeit nicht ein vielfaches von fünf ist, dann verwende die offizielle Zeitangabe.</string>
     <string name="xstar_time">Die ausgeschriebene mündliche Minutenangabe als nächstliegende vielfache von Fünf. Die restlichen Minuten werden als Sterne angezeigt. Zum Beispiel: 9:13 ausgeschrieben, ist dann \"zehn Minuten ***\"</string>
-
+    <string name="xcustom_time">Individuelle Zeiteinstellungen</string>
 
 
     <string name="xbasic">Grundeinstellungen</string>
