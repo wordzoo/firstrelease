@@ -6,12 +6,6 @@
     android:padding="10dp">
 
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/preview"
@@ -19,20 +13,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="timeOnClick"
-            android:paddingBottom="5dp"
+            android:background="@drawable/border"
             android:text="8:45"
             android:textAlignment="center"
             android:textSize="40dp"
             android:textStyle="bold" />
 
 
-    </LinearLayout>
 
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="15sp" />
 
         <TextView
             android:id="@+id/testclock"
-            style="@style/ClockWidget"
-             />
+            style="@style/ClockWidget" />
 
 
     <Space

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -874,20 +875,25 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
         Pieces p = new Pieces(this.time);
 
         if (!this.time.equals(preview.getText())) {
-            ColorDrawable[] color = {new ColorDrawable(Color.BLUE), new ColorDrawable(Color.BLACK)};
+            Drawable[] color = {getResources().getDrawable(R.drawable.border_no_padding_bright2), getResources().getDrawable(R.drawable.border_no_padding)};
             TransitionDrawable trans = new TransitionDrawable(color);
+            //preview.setBackground(trans);
             preview.setBackgroundDrawable(trans);
             trans.startTransition(1000);
+
         }
         preview.setText(this.time);
 
         String newtiw = new TimeInWords(ActivityCustomSettings.this).getTimeAsSentance(p, getSettings());
         if(!testclock.getText().equals(newtiw)){
-            ColorDrawable[] color = {new ColorDrawable(Color.CYAN), new ColorDrawable(Color.BLACK)};
+
+            Drawable[] color = {getResources().getDrawable(R.drawable.border_no_padding_bright), getResources().getDrawable(R.drawable.border_no_padding)};
             TransitionDrawable trans = new TransitionDrawable(color);
             //This will work also on old devices. The latest API says you have to use setBackground instead.
             testclock.setBackgroundDrawable(trans);
+            //preview.setBackground(trans);
             trans.startTransition(1000);
+
         }
         testclock.setText(newtiw);
 
@@ -917,6 +923,7 @@ public class ActivityCustomSettings extends FragmentActivity implements OnClickL
         else
             testclock.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
+        //testclock.setBackground(getResources().getDrawable(R.drawable.border_no_padding));
 
     }
 
