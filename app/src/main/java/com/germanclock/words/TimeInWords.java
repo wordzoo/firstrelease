@@ -246,7 +246,7 @@ public class TimeInWords {
 
 
 
-        if(tiw.getPieces().getRemainderMinutes() > 0 && tiw.getSettings().getMinuteHybrid() == Boolean.TRUE) {
+        if(hasHybrid(tiw)) {
             tiw.setVornach("");
             tiw.setPlusHour(Boolean.FALSE); //go to official format
         } else {
@@ -273,6 +273,14 @@ public class TimeInWords {
         //and in that case return true....
 
 
+        //HYBRID -- means, if non of the rules above applied,
+        // and minutes are not a multiple of five,
+        // instead of "Einundzwanzig Uhr siebzehn Minuten"
+        // you can switch to official short "siebzehn nach elf"
+        if(hasHybrid(tiw)) {
+            getMinuteDetail(tiw);
+            return;
+        }
 
         //KURZ VOR NACH
         if( km.getUmgangsMinute(tiw))
@@ -290,14 +298,7 @@ public class TimeInWords {
         if( dm.getUmgangsMinute(tiw))
             return;
 
-        //HYBRID -- means, if non of the rules above applied,
-        // and minutes are not a multiple of five,
-        // instead of "Einundzwanzig Uhr siebzehn Minuten"
-        // you can switch to official short "siebzehn nach elf"
-        if(hasHybrid(tiw)) {
-            getMinuteDetail(tiw);
-            return;
-        }
+
 
         //UMGANGSPRACHLICH
         if(um.getUmgangsMinute(tiw))
@@ -338,7 +339,7 @@ public class TimeInWords {
     public void getHour(TimeInWordsDto tiw) {
         String word;
         Integer number;
-        if (tiw.getSettings().getUmgangssprachlich())
+        if (tiw.getSettings().getUmgangssprachlich() && !hasHybrid(tiw))
             number = tiw.getPieces().getHr();
         else
             number = tiw.getPieces().getHr24();
@@ -383,7 +384,11 @@ public class TimeInWords {
     public void getSectionOfDay(TimeInWordsDto tiw) {
 
         if(tiw.getMinute2().equals("halber")
-                || tiw.getHour().contains("Mitternacht")) {
+                || tiw.getHour().contains("Mitternacht")
+                || (tiw.getSettings().getMinuteHybrid()
+                    && (tiw.getPieces().getRemainderMinutes() > 0 )
+                    )
+                ) {
             tiw.setSectionOfDay("");
             return;
         }

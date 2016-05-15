@@ -2,71 +2,68 @@
 
     <string name="initializing">Инициализация...</string>
 
+    <!--TRANSALATIONS -->
+    <string name="app_name">Немецкие часы</string>
+
+    <string name="new_clock">Новые часы (новый вариант)</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="done">Сделано</string>
+    <string name="cancel">Отменить</string>
+    <string name="saveas">Сохранить как...</string>
+    <string name="save">Сохранить</string>
+    <string name="preview">Предварительный просмотр</string>
 
 
-    <string name="app_name">Немецкие Часы</string>
+    <!-- EXPLANATIONS -->
 
-    <string name="new_clock">новые часы</string>
-    <string name="edit">изменить</string>
-    <string name="delete">удалить</string>
-    <string name="done">применить</string>
-    <string name="cancel">отменить</string>
-    <string name="saveas">сохранить как...</string>
-    <string name="save">сохранить</string>
-    <string name="preview">предварительный просмотр</string>
+    <string name="xbasic">Базовые настройки</string>
 
-
-    <string name="xconv_time">Разговорное Время</string>
-    <string name="xofficial_time">Официальный Время</string>
-    <string name="xmixed_time">Смешанное Время</string>
-    <string name="xstar_time">Звезды</string>
+    <string name="xesist">Полная форма обозначения времени в немецком языке. Например: дословно - Это есть 10.00</string>
+    <string name="xminuten">Добавить слово "Минута" (приминимо не всегда)</string>
+    <string name="xuhr">Добавить слово "Час"</string>
+    <string name="xkurz_nach">Чуть-чуть после часа, чуть больше часа</string>
+    <string name="xkurz_vor"> Почти час(56 - 59 минут)</string>
 
 
-    <string name="xbasic">основной</string>
-    <string name="xstars">5-минутный-интервал + каждая доп.* = 1 минута</string>
 
-    <string name="xhalb">полчаса</string>
-    <string name="xdreiviertel">без пятнадцати</string>
-    <string name="xviertel">пятнадцать</string>
+    <string name="xhalb_stunde">Эта секция включает все настройки, относящиеся к получасу</string>
 
-    <string name="xesist">это</string>
-    <string name="xminuten">минут(а)</string>
-    <string name="xuhr">час</string>
-    <string name="xkurz_nach">немного больше</string>
-    <string name="xkurz_vor">почти</string>
+    <string name="xhalb">Когда время точно на половине определенного часа, отображается слово "Половина" и последующий час</string>
+    <string name="xfuenf_vor_halb">Пять минут до текущего получаса</string>
+    <string name="xfuenf_nach_halb">Пять минут после истекщего получаса</string>
+    <string name="xzehn_vor_halb">Десять минут до наступающего получаса</string>
+    <string name="xzehn_nach_halb">Десять минут после истекшего получаса</string>
+    <string name="xkurz_vor_halb">Почти получас, чуть-чуть до получаса(0 - 4 минуты до получаса) </string>
+    <string name="xkurz_nach_halb"> Чуть-чуть после истекшего получаса(31 - 34 минуты)</string>
 
-    <string name="xhalb_stunde">полчаса</string>
-
-    <string name="xfuenf_vor_halb">пять до полчаса</string>
-    <string name="xfuenf_nach_halb">пять после полчаса</string>
-    <string name="xzehn_vor_halb">десять до полчаса</string>
-    <string name="xzehn_nach_halb">десять после полчаса</string>
-    <string name="xkurz_vor_halb">почти полчаса</string>
-    <string name="xkurz_nach_halb">немного больше после полчаса</string>
-    <string name="xkurz_vor_dreiviertel">почти три четверти</string>
-    <string name="xkurz_nach_dreiviertel">немного больше после три четверти</string>
-    <string name="xfuenf_vor_dreiviertel">пять до три четверти</string>
-    <string name="xfuenf_nach_dreiviertel">пять после три четверти</string>
-    <string name="xkurz_vor_viertel">почти четверт</string>
-    <string name="xkurz_nach_viertel">немного больше четверти</string>
-    <string name="xfuenf_vor_viertel">пять до четверт</string>
-    <string name="xfuenf_nach_viertel">пять после четверти</string>
+    <string name="xdreiviertel">Эта секция включает все настройки относящиеся к четверти часа</string>
+    <string name="xkurz_vor_dreiviertel">Почти три четверти часа, чуть меньше четверти часа (41 - 44 минуты)</string>
+    <string name="xkurz_nach_dreiviertel">Чуть больше четверти часа (46 - 49 минут)</string>
+    <string name="xfuenf_vor_dreiviertel"></string>Пять минут до трех четвертей часа
+    <string name="xfuenf_nach_dreiviertel">Пять минут после трех четвертей часа</string>
 
 
-    <string name="xtime_of_day">время суток</string>
-
-    <string name="xmorgen">утро (5 - 10)</string>
-    <string name="xvormittag">до полудня (10-12)</string>
-    <string name="xmittag">полдень (12 - 14)</string>
-    <string name="xnachmittag">вторая половина дня (14-18)</string>
-    <string name="xabend">вечер (18 - 22)</string>
-    <string name="xnacht">ночь (22-5)</string>
-    <string name="xearly">поздно ночью (0 - 5)</string>
-
-    <string name="xhybrid">"Смешанное время"</string>
-    <string name="xhybrid_desc">разговор.- кратно 5 + официальное</string>
+    <string name="xviertel">Эта секция включает в себя настройки относящиеся к четверти после прошедшего часа</string>
+    <string name="xkurz_vor_viertel">Почти четверть после прошедшего часа(11 - 14 минут)</string>
+    <string name="xkurz_nach_viertel">Чуть-чуть после четверти прошедшего часа(16 - 19 минут)</string>
+    <string name="xfuenf_vor_viertel">Пять минут до четверти прошедшего часа</string>
+    <string name="xfuenf_nach_viertel">Пять минут после четверти прошедшего часа</string>
 
 
+    <string name="xtime_of_day">Эта секция включает в себя все настройки, относящиеся ко времени суток</string>
+    <string name="xmorgen"> Утро (с 5.00 до 10.00)</string>
+    <string name="xvormittag">До полудня(с 10.00 до 12.00)</string>
+    <string name="xmittag">После полудня (с 12.00 до 14.00)</string>
+    <string name="xnachmittag">День(с 14.00 до 18.00)</string>
+    <string name="xabend">Вечер (с 18.00 до 22.00)</string>
+    <string name="xnacht">Ночь (с 22.00 до 5.00)</string>
+    <string name="xearly">Поздняя ночь</string>
+
+    <string name="xhybrid">Здесь мы храним специальные языковые инструменты, преобразующие вербальное время в разговорную форму</string>
+    <string name="xhybrid_desc">Написание и произношение времени, в случае если количество минут кратно пяти (5, 10,15....), разговорный вариант. В других случаях используется официальный вариант написания и произношения</string>
+
+    <string name="xstars">Изображение времени, когда минуты в  пятимянутном промежутке будут указываться звездочками.</string>
 
 
 
