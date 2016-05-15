@@ -17,17 +17,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="DropDownCombo" parent="android:Widget.TextView.SpinnerItem">
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:background">@drawable/mybutton</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">45dp</item>
-        <item name="android:spinnerMode">dropdown</item>
-        <item name="android:typeface">monospace</item>
-        <item name="android:textSize">25sp</item>
-
-    </style>
 
 
     <style name="ClockWidget" parent="@android:style/TextAppearance.Medium">
@@ -54,6 +43,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
         <item name="android:singleLine">false</item>
         <item name="android:textSize">15sp</item>
     </style>
@@ -63,9 +53,25 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
         <item name="android:singleLine">false</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="DropDownCombo" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:colorBackground">#a2f4f0</item>
+        <item name="android:layout_gravity">center_vertical</item>
+
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">40sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:typeface">monospace</item>
+
+    </style>
+
 
     <style name="DialogItem">
         <item name="android:orientation">horizontal</item>
