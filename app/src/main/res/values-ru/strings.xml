@@ -5,7 +5,7 @@
     <!--TRANSALATIONS -->
     <string name="app_name">Немецкие часы</string>
 
-    <string name="new_clock">Новые часы (новый вариант)</string>
+    <string name="new_clock">Новые часы</string>
     <string name="edit">Редактировать</string>
     <string name="delete">Удалить</string>
     <string name="done">Сделано</string>
